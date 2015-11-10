@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="For you daily dose of Javascript libraries">
+    <meta name="keywords" content="Javascript, React, ES2015, Daily, Updates">
+    <meta name="theme-color" content="#39424D">
+    <title>Smartcrop.js - Daily Javascript
+    </title>
+    <link rel="alternate" href="http://localhost:8080/feed.xml" type="application/rss+xml" title="For your daily dose of Javascript libraries.">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic|Anonymous+Pro:400,700,400italic,700italic|Merriweather:400,700,300">
+    <link rel="stylesheet" href="/css/main.css">
+  </head>
+  <body class="article-detail">
+    <div class="social"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A//Daily-Javascript.com" target="_blank" class="social-btn facebook"></a><a href="https://twitter.com/home?status=Follow%20%40DailyJavascript%20for%20update%20of%20new%20Javascript%20libraries%20and%20challanges%0A%23Javascript" target="_blank" class="social-btn twitter"></a><a href="https://www.reddit.com/submit?url=http%3A//Daily-Javascript.com" target="_blank" class="social-btn reddit"></a><a href="https://plus.google.com/share?url=http%3A//Daily-Javascript.com" target="_blank" class="social-btn google"></a></div>
+    <header class="header">
+      <div class="content-wrap">
+        <h1>Smartcrop.js</h1>
+        <p class="author">Written by <span class="author">ramon</span>
+        </p>
+      </div>
+    </header>
+    <div id="content">
+      <div class="content-wrap">
+        <article class="article">
+          <section class="content"><h3 id="smartcrop-js">Smartcrop.js</h3>
+<p>Smartcrop (GitHub: <a href="https://github.com/jwagner/smartcrop.js">jwagner/smartcrop.js</a>, License: <span class="caps">MIT</span>, npm: smartcrop, bower:&nbsp;smartcrop)</p>
+<p>Smartcrop.js is not just another image cropping library. It detects the primary region of an image such as faces.
+It does this using the following&nbsp;algorithm.</p>
+<ol>
+<li>Find edges using <a href="https://en.wikipedia.org/wiki/Laplace&#39;s_method">Laplace&nbsp;method</a></li>
+<li>Find regions with a color like&nbsp;skin</li>
+<li>Find regions high in&nbsp;saturation</li>
+<li>Generate a set of candidate crops using a sliding&nbsp;window</li>
+<li>Rank them using a importance function to focus the detail in the center and avoid it in the&nbsp;edges.</li>
+<li>Output the candidate crop with the highest&nbsp;rank</li>
+</ol>
+<p>Using it in a simple&nbsp;example:</p>
+<pre><code class="lang-javascript">SmartCrop.crop(image, {width: <span class="number">100</span>, height: <span class="number">100</span>}, result =&gt; <span class="built_in">console</span>.log(result) );
+<span class="comment">// Which will return</span>
+<span class="comment">// -&gt; {topCrop: {x: 300, y: 200, height: 200, width: 200}}</span>
+</code></pre>
+<p>When you wanna use it within node.js you would have to do something like&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="keyword">import</span> fs <span class="keyword">from</span> <span class="string">'fs'</span>;
+<span class="keyword">import</span> Canvas <span class="keyword">from</span> <span class="string">'canvas'</span>;
+<span class="keyword">import</span> SmartCrop <span class="keyword">from</span> <span class="string">'smartcrop'</span>;
+
+SmartCrop.crop(img, options, result =&gt; {
+    <span class="built_in">console</span>.log(<span class="built_in"><span class="caps">JSON</span></span>.stringify(result, <span class="literal">null</span>, <span class="number">2</span>));
+    <span class="keyword">if</span>(output &amp;&amp; options.width &amp;&amp; options.height){
+        <span class="keyword">var</span> canvas = <span class="keyword">new</span> Canvas(options.width, options.height),
+            ctx = canvas.getContext(<span class="string">'2d'</span>),
+            crop = result.topCrop,
+            f = fs.createWriteStream(output);
+        ctx.patternQuality = <span class="string">'best'</span>;
+        ctx.filter = <span class="string">'best'</span>;
+        ctx.drawImage(img, crop.x, crop.y, crop.width, crop.height, <span class="number">0</span>, <span class="number">0</span>, canvas.width, canvas.height);
+        canvas.syncJPEGStream({quality: quality}).pipe(f);
+    }
+});
+</code></pre>
+<p>Smartcrop.js also offers a command line interface under the npm package name <a href="https://github.com/jwagner/smartcrop-cli"><code>smartcrop-cli</code></a>. Which based uses&nbsp;node-canvas.</p>
+<p>That one you would use like&nbsp;this:</p>
+<pre><code class="lang-bash">npm i smartcrop-cli -g
+smartcrop-cli --width <span class="number">100</span> --height <span class="number">100</span> photo.jpg square-thumbnail.jpg
+</code></pre>
+<p>Smartcrop-cli does requires <a href="https://github.com/Automattic/node-canvas">node-canvas</a> which requires local libraries to be installed. Refer to the <a href="https://github.com/Automattic/node-canvas/wiki/_pages">node-canvas wiki</a> installation&nbsp;instructions.</p>
+</section>
+          <div id="disqus_thread"></div>
+          <script>
+            (function() { var d = document, s = d.createElement('script'); s.src = '//daily-javascript.disqus.com/embed.js'; s.setAttribute('data-timestamp', +new Date()); (d.head || d.body).appendChild(s); })();
+            
+          </script>
+        </article>
+      </div>
+    </div>
+    <footer>
+      <script type="text/javascript">(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-68072930-1', 'auto');ga('send', 'pageview');</script>
+      <div class="content-wrap">
+        <div class="nav"><a href="/">« Full blog</a></div>
+        <section class="about">
+        </section>
+        <section class="copy">
+          <p>&copy; 2015 Ramon Gebben &mdash; powered by&nbsp;<a href="https://github.com/jnordberg/wintersmith">Wintersmith</a>
+          </p>
+        </section>
+      </div>
+    </footer>
+  </body>
+</html>

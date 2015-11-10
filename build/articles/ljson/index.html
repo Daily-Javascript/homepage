@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="For you daily dose of Javascript libraries">
+    <meta name="keywords" content="Javascript, React, ES2015, Daily, Updates">
+    <meta name="theme-color" content="#39424D">
+    <title>λJSON - Daily Javascript
+    </title>
+    <link rel="alternate" href="http://localhost:8080/feed.xml" type="application/rss+xml" title="For your daily dose of Javascript libraries.">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic|Anonymous+Pro:400,700,400italic,700italic|Merriweather:400,700,300">
+    <link rel="stylesheet" href="/css/main.css">
+  </head>
+  <body class="article-detail">
+    <div class="social"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A//Daily-Javascript.com" target="_blank" class="social-btn facebook"></a><a href="https://twitter.com/home?status=Follow%20%40DailyJavascript%20for%20update%20of%20new%20Javascript%20libraries%20and%20challanges%0A%23Javascript" target="_blank" class="social-btn twitter"></a><a href="https://www.reddit.com/submit?url=http%3A//Daily-Javascript.com" target="_blank" class="social-btn reddit"></a><a href="https://plus.google.com/share?url=http%3A//Daily-Javascript.com" target="_blank" class="social-btn google"></a></div>
+    <header class="header">
+      <div class="content-wrap">
+        <h1>λJSON</h1>
+        <p class="author">Written by <span class="author">ramon</span>
+        </p>
+      </div>
+    </header>
+    <div id="content">
+      <div class="content-wrap">
+        <article class="article">
+          <section class="content"><h3 id="-json">λ<span class="caps">JSON</span></h3>
+<p>λ<span class="caps">JSON</span> (GitHub: <a href="https://github.com/MaiaVictor/LJSON">MaiaVictor/<span class="caps">LJSON</span></a>, License: <span class="caps">MIT</span>, npm:&nbsp;ljson)</p>
+<p>λ<span class="caps">JSON</span> is a drop-in replacement for JSON which also allows you to parse and stringify pure functions and their contents. There are good security reasons for functions to be out of the JSON specs, but most of those are only significant when you allow arbitrary, side-effective programs.
+With pure functions, one is able to interchange code while still being as safe as with regular&nbsp;JSON.</p>
+<pre><code class="lang-javascript"><span class="keyword">var</span> <span class="caps">LJSON</span> = <span class="built_in">require</span>(<span class="string">"<span class="caps">LJSON</span>"</span>);
+
+<span class="comment">// `newPlayer` is a function and couldn't be serialized with <span class="caps">JSON</span>.</span>
+<span class="function"><span class="keyword">function</span> <span class="title">newPlayer</span>(<span class="params">name</span>)</span>{
+    <span class="keyword">return</span> {
+        name      : name,
+        hp        : <span class="number">12</span>,
+        atk       : <span class="number">5</span>,
+        def       : <span class="number">5</span>,
+        inventory : []}
+};
+
+<span class="comment">// <span class="caps">LJSON</span> has no trouble doing it because `newPlayer` is pure.</span>
+<span class="keyword">var</span> newPlayerSource = <span class="caps">LJSON</span>.stringify(newPlayer);
+<span class="keyword">var</span> John            = <span class="caps">LJSON</span>.parse(newPlayerSource)(<span class="string">"John"</span>);
+
+<span class="built_in">console</span>.log(<span class="string">"Serialized λ<span class="caps">JSON</span>: "</span> + newPlayerSource);
+<span class="built_in">console</span>.log(<span class="string">"Parsed and applied: "</span> + John);
+</code></pre>
+<p>Outputs:</p>
+<pre><code class="lang-javascript">
+<span class="comment">//Serialized λ<span class="caps">JSON</span>: (function(v0){return {name:v0,hp:12,atk:5,def:5,inventory:[]}})</span>
+<span class="comment">//Parsed and applied: { name: 'John', hp: 12, atk: 5, def: 5, inventory: [] }</span>
+</code></pre>
+<p>The fact you have to explicitly provide primitives to <span class="caps">LJSON</span> functions is what gives you confidence they won’t do any nasty thing such as stealing your password, mining bitcoins or launching missiles. LJSON functions can only do what you give them power to. You are still able to serialize side-effective functions, but the side effects will happen on the act of the serialization and get stripped from the serialized&nbsp;output.</p>
+<pre><code class="lang-javascript"><span class="function"><span class="keyword">function</span> <span class="title">nastyPair</span>(<span class="params">a,b</span>)</span>{
+    <span class="built_in">console</span>.log(<span class="string">"booom"</span>);
+    <span class="keyword">return</span> {
+        fst : a,
+        snd : (<span class="function"><span class="keyword">function</span> <span class="title">nastyId</span>(<span class="params">x</span>)</span>{
+            <span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;<span class="number">3</span>; ++i)
+                <span class="built_in">console</span>.log(<span class="string">"mwahahhahha"</span>);
+            <span class="keyword">return</span> x;
+        })(b)};
+};
+
+<span class="comment">// output:</span>
+<span class="comment">// booom</span>
+<span class="comment">// mwahahhahha</span>
+<span class="comment">// mwahahhahha</span>
+<span class="comment">// mwahahhahha</span>
+<span class="comment">// (function(v0,v1){return {fst:v0,snd:v1})</span>
+</code></pre>
+</section>
+          <div id="disqus_thread"></div>
+          <script>
+            (function() { var d = document, s = d.createElement('script'); s.src = '//daily-javascript.disqus.com/embed.js'; s.setAttribute('data-timestamp', +new Date()); (d.head || d.body).appendChild(s); })();
+            
+          </script>
+        </article>
+      </div>
+    </div>
+    <footer>
+      <script type="text/javascript">(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-68072930-1', 'auto');ga('send', 'pageview');</script>
+      <div class="content-wrap">
+        <div class="nav"><a href="/">« Full blog</a></div>
+        <section class="about">
+        </section>
+        <section class="copy">
+          <p>&copy; 2015 Ramon Gebben &mdash; powered by&nbsp;<a href="https://github.com/jnordberg/wintersmith">Wintersmith</a>
+          </p>
+        </section>
+      </div>
+    </footer>
+  </body>
+</html>

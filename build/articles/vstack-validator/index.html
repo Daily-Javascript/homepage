@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="For you daily dose of Javascript libraries">
+    <meta name="keywords" content="Javascript, React, ES2015, Daily, Updates">
+    <meta name="theme-color" content="#39424D">
+    <title>vstack-validator - Daily Javascript
+    </title>
+    <link rel="alternate" href="http://localhost:8080/feed.xml" type="application/rss+xml" title="For your daily dose of Javascript libraries.">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic|Anonymous+Pro:400,700,400italic,700italic|Merriweather:400,700,300">
+    <link rel="stylesheet" href="/css/main.css">
+  </head>
+  <body class="article-detail">
+    <div class="social"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A//Daily-Javascript.com" target="_blank" class="social-btn facebook"></a><a href="https://twitter.com/home?status=Follow%20%40DailyJavascript%20for%20update%20of%20new%20Javascript%20libraries%20and%20challanges%0A%23Javascript" target="_blank" class="social-btn twitter"></a><a href="https://www.reddit.com/submit?url=http%3A//Daily-Javascript.com" target="_blank" class="social-btn reddit"></a><a href="https://plus.google.com/share?url=http%3A//Daily-Javascript.com" target="_blank" class="social-btn google"></a></div>
+    <header class="header">
+      <div class="content-wrap">
+        <h1>vstack-validator</h1>
+        <p class="author">Written by <span class="author">ramon</span>
+        </p>
+      </div>
+    </header>
+    <div id="content">
+      <div class="content-wrap">
+        <article class="article">
+          <section class="content"><h3 id="vstack-validator">Vstack&nbsp;Validator</h3>
+<p>Vstack-validator (GitHub: <a href="https://github.com/vslinko/vstack-validator">vslinko/vstack-validator</a>, License: <span class="caps">MIT</span>, npm:&nbsp;vstack-validator)</p>
+<p>When you are working with very complex and deeply nested data structures, validation can become a real pain.
+Vstack-validator tries to solve this problem by providing you with a declarative <span class="caps">API</span> which consists of 3 methods: a validator, a constraint and a schema.
+The Validator is a function that receives a value and returns boolean result of validation.
+Constraint is a function that receives a value and returns validation metadata.
+With a Schema we create declarations of the constraints in a tree, which in turn can be used to validate an object, which would look like&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="keyword">import</span> {schema} <span class="keyword">from</span> <span class="string">'vstack-validator'</span>;
+
+<span class="keyword">const</span> userSchema = schema.type(<span class="string">'user'</span>, {
+    email: {
+        notEmpty: schema.constraint(schema.validators.isNotEmpty, <span class="string">'Email is empty'</span>),
+        email: schema.constraint(schema.validators.isEmail, <span class="string">'Email is not valid'</span>),
+    },
+    password: schema.optional({
+        notEmpty: schema.constraint(schema.validators.isNotEmpty, <span class="string">'Password is empty'</span>),
+        minLength: schema.minLength(<span class="number">3</span>, <span class="string">'Password is less than 3'</span>),
+    }),
+});
+
+<span class="keyword">const</span> itemSchema = schema.type(<span class="string">'item'</span>, {
+    name: {
+        notEmpty: schema.constraint(schema.validators.isNotEmpty, <span class="string">'Name is empty'</span>),
+    },
+});
+
+<span class="keyword">const</span> cartSchema = schema.type(<span class="string">'cart'</span>, {
+    user: userSchema,
+    items: schema.list(itemSchema),
+});
+
+<span class="keyword">let</span> validationData = {
+    user: {
+        email: <span class="string">''</span>,
+        password: <span class="string">''</span>,
+    },
+    items: [
+        { name: <span class="string">''</span> },
+    ],
+};
+
+cartSchema.check(validationData)
+          .then((constraintResult) =&gt; <span class="built_in">console</span>.log(constraintResult));
+</code></pre>
+<p>When the <code>check</code> is executed <code>constraintResult</code> it would look something like&nbsp;this:</p>
+<pre><code class="lang-javascript">{
+    valid: <span class="literal">false</span>,
+    message: <span class="string">'Objectisnotvalid'</span>,
+    children: {
+        user: {
+            valid: <span class="literal">false</span>,
+            message: <span class="string">'Objectisnotvalid'</span>,
+            children: {
+                email: {
+                    valid: <span class="literal">false</span>,
+                    message: <span class="string">'Valueisnotvalid'</span>,
+                    children: {
+                        notEmpty: {
+                            valid: <span class="literal">false</span>,
+                            message: <span class="string">'Emailisempty'</span>,
+                            children: <span class="literal">null</span>
+                        },
+                        email: {
+                            valid: <span class="literal">false</span>,
+                            message: <span class="string">'Emailisnotvalid'</span>,
+                            children: <span class="literal">null</span>
+                        }
+                    }
+                },
+                password: {
+                    valid: <span class="literal">false</span>,
+                    message: <span class="string">'Valueisnotvalid'</span>,
+                    children: {
+                        notEmpty: {
+                            valid: <span class="literal">false</span>,
+                            message: <span class="string">'Passwordisempty'</span>,
+                            children: <span class="literal">null</span>
+                        },
+                        minLength: {
+                            valid: <span class="literal">false</span>,
+                            message: <span class="string">'Passwordislessthan3'</span>,
+                            children: <span class="literal">null</span>
+                        }
+                    }
+                }
+            }
+        },
+        items: {
+            valid: <span class="literal">false</span>,
+            message: <span class="string">'Arrayisnotvalid'</span>,
+            children: [
+                {
+                    valid: <span class="literal">false</span>,
+                    message: <span class="string">'Objectisnotvalid'</span>,
+                    children: {
+                        name: {
+                            valid: <span class="literal">false</span>,
+                            message: <span class="string">'Valueisnotvalid'</span>,
+                            children: {
+                                notEmpty: {
+                                    valid: <span class="literal">false</span>,
+                                    message: <span class="string">'Nameisempty'</span>,
+                                    children: <span class="literal">null</span>
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        }
+    }
+}
+</code></pre>
+</section>
+          <div id="disqus_thread"></div>
+          <script>
+            (function() { var d = document, s = d.createElement('script'); s.src = '//daily-javascript.disqus.com/embed.js'; s.setAttribute('data-timestamp', +new Date()); (d.head || d.body).appendChild(s); })();
+            
+          </script>
+        </article>
+      </div>
+    </div>
+    <footer>
+      <script type="text/javascript">(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-68072930-1', 'auto');ga('send', 'pageview');</script>
+      <div class="content-wrap">
+        <div class="nav"><a href="/">« Full blog</a></div>
+        <section class="about">
+        </section>
+        <section class="copy">
+          <p>&copy; 2015 Ramon Gebben &mdash; powered by&nbsp;<a href="https://github.com/jnordberg/wintersmith">Wintersmith</a>
+          </p>
+        </section>
+      </div>
+    </footer>
+  </body>
+</html>
