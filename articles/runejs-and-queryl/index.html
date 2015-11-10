@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="For you daily dose of Javascript libraries">
+    <meta name="keywords" content="Javascript, React, ES2015, Daily, Updates">
+    <meta name="theme-color" content="#39424D">
+    <title>Rune.js and queryl - Daily Javascript
+    </title>
+    <link rel="alternate" href="http://localhost:8080/feed.xml" type="application/rss+xml" title="For your daily dose of Javascript libraries.">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic|Anonymous+Pro:400,700,400italic,700italic|Merriweather:400,700,300">
+    <link rel="stylesheet" href="/css/main.css">
+  </head>
+  <body class="article-detail">
+    <div class="social"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A//Daily-Javascript.com" target="_blank" class="social-btn facebook"></a><a href="https://twitter.com/home?status=Follow%20%40DailyJavascript%20for%20update%20of%20new%20Javascript%20libraries%20and%20challanges%0A%23Javascript" target="_blank" class="social-btn twitter"></a><a href="https://www.reddit.com/submit?url=http%3A//Daily-Javascript.com" target="_blank" class="social-btn reddit"></a><a href="https://plus.google.com/share?url=http%3A//Daily-Javascript.com" target="_blank" class="social-btn google"></a></div>
+    <header class="header">
+      <div class="content-wrap">
+        <h1>Rune.js and queryl</h1>
+        <p class="author">Written by <span class="author">ramon</span>
+        </p>
+      </div>
+    </header>
+    <div id="content">
+      <div class="content-wrap">
+        <article class="article">
+          <section class="content"><h3 id="rune-js">Rune.js</h3>
+<p>Rune.js (GitHub: <a href="https://github.com/runemadsen/rune.js">runemadsen/rune.js</a>, License: <span class="caps">MIT</span>&nbsp;)</p>
+<p>Rune.js is a library for programming graphic design systems with <span class="caps">SVG</span>. It has a fluent drawing API, an unobtrusive scene graph, and a bunch of features designed specifically for graphic designers, such as: native support for color conversion, grid systems, typography, pixel iteration and an expanding set of computational geometry helpers. What peaked my interest is that it uses a <a href="https://github.com/Matt-Esch/virtual-dom">virtual-dom</a> under the&nbsp;hood.</p>
+<p>If you’re not familiar with the virtual-dom I suggest you take a break to take a look at that&nbsp;first.</p>
+<p>Unfortunately I could not find any npm or bower install instructions, so I am hoping that the developer will add that&nbsp;soon.</p>
+<p>Rune.js has all basic shapes in the&nbsp;<span class="caps">API</span>.</p>
+<pre><code class="lang-javascript">r.line(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">100</span>);
+
+r.rect(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">50</span>);
+
+r.ellipse(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">50</span>);
+
+r.circle(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>);
+
+r.triangle(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">100</span>);
+</code></pre>
+<p>And for more complex shapes it fluent <span class="caps">API</span> makes drawing with SVG very readable and&nbsp;familiar.</p>
+<pre><code class="lang-javascript">r.polygon(<span class="number">0</span>, <span class="number">0</span>).lineTo(<span class="number">100</span>, <span class="number">0</span>).lineTo(<span class="number">100</span>, <span class="number">100</span>).lineTo(<span class="number">0</span>, <span class="number">100</span>);
+
+r.path(<span class="number">0</span>, <span class="number">0</span>).lineTo(<span class="number">100</span>, <span class="number">0</span>).curveTo(<span class="number">100</span>, <span class="number">100</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">0</span>, <span class="number">0</span>);
+</code></pre>
+<p>Since this library is packed with features and concepts, I will only give you the tip of the iceberg right now. If you want to know more, consult the <a href="http://runemadsen.github.io/rune.js/">amazing documentation</a>.</p>
+<h3 id="queryl">queryl</h3>
+<p>queryl (GitHub: <a href="https://github.com/issuetrackapp/queryl">issuetrackapp/queryl</a>, License: <span class="caps">MIT</span>, npm:&nbsp;queryl)</p>
+<p>queryl is a query language to preform complex object searches. The purpose of this “language” is to allow the developer to build very complex queries to e.g. search a collection of objects, to validate objects before you dump it in a db or even to make assertions in&nbsp;tests.</p>
+<p>queryl comes with a very simple <span class="caps">API</span>. <code>queryl.match</code> is the main entry at this point this will always return a boolean and expects an object to match. For&nbsp;example:</p>
+<pre><code class="lang-javascript">queryl.match({
+  $contain: {
+    foo: <span class="number">1</span>
+  }
+}, {
+  foo: [ <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span> ]
+});
+&gt; <span class="literal">true</span>
+</code></pre>
+<p>This is just a very basic example of what it can do. The full <span class="caps">API</span> docs shows the entire power of this&nbsp;“language”.</p>
+<p>I can see this working very well for matching and parsing certain objects like the ones you would receive from, for instance, the Google spreadsheet&nbsp;<span class="caps">API</span>.</p>
+</section>
+          <div id="disqus_thread"></div>
+          <script>
+            (function() { var d = document, s = d.createElement('script'); s.src = '//daily-javascript.disqus.com/embed.js'; s.setAttribute('data-timestamp', +new Date()); (d.head || d.body).appendChild(s); })();
+            
+          </script>
+        </article>
+      </div>
+    </div>
+    <footer>
+      <script type="text/javascript">(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-68072930-1', 'auto');ga('send', 'pageview');</script>
+      <div class="content-wrap">
+        <div class="nav"><a href="/">« Full blog</a></div>
+        <section class="about">
+        </section>
+        <section class="copy">
+          <p>&copy; 2015 Ramon Gebben &mdash; powered by&nbsp;<a href="https://github.com/jnordberg/wintersmith">Wintersmith</a>
+          </p>
+        </section>
+      </div>
+    </footer>
+  </body>
+</html>

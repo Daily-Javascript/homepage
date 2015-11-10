@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="For you daily dose of Javascript libraries">
+    <meta name="keywords" content="Javascript, React, ES2015, Daily, Updates">
+    <meta name="theme-color" content="#39424D">
+    <title>Squiggle - Daily Javascript
+    </title>
+    <link rel="alternate" href="http://localhost:8080/feed.xml" type="application/rss+xml" title="For your daily dose of Javascript libraries.">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic|Anonymous+Pro:400,700,400italic,700italic|Merriweather:400,700,300">
+    <link rel="stylesheet" href="/css/main.css">
+  </head>
+  <body class="article-detail">
+    <div class="social"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A//Daily-Javascript.com" target="_blank" class="social-btn facebook"></a><a href="https://twitter.com/home?status=Follow%20%40DailyJavascript%20for%20update%20of%20new%20Javascript%20libraries%20and%20challanges%0A%23Javascript" target="_blank" class="social-btn twitter"></a><a href="https://www.reddit.com/submit?url=http%3A//Daily-Javascript.com" target="_blank" class="social-btn reddit"></a><a href="https://plus.google.com/share?url=http%3A//Daily-Javascript.com" target="_blank" class="social-btn google"></a></div>
+    <header class="header">
+      <div class="content-wrap">
+        <h1>Squiggle</h1>
+        <p class="author">Written by <span class="author">ramon</span>
+        </p>
+      </div>
+    </header>
+    <div id="content">
+      <div class="content-wrap">
+        <article class="article">
+          <section class="content"><h3 id="squiggle">Squiggle</h3>
+<p>Squiggle (GitHub: <a href="https://github.com/wavebeem/squiggle">wavebeem/squiggle</a>, License: <span class="caps">MIT</span>, npm:&nbsp;squiggle-lang)</p>
+<p>Squiggle is a strict, expression-oriented, compile-to-<span class="caps">JS</span> programming language. Yes, yet another compile-to-JS language.
+At the beginning I was sceptic about it, but once I started reading <a href="http://squiggle-lang.org/tutorial">the tutorial</a> posted on the site I adjusted my opinion.
+Not everything is there yet, but I need to say that I like the way it looks and might even consider picking it&nbsp;up.</p>
+<p>So some of the features that drew my attention&nbsp;are:</p>
+<ul>
+<li>Arity checked functions<ul>
+<li>When calling a function created in Squiggle with not enough arguments, it throws an&nbsp;exception.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Frozen literals<ul>
+<li>Array and object literals are frozen with <code>Object.freeze</code> by default, so you can’t accidentally mutate&nbsp;them.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Easy updates<ul>
+<li>Operators <code>++</code> to concatenate two arrays or two strings, and ~ to merge two objects into a new frozen object with the prototype of the first&nbsp;object.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Destructuring assignment<ul>
+<li>Grab object properties or array elements when you assign variables, like: <code>let [x, y] = [1, 2] or let {x, y} = {x: 1, y: 2}.</code></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Pattern matching<ul>
+<li>Is similar to the Javascript <code>switch</code> but with destructuring power built-in and no dangerous&nbsp;fall-through.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>No type coercion<ul>
+<li>Standard operators like <code>+</code>, <code>-</code>, <code>*</code>, and more, have been replaced with strict version that do not perform any type coercions, throwing exceptions on bad&nbsp;inputs.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Deep equality<ul>
+<li>The operator == performs a deep equality&nbsp;check.</li>
+</ul>
+</li>
+</ul>
+<p>There are a lot more features which just make it work a bit nicer. If you want a good overview of what this language can do I would recommend you reading <a href="http://squiggle-lang.org/tutorial">the tutorial</a> section of the website and then <a href="http://squiggle-lang.org/try">give it a shot in the browser</a>.</p>
+<p>Here is a small example provided by the developer in which you can see how it would work together met Node’s <span class="caps">HTTP</span>&nbsp;package.</p>
+<pre><code class="lang-javascript"><span class="keyword">let</span> http = <span class="built_in">require</span> <span class="string">"http"</span>
+
+<span class="keyword">let</span> port = <span class="number">1337</span>
+<span class="keyword">let</span> host = <span class="string">"127.0.0.1"</span>
+
+def handler(res, res) =
+    <span class="keyword">let</span> headers = {<span class="string">"Content-Type"</span>: <span class="string">"text/plain"</span>}
+    <span class="keyword">let</span> _ = res.writeHead(<span class="number">200</span>, headers)
+    <span class="keyword">let</span> _ = res.end(<span class="string">"Hello world\n"</span>)
+    <span class="keyword">in</span> <span class="literal">undefined</span>
+
+<span class="keyword">let</span> server = http.createServer(handler)
+<span class="keyword">let</span> _ = server.listen(port, host)
+<span class="keyword">let</span> _ = <span class="built_in">console</span>.log(<span class="string">"Server running at http://"</span> ++ host + <span class="string">":"</span> ++ port ++ <span class="string">"/"</span>)
+<span class="keyword">in</span> <span class="literal">undefined</span>
+</code></pre>
+<p>Since there is a comment section present after the latest update, I would love to here what you guys think of this and the blog in&nbsp;general.</p>
+</section>
+          <div id="disqus_thread"></div>
+          <script>
+            (function() { var d = document, s = d.createElement('script'); s.src = '//daily-javascript.disqus.com/embed.js'; s.setAttribute('data-timestamp', +new Date()); (d.head || d.body).appendChild(s); })();
+            
+          </script>
+        </article>
+      </div>
+    </div>
+    <footer>
+      <script type="text/javascript">(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-68072930-1', 'auto');ga('send', 'pageview');</script>
+      <div class="content-wrap">
+        <div class="nav"><a href="/">« Full blog</a></div>
+        <section class="about">
+        </section>
+        <section class="copy">
+          <p>&copy; 2015 Ramon Gebben &mdash; powered by&nbsp;<a href="https://github.com/jnordberg/wintersmith">Wintersmith</a>
+          </p>
+        </section>
+      </div>
+    </footer>
+  </body>
+</html>

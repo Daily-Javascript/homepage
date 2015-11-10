@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="For you daily dose of Javascript libraries">
+    <meta name="keywords" content="Javascript, React, ES2015, Daily, Updates">
+    <meta name="theme-color" content="#39424D">
+    <title>Generator Nom - Daily Javascript
+    </title>
+    <link rel="alternate" href="http://localhost:8080/feed.xml" type="application/rss+xml" title="For your daily dose of Javascript libraries.">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic|Anonymous+Pro:400,700,400italic,700italic|Merriweather:400,700,300">
+    <link rel="stylesheet" href="/css/main.css">
+  </head>
+  <body class="article-detail">
+    <div class="social"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A//Daily-Javascript.com" target="_blank" class="social-btn facebook"></a><a href="https://twitter.com/home?status=Follow%20%40DailyJavascript%20for%20update%20of%20new%20Javascript%20libraries%20and%20challanges%0A%23Javascript" target="_blank" class="social-btn twitter"></a><a href="https://www.reddit.com/submit?url=http%3A//Daily-Javascript.com" target="_blank" class="social-btn reddit"></a><a href="https://plus.google.com/share?url=http%3A//Daily-Javascript.com" target="_blank" class="social-btn google"></a></div>
+    <header class="header">
+      <div class="content-wrap">
+        <h1>Generator Nom</h1>
+        <p class="author">Written by <span class="author">ramon</span>
+        </p>
+      </div>
+    </header>
+    <div id="content">
+      <div class="content-wrap">
+        <article class="article">
+          <section class="content"><h3 id="generator-nom">Generator&nbsp;Nom</h3>
+<p>generator-nom (GitHub: <a href="https://github.com/inikulin/read-file-relative">ironSource/node-generator-nom</a>, License: <span class="caps">MIT</span>, npm:&nbsp;generator-nom)</p>
+<p>We all strive to write <span class="caps">DRY</span> code, but still while setting up projects and maintaining depenencies we are constantly repeating ourselves.
+I find myself going through the same flow time and time again. <code>git init</code>, <code>npm init</code>, <code>touch README.md</code>, going to Github getting an origin to push to et cetra. This process is a pain every time. What if you could just generate all this stuff with one&nbsp;command.</p>
+<p>That is where the <code>yo nom</code> come in.
+Nom is a <a href="http://yeoman.io">Yeoman</a> generator which is a collection of several sub-generators. It includes the following&nbsp;generators;</p>
+<h4 id="npm">npm</h4>
+<p>Create package.json and prompt to keep dependencies of a previous package.json if any. Create .gitignore, cli.js (optional), install test framework (tape, tap, mocha, grunt, cake, or ava), add <span class="caps">LICENSE</span> file (MIT, BSD2 or&nbsp;BSD3).</p>
+<h4 id="git">git</h4>
+<p>Initialize local git repository, unless .git directory&nbsp;exists</p>
+<h4 id="github">github</h4>
+<p>Create public or private GitHub project, named “module-name” or “node-module-name”, unless local git already has configured remotes. Asks for access token and repository owner (which defaults to the owner of the token), skips creation if the repository already exists, adds URLs to package.json and adds remote&nbsp;origin.</p>
+<h4 id="travis">travis</h4>
+<p>Add .travis.yml for node 0.10 and iojs, setup GitHub hook. The travis tool asks for username and&nbsp;password.</p>
+<h4 id="appveyor">appveyor</h4>
+<p>Add appveyor.yml for node 0.10 and iojs, setup GitHub hook. Asks for access&nbsp;token.</p>
+<h4 id="gulp">gulp</h4>
+<p>Create an <span class="caps">ES6</span> gulpfile and tasks&nbsp;directory.</p>
+<h4 id="style-still-to-come-">style (still to&nbsp;come)</h4>
+<p>Add standard or xo as a pretest&nbsp;script</p>
+<h4 id="readme">readme</h4>
+<p>Add readme.md with common sections and shield.io badges for npm and david. If you did the travis and/or appveyor setup, badges for those services will be added as&nbsp;well.</p>
+<p><img src="https://github.com/ironSource/node-generator-nom/raw/master/demo.gif" style="max-width: 400px; width: 100%; position:static;"></p>
+<p>To use a specific generator you can select it like&nbsp;this:</p>
+<pre><code class="lang-bash">yo nom:&lt;generator&gt;
+</code></pre>
+<p>To run them all&nbsp;use:</p>
+<pre><code class="lang-bash">yo nom:*
+</code></pre>
+<p>That’s&nbsp;it.</p>
+<p>I’ve tried this out and will probably be using this to make my workflow a bit more <span class="caps">DRY</span> and hope that other people will also consider to optimize their workflow with modules like <code>nom</code>.</p>
+</section>
+          <div id="disqus_thread"></div>
+          <script>
+            (function() { var d = document, s = d.createElement('script'); s.src = '//daily-javascript.disqus.com/embed.js'; s.setAttribute('data-timestamp', +new Date()); (d.head || d.body).appendChild(s); })();
+            
+          </script>
+        </article>
+      </div>
+    </div>
+    <footer>
+      <script type="text/javascript">(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-68072930-1', 'auto');ga('send', 'pageview');</script>
+      <div class="content-wrap">
+        <div class="nav"><a href="/">« Full blog</a></div>
+        <section class="about">
+        </section>
+        <section class="copy">
+          <p>&copy; 2015 Ramon Gebben &mdash; powered by&nbsp;<a href="https://github.com/jnordberg/wintersmith">Wintersmith</a>
+          </p>
+        </section>
+      </div>
+    </footer>
+  </body>
+</html>
