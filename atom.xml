@@ -10,12 +10,11 @@
     <language>en</language>
     <item>
       <title>Squiggle</title>
-      <link>http://localhost:8080/articles/squiggle/</link>
+      <link>http://daily-javascript.com/articles/squiggle/</link>
       <pubDate>Mon, 09 Nov 2015 01:00:00 +0100</pubDate>
-      <guid isPermaLink="true">http://localhost:8080/articles/squiggle/</guid>
+      <guid isPermaLink="true">http://daily-javascript.com/articles/squiggle/</guid>
       <author></author>
-      <description>&lt;h3 id=&quot;squiggle&quot;&gt;Squiggle&lt;/h3&gt;
-&lt;p&gt;Squiggle (GitHub: &lt;a href=&quot;https://github.com/wavebeem/squiggle&quot;&gt;wavebeem/squiggle&lt;/a&gt;, License: MIT, npm: squiggle-lang)&lt;/p&gt;
+      <description>&lt;p&gt;Squiggle (GitHub: &lt;a href=&quot;https://github.com/wavebeem/squiggle&quot;&gt;wavebeem/squiggle&lt;/a&gt;, License: MIT, npm: squiggle-lang)&lt;/p&gt;
 &lt;p&gt;Squiggle is a strict, expression-oriented, compile-to-JS programming language. Yes, yet another compile-to-JS language.
 At the beginning I was sceptic about it, but once I started reading &lt;a href=&quot;http://squiggle-lang.org/tutorial&quot;&gt;the tutorial&lt;/a&gt; posted on the site I adjusted my opinion.
 Not everything is there yet, but I need to say that I like the way it looks and might even consider picking it up.&lt;/p&gt;
@@ -85,12 +84,11 @@ def handler(res, res) =
     </item>
     <item>
       <title>ES6 Quiz</title>
-      <link>http://localhost:8080/articles/es6-quiz/</link>
+      <link>http://daily-javascript.com/articles/es6-quiz/</link>
       <pubDate>Fri, 06 Nov 2015 01:00:00 +0100</pubDate>
-      <guid isPermaLink="true">http://localhost:8080/articles/es6-quiz/</guid>
+      <guid isPermaLink="true">http://daily-javascript.com/articles/es6-quiz/</guid>
       <author></author>
-      <description>&lt;h3 id=&quot;es6-quiz&quot;&gt;ES6 Quiz&lt;/h3&gt;
-&lt;p&gt;Today I will not be checking any new library. It is time to invest in some more in depth knowledge of how ES6/ES2015/ESnext works. This week I was checking my reddit feed looking for something awesome to show you all, when I stumbled across &lt;a href=&quot;http://perfectionkills.com/javascript-quiz-es6/?utm_source=javascriptweekly&amp;amp;utm_medium=email&quot;&gt;this quiz&lt;/a&gt; from Perfect Skills.&lt;/p&gt;
+      <description>&lt;p&gt;Today I will not be checking any new library. It is time to invest in some more in depth knowledge of how ES6/ES2015/ESnext works. This week I was checking my reddit feed looking for something awesome to show you all, when I stumbled across &lt;a href=&quot;http://perfectionkills.com/javascript-quiz-es6/?utm_source=javascriptweekly&amp;amp;utm_medium=email&quot;&gt;this quiz&lt;/a&gt; from Perfect Skills.&lt;/p&gt;
 &lt;p&gt;I shared this quiz at my job and noticed that a lot of people were “familiar” with ES6. However nobody got a perfect score, Ok, the quiz is actually really hard, but still as frontend/javascript developer we should know the language we are working with or going to work with in the very near future. That is the reason why I would recommend everybody taking this quiz, because it will enlighten you on how much you do not know or fully understand about the new standard in Javascript.&lt;/p&gt;
 &lt;p&gt;The answers and explanation can be found &lt;a href=&quot;https://gist.github.com/DmitrySoshnikov/3928607cb8fdba42e712&quot;&gt;here&lt;/a&gt;, but I recommend that you do not look at them before taking the test.&lt;/p&gt;
 &lt;p&gt;I will be redoing this website over the weekend so I might not be able to provide you with a new post on Monday. The reason why I need to redo it, is because the static site generator I’m using to supply you with new posts each day broke on me this week. I spend several hours debugging without any luck so I will be switching to &lt;a href=&quot;https://github.com/jnordberg/wintersmith&quot;&gt;Wintersmith&lt;/a&gt; with which I only had good experiences so hopefully I do not need to redo it any time soon. I will also be looking into including a comment section so I can here more back from you guys.&lt;/p&gt;
@@ -99,12 +97,11 @@ def handler(res, res) =
     </item>
     <item>
       <title>inHerito</title>
-      <link>http://localhost:8080/articles/inherito/</link>
+      <link>http://daily-javascript.com/articles/inherito/</link>
       <pubDate>Thu, 05 Nov 2015 01:00:00 +0100</pubDate>
-      <guid isPermaLink="true">http://localhost:8080/articles/inherito/</guid>
+      <guid isPermaLink="true">http://daily-javascript.com/articles/inherito/</guid>
       <author></author>
-      <description>&lt;h3 id=&quot;inherito&quot;&gt;inHerito&lt;/h3&gt;
-&lt;p&gt;inHerito (GitHub: &lt;a href=&quot;http://localhost:8080/articles/inherito/Ositoozy/inherito&quot;&gt;Ositoozy/inherito&lt;/a&gt;, License: BSD, bower: rot.js)&lt;/p&gt;
+      <description>&lt;p&gt;inHerito (GitHub: &lt;a href=&quot;http://localhost:8080/articles/inherito/Ositoozy/inherito&quot;&gt;Ositoozy/inherito&lt;/a&gt;, License: BSD, bower: rot.js)&lt;/p&gt;
 &lt;p&gt;inHerito is a compostable factory that allows you create objects you want ease and “correct” inheritance. It allows you to use properties and function methods from other objects without overusing and over inheriting. Every object that is created gets it’s own logging information if option is set to true and allows you to keep a mindful eye on your objects. This is my take on solving the original OOP problem of over inheriting. Now you have “Objects Linked to Other Objects” and inherit only if you say so.&lt;/p&gt;
 &lt;p&gt;Then the first question that popped into my head was do we need yet another design pattern, well no ofcourse not but it could be useful for bootstrapping a new application to set the tone and get the correct mindset.&lt;/p&gt;
 &lt;p&gt;As the developer claims:&lt;/p&gt;
@@ -131,12 +128,11 @@ Is it a robot? &lt;span class=&quot;literal&quot;&gt;true&lt;/span&gt;
     </item>
     <item>
       <title>Rot.js</title>
-      <link>http://localhost:8080/articles/rotjs/</link>
+      <link>http://daily-javascript.com/articles/rotjs/</link>
       <pubDate>Wed, 04 Nov 2015 01:00:00 +0100</pubDate>
-      <guid isPermaLink="true">http://localhost:8080/articles/rotjs/</guid>
+      <guid isPermaLink="true">http://daily-javascript.com/articles/rotjs/</guid>
       <author></author>
-      <description>&lt;h3 id=&quot;rot-js&quot;&gt;Rot.js&lt;/h3&gt;
-&lt;p&gt;Rot.js (GitHub: &lt;a href=&quot;https://github.com/ondras/rot.js&quot;&gt;ondras/rot.js&lt;/a&gt;, License: BSD, bower: rot.js)&lt;/p&gt;
+      <description>&lt;p&gt;Rot.js (GitHub: &lt;a href=&quot;https://github.com/ondras/rot.js&quot;&gt;ondras/rot.js&lt;/a&gt;, License: BSD, bower: rot.js)&lt;/p&gt;
 &lt;p&gt;Rot.js is a &lt;a href=&quot;https://en.wikipedia.org/wiki/Roguelike&quot;&gt;Roguelike&lt;/a&gt; Toolkit in JavaScript.
 In a nutshell it is a set of JavaScript libraries, designed to help with a roguelike development in browser environment.
 It is modeled after &lt;a href=&quot;http://doryen.eptalys.net/libtcod/&quot;&gt;libtcod&lt;/a&gt; and offers the following features:&lt;/p&gt;
@@ -151,12 +147,11 @@ It is modeled after &lt;a href=&quot;http://doryen.eptalys.net/libtcod/&quot;&gt
     </item>
     <item>
       <title>Keo</title>
-      <link>http://localhost:8080/articles/keo/</link>
+      <link>http://daily-javascript.com/articles/keo/</link>
       <pubDate>Tue, 03 Nov 2015 01:00:00 +0100</pubDate>
-      <guid isPermaLink="true">http://localhost:8080/articles/keo/</guid>
+      <guid isPermaLink="true">http://daily-javascript.com/articles/keo/</guid>
       <author></author>
-      <description>&lt;h3 id=&quot;keo&quot;&gt;Keo&lt;/h3&gt;
-&lt;p&gt;Keo (GitHub: &lt;a href=&quot;https://github.com/Wildhoney/Keo&quot;&gt;Wildhoney/Keo&lt;/a&gt;, License: MIT, npm: keo)&lt;/p&gt;
+      <description>&lt;p&gt;Keo (GitHub: &lt;a href=&quot;https://github.com/Wildhoney/Keo&quot;&gt;Wildhoney/Keo&lt;/a&gt;, License: MIT, npm: keo)&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;https://github.com/Wildhoney/Keo/raw/master/media/screenshot.png&quot; alt=&quot;https://github.com/Wildhoney/Keo/raw/master/media/screenshot.png&quot;&gt;&lt;/p&gt;
 &lt;p&gt;If you are like me and don’t like the ESnext syntactic sugar which gets used in most React examples nowadays, then you will like Keo.
 Keo gives you a more functional approach to creating React components.&lt;/p&gt;
@@ -184,12 +179,11 @@ Keo gives you a more functional approach to creating React components.&lt;/p&gt;
     </item>
     <item>
       <title>Stream.js</title>
-      <link>http://localhost:8080/articles/streamjs/</link>
+      <link>http://daily-javascript.com/articles/streamjs/</link>
       <pubDate>Mon, 02 Nov 2015 01:00:00 +0100</pubDate>
-      <guid isPermaLink="true">http://localhost:8080/articles/streamjs/</guid>
+      <guid isPermaLink="true">http://daily-javascript.com/articles/streamjs/</guid>
       <author></author>
-      <description>&lt;h3 id=&quot;stream-js&quot;&gt;Stream.js&lt;/h3&gt;
-&lt;p&gt;Stream.js (GitHub: &lt;a href=&quot;https://github.com/winterbe/streamjs&quot;&gt;winterbe/streamjs&lt;/a&gt;, License: MIT, npm: streamjs, bower: streamjs)&lt;/p&gt;
+      <description>&lt;p&gt;Stream.js (GitHub: &lt;a href=&quot;https://github.com/winterbe/streamjs&quot;&gt;winterbe/streamjs&lt;/a&gt;, License: MIT, npm: streamjs, bower: streamjs)&lt;/p&gt;
 &lt;p&gt;Stream.js is a lightweight functional library for operating on in memory collections. It requires ES 5+, but has built-in support for ES6 features it works in all current browsers, Node.js and Java 8 &lt;a href=&quot;http://openjdk.java.net/projects/nashorn/&quot;&gt;Nashorn&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;This library is built around a lazily evaluated operation pipeline. Which means that instead of consecutively performing each operation on the input collection, objects are passed vertically and one by one into the chain.
 Interim results will not be stored in internal collections. Instead objects are piped into the result object.&lt;/p&gt;
@@ -210,12 +204,11 @@ For instance with a filter - map - findFirst stream you don’t have to filter a
     </item>
     <item>
       <title>generator-redux</title>
-      <link>http://localhost:8080/articles/redux-generator/</link>
+      <link>http://daily-javascript.com/articles/redux-generator/</link>
       <pubDate>Thu, 29 Oct 2015 01:00:00 +0100</pubDate>
-      <guid isPermaLink="true">http://localhost:8080/articles/redux-generator/</guid>
+      <guid isPermaLink="true">http://daily-javascript.com/articles/redux-generator/</guid>
       <author></author>
-      <description>&lt;h3 id=&quot;redux-generator&quot;&gt;Redux generator&lt;/h3&gt;
-&lt;p&gt;generator-redux (GitHub: &lt;a href=&quot;https://github.com/banderson/generator-redux&quot;&gt;banderson/generator-redux&lt;/a&gt;, License: MIT, npm: generator-redux)&lt;/p&gt;
+      <description>&lt;p&gt;generator-redux (GitHub: &lt;a href=&quot;https://github.com/banderson/generator-redux&quot;&gt;banderson/generator-redux&lt;/a&gt;, License: MIT, npm: generator-redux)&lt;/p&gt;
 &lt;p&gt;Today I like to mention a Yeoman generator which I’ve being using a lot lately: generator-redux.
 When you are not familiar with Yeoman please check it out, it will save you a lot of time.&lt;/p&gt;
 &lt;p&gt;You have probably heard about &lt;a href=&quot;http://localhost:8080/articles/redux-generator/facebook.github.io/flux/&quot;&gt;Facebook’s Flux architecture&lt;/a&gt;. Since a few months there is a new kid in town called Redux.
@@ -254,12 +247,11 @@ Port is to run your development server on (defaults to 3000).&lt;/p&gt;
     </item>
     <item>
       <title>vstack-validator</title>
-      <link>http://localhost:8080/articles/vstack-validator/</link>
+      <link>http://daily-javascript.com/articles/vstack-validator/</link>
       <pubDate>Wed, 28 Oct 2015 01:00:00 +0100</pubDate>
-      <guid isPermaLink="true">http://localhost:8080/articles/vstack-validator/</guid>
+      <guid isPermaLink="true">http://daily-javascript.com/articles/vstack-validator/</guid>
       <author></author>
-      <description>&lt;h3 id=&quot;vstack-validator&quot;&gt;Vstack Validator&lt;/h3&gt;
-&lt;p&gt;Vstack-validator (GitHub: &lt;a href=&quot;https://github.com/vslinko/vstack-validator&quot;&gt;vslinko/vstack-validator&lt;/a&gt;, License: MIT, npm: vstack-validator)&lt;/p&gt;
+      <description>&lt;p&gt;Vstack-validator (GitHub: &lt;a href=&quot;https://github.com/vslinko/vstack-validator&quot;&gt;vslinko/vstack-validator&lt;/a&gt;, License: MIT, npm: vstack-validator)&lt;/p&gt;
 &lt;p&gt;When you are working with very complex and deeply nested data structures, validation can become a real pain.
 Vstack-validator tries to solve this problem by providing you with a declarative API which consists of 3 methods: a validator, a constraint and a schema.
 The Validator is a function that receives a value and returns boolean result of validation.
@@ -375,12 +367,11 @@ cartSchema.check(validationData)
     </item>
     <item>
       <title>jsdoc2diagram</title>
-      <link>http://localhost:8080/articles/jsdoc2diagram/</link>
+      <link>http://daily-javascript.com/articles/jsdoc2diagram/</link>
       <pubDate>Tue, 27 Oct 2015 01:00:00 +0100</pubDate>
-      <guid isPermaLink="true">http://localhost:8080/articles/jsdoc2diagram/</guid>
+      <guid isPermaLink="true">http://daily-javascript.com/articles/jsdoc2diagram/</guid>
       <author></author>
-      <description>&lt;h3 id=&quot;jsdoc2diagram&quot;&gt;jsdoc2diagram&lt;/h3&gt;
-&lt;p&gt;jsdoc2diagram (GitHub: &lt;a href=&quot;https://github.com/amcmillan01/jsdoc2diagram&quot;&gt;amcmillan01/jsdoc2diagram&lt;/a&gt;, License: MIT, npm: jsdoc2diagram)&lt;/p&gt;
+      <description>&lt;p&gt;jsdoc2diagram (GitHub: &lt;a href=&quot;https://github.com/amcmillan01/jsdoc2diagram&quot;&gt;amcmillan01/jsdoc2diagram&lt;/a&gt;, License: MIT, npm: jsdoc2diagram)&lt;/p&gt;
 &lt;p&gt;If your day job looks anything like mine, the problem of sharing knowledge will be a well known issue for you.
 We try our best to keep the docs up to date and inform our co-workers of any changes that would be crucial. But what if a new developer joins the team? He will be spending the next week or 2 getting the know the entire app but mostly how everything hangs together.&lt;/p&gt;
 &lt;p&gt;Since we are probably already using &lt;a href=&quot;http://usejsdoc.org&quot;&gt;JSDoc&lt;/a&gt; there is a great addition available for giving insight on how the application is put together called &lt;code&gt;jsdoc2diagram&lt;/code&gt;.&lt;/p&gt;
@@ -444,12 +435,11 @@ Car.prototype.hasNavigation = &lt;span class=&quot;function&quot;&gt;&lt;span cl
     </item>
     <item>
       <title>React DOM Stream</title>
-      <link>http://localhost:8080/articles/react-dom-stream/</link>
+      <link>http://daily-javascript.com/articles/react-dom-stream/</link>
       <pubDate>Mon, 26 Oct 2015 01:00:00 +0100</pubDate>
-      <guid isPermaLink="true">http://localhost:8080/articles/react-dom-stream/</guid>
+      <guid isPermaLink="true">http://daily-javascript.com/articles/react-dom-stream/</guid>
       <author></author>
-      <description>&lt;h3 id=&quot;react-dom-stream&quot;&gt;React DOM Stream&lt;/h3&gt;
-&lt;p&gt;React DOM Stream (GitHub: &lt;a href=&quot;https://github.com/aickin/react-dom-stream&quot;&gt;aickin/react-dom-stream&lt;/a&gt;, License: MIT, npm: react-dom-stream)&lt;/p&gt;
+      <description>&lt;p&gt;React DOM Stream (GitHub: &lt;a href=&quot;https://github.com/aickin/react-dom-stream&quot;&gt;aickin/react-dom-stream&lt;/a&gt;, License: MIT, npm: react-dom-stream)&lt;/p&gt;
 &lt;p&gt;react-dom-stream is a React renderer for generating markup on a NodeJS server. Unlike the built-in ReactDOM.renderToString, this module renders to a stream.
 Streams make this library as much as 47% faster in sending down a full page than ReactDOM.renderToString.&lt;/p&gt;
 &lt;p&gt;One difficulty with ReactDOM.renderToString is that it is synchronous, which could cost you performance with server-side rendering of React sites. Especially true with large HTML payloads. Which could lead to the following problems as the developer saids:&lt;/p&gt;
@@ -494,12 +484,11 @@ ReactDOMStream.render(&lt;span class=&quot;xml&quot;&gt;&lt;span class=&quot;tag
     </item>
     <item>
       <title>Observatory</title>
-      <link>http://localhost:8080/articles/observatory/</link>
+      <link>http://daily-javascript.com/articles/observatory/</link>
       <pubDate>Thu, 22 Oct 2015 02:00:00 +0200</pubDate>
-      <guid isPermaLink="true">http://localhost:8080/articles/observatory/</guid>
+      <guid isPermaLink="true">http://daily-javascript.com/articles/observatory/</guid>
       <author></author>
-      <description>&lt;h3 id=&quot;observatory&quot;&gt;Observatory&lt;/h3&gt;
-&lt;p&gt;Observatory (GitHub: &lt;a href=&quot;https://github.com/mikesizz/observatory&quot;&gt;mikesizz/observatory&lt;/a&gt;, License: MIT, npm: observatoryjs)&lt;/p&gt;
+      <description>&lt;p&gt;Observatory (GitHub: &lt;a href=&quot;https://github.com/mikesizz/observatory&quot;&gt;mikesizz/observatory&lt;/a&gt;, License: MIT, npm: observatoryjs)&lt;/p&gt;
 &lt;p&gt;When you are following the spec proposals or read any other blog you have probably heard about &lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/observe&quot;&gt;Object.observe&lt;/a&gt;, which is used for asynchronously observing the changes to an object.&lt;/p&gt;
 &lt;p&gt;Observatory is an attempt to provide javascript developers an interface for Object.observe with mongodb style querying for specificity.&lt;/p&gt;
 &lt;p&gt;In order to use it we need to create a new instance of Observatory.&lt;/p&gt;
@@ -540,12 +529,11 @@ observer.on( cat , { $update: { &lt;span class=&quot;string&quot;&gt;&quot;age&q
     </item>
     <item>
       <title>Rollup.js</title>
-      <link>http://localhost:8080/articles/roll-up/</link>
+      <link>http://daily-javascript.com/articles/roll-up/</link>
       <pubDate>Wed, 21 Oct 2015 02:00:00 +0200</pubDate>
-      <guid isPermaLink="true">http://localhost:8080/articles/roll-up/</guid>
+      <guid isPermaLink="true">http://daily-javascript.com/articles/roll-up/</guid>
       <author></author>
-      <description>&lt;h3 id=&quot;rollup-js&quot;&gt;Rollup.js&lt;/h3&gt;
-&lt;p&gt;Rollup.js (GitHub: &lt;a href=&quot;https://github.com/rollup/rollup&quot;&gt;rollup/rollup&lt;/a&gt;, License: MIT, npm: rollup)&lt;/p&gt;
+      <description>&lt;p&gt;Rollup.js (GitHub: &lt;a href=&quot;https://github.com/rollup/rollup&quot;&gt;rollup/rollup&lt;/a&gt;, License: MIT, npm: rollup)&lt;/p&gt;
 &lt;p&gt;Rollup is a next-generation Javascript module bundler. Build your app or library using ES2015 modules, then efficiently bundle them up into a single file for use in browsers and Node.js.
 This is not an unfamiliar concept to the most of us. What makes Rollup stand out is that fact that it’s using only the functionality that you import.&lt;/p&gt;
 &lt;p&gt;Normally you would do something like this:&lt;/p&gt;
@@ -582,12 +570,11 @@ rollup &lt;span class=&quot;operator&quot;&gt;-f&lt;/span&gt; iife --globals jqu
     </item>
     <item>
       <title>λJSON</title>
-      <link>http://localhost:8080/articles/ljson/</link>
+      <link>http://daily-javascript.com/articles/ljson/</link>
       <pubDate>Tue, 20 Oct 2015 02:00:00 +0200</pubDate>
-      <guid isPermaLink="true">http://localhost:8080/articles/ljson/</guid>
+      <guid isPermaLink="true">http://daily-javascript.com/articles/ljson/</guid>
       <author></author>
-      <description>&lt;h3 id=&quot;-json&quot;&gt;λJSON&lt;/h3&gt;
-&lt;p&gt;λJSON (GitHub: &lt;a href=&quot;https://github.com/MaiaVictor/LJSON&quot;&gt;MaiaVictor/LJSON&lt;/a&gt;, License: MIT, npm: ljson)&lt;/p&gt;
+      <description>&lt;p&gt;λJSON (GitHub: &lt;a href=&quot;https://github.com/MaiaVictor/LJSON&quot;&gt;MaiaVictor/LJSON&lt;/a&gt;, License: MIT, npm: ljson)&lt;/p&gt;
 &lt;p&gt;λJSON is a drop-in replacement for JSON which also allows you to parse and stringify pure functions and their contents. There are good security reasons for functions to be out of the JSON specs, but most of those are only significant when you allow arbitrary, side-effective programs.
 With pure functions, one is able to interchange code while still being as safe as with regular JSON.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; LJSON = &lt;span class=&quot;built_in&quot;&gt;require&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;&quot;LJSON&quot;&lt;/span&gt;);
@@ -637,12 +624,11 @@ With pure functions, one is able to interchange code while still being as safe a
     </item>
     <item>
       <title>Vorpal.js</title>
-      <link>http://localhost:8080/articles/vorpal/</link>
+      <link>http://daily-javascript.com/articles/vorpal/</link>
       <pubDate>Mon, 19 Oct 2015 02:00:00 +0200</pubDate>
-      <guid isPermaLink="true">http://localhost:8080/articles/vorpal/</guid>
+      <guid isPermaLink="true">http://daily-javascript.com/articles/vorpal/</guid>
       <author></author>
-      <description>&lt;h3 id=&quot;vorpal-js&quot;&gt;Vorpal.js&lt;/h3&gt;
-&lt;p&gt;Vorpal (GitHub: &lt;a href=&quot;https://github.com/dthree/vorpal&quot;&gt;dthree/vorpal&lt;/a&gt;, License: MIT, npm: vorpal)&lt;/p&gt;
+      <description>&lt;p&gt;Vorpal (GitHub: &lt;a href=&quot;https://github.com/dthree/vorpal&quot;&gt;dthree/vorpal&lt;/a&gt;, License: MIT, npm: vorpal)&lt;/p&gt;
 &lt;p&gt;Vorpal is a framework for building interactive CLI applications. Inspired and based on &lt;a href=&quot;https://www.npmjs.com/package/commander&quot;&gt;commander.js&lt;/a&gt; which is a port from the wonderful work done on this &lt;a href=&quot;https://github.com/commander-rb/commander&quot;&gt;Ruby Gem&lt;/a&gt;.
 It provides you with an interactive prompt provided by &lt;a href=&quot;https://www.npmjs.com/package/inquirer&quot;&gt;inquirer&lt;/a&gt; and also provides a very extensive API with features such as: piped commands, command history, built-in help menu, tab autocompletion and the list goes on.&lt;/p&gt;
 &lt;p&gt;For full documentation of the API you should take a look at the &lt;a href=&quot;https://github.com/dthree/vorpal/wiki&quot;&gt;Wiki&lt;/a&gt;.&lt;/p&gt;
@@ -667,12 +653,11 @@ program
     </item>
     <item>
       <title>Smartcrop.js</title>
-      <link>http://localhost:8080/articles/smart-crop/</link>
+      <link>http://daily-javascript.com/articles/smart-crop/</link>
       <pubDate>Wed, 14 Oct 2015 02:00:00 +0200</pubDate>
-      <guid isPermaLink="true">http://localhost:8080/articles/smart-crop/</guid>
+      <guid isPermaLink="true">http://daily-javascript.com/articles/smart-crop/</guid>
       <author></author>
-      <description>&lt;h3 id=&quot;smartcrop-js&quot;&gt;Smartcrop.js&lt;/h3&gt;
-&lt;p&gt;Smartcrop (GitHub: &lt;a href=&quot;https://github.com/jwagner/smartcrop.js&quot;&gt;jwagner/smartcrop.js&lt;/a&gt;, License: MIT, npm: smartcrop, bower: smartcrop)&lt;/p&gt;
+      <description>&lt;p&gt;Smartcrop (GitHub: &lt;a href=&quot;https://github.com/jwagner/smartcrop.js&quot;&gt;jwagner/smartcrop.js&lt;/a&gt;, License: MIT, npm: smartcrop, bower: smartcrop)&lt;/p&gt;
 &lt;p&gt;Smartcrop.js is not just another image cropping library. It detects the primary region of an image such as faces.
 It does this using the following algorithm.&lt;/p&gt;
 &lt;ol&gt;
@@ -717,12 +702,11 @@ smartcrop-cli --width &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt; --he
     </item>
     <item>
       <title>Chiffon</title>
-      <link>http://localhost:8080/articles/chiffon/</link>
+      <link>http://daily-javascript.com/articles/chiffon/</link>
       <pubDate>Wed, 14 Oct 2015 02:00:00 +0200</pubDate>
-      <guid isPermaLink="true">http://localhost:8080/articles/chiffon/</guid>
+      <guid isPermaLink="true">http://daily-javascript.com/articles/chiffon/</guid>
       <author></author>
-      <description>&lt;h3 id=&quot;chiffon&quot;&gt;Chiffon&lt;/h3&gt;
-&lt;p&gt;Chiffon (GitHub: &lt;a href=&quot;https://github.com/trueadm/Chiffon&quot;&gt;polygonplanet/Chiffon&lt;/a&gt;, License: MIT, npm: chiffon, bower: chiffon)&lt;/p&gt;
+      <description>&lt;p&gt;Chiffon (GitHub: &lt;a href=&quot;https://github.com/trueadm/Chiffon&quot;&gt;polygonplanet/Chiffon&lt;/a&gt;, License: MIT, npm: chiffon, bower: chiffon)&lt;/p&gt;
 &lt;p&gt;Chiffon is a very small ECMAScript parser, tokenizer and minifier.
 Sometimes we come across an idea where you will need to parse or tokenize Javascript files for, for instance to do analysis on the code.&lt;/p&gt;
 &lt;p&gt;When using Chiffon for tokenizing you will get an Array of each “element” of the input code like this:&lt;/p&gt;
@@ -765,12 +749,11 @@ Sometimes we come across an idea where you will need to parse or tokenize Javasc
     </item>
     <item>
       <title>t7</title>
-      <link>http://localhost:8080/articles/t7/</link>
+      <link>http://daily-javascript.com/articles/t7/</link>
       <pubDate>Tue, 13 Oct 2015 02:00:00 +0200</pubDate>
-      <guid isPermaLink="true">http://localhost:8080/articles/t7/</guid>
+      <guid isPermaLink="true">http://daily-javascript.com/articles/t7/</guid>
       <author></author>
-      <description>&lt;h3 id=&quot;t7&quot;&gt;t7&lt;/h3&gt;
-&lt;p&gt;t7 (GitHub: &lt;a href=&quot;https://github.com/trueadm/t7&quot;&gt;trueadm/t7&lt;/a&gt;, License: ISC, npm: t7)&lt;/p&gt;
+      <description>&lt;p&gt;t7 (GitHub: &lt;a href=&quot;https://github.com/trueadm/t7&quot;&gt;trueadm/t7&lt;/a&gt;, License: ISC, npm: t7)&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;http://t7js.com/img/screenshot.png&quot; style=&quot;max-width: 400px;width: 100%;left: 0;&quot;&gt;&lt;/p&gt;
 &lt;p&gt;While browsing I came across t7, which is a template library that compiles template strings into virtual DOM objects.
 Because of this functionality it’s used in frameworks such as &lt;a href=&quot;https://github.com/trueadm/inferno&quot;&gt;Inferno&lt;/a&gt;, but it can also be used within React.&lt;/p&gt;
@@ -816,12 +799,11 @@ Universal DOM output should be compatible with most other virtual DOM frameworks
     </item>
     <item>
       <title>React Image Crop</title>
-      <link>http://localhost:8080/articles/react-image-crop/</link>
+      <link>http://daily-javascript.com/articles/react-image-crop/</link>
       <pubDate>Mon, 12 Oct 2015 02:00:00 +0200</pubDate>
-      <guid isPermaLink="true">http://localhost:8080/articles/react-image-crop/</guid>
+      <guid isPermaLink="true">http://daily-javascript.com/articles/react-image-crop/</guid>
       <author></author>
-      <description>&lt;h3 id=&quot;react-image-crop&quot;&gt;React Image Crop&lt;/h3&gt;
-&lt;p&gt;react-image-crop (GitHub: &lt;a href=&quot;https://github.com/DominicTobias/react-image-crop&quot;&gt;DominicTobias/react-image-crop&lt;/a&gt;, License: ISC, npm: react-image-crop)&lt;/p&gt;
+      <description>&lt;p&gt;react-image-crop (GitHub: &lt;a href=&quot;https://github.com/DominicTobias/react-image-crop&quot;&gt;DominicTobias/react-image-crop&lt;/a&gt;, License: ISC, npm: react-image-crop)&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/DominicTobias/react-image-crop/master/crop-demo.gif&quot; style=&quot;max-width: 400px;width: 100%;left: 0;&quot;&gt;&lt;/p&gt;
 &lt;p&gt;React-image-crop is a React component for client side cropping of images. This mainly got my interest because I had several moments where I needed to implement something similar.
 This will take away that work in the future. I used to do the cropping server side which was a hassle. Upload the image, Getting the dimensions, crop with imagemagick then communicate that back to the browser.&lt;/p&gt;
@@ -850,12 +832,11 @@ Let’s take a look at the setup for this component.&lt;/p&gt;
     </item>
     <item>
       <title>Gulp load subtasks</title>
-      <link>http://localhost:8080/articles/gulp-load-subtasks/</link>
+      <link>http://daily-javascript.com/articles/gulp-load-subtasks/</link>
       <pubDate>Fri, 09 Oct 2015 02:00:00 +0200</pubDate>
-      <guid isPermaLink="true">http://localhost:8080/articles/gulp-load-subtasks/</guid>
+      <guid isPermaLink="true">http://daily-javascript.com/articles/gulp-load-subtasks/</guid>
       <author></author>
-      <description>&lt;h3 id=&quot;gulp-load-subtasks&quot;&gt;Gulp load subtasks&lt;/h3&gt;
-&lt;p&gt;gulp-load-subtasks (GitHub: &lt;a href=&quot;https://github.com/skorlir/gulp-load-subtasks&quot;&gt;skorlir/gulp-load-subtasks&lt;/a&gt;, License: ISC, npm: gulp-load-subtasks)&lt;/p&gt;
+      <description>&lt;p&gt;gulp-load-subtasks (GitHub: &lt;a href=&quot;https://github.com/skorlir/gulp-load-subtasks&quot;&gt;skorlir/gulp-load-subtasks&lt;/a&gt;, License: ISC, npm: gulp-load-subtasks)&lt;/p&gt;
 &lt;p&gt;gulp-load-subtasks is a gulp “extention” which was long overdue in my opinion. The problem that it solves is that it is reducing the amount of clutter the forms inside a Gulpfile when working on big projects.&lt;/p&gt;
 &lt;p&gt;This does require a bit of a shift in contrast of how we are used to writing our Gulpfile.
 Normally you would do something like this:&lt;/p&gt;
@@ -905,12 +886,11 @@ gulp.task(&lt;span class=&quot;string&quot;&gt;'default'&lt;/span&gt;, [ &lt;spa
     </item>
     <item>
       <title>Generator Nom</title>
-      <link>http://localhost:8080/articles/generator-nom/</link>
+      <link>http://daily-javascript.com/articles/generator-nom/</link>
       <pubDate>Thu, 08 Oct 2015 02:00:00 +0200</pubDate>
-      <guid isPermaLink="true">http://localhost:8080/articles/generator-nom/</guid>
+      <guid isPermaLink="true">http://daily-javascript.com/articles/generator-nom/</guid>
       <author></author>
-      <description>&lt;h3 id=&quot;generator-nom&quot;&gt;Generator Nom&lt;/h3&gt;
-&lt;p&gt;generator-nom (GitHub: &lt;a href=&quot;https://github.com/inikulin/read-file-relative&quot;&gt;ironSource/node-generator-nom&lt;/a&gt;, License: MIT, npm: generator-nom)&lt;/p&gt;
+      <description>&lt;p&gt;generator-nom (GitHub: &lt;a href=&quot;https://github.com/inikulin/read-file-relative&quot;&gt;ironSource/node-generator-nom&lt;/a&gt;, License: MIT, npm: generator-nom)&lt;/p&gt;
 &lt;p&gt;We all strive to write DRY code, but still while setting up projects and maintaining depenencies we are constantly repeating ourselves.
 I find myself going through the same flow time and time again. &lt;code&gt;git init&lt;/code&gt;, &lt;code&gt;npm init&lt;/code&gt;, &lt;code&gt;touch README.md&lt;/code&gt;, going to Github getting an origin to push to et cetra. This process is a pain every time. What if you could just generate all this stuff with one command.&lt;/p&gt;
 &lt;p&gt;That is where the &lt;code&gt;yo nom&lt;/code&gt; come in.
@@ -944,12 +924,11 @@ Nom is a &lt;a href=&quot;http://yeoman.io&quot;&gt;Yeoman&lt;/a&gt; generator w
     </item>
     <item>
       <title>Read file relative</title>
-      <link>http://localhost:8080/articles/read-file-relative/</link>
+      <link>http://daily-javascript.com/articles/read-file-relative/</link>
       <pubDate>Wed, 07 Oct 2015 02:00:00 +0200</pubDate>
-      <guid isPermaLink="true">http://localhost:8080/articles/read-file-relative/</guid>
+      <guid isPermaLink="true">http://daily-javascript.com/articles/read-file-relative/</guid>
       <author></author>
-      <description>&lt;h3 id=&quot;read-file-relative&quot;&gt;Read file relative&lt;/h3&gt;
-&lt;p&gt;read-file-relative (GitHub: &lt;a href=&quot;https://github.com/inikulin/read-file-relative&quot;&gt;inikulin/read-file-relative&lt;/a&gt;, License: Unknown, npm: read-file-relative)&lt;/p&gt;
+      <description>&lt;p&gt;read-file-relative (GitHub: &lt;a href=&quot;https://github.com/inikulin/read-file-relative&quot;&gt;inikulin/read-file-relative&lt;/a&gt;, License: Unknown, npm: read-file-relative)&lt;/p&gt;
 &lt;p&gt;A problem everybody probably encounters once in a while is relativity of file paths while reading files with Node.js.
 You would do something like this:&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; fs   = &lt;span class=&quot;built_in&quot;&gt;require&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;'fs'&lt;/span&gt;);
@@ -991,12 +970,11 @@ read(&lt;span class=&quot;string&quot;&gt;'/file.txt'&lt;/span&gt;, &lt;span cla
     </item>
     <item>
       <title>Speck JS</title>
-      <link>http://localhost:8080/articles/speckjs/</link>
+      <link>http://daily-javascript.com/articles/speckjs/</link>
       <pubDate>Tue, 06 Oct 2015 02:00:00 +0200</pubDate>
-      <guid isPermaLink="true">http://localhost:8080/articles/speckjs/</guid>
+      <guid isPermaLink="true">http://daily-javascript.com/articles/speckjs/</guid>
       <author></author>
-      <description>&lt;h3 id=&quot;speckjs&quot;&gt;SpeckJS&lt;/h3&gt;
-&lt;p&gt;SpeckJS (GitHub: &lt;a href=&quot;https://github.com/speckjs/speckjs&quot;&gt;speckjs/speckjs&lt;/a&gt;, License: MIT, npm: speckjs)&lt;/p&gt;
+      <description>&lt;p&gt;SpeckJS (GitHub: &lt;a href=&quot;https://github.com/speckjs/speckjs&quot;&gt;speckjs/speckjs&lt;/a&gt;, License: MIT, npm: speckjs)&lt;/p&gt;
 &lt;p&gt;SpeckJS is a library that parses JavaScript comments and outputs unit-tests. SpeckJS currently supports &lt;a href=&quot;https://github.com/substack/tape&quot;&gt;Tape&lt;/a&gt;, &lt;a href=&quot;https://github.com/jasmine/jasmine&quot;&gt;Jasmine&lt;/a&gt;, and &lt;a href=&quot;https://github.com/mochajs/mocha&quot;&gt;Mocha&lt;/a&gt;/&lt;a href=&quot;https://github.com/chaijs/chai&quot;&gt;Chai&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;SpeckJS comes with plugins for &lt;a href=&quot;https://github.com/speckjs/grunt-speckjs&quot;&gt;Grunt&lt;/a&gt;, &lt;a href=&quot;https://github.com/speckjs/gulp-speckjs&quot;&gt;Gulp&lt;/a&gt; and &lt;a href=&quot;https://github.com/speckjs/atom-speckjs&quot;&gt;Atom&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;The goal of SpeckJS is to make it as easy as possible to get started using Test-Driven Development on a new project or to quickly add unit-tests to your existing project.&lt;/p&gt;
@@ -1038,12 +1016,11 @@ I hope to see other people pick this up aswel.&lt;/p&gt;
     </item>
     <item>
       <title>Velocity React</title>
-      <link>http://localhost:8080/articles/velocity-react/</link>
+      <link>http://daily-javascript.com/articles/velocity-react/</link>
       <pubDate>Mon, 05 Oct 2015 02:00:00 +0200</pubDate>
-      <guid isPermaLink="true">http://localhost:8080/articles/velocity-react/</guid>
+      <guid isPermaLink="true">http://daily-javascript.com/articles/velocity-react/</guid>
       <author></author>
-      <description>&lt;h3 id=&quot;velocity-react&quot;&gt;Velocity React&lt;/h3&gt;
-&lt;p&gt;velocity-react (GitHub: &lt;a href=&quot;https://github.com/twitter-fabric/velocity-react&quot;&gt;twitter-fabric/velocity-react&lt;/a&gt;, License: MIT, npm: velocity-react)&lt;/p&gt;
+      <description>&lt;p&gt;velocity-react (GitHub: &lt;a href=&quot;https://github.com/twitter-fabric/velocity-react&quot;&gt;twitter-fabric/velocity-react&lt;/a&gt;, License: MIT, npm: velocity-react)&lt;/p&gt;
 &lt;p&gt;Today I had some trouble finding something to write about. Then I remembered the awesome work done by the guys at Twitter Fabric. They made a React component for interacting with amazing &lt;a href=&quot;http://julian.com/research/velocity/&quot;&gt;Velocity&lt;/a&gt; animation library.
 Offical introduction can be found &lt;a href=&quot;https://fabric.io/blog/introducing-the-velocityreact-library&quot;&gt;here.&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;If you are not familiar with &lt;a href=&quot;http://julian.com/research/velocity/&quot;&gt;Velocity&lt;/a&gt; I suggest you take a look at this first.&lt;/p&gt;
@@ -1092,12 +1069,11 @@ Offical introduction can be found &lt;a href=&quot;https://fabric.io/blog/introd
     </item>
     <item>
       <title>Scroller Friday</title>
-      <link>http://localhost:8080/articles/scroller-friday/</link>
+      <link>http://daily-javascript.com/articles/scroller-friday/</link>
       <pubDate>Fri, 02 Oct 2015 02:00:00 +0200</pubDate>
-      <guid isPermaLink="true">http://localhost:8080/articles/scroller-friday/</guid>
+      <guid isPermaLink="true">http://daily-javascript.com/articles/scroller-friday/</guid>
       <author></author>
-      <description>&lt;h3 id=&quot;fartscroll-js&quot;&gt;Fartscroll.js&lt;/h3&gt;
-&lt;p&gt;fartscroll.js (GitHub: &lt;a href=&quot;https://github.com/theonion/fartscroll.js&quot;&gt;theonion/fartscroll.js&lt;/a&gt;, License: MIT)&lt;/p&gt;
+      <description>&lt;p&gt;fartscroll.js (GitHub: &lt;a href=&quot;https://github.com/theonion/fartscroll.js&quot;&gt;theonion/fartscroll.js&lt;/a&gt;, License: MIT)&lt;/p&gt;
 &lt;p&gt;Since it is Friday today my colleages and me are in a humorous mood. So when I started looking what to write about today I got some real fun suggestions.
 The first one is fartscroll.js.&lt;/p&gt;
 &lt;p&gt;The name already saids it all, it’s a library that makes your page fart when the user is scrolling.
@@ -1144,12 +1120,11 @@ Elevator.js is provides you with a “back to top” button that behaves like a 
     </item>
     <item>
       <title>Tonic</title>
-      <link>http://localhost:8080/articles/tonic/</link>
+      <link>http://daily-javascript.com/articles/tonic/</link>
       <pubDate>Thu, 01 Oct 2015 02:00:00 +0200</pubDate>
-      <guid isPermaLink="true">http://localhost:8080/articles/tonic/</guid>
+      <guid isPermaLink="true">http://daily-javascript.com/articles/tonic/</guid>
       <author></author>
-      <description>&lt;h3 id=&quot;tonic&quot;&gt;Tonic&lt;/h3&gt;
-&lt;p&gt;During my browse session at work this morning I came across &lt;a href=&quot;https://tonicdev.com/docs/embed&quot;&gt;this post&lt;/a&gt;.
+      <description>&lt;p&gt;During my browse session at work this morning I came across &lt;a href=&quot;https://tonicdev.com/docs/embed&quot;&gt;this post&lt;/a&gt;.
 If I understand correctly the easiest way to describe Tonic is as a plugin that let’s you run Node.js in a browser.&lt;/p&gt;
 &lt;p&gt;The reason why I write about this today is because of the newley released feature of embedding it on your page.
 This feature can be accessed in two ways. Via HTML markup or by initializing it programatically.
@@ -1196,125 +1171,13 @@ This weekend I will be trying to include this within this website so you will be
 </description>
     </item>
     <item>
-      <title>Rune.js and queryl</title>
-      <link>http://localhost:8080/articles/runejs-and-queryl/</link>
-      <pubDate>Mon, 28 Sep 2015 02:00:00 +0200</pubDate>
-      <guid isPermaLink="true">http://localhost:8080/articles/runejs-and-queryl/</guid>
-      <author></author>
-      <description>&lt;h3 id=&quot;rune-js&quot;&gt;Rune.js&lt;/h3&gt;
-&lt;p&gt;Rune.js (GitHub: &lt;a href=&quot;https://github.com/runemadsen/rune.js&quot;&gt;runemadsen/rune.js&lt;/a&gt;, License: MIT )&lt;/p&gt;
-&lt;p&gt;Rune.js is a library for programming graphic design systems with SVG. It has a fluent drawing API, an unobtrusive scene graph, and a bunch of features designed specifically for graphic designers, such as: native support for color conversion, grid systems, typography, pixel iteration and an expanding set of computational geometry helpers. What peaked my interest is that it uses a &lt;a href=&quot;https://github.com/Matt-Esch/virtual-dom&quot;&gt;virtual-dom&lt;/a&gt; under the hood.&lt;/p&gt;
-&lt;p&gt;If you’re not familiar with the virtual-dom I suggest you take a break to take a look at that first.&lt;/p&gt;
-&lt;p&gt;Unfortunately I could not find any npm or bower install instructions, so I am hoping that the developer will add that soon.&lt;/p&gt;
-&lt;p&gt;Rune.js has all basic shapes in the API.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;r.line(&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;);
-
-r.rect(&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;50&lt;/span&gt;);
-
-r.ellipse(&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;50&lt;/span&gt;);
-
-r.circle(&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;);
-
-r.triangle(&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;);
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;And for more complex shapes it fluent API makes drawing with SVG very readable and familiar.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;r.polygon(&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;).lineTo(&lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;).lineTo(&lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;).lineTo(&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;);
-
-r.path(&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;).lineTo(&lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;).curveTo(&lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;);
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Since this library is packed with features and concepts, I will only give you the tip of the iceberg right now. If you want to know more, consult the &lt;a href=&quot;http://runemadsen.github.io/rune.js/&quot;&gt;amazing documentation&lt;/a&gt;.&lt;/p&gt;
-&lt;h3 id=&quot;queryl&quot;&gt;queryl&lt;/h3&gt;
-&lt;p&gt;queryl (GitHub: &lt;a href=&quot;https://github.com/issuetrackapp/queryl&quot;&gt;issuetrackapp/queryl&lt;/a&gt;, License: MIT, npm: queryl)&lt;/p&gt;
-&lt;p&gt;queryl is a query language to preform complex object searches. The purpose of this “language” is to allow the developer to build very complex queries to e.g. search a collection of objects, to validate objects before you dump it in a db or even to make assertions in tests.&lt;/p&gt;
-&lt;p&gt;queryl comes with a very simple API. &lt;code&gt;queryl.match&lt;/code&gt; is the main entry at this point this will always return a boolean and expects an object to match. For example:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;queryl.match({
-  $contain: {
-    foo: &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;
-  }
-}, {
-  foo: [ &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;3&lt;/span&gt; ]
-});
-&amp;gt; &lt;span class=&quot;literal&quot;&gt;true&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;This is just a very basic example of what it can do. The full API docs shows the entire power of this “language”.&lt;/p&gt;
-&lt;p&gt;I can see this working very well for matching and parsing certain objects like the ones you would receive from, for instance, the Google spreadsheet API.&lt;/p&gt;
-</description>
-    </item>
-    <item>
-      <title>Levi</title>
-      <link>http://localhost:8080/articles/levi/</link>
-      <pubDate>Mon, 28 Sep 2015 02:00:00 +0200</pubDate>
-      <guid isPermaLink="true">http://localhost:8080/articles/levi/</guid>
-      <author></author>
-      <description>&lt;h3 id=&quot;levi&quot;&gt;Levi&lt;/h3&gt;
-&lt;p&gt;Levi (GitHub: &lt;a href=&quot;https://github.com/cshum/levi&quot;&gt;cshum/levi&lt;/a&gt;, License: MIT, npm: levi)&lt;/p&gt;
-&lt;p&gt;Levi is a streaming full-text search for Node.js and browsers which used LevelDB for storage.
-The search implementation is done by using &lt;a href=&quot;https://en.wikipedia.org/wiki/Tf%E2%80%93idf&quot;&gt;TF-IDF&lt;/a&gt; and &lt;a href=&quot;https://en.wikipedia.org/wiki/Cosine_similarity&quot;&gt;cosine similarity&lt;/a&gt;, and it’s provided with configurable text processing pipelines: Tokenizer, Porter Stemmer and Stopwords filter.&lt;/p&gt;
-&lt;p&gt;Levi is built on &lt;a href=&quot;https://github.com/Level/levelup&quot;&gt;LevelUP&lt;/a&gt; which is a fast, asynchronous, transactional storage interface. By default it uses LevelDB on Node.js, when in running in the browser it uses &lt;a href=&quot;https://github.com/maxogden/level.js&quot;&gt;IndexedDB&lt;/a&gt;. Levi supports with a variety of LevelDOWN compatible backends.&lt;/p&gt;
-&lt;p&gt;In addition, Levi provides relevancy scoring for live changing data using TF-ICF - a TF-IDF approximation based on existing corpus. Such scoring matches are comparably close to TF-IDF when existing corpus is sufficiently large, with significantly better performance O(N) instead of O(N^2).&lt;/p&gt;
-&lt;p&gt;Let’s take a look at the API. To get started, we need to create a new Levi instance. We do that like this:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;import&lt;/span&gt; levi &lt;span class=&quot;keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;'levi'&lt;/span&gt;;
-
-&lt;span class=&quot;keyword&quot;&gt;const&lt;/span&gt; lv = levi(&lt;span class=&quot;string&quot;&gt;'db'&lt;/span&gt;)
-.use(levi.tokenizer())
-.use(levi.stemmer())
-.use(levi.stopword());
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;The text processing pipeline &lt;code&gt;levi.tokenizer()&lt;/code&gt;, &lt;code&gt;levi.stemmer()&lt;/code&gt;, &lt;code&gt;levi.stopword()&lt;/code&gt; are required for indexing. These are exposed as &lt;a href=&quot;https://github.com/cshum/ginga&quot;&gt;ginga&lt;/a&gt; plugins so that they can be swapped for different language configurations.&lt;/p&gt;
-&lt;p&gt;Now that we have an instance we can use it to talk to the API like this:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;lv.put(&lt;span class=&quot;string&quot;&gt;'a'&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;'Lorem Ipsum is simply dummy text.'&lt;/span&gt;, err =&amp;gt; {
-    &lt;span class=&quot;comment&quot;&gt;// ...&lt;/span&gt;
- });
-
-&lt;span class=&quot;comment&quot;&gt;// object fields as value&lt;/span&gt;
-lv.put(&lt;span class=&quot;string&quot;&gt;'b'&lt;/span&gt;, {
-  id: &lt;span class=&quot;string&quot;&gt;'b'&lt;/span&gt;,
-  title: &lt;span class=&quot;string&quot;&gt;'Lorem Ipsum'&lt;/span&gt;,
-  body: &lt;span class=&quot;string&quot;&gt;'Dummy text of the printing and typesetting industry.'&lt;/span&gt;
-}, (err) =&amp;gt; {
-    &lt;span class=&quot;comment&quot;&gt;//...&lt;/span&gt;
-});
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Or retrieve it like:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;lv.get(&lt;span class=&quot;string&quot;&gt;'b'&lt;/span&gt;, res =&amp;gt; {
-    &lt;span class=&quot;comment&quot;&gt;// res here;&lt;/span&gt;
-});
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;To actually search we need to use Levi’s main interface which would be &lt;code&gt;searchStream&lt;/code&gt;. We use that like this.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;lv.searchStream(&lt;span class=&quot;string&quot;&gt;'lorem ipsum'&lt;/span&gt;).toArray(&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; (&lt;span class=&quot;params&quot;&gt;results&lt;/span&gt;) &lt;/span&gt;{ ... }) &lt;span class=&quot;comment&quot;&gt;// highland method&lt;/span&gt;
-
-lv.searchStream(&lt;span class=&quot;string&quot;&gt;'lorem ipsum'&lt;/span&gt;, {
-  fields: { title: &lt;span class=&quot;number&quot;&gt;10&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;'*'&lt;/span&gt;: &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt; } &lt;span class=&quot;comment&quot;&gt;// title field boost. '*' means any field&lt;/span&gt;
-}).pipe(...)
-
-lv.searchStream(&lt;span class=&quot;string&quot;&gt;'lorem ipusm'&lt;/span&gt;, {
-  fields: { title: &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt; }, &lt;span class=&quot;comment&quot;&gt;// title only&lt;/span&gt;
-}).pipe(...)
-
-&lt;span class=&quot;comment&quot;&gt;// ltgt&lt;/span&gt;
-lv.searchStream(&lt;span class=&quot;string&quot;&gt;'lorem ipusm'&lt;/span&gt;, {
-  gt: &lt;span class=&quot;string&quot;&gt;'!posts!'&lt;/span&gt;,
-  lt: &lt;span class=&quot;string&quot;&gt;'!posts!~'&lt;/span&gt;
-}).pipe(...)
-
-&lt;span class=&quot;comment&quot;&gt;// document as query&lt;/span&gt;
-lv.searchStream({
-  title: &lt;span class=&quot;string&quot;&gt;'Lorem Ipsum'&lt;/span&gt;,
-  body: &lt;span class=&quot;string&quot;&gt;'Dummy text of the printing and typesetting industry.'&lt;/span&gt;
-}).pipe(...)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Because I do not fully understand everything that is going on here, I need to refer you to the extensive documentation on the &lt;a href=&quot;https://github.com/cshum/levi&quot;&gt;GitHub page&lt;/a&gt;. The reason I still mention this library is that I understand from the explanation a colleague gave me that this library will have a significant impact on the speed of your text search.&lt;/p&gt;
-</description>
-    </item>
-    <item>
       <title>Clipboard.js</title>
-      <link>http://localhost:8080/articles/clipboardjs/</link>
+      <link>http://daily-javascript.com/articles/clipboardjs/</link>
       <pubDate>Mon, 28 Sep 2015 02:00:00 +0200</pubDate>
-      <guid isPermaLink="true">http://localhost:8080/articles/clipboardjs/</guid>
+      <guid isPermaLink="true">http://daily-javascript.com/articles/clipboardjs/</guid>
       <author></author>
       <description>&lt;p&gt;After writing this blog for a few days now I noticed that the bar of two libraries a day is hard to do when you have a day job next to it.
 Because I want to give each library a fair shot, I will be reducing it to one library a day on workdays so I can work on updates for the website as well.&lt;/p&gt;
-&lt;h3 id=&quot;clipboard-js&quot;&gt;Clipboard.js&lt;/h3&gt;
 &lt;p&gt;Clipboard.js (GitHub: &lt;a href=&quot;https://github.com/zenorocha/clipboard.js&quot;&gt;zenorocha/clipboard.js&lt;/a&gt;, License: MIT, npm: clipboard, bower: clipboard )&lt;/p&gt;
 &lt;p&gt;During my daily browse I came across Clipboard.js which is a library to put given content to the users clipboard from Javascript.
 Normally we are used to implementing this behavior using Flash or some bloated framework. Luckley now there is Clipboard.js which is an 2kb implementation of “Copy to clipboard”.&lt;/p&gt;
@@ -1392,13 +1255,121 @@ clipboard.on(&lt;span class=&quot;string&quot;&gt;'error'&lt;/span&gt;, &lt;span
 </description>
     </item>
     <item>
-      <title>XRegExp and Gun</title>
-      <link>http://localhost:8080/articles/xregexp-and-gun/</link>
-      <pubDate>Sun, 27 Sep 2015 02:00:00 +0200</pubDate>
-      <guid isPermaLink="true">http://localhost:8080/articles/xregexp-and-gun/</guid>
+      <title>Rune.js and queryl</title>
+      <link>http://daily-javascript.com/articles/runejs-and-queryl/</link>
+      <pubDate>Mon, 28 Sep 2015 02:00:00 +0200</pubDate>
+      <guid isPermaLink="true">http://daily-javascript.com/articles/runejs-and-queryl/</guid>
       <author></author>
-      <description>&lt;h3 id=&quot;xregexp&quot;&gt;XRegExp&lt;/h3&gt;
-&lt;p&gt;XRegExp (GitHub: &lt;a href=&quot;https://github.com/slevithan/xregexp&quot;&gt;slevithan/xregexp&lt;/a&gt;, License: MIT, npm: xregexp)&lt;/p&gt;
+      <description>&lt;p&gt;Rune.js (GitHub: &lt;a href=&quot;https://github.com/runemadsen/rune.js&quot;&gt;runemadsen/rune.js&lt;/a&gt;, License: MIT )&lt;/p&gt;
+&lt;p&gt;Rune.js is a library for programming graphic design systems with SVG. It has a fluent drawing API, an unobtrusive scene graph, and a bunch of features designed specifically for graphic designers, such as: native support for color conversion, grid systems, typography, pixel iteration and an expanding set of computational geometry helpers. What peaked my interest is that it uses a &lt;a href=&quot;https://github.com/Matt-Esch/virtual-dom&quot;&gt;virtual-dom&lt;/a&gt; under the hood.&lt;/p&gt;
+&lt;p&gt;If you’re not familiar with the virtual-dom I suggest you take a break to take a look at that first.&lt;/p&gt;
+&lt;p&gt;Unfortunately I could not find any npm or bower install instructions, so I am hoping that the developer will add that soon.&lt;/p&gt;
+&lt;p&gt;Rune.js has all basic shapes in the API.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;r.line(&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;);
+
+r.rect(&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;50&lt;/span&gt;);
+
+r.ellipse(&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;50&lt;/span&gt;);
+
+r.circle(&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;);
+
+r.triangle(&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;And for more complex shapes it fluent API makes drawing with SVG very readable and familiar.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;r.polygon(&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;).lineTo(&lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;).lineTo(&lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;).lineTo(&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;);
+
+r.path(&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;).lineTo(&lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;).curveTo(&lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Since this library is packed with features and concepts, I will only give you the tip of the iceberg right now. If you want to know more, consult the &lt;a href=&quot;http://runemadsen.github.io/rune.js/&quot;&gt;amazing documentation&lt;/a&gt;.&lt;/p&gt;
+&lt;h3 id=&quot;queryl&quot;&gt;queryl&lt;/h3&gt;
+&lt;p&gt;queryl (GitHub: &lt;a href=&quot;https://github.com/issuetrackapp/queryl&quot;&gt;issuetrackapp/queryl&lt;/a&gt;, License: MIT, npm: queryl)&lt;/p&gt;
+&lt;p&gt;queryl is a query language to preform complex object searches. The purpose of this “language” is to allow the developer to build very complex queries to e.g. search a collection of objects, to validate objects before you dump it in a db or even to make assertions in tests.&lt;/p&gt;
+&lt;p&gt;queryl comes with a very simple API. &lt;code&gt;queryl.match&lt;/code&gt; is the main entry at this point this will always return a boolean and expects an object to match. For example:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;queryl.match({
+  $contain: {
+    foo: &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;
+  }
+}, {
+  foo: [ &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;3&lt;/span&gt; ]
+});
+&amp;gt; &lt;span class=&quot;literal&quot;&gt;true&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This is just a very basic example of what it can do. The full API docs shows the entire power of this “language”.&lt;/p&gt;
+&lt;p&gt;I can see this working very well for matching and parsing certain objects like the ones you would receive from, for instance, the Google spreadsheet API.&lt;/p&gt;
+</description>
+    </item>
+    <item>
+      <title>Levi</title>
+      <link>http://daily-javascript.com/articles/levi/</link>
+      <pubDate>Mon, 28 Sep 2015 02:00:00 +0200</pubDate>
+      <guid isPermaLink="true">http://daily-javascript.com/articles/levi/</guid>
+      <author></author>
+      <description>&lt;p&gt;Levi (GitHub: &lt;a href=&quot;https://github.com/cshum/levi&quot;&gt;cshum/levi&lt;/a&gt;, License: MIT, npm: levi)&lt;/p&gt;
+&lt;p&gt;Levi is a streaming full-text search for Node.js and browsers which used LevelDB for storage.
+The search implementation is done by using &lt;a href=&quot;https://en.wikipedia.org/wiki/Tf%E2%80%93idf&quot;&gt;TF-IDF&lt;/a&gt; and &lt;a href=&quot;https://en.wikipedia.org/wiki/Cosine_similarity&quot;&gt;cosine similarity&lt;/a&gt;, and it’s provided with configurable text processing pipelines: Tokenizer, Porter Stemmer and Stopwords filter.&lt;/p&gt;
+&lt;p&gt;Levi is built on &lt;a href=&quot;https://github.com/Level/levelup&quot;&gt;LevelUP&lt;/a&gt; which is a fast, asynchronous, transactional storage interface. By default it uses LevelDB on Node.js, when in running in the browser it uses &lt;a href=&quot;https://github.com/maxogden/level.js&quot;&gt;IndexedDB&lt;/a&gt;. Levi supports with a variety of LevelDOWN compatible backends.&lt;/p&gt;
+&lt;p&gt;In addition, Levi provides relevancy scoring for live changing data using TF-ICF - a TF-IDF approximation based on existing corpus. Such scoring matches are comparably close to TF-IDF when existing corpus is sufficiently large, with significantly better performance O(N) instead of O(N^2).&lt;/p&gt;
+&lt;p&gt;Let’s take a look at the API. To get started, we need to create a new Levi instance. We do that like this:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;import&lt;/span&gt; levi &lt;span class=&quot;keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;'levi'&lt;/span&gt;;
+
+&lt;span class=&quot;keyword&quot;&gt;const&lt;/span&gt; lv = levi(&lt;span class=&quot;string&quot;&gt;'db'&lt;/span&gt;)
+.use(levi.tokenizer())
+.use(levi.stemmer())
+.use(levi.stopword());
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The text processing pipeline &lt;code&gt;levi.tokenizer()&lt;/code&gt;, &lt;code&gt;levi.stemmer()&lt;/code&gt;, &lt;code&gt;levi.stopword()&lt;/code&gt; are required for indexing. These are exposed as &lt;a href=&quot;https://github.com/cshum/ginga&quot;&gt;ginga&lt;/a&gt; plugins so that they can be swapped for different language configurations.&lt;/p&gt;
+&lt;p&gt;Now that we have an instance we can use it to talk to the API like this:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;lv.put(&lt;span class=&quot;string&quot;&gt;'a'&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;'Lorem Ipsum is simply dummy text.'&lt;/span&gt;, err =&amp;gt; {
+    &lt;span class=&quot;comment&quot;&gt;// ...&lt;/span&gt;
+ });
+
+&lt;span class=&quot;comment&quot;&gt;// object fields as value&lt;/span&gt;
+lv.put(&lt;span class=&quot;string&quot;&gt;'b'&lt;/span&gt;, {
+  id: &lt;span class=&quot;string&quot;&gt;'b'&lt;/span&gt;,
+  title: &lt;span class=&quot;string&quot;&gt;'Lorem Ipsum'&lt;/span&gt;,
+  body: &lt;span class=&quot;string&quot;&gt;'Dummy text of the printing and typesetting industry.'&lt;/span&gt;
+}, (err) =&amp;gt; {
+    &lt;span class=&quot;comment&quot;&gt;//...&lt;/span&gt;
+});
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Or retrieve it like:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;lv.get(&lt;span class=&quot;string&quot;&gt;'b'&lt;/span&gt;, res =&amp;gt; {
+    &lt;span class=&quot;comment&quot;&gt;// res here;&lt;/span&gt;
+});
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;To actually search we need to use Levi’s main interface which would be &lt;code&gt;searchStream&lt;/code&gt;. We use that like this.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;lv.searchStream(&lt;span class=&quot;string&quot;&gt;'lorem ipsum'&lt;/span&gt;).toArray(&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; (&lt;span class=&quot;params&quot;&gt;results&lt;/span&gt;) &lt;/span&gt;{ ... }) &lt;span class=&quot;comment&quot;&gt;// highland method&lt;/span&gt;
+
+lv.searchStream(&lt;span class=&quot;string&quot;&gt;'lorem ipsum'&lt;/span&gt;, {
+  fields: { title: &lt;span class=&quot;number&quot;&gt;10&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;'*'&lt;/span&gt;: &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt; } &lt;span class=&quot;comment&quot;&gt;// title field boost. '*' means any field&lt;/span&gt;
+}).pipe(...)
+
+lv.searchStream(&lt;span class=&quot;string&quot;&gt;'lorem ipusm'&lt;/span&gt;, {
+  fields: { title: &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt; }, &lt;span class=&quot;comment&quot;&gt;// title only&lt;/span&gt;
+}).pipe(...)
+
+&lt;span class=&quot;comment&quot;&gt;// ltgt&lt;/span&gt;
+lv.searchStream(&lt;span class=&quot;string&quot;&gt;'lorem ipusm'&lt;/span&gt;, {
+  gt: &lt;span class=&quot;string&quot;&gt;'!posts!'&lt;/span&gt;,
+  lt: &lt;span class=&quot;string&quot;&gt;'!posts!~'&lt;/span&gt;
+}).pipe(...)
+
+&lt;span class=&quot;comment&quot;&gt;// document as query&lt;/span&gt;
+lv.searchStream({
+  title: &lt;span class=&quot;string&quot;&gt;'Lorem Ipsum'&lt;/span&gt;,
+  body: &lt;span class=&quot;string&quot;&gt;'Dummy text of the printing and typesetting industry.'&lt;/span&gt;
+}).pipe(...)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Because I do not fully understand everything that is going on here, I need to refer you to the extensive documentation on the &lt;a href=&quot;https://github.com/cshum/levi&quot;&gt;GitHub page&lt;/a&gt;. The reason I still mention this library is that I understand from the explanation a colleague gave me that this library will have a significant impact on the speed of your text search.&lt;/p&gt;
+</description>
+    </item>
+    <item>
+      <title>XRegExp and Gun</title>
+      <link>http://daily-javascript.com/articles/xregexp-and-gun/</link>
+      <pubDate>Sun, 27 Sep 2015 02:00:00 +0200</pubDate>
+      <guid isPermaLink="true">http://daily-javascript.com/articles/xregexp-and-gun/</guid>
+      <author></author>
+      <description>&lt;p&gt;XRegExp (GitHub: &lt;a href=&quot;https://github.com/slevithan/xregexp&quot;&gt;slevithan/xregexp&lt;/a&gt;, License: MIT, npm: xregexp)&lt;/p&gt;
 &lt;p&gt; XRegExp is a regex utility belt that provides augmented and extensible JavaScript regular expressions.
  It comes with a new modern syntax and flags beyond what browsers support natively. Furthermore it comes with tools to make client-side grepping and string parsing easier. This will free you from worrying about cross-browser inconsistencies and problems like manually manipulating &lt;code&gt;lastIndex&lt;/code&gt; or slicing strings when tokenizing.&lt;/p&gt;
 &lt;p&gt; Because XRegExp compiles to native &lt;code&gt;RegExp&lt;/code&gt; objects it’s just as fast native regular expressions.
@@ -1476,12 +1447,11 @@ gun.get(&lt;span class=&quot;string&quot;&gt;'usernames/RamonGebben'&lt;/span&gt
     </item>
     <item>
       <title>Jets.js and repl'em</title>
-      <link>http://localhost:8080/articles/jetsjs-and-replem/</link>
+      <link>http://daily-javascript.com/articles/jetsjs-and-replem/</link>
       <pubDate>Sat, 26 Sep 2015 02:00:00 +0200</pubDate>
-      <guid isPermaLink="true">http://localhost:8080/articles/jetsjs-and-replem/</guid>
+      <guid isPermaLink="true">http://daily-javascript.com/articles/jetsjs-and-replem/</guid>
       <author></author>
-      <description>&lt;h3 id=&quot;jets-js&quot;&gt;Jets.js&lt;/h3&gt;
-&lt;p&gt;Jets.js (GitHub: &lt;a href=&quot;https://github.com/NeXTs/Jets.js&quot;&gt;NeXTs/Jets.js&lt;/a&gt;, License: MIT, npm: jets, bower: jets)&lt;/p&gt;
+      <description>&lt;p&gt;Jets.js (GitHub: &lt;a href=&quot;https://github.com/NeXTs/Jets.js&quot;&gt;NeXTs/Jets.js&lt;/a&gt;, License: MIT, npm: jets, bower: jets)&lt;/p&gt;
 &lt;p&gt;Jets.js is a search engine which utilizes CSS to present the results.
 The main idea is not to affect attributes of each tag in the list while filtering.
 Instead apply dynamic CSS rule in only &lt;code&gt;&amp;lt;style&amp;gt;&lt;/code&gt; tag and browser will decide which item of list to show or hide. Since it’s just CSS - Jets.js may be applied to any tag, whether it’s a table or UL, OL, DIV…&lt;/p&gt;
@@ -1510,12 +1480,11 @@ Installed into REPL context:
     </item>
     <item>
       <title>Plop and Selectize</title>
-      <link>http://localhost:8080/articles/plop-and-selectize/</link>
+      <link>http://daily-javascript.com/articles/plop-and-selectize/</link>
       <pubDate>Fri, 25 Sep 2015 02:00:00 +0200</pubDate>
-      <guid isPermaLink="true">http://localhost:8080/articles/plop-and-selectize/</guid>
+      <guid isPermaLink="true">http://daily-javascript.com/articles/plop-and-selectize/</guid>
       <author></author>
-      <description>&lt;h3 id=&quot;plop&quot;&gt;Plop&lt;/h3&gt;
-&lt;p&gt;Plop (GitHub: &lt;a href=&quot;https://github.com/amwmedia/plop&quot;&gt;amwmedia/plop&lt;/a&gt;, License: MIT, npm: plop)&lt;/p&gt;
+      <description>&lt;p&gt;Plop (GitHub: &lt;a href=&quot;https://github.com/amwmedia/plop&quot;&gt;amwmedia/plop&lt;/a&gt;, License: MIT, npm: plop)&lt;/p&gt;
 &lt;p&gt;Plop is a command line tool that helps you introduce uniformity to your team by generating new modules, files or even documentation pages.
 The problem it tries to solve is one that we all must have. You have a project which is nicely structured. Lets say this is our pages folder;&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;|-- Pages
@@ -1594,9 +1563,9 @@ const SimpleSelect = React.createFactory(ReactSelectize.SimpleSelect);
     </item>
     <item>
       <title>The start of something new.</title>
-      <link>http://localhost:8080/articles/the_start_of_something_new/</link>
+      <link>http://daily-javascript.com/articles/the_start_of_something_new/</link>
       <pubDate>Thu, 24 Sep 2015 02:00:00 +0200</pubDate>
-      <guid isPermaLink="true">http://localhost:8080/articles/the_start_of_something_new/</guid>
+      <guid isPermaLink="true">http://daily-javascript.com/articles/the_start_of_something_new/</guid>
       <author></author>
       <description>&lt;p&gt;Since this is the first “blog post” I have ever written it will be a bit rough.
 In it, I will be explaining the reason I started this blog and the goal of it.&lt;/p&gt;
