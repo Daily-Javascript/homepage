@@ -5,8 +5,6 @@ author: ramon
 template: article.jade
 ---
 
-### inHerito
-
 inHerito (GitHub: [Ositoozy/inherito](Ositoozy/inherito), License: BSD, bower: rot.js)
 
 inHerito is a compostable factory that allows you create objects you want ease and "correct" inheritance. It allows you to use properties and function methods from other objects without overusing and over inheriting. Every object that is created gets it's own logging information if option is set to true and allows you to keep a mindful eye on your objects. This is my take on solving the original OOP problem of over inheriting. Now you have "Objects Linked to Other Objects" and inherit only if you say so.

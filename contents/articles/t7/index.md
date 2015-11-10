@@ -5,8 +5,6 @@ author: ramon
 template: article.jade
 ---
 
-### t7
-
 t7 (GitHub: [trueadm/t7](https://github.com/trueadm/t7), License: ISC, npm: t7)
 
 <img src="http://t7js.com/img/screenshot.png" style="max-width: 400px;width: 100%;left: 0;">

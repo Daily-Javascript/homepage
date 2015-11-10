@@ -5,8 +5,6 @@ author: ramon
 template: article.jade
 ---
 
-### Vorpal.js
-
 Vorpal (GitHub: [dthree/vorpal](https://github.com/dthree/vorpal), License: MIT, npm: vorpal)
 
 Vorpal is a framework for building interactive CLI applications. Inspired and based on [commander.js](https://www.npmjs.com/package/commander) which is a port from the wonderful work done on this [Ruby Gem](https://github.com/commander-rb/commander).

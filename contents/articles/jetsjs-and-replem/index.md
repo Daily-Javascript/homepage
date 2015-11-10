@@ -5,8 +5,6 @@ author: ramon
 template: article.jade
 ---
 
-### Jets.js
-
 Jets.js (GitHub: [NeXTs/Jets.js](https://github.com/NeXTs/Jets.js), License: MIT, npm: jets, bower: jets)
 
 Jets.js is a search engine which utilizes CSS to present the results.

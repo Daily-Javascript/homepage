@@ -5,8 +5,6 @@ author: ramon
 template: article.jade
 ---
 
-### XRegExp
-
 XRegExp (GitHub: [slevithan/xregexp](https://github.com/slevithan/xregexp), License: MIT, npm: xregexp)
 
  XRegExp is a regex utility belt that provides augmented and extensible JavaScript regular expressions.

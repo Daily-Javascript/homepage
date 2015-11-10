@@ -5,8 +5,6 @@ author: ramon
 template: article.jade
 ---
 
-### Gulp load subtasks
-
 gulp-load-subtasks (GitHub: [skorlir/gulp-load-subtasks](https://github.com/skorlir/gulp-load-subtasks), License: ISC, npm: gulp-load-subtasks)
 
 gulp-load-subtasks is a gulp "extention" which was long overdue in my opinion. The problem that it solves is that it is reducing the amount of clutter the forms inside a Gulpfile when working on big projects.

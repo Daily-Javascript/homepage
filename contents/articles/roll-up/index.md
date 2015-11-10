@@ -5,8 +5,6 @@ author: ramon
 template: article.jade
 ---
 
-### Rollup.js
-
 Rollup.js (GitHub: [rollup/rollup](https://github.com/rollup/rollup), License: MIT, npm: rollup)
 
 Rollup is a next-generation Javascript module bundler. Build your app or library using ES2015 modules, then efficiently bundle them up into a single file for use in browsers and Node.js.

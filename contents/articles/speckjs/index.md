@@ -5,8 +5,6 @@ author: ramon
 template: article.jade
 ---
 
-### SpeckJS
-
 SpeckJS (GitHub: [speckjs/speckjs](https://github.com/speckjs/speckjs), License: MIT, npm: speckjs)
 
 SpeckJS is a library that parses JavaScript comments and outputs unit-tests. SpeckJS currently supports [Tape](https://github.com/substack/tape), [Jasmine](https://github.com/jasmine/jasmine), and [Mocha](https://github.com/mochajs/mocha)/[Chai](https://github.com/chaijs/chai).

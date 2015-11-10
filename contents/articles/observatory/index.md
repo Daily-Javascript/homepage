@@ -5,8 +5,6 @@ author: ramon
 template: article.jade
 ---
 
-### Observatory
-
 Observatory (GitHub: [mikesizz/observatory](https://github.com/mikesizz/observatory), License: MIT, npm: observatoryjs)
 
 When you are following the spec proposals or read any other blog you have probably heard about [Object.observe](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/observe), which is used for asynchronously observing the changes to an object.

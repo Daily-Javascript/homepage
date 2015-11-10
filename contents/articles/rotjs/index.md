@@ -5,8 +5,6 @@ author: ramon
 template: article.jade
 ---
 
-### Rot.js
-
 Rot.js (GitHub: [ondras/rot.js](https://github.com/ondras/rot.js), License: BSD, bower: rot.js)
 
 Rot.js is a [Roguelike](https://en.wikipedia.org/wiki/Roguelike) Toolkit in JavaScript.

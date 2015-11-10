@@ -5,7 +5,6 @@ author: ramon
 template: article.jade
 ---
 
-### ES6 Quiz
 Today I will not be checking any new library. It is time to invest in some more in depth knowledge of how ES6/ES2015/ESnext works. This week I was checking my reddit feed looking for something awesome to show you all, when I stumbled across [this quiz](http://perfectionkills.com/javascript-quiz-es6/?utm_source=javascriptweekly&utm_medium=email) from Perfect Skills.
 
 I shared this quiz at my job and noticed that a lot of people were "familiar" with ES6. However nobody got a perfect score, Ok, the quiz is actually really hard, but still as frontend/javascript developer we should know the language we are working with or going to work with in the very near future. That is the reason why I would recommend everybody taking this quiz, because it will enlighten you on how much you do not know or fully understand about the new standard in Javascript.

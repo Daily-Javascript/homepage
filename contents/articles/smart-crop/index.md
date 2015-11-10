@@ -5,8 +5,6 @@ author: ramon
 template: article.jade
 ---
 
-### Smartcrop.js
-
 Smartcrop (GitHub: [jwagner/smartcrop.js](https://github.com/jwagner/smartcrop.js), License: MIT, npm: smartcrop, bower: smartcrop)
 
 Smartcrop.js is not just another image cropping library. It detects the primary region of an image such as faces.

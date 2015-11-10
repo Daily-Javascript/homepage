@@ -5,8 +5,6 @@ author: ramon
 template: article.jade
 ---
 
-### Stream.js
-
 Stream.js (GitHub: [winterbe/streamjs](https://github.com/winterbe/streamjs), License: MIT, npm: streamjs, bower: streamjs)
 
 Stream.js is a lightweight functional library for operating on in memory collections. It requires ES 5+, but has built-in support for ES6 features it works in all current browsers, Node.js and Java 8 [Nashorn](http://openjdk.java.net/projects/nashorn/).

@@ -8,8 +8,6 @@ template: article.jade
 After writing this blog for a few days now I noticed that the bar of two libraries a day is hard to do when you have a day job next to it.
 Because I want to give each library a fair shot, I will be reducing it to one library a day on workdays so I can work on updates for the website as well.
 
-### Clipboard.js
-
 Clipboard.js (GitHub: [zenorocha/clipboard.js](https://github.com/zenorocha/clipboard.js), License: MIT, npm: clipboard, bower: clipboard )
 
 During my daily browse I came across Clipboard.js which is a library to put given content to the users clipboard from Javascript.

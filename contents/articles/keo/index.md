@@ -5,8 +5,6 @@ author: ramon
 template: article.jade
 ---
 
-### Keo
-
 Keo (GitHub: [Wildhoney/Keo](https://github.com/Wildhoney/Keo), License: MIT, npm: keo)
 
 ![https://github.com/Wildhoney/Keo/raw/master/media/screenshot.png](https://github.com/Wildhoney/Keo/raw/master/media/screenshot.png)

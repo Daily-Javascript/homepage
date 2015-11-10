@@ -5,8 +5,6 @@ author: ramon
 template: article.jade
 ---
 
-### Plop
-
 Plop (GitHub: [amwmedia/plop](https://github.com/amwmedia/plop), License: MIT, npm: plop)
 
 Plop is a command line tool that helps you introduce uniformity to your team by generating new modules, files or even documentation pages.

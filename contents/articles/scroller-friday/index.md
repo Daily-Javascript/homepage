@@ -5,8 +5,6 @@ author: ramon
 template: article.jade
 ---
 
-### Fartscroll.js
-
 fartscroll.js (GitHub: [theonion/fartscroll.js](https://github.com/theonion/fartscroll.js), License: MIT)
 
 Since it is Friday today my colleages and me are in a humorous mood. So when I started looking what to write about today I got some real fun suggestions.

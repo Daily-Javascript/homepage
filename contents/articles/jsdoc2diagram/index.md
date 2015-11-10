@@ -5,8 +5,6 @@ author: ramon
 template: article.jade
 ---
 
-### jsdoc2diagram
-
 jsdoc2diagram (GitHub: [amcmillan01/jsdoc2diagram](https://github.com/amcmillan01/jsdoc2diagram), License: MIT, npm: jsdoc2diagram)
 
 If your day job looks anything like mine, the problem of sharing knowledge will be a well known issue for you.

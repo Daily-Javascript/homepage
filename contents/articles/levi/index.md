@@ -5,8 +5,6 @@ author: ramon
 template: article.jade
 ---
 
-### Levi
-
 Levi (GitHub: [cshum/levi](https://github.com/cshum/levi), License: MIT, npm: levi)
 
 Levi is a streaming full-text search for Node.js and browsers which used LevelDB for storage.

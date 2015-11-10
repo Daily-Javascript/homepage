@@ -5,8 +5,6 @@ author: ramon
 template: article.jade
 ---
 
-### Rune.js
-
 Rune.js (GitHub: [runemadsen/rune.js](https://github.com/runemadsen/rune.js), License: MIT )
 
 Rune.js is a library for programming graphic design systems with SVG. It has a fluent drawing API, an unobtrusive scene graph, and a bunch of features designed specifically for graphic designers, such as: native support for color conversion, grid systems, typography, pixel iteration and an expanding set of computational geometry helpers. What peaked my interest is that it uses a [virtual-dom](https://github.com/Matt-Esch/virtual-dom) under the hood.

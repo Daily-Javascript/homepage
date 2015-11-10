@@ -5,8 +5,6 @@ author: ramon
 template: article.jade
 ---
 
-### Velocity React
-
 velocity-react (GitHub: [twitter-fabric/velocity-react](https://github.com/twitter-fabric/velocity-react), License: MIT, npm: velocity-react)
 
 Today I had some trouble finding something to write about. Then I remembered the awesome work done by the guys at Twitter Fabric. They made a React component for interacting with amazing [Velocity](http://julian.com/research/velocity/) animation library.

@@ -5,8 +5,6 @@ author: ramon
 template: article.jade
 ---
 
-### Tonic
-
 During my browse session at work this morning I came across [this post](https://tonicdev.com/docs/embed).
 If I understand correctly the easiest way to describe Tonic is as a plugin that let's you run Node.js in a browser.
 

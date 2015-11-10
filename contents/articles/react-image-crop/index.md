@@ -5,8 +5,6 @@ author: ramon
 template: article.jade
 ---
 
-### React Image Crop
-
 react-image-crop (GitHub: [DominicTobias/react-image-crop](https://github.com/DominicTobias/react-image-crop), License: ISC, npm: react-image-crop)
 
 <img src="https://raw.githubusercontent.com/DominicTobias/react-image-crop/master/crop-demo.gif" style="max-width: 400px;width: 100%;left: 0;">

@@ -5,8 +5,6 @@ author: ramon
 template: article.jade
 ---
 
-### Vstack Validator
-
 Vstack-validator (GitHub: [vslinko/vstack-validator](https://github.com/vslinko/vstack-validator), License: MIT, npm: vstack-validator)
 
 When you are working with very complex and deeply nested data structures, validation can become a real pain.

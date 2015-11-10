@@ -5,8 +5,6 @@ author: ramon
 template: article.jade
 ---
 
-### Read file relative
-
 read-file-relative (GitHub: [inikulin/read-file-relative](https://github.com/inikulin/read-file-relative), License: Unknown, npm: read-file-relative)
 
 A problem everybody probably encounters once in a while is relativity of file paths while reading files with Node.js.

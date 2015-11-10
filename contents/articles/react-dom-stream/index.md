@@ -5,8 +5,6 @@ author: ramon
 template: article.jade
 ---
 
-### React DOM Stream
-
 React DOM Stream (GitHub: [aickin/react-dom-stream](https://github.com/aickin/react-dom-stream), License: MIT, npm: react-dom-stream)
 
 react-dom-stream is a React renderer for generating markup on a NodeJS server. Unlike the built-in ReactDOM.renderToString, this module renders to a stream.

@@ -14,7 +14,7 @@ rss(version='2.0',
     generator Wintersmith - https://github.com/jnordberg/wintersmith
     language en
     each article in articles
-      - var permalink = locals.url + article.url;
+      - var permalink = 'http://daily-javascript.com' + article.url;
       item
         title= article.title
         link= permalink

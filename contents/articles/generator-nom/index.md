@@ -5,8 +5,6 @@ author: ramon
 template: article.jade
 ---
 
-### Generator Nom
-
 generator-nom (GitHub: [ironSource/node-generator-nom](https://github.com/inikulin/read-file-relative), License: MIT, npm: generator-nom)
 
 We all strive to write DRY code, but still while setting up projects and maintaining depenencies we are constantly repeating ourselves.

@@ -5,8 +5,6 @@ author: ramon
 template: article.jade
 ---
 
-### Redux generator
-
 generator-redux (GitHub: [banderson/generator-redux](https://github.com/banderson/generator-redux), License: MIT, npm: generator-redux)
 
 Today I like to mention a Yeoman generator which I've being using a lot lately: generator-redux.

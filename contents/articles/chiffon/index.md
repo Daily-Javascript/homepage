@@ -5,8 +5,6 @@ author: ramon
 template: article.jade
 ---
 
-### Chiffon
-
 Chiffon (GitHub: [polygonplanet/Chiffon](https://github.com/trueadm/Chiffon), License: MIT, npm: chiffon, bower: chiffon)
 
 Chiffon is a very small ECMAScript parser, tokenizer and minifier.

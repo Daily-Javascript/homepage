@@ -5,8 +5,6 @@ author: ramon
 template: article.jade
 ---
 
-### λJSON
-
 λJSON (GitHub: [MaiaVictor/LJSON](https://github.com/MaiaVictor/LJSON), License: MIT, npm: ljson)
 
 λJSON is a drop-in replacement for JSON which also allows you to parse and stringify pure functions and their contents. There are good security reasons for functions to be out of the JSON specs, but most of those are only significant when you allow arbitrary, side-effective programs.
