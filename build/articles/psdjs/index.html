@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="For you daily dose of Javascript libraries">
+    <meta name="keywords" content="Javascript, React, ES2015, Daily, Updates">
+    <meta name="theme-color" content="#39424D">
+    <title>PSD.js - Daily Javascript
+    </title>
+    <link rel="alternate" href="http://localhost:8080/feed.xml" type="application/rss+xml" title="For your daily dose of Javascript libraries.">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic|Anonymous+Pro:400,700,400italic,700italic|Merriweather:400,700,300">
+    <link rel="stylesheet" href="/css/main.css">
+  </head>
+  <body class="article-detail">
+    <div class="social"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A//Daily-Javascript.com" target="_blank" class="social-btn facebook"></a><a href="https://twitter.com/home?status=Follow%20%40DailyJavascript%20for%20update%20of%20new%20Javascript%20libraries%20and%20challanges%0A%23Javascript" target="_blank" class="social-btn twitter"></a><a href="https://www.reddit.com/submit?url=http%3A//Daily-Javascript.com" target="_blank" class="social-btn reddit"></a><a href="https://plus.google.com/share?url=http%3A//Daily-Javascript.com" target="_blank" class="social-btn google"></a></div>
+    <header class="header">
+      <div class="content-wrap">
+        <h1>PSD.js</h1>
+        <p class="author">Written by <span class="author"><a href="mailto:ramon@ra-ge.net">Ramon Gebben</a></span>
+        </p>
+      </div>
+    </header>
+    <div id="content">
+      <div class="content-wrap">
+        <article class="article">
+          <section class="content"><p><span class="caps">PSD</span>.js (GitHub: <a href="https://github.com/meltingice/psd.js">meltingice/psd.js</a>, License: <span class="caps">MIT</span>, npm:&nbsp;psd)</p>
+<p><span class="caps">PSD</span>.js is a general purpose PSD parser written in Coffeescript. I was inspired by PSD.rb which allows you to work with a Photoshop document in a manageable tree structure and find out data such&nbsp;as:</p>
+<ul>
+<li>Document&nbsp;structure</li>
+<li>Document&nbsp;size</li>
+<li>Layer/folder size +&nbsp;positioning</li>
+<li>Layer/folder&nbsp;names</li>
+<li>Layer/folder visibility and&nbsp;opacity</li>
+<li>Font data (via psd-enginedata)<ul>
+<li>Text area&nbsp;contents</li>
+<li>Font names, sizes, and&nbsp;colors</li>
+</ul>
+</li>
+<li>Color mode and&nbsp;bit-depth</li>
+<li>Vector mask&nbsp;data</li>
+<li>Flattened image&nbsp;data</li>
+<li>Layer&nbsp;comps</li>
+</ul>
+<p>Although there are still some pieces missing that are present in <span class="caps">PSD</span>.rb, the eventual goal is to have all the features PSD.rb offers.
+So let’s look at an example for converting <code>.psd</code> as a <code>.png</code>.</p>
+<pre><code class="lang-javascript"><span class="keyword">import</span> <span class="caps">PSD</span> <span class="keyword">from</span> <span class="string">'psd'</span>;
+
+<span class="keyword">const</span> psd = <span class="caps">PSD</span>.fromFile(<span class="string">'my/awesome/file.psd'</span>);
+
+psd.parse();
+
+<span class="comment">// Log the tree structure of the .psd</span>
+<span class="built_in">console</span>.log(psd.tree().export());
+
+<span class="comment">// You can use promises syntax for opening and parsing</span>
+<span class="caps">PSD</span>.open(<span class="string">'my/awesome/file'</span>)
+    .then(psd =&gt; psd.image.saveAsPng(<span class="string">'./output.png'</span>))
+    .then(() =&gt; <span class="built_in">console</span>.log(<span class="string">'Finished!'</span>));
+</code></pre>
+<p>There is a very extensive <span class="caps">API</span> for traversing the document. If you would know the path to a group or layer within the tree, there is a way you can search by that path.
+That would look something like&nbsp;this:</p>
+<pre><code class="lang-javascript">psd.tree().childrenAtPath(<span class="string">'Version A/Matte'</span>);
+psd.tree().childrenAtPath([<span class="string">'Version A'</span>, <span class="string">'Matte'</span>]);
+</code></pre>
+<p>Once you have the layer you are interested in you can access the data like&nbsp;so:</p>
+<pre><code class="lang-javascript"><span class="comment">// Get the first layer</span>
+<span class="keyword">const</span> node = psd.tree().descendants()[<span class="number">0</span>];
+
+<span class="comment">// Read the name</span>
+node.get(<span class="string">'name'</span>);
+<span class="comment">// Read the width</span>
+node.get(<span class="string">'width'</span>);
+</code></pre>
+<p>Here is an example of the output <code>tree().export()</code> would give&nbsp;you:</p>
+<pre><code class="lang-javascript">{
+    children: [
+        {
+            type: <span class="string">'group'</span>,
+            visible: <span class="literal">false</span>,
+            opacity: <span class="number">1</span>,
+            blendingMode: <span class="string">'normal'</span>,
+            name: <span class="string">'VersionD'</span>,
+            left: <span class="number">0</span>,
+            right: <span class="number">900</span>,
+            top: <span class="number">0</span>,
+            bottom: <span class="number">600</span>,
+            height: <span class="number">600</span>,
+            width: <span class="number">900</span>,
+            children: [
+                {
+                    type: <span class="string">'layer'</span>,
+                    visible: <span class="literal">true</span>,
+                    opacity: <span class="number">1</span>,
+                    blendingMode: <span class="string">'normal'</span>,
+                    name: <span class="string">'Makeachangeandsave.'</span>,
+                    left: <span class="number">275</span>,
+                    right: <span class="number">636</span>,
+                    top: <span class="number">435</span>,
+                    bottom: <span class="number">466</span>,
+                    height: <span class="number">31</span>,
+                    width: <span class="number">361</span>,
+                    mask: {
+
+                    },
+                    text: {
+                        value: <span class="string">'Makeachangeandsave.'</span>,
+                        font: {
+                            name: <span class="string">'HelveticaNeue-Light'</span>,
+                            sizes: [
+                                <span class="number">33</span>
+                            ],
+                            colors: [
+                                [
+                                    <span class="number">85</span>,
+                                    <span class="number">96</span>,
+                                    <span class="number">110</span>,
+                                    <span class="number">255</span>
+                                ]
+                            ],
+                            alignment: [
+                                <span class="string">'center'</span>
+                            ]
+                        },
+                        left: <span class="number">0</span>,
+                        top: <span class="number">0</span>,
+                        right: <span class="number">0</span>,
+                        bottom: <span class="number">0</span>,
+                        transform: {
+                            xx: <span class="number">1</span>,
+                            xy: <span class="number">0</span>,
+                            yx: <span class="number">0</span>,
+                            yy: <span class="number">1</span>,
+                            tx: <span class="number">456</span>,
+                            ty: <span class="number">459</span>
+                        }
+                    },
+                    image: {
+
+                    }
+                }
+            ]
+        }
+    ],
+    <span class="built_in">document</span>: {
+        width: <span class="number">900</span>,
+        height: <span class="number">600</span>,
+        resources: {
+            layerComps: [
+                {
+                    id: <span class="number">692243163</span>,
+                    name: <span class="string">'VersionA'</span>,
+                    capturedInfo: <span class="number">1</span>
+                },
+                {
+                    id: <span class="number">725235304</span>,
+                    name: <span class="string">'VersionB'</span>,
+                    capturedInfo: <span class="number">1</span>
+                },
+                {
+                    id: <span class="number">730932877</span>,
+                    name: <span class="string">'VersionC'</span>,
+                    capturedInfo: <span class="number">1</span>
+                }
+            ],
+            guides: [
+
+            ],
+            slices: [
+
+            ]
+        }
+    }
+}
+</code></pre>
+</section>
+          <div id="disqus_thread"></div>
+          <script>
+            (function() { var d = document, s = d.createElement('script'); s.src = '//daily-javascript.disqus.com/embed.js'; s.setAttribute('data-timestamp', +new Date()); (d.head || d.body).appendChild(s); })();
+            
+          </script>
+        </article>
+      </div>
+    </div>
+    <footer>
+      <script type="text/javascript">(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-68072930-1', 'auto');ga('send', 'pageview');</script>
+      <div class="content-wrap">
+        <div class="nav"><a href="/">« Full blog</a></div>
+        <section class="about">
+        </section>
+        <section class="copy">
+          <p>&copy; 2015 Ramon Gebben &mdash; powered by&nbsp;<a href="https://github.com/jnordberg/wintersmith">Wintersmith</a>
+          </p>
+        </section>
+      </div>
+    </footer>
+  </body>
+</html>

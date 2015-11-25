@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="For you daily dose of Javascript libraries">
+    <meta name="keywords" content="Javascript, React, ES2015, Daily, Updates">
+    <meta name="theme-color" content="#39424D">
+    <title>Babel Typecheck - Daily Javascript
+    </title>
+    <link rel="alternate" href="http://localhost:8080/feed.xml" type="application/rss+xml" title="For your daily dose of Javascript libraries.">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic|Anonymous+Pro:400,700,400italic,700italic|Merriweather:400,700,300">
+    <link rel="stylesheet" href="/css/main.css">
+  </head>
+  <body class="article-detail">
+    <div class="social"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A//Daily-Javascript.com" target="_blank" class="social-btn facebook"></a><a href="https://twitter.com/home?status=Follow%20%40DailyJavascript%20for%20update%20of%20new%20Javascript%20libraries%20and%20challanges%0A%23Javascript" target="_blank" class="social-btn twitter"></a><a href="https://www.reddit.com/submit?url=http%3A//Daily-Javascript.com" target="_blank" class="social-btn reddit"></a><a href="https://plus.google.com/share?url=http%3A//Daily-Javascript.com" target="_blank" class="social-btn google"></a></div>
+    <header class="header">
+      <div class="content-wrap">
+        <h1>Babel Typecheck</h1>
+        <p class="author">Written by <span class="author"><a href="mailto:ramon@ra-ge.net">Ramon Gebben</a></span>
+        </p>
+      </div>
+    </header>
+    <div id="content">
+      <div class="content-wrap">
+        <article class="article">
+          <section class="content"><p>Babel Typecheck (GitHub: <a href="https://github.com/codemix/babel-plugin-typecheck">codemix/babel-plugin-typecheck</a>, License: <span class="caps">MIT</span>, npm:&nbsp;babel-plugin-typecheck)</p>
+<p>Babel Typecheck is a <a href="https://babeljs.io/">Babel</a> plugin for static and runtime type checking. It does so using <a href="http://flowtype.org/">Flow type</a>.
+What it does is turn a code block like&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="function"><span class="keyword">function</span> <span class="title">sendMessage</span> (<span class="params">to: User, message: string</span>): <span class="title">boolean</span> </span>{
+  <span class="keyword">return</span> socket.send(to, message);
+}
+</code></pre>
+<p>Into&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="function"><span class="keyword">function</span> <span class="title">sendMessage</span>(<span class="params">to, message</span>) </span>{
+  <span class="keyword">var</span> _socket$send;
+
+  <span class="keyword">if</span> (!(to <span class="keyword">instanceof</span> User)) <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">TypeError</span>(<span class="string">"Value of argument 'to' violates contract."</span>);
+  <span class="keyword">if</span> (<span class="keyword">typeof</span> message !== <span class="string">"string"</span>) <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">TypeError</span>(<span class="string">"Value of argument 'message' violates contract."</span>);
+  _socket$send = socket.send(to, message);
+  <span class="keyword">if</span> (<span class="keyword">typeof</span> _socket$send !== <span class="string">"boolean"</span>) <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">TypeError</span>(<span class="string">"Function 'sendMessage' return value violates contract."</span>);
+  <span class="keyword">return</span> _socket$send;
+}
+</code></pre>
+<p>What this does is it executes the same as when you would write your function like&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="function"><span class="keyword">function</span> <span class="title">sendMessage</span> (<span class="params">to, message</span>) </span>{
+  <span class="keyword">return</span> socket.send(to, message);
+}
+</code></pre>
+<p>But with one big difference, when you call this function with the wrong arguments your application just breaks.
+When using Babel Typecheck it would present you with a type error on transpiling so you will not make silly mistakes again. Well not the type error kind at&nbsp;least.</p>
+<p>In the example above we see a few new things, mostly attached to the function&nbsp;call:</p>
+<pre><code class="lang-javascript">    (to: User, message: string): boolean
+</code></pre>
+<p>Which means that the <code>to</code> parameter expects to be an instance of User.
+The <code>message</code> parameter expects to be a String.
+The <code>:</code> at the and of the function call is to indicate what the function will return which is a Boolean in this&nbsp;example.</p>
+<p>This function demonstrates which kinds of annotations are&nbsp;supported:</p>
+<pre><code class="lang-javascript"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">
+    aNum: number,
+    anOptionalString: ?string, <span class="comment">// will allow null/undefined</span>
+    anObject: Object,
+    aDate: Date,
+    anError: Error,
+    aUnionType: Object|string,
+    aClass: User,
+    aShape: {foo: number, bar: ?string},
+    anArray: Array,
+    arrayOf: string[] | Array&lt;string&gt;,
+    {x, y}: {x: string, y: number}, <span class="comment">// destructuring works</span>
+    es6Defaults: number = 42
+</span>) : <span class="title">number</span> </span>{
+  <span class="keyword">return</span> aNum;
+}
+</code></pre>
+<p>When I saw the syntax of this plugin the first thing that jumped into my mind was why not just use Typescript then.
+Since Typescript had it’s own upstream this might not be inline with the ESnext(<span class="caps">ES6</span>/ES7) feature we have grown to love.
+By including this plugin in your <code>.babelrc</code> to can have the power and security of strongly typed Javascript and all the new features provided by&nbsp;Babel.</p>
+</section>
+          <div id="disqus_thread"></div>
+          <script>
+            (function() { var d = document, s = d.createElement('script'); s.src = '//daily-javascript.disqus.com/embed.js'; s.setAttribute('data-timestamp', +new Date()); (d.head || d.body).appendChild(s); })();
+            
+          </script>
+        </article>
+      </div>
+    </div>
+    <footer>
+      <script type="text/javascript">(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-68072930-1', 'auto');ga('send', 'pageview');</script>
+      <div class="content-wrap">
+        <div class="nav"><a href="/">« Full blog</a></div>
+        <section class="about">
+        </section>
+        <section class="copy">
+          <p>&copy; 2015 Ramon Gebben &mdash; powered by&nbsp;<a href="https://github.com/jnordberg/wintersmith">Wintersmith</a>
+          </p>
+        </section>
+      </div>
+    </footer>
+  </body>
+</html>

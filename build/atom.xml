@@ -5,9 +5,622 @@
     <atom:link href="http://localhost:8080/feed.xml" rel="self" type="application/rss+xml"></atom:link>
     <link>http://localhost:8080</link>
     <description>For your daily dose of Javascript libraries.</description>
-    <pubDate>Mon, 09 Nov 2015 01:00:00 +0100</pubDate>
+    <pubDate>Wed, 25 Nov 2015 01:00:00 +0100</pubDate>
     <generator>Wintersmith - https://github.com/jnordberg/wintersmith</generator>
     <language>en</language>
+    <item>
+      <title>Vue.js</title>
+      <link>http://daily-javascript.com/articles/vuejs/</link>
+      <pubDate>Wed, 25 Nov 2015 01:00:00 +0100</pubDate>
+      <guid isPermaLink="true">http://daily-javascript.com/articles/vuejs/</guid>
+      <author></author>
+      <description>&lt;p&gt;Vue.js (GitHub: &lt;a href=&quot;https://github.com/vuejs/vue&quot;&gt;vuejs/vue&lt;/a&gt;, License: MIT, npm: vue&lt;/p&gt;
+&lt;p&gt;Vue.js is a library for building web interfaces. Because it works together with some other tools, you can also call it a “framework”. Now, if you’ve never heard of or used Vue before, you are probably thinking: great, yet another JavaScript framework! I get it. That was my first thought as well, that is why I never looked at it with a serious eye. Vue isn’t particularly new, it has being in the making for almost two years now, and the first public release was in February 2014. Over time it has evolving into a great engine to build beautiful production ready app with.&lt;/p&gt;
+&lt;p&gt;What makes it so awesome? Well, it supports all the features we are used to from libraries such as React, Ember and Angular but it’s size and api are a lot simpler.
+A thing I love in libraries, simplicity.&lt;/p&gt;
+&lt;p&gt;So let’s take a look at a few small examples and let’s start with data binding.&lt;/p&gt;
+&lt;p&gt;This is how we define the &lt;code&gt;template&lt;/code&gt; which we are gonna use:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-html&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;div&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;id&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;binding&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;p&lt;/span&gt;&amp;gt;&lt;/span&gt;{{message}}&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;title&quot;&gt;p&lt;/span&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;input&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;v-model&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;message&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;title&quot;&gt;div&lt;/span&gt;&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;And here we give it some data:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;
+&lt;span class=&quot;keyword&quot;&gt;let&lt;/span&gt; binding = &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; Vue({
+  el: &lt;span class=&quot;string&quot;&gt;'#binding'&lt;/span&gt;,
+  data: {
+    message: &lt;span class=&quot;string&quot;&gt;'Daily Javascript'&lt;/span&gt;
+  }
+});
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This would give is a &lt;code&gt;div&lt;/code&gt; with an &lt;code&gt;input&lt;/code&gt; field and a preview of the value it holds. When you start typing, Vue will take over from there.
+That’s cool right? Ok I get it data binding does not impress you anymore. Do you like working with components?
+Vue takes an approach that is very similar to React: it’s components all the way down.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;const&lt;/span&gt; Example = Vue.extend({
+    template: &lt;span class=&quot;string&quot;&gt;'&amp;lt;div&amp;gt;{{ message }}&amp;lt;/div&amp;gt;'&lt;/span&gt;,
+    data () {
+        &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; {
+            message: &lt;span class=&quot;string&quot;&gt;'Daily Javascript!'&lt;/span&gt;
+        }
+    }
+});
+
+&lt;span class=&quot;comment&quot;&gt;// register it with the tag &amp;lt;example&amp;gt;&lt;/span&gt;
+Vue.component(&lt;span class=&quot;string&quot;&gt;'example'&lt;/span&gt;, Example);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now we can use it like this:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-html&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;example&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;title&quot;&gt;example&lt;/span&gt;&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Because modularity is key nowadays it comes with the opportunity to &lt;code&gt;scope&lt;/code&gt; styles to a component.
+That would look something like this:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-html&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;style&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;scoped&lt;/span&gt; &amp;gt;&lt;/span&gt;&lt;span class=&quot;css&quot;&gt;
+&lt;span class=&quot;class&quot;&gt;.message&lt;/span&gt; &lt;span class=&quot;rules&quot;&gt;{
+  &lt;span class=&quot;rule&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;color&lt;/span&gt;:&lt;span class=&quot;value&quot;&gt; red&lt;/span&gt;&lt;/span&gt;;
+}&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;title&quot;&gt;style&lt;/span&gt;&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Here is a full example component of how it would look when you would have it setup with a combination of &lt;a href=&quot;https://github.com/webpack/webpack&quot;&gt;Webpack&lt;/a&gt; and &lt;a href=&quot;https://github.com/vuejs/vue-loader&quot;&gt;vue-loader&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://blog.evanyou.me/images/vue-hot.gif&quot; alt=&quot;demo&quot;&gt;&lt;/p&gt;
+&lt;p&gt;It comes with a lot of more features that I will not go into such as routing and a build-in transition system.&lt;/p&gt;
+&lt;p&gt;There is a demo for the transition system which demonstrates state-based tweening with Vue:&lt;/p&gt;
+&lt;p&gt;&lt;p data-height=&quot;268&quot; data-theme-id=&quot;0&quot; data-slug-hash=&quot;XmZNOG&quot; data-default-tab=&quot;result&quot; data-user=&quot;yyx990803&quot; class='codepen'&gt;See the Pen &lt;a href='http://codepen.io/yyx990803/pen/XmZNOG/'&gt;Vue.js elastic header component&lt;/a&gt; by Evan You (&lt;a href='http://codepen.io/yyx990803'&gt;@yyx990803&lt;/a&gt;) on &lt;a href='http://codepen.io'&gt;CodePen&lt;/a&gt;.&lt;/p&gt;&lt;/p&gt;
+&lt;script async src=&quot;//assets.codepen.io/assets/embed/ei.js&quot;&gt;&lt;/script&gt;
+</description>
+    </item>
+    <item>
+      <title>Vectorious</title>
+      <link>http://daily-javascript.com/articles/vectorious/</link>
+      <pubDate>Tue, 24 Nov 2015 01:00:00 +0100</pubDate>
+      <guid isPermaLink="true">http://daily-javascript.com/articles/vectorious/</guid>
+      <author></author>
+      <description>&lt;p&gt;Vectorious (GitHub: &lt;a href=&quot;https://github.com/mateogianolio/vectorious&quot;&gt;mateogianolio/vectorious&lt;/a&gt;, License: MIT, npm: vectorious)&lt;/p&gt;
+&lt;p&gt;Vectorious is a high performance linear algebra library written in Javascript.
+It is available via npm or just as a script so you can include it on your page.&lt;/p&gt;
+&lt;p&gt;Since I’m not a mathematician and did not do a lot of linear algebra, you will have to bare with me.
+I will try to give you a good description of what this library can do.&lt;/p&gt;
+&lt;p&gt;It has two mayor API endpoints to work with: &lt;code&gt;Matrix&lt;/code&gt; and &lt;code&gt;Vector&lt;/code&gt;.
+The constructor functions for both these functions can be called with a range of different arguments.
+Since 2.1.0 Vector implements &lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/JavaScript/Typed_arrays&quot;&gt;JavaScript typed arrays&lt;/a&gt; for increased performance. The default Vector type is Float64Array, but this can be specified upon creation.&lt;/p&gt;
+&lt;p&gt;We would work with it like so:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;import&lt;/span&gt; { Vector, Matrix } &lt;span class=&quot;keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;'vectorious'&lt;/span&gt;;
+
+&lt;span class=&quot;keyword&quot;&gt;let&lt;/span&gt; vector, matrix;
+
+&lt;span class=&quot;comment&quot;&gt;// Create an empty vector of default type Float64Array&lt;/span&gt;
+vector = &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; Vector();
+&lt;span class=&quot;comment&quot;&gt;/* Vector { type: [Function: Float64Array], length: 0 } */&lt;/span&gt;
+
+&lt;span class=&quot;comment&quot;&gt;// Create an empty vector of type Uint8Array&lt;/span&gt;
+vector = &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; Vector(&lt;span class=&quot;built_in&quot;&gt;Uint8Array&lt;/span&gt;);
+&lt;span class=&quot;comment&quot;&gt;/* Vector { type: [Function: Uint8Array], length: 0 } */&lt;/span&gt;
+
+matrix = &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; Matrix();
+&lt;span class=&quot;comment&quot;&gt;/* Matrix { type: [Function: Float64Array], shape: [] } */&lt;/span&gt;
+
+vector = Vector.zeros(&lt;span class=&quot;number&quot;&gt;5&lt;/span&gt;);
+&lt;span class=&quot;comment&quot;&gt;/* Vector {
+  type: [Function: Float64Array],
+  length: 5,
+  buffer: ArrayBuffer {},
+  values: Float64Array { '0': 0, '1': 0, '2': 0, '3': 0, '4': 0 } } */&lt;/span&gt;
+
+vector = &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; Vector(&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;3&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;4&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;5&lt;/span&gt;);
+&lt;span class=&quot;comment&quot;&gt;/* Vector {
+  type: [Function: Float64Array],
+  length: 5,
+  buffer: ArrayBuffer {},
+  values: Float64Array { '0': 1, '1': 2, '2': 3, '3': 4, '4': 5 } } */&lt;/span&gt;
+
+matrix = &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; Matrix(vector);
+&lt;span class=&quot;comment&quot;&gt;/* Matrix {
+  type: [Function: Float64Array],
+  shape: [ 5, 1 ],
+  data: Float64Array { '0': 1, '1': 2, '2': 3, '3': 4, '4': 5 } } */&lt;/span&gt;
+
+matrix = Matrix.zeros(&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;);
+&lt;span class=&quot;comment&quot;&gt;/* Matrix {
+  shape: [ 2, 2 ],
+  data: Float64Array { '0': 0, '1': 0, '2': 0, '3': 0 },
+  type: [Function: Float64Array] } */&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The developer posted an example of how you would map a time range over a sinus.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; time = Vector.range(&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;built_in&quot;&gt;Math&lt;/span&gt;.PI / &lt;span class=&quot;number&quot;&gt;12&lt;/span&gt;, &lt;span class=&quot;built_in&quot;&gt;Math&lt;/span&gt;.PI);
+&lt;span class=&quot;comment&quot;&gt;// Which will return&lt;/span&gt;
+&lt;span class=&quot;comment&quot;&gt;/* Vector {
+  type: [Function: Float64Array],
+  length: 12,
+  buffer: ArrayBuffer {},
+  values:
+   Float64Array {
+     '0': 0,
+     '1': 0.2617993877991494,
+     '2': 0.5235987755982988,
+     '3': 0.7853981633974483,
+     '4': 1.0471975511965976,
+     '5': 1.308996938995747,
+     '6': 1.5707963267948963,
+     '7': 1.8325957145940457,
+     '8': 2.0943951023931953,
+     '9': 2.356194490192345,
+     '10': 2.6179938779914944,
+     '11': 2.879793265790644 } } */&lt;/span&gt;
+
+&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; sine = time.map(&lt;span class=&quot;built_in&quot;&gt;Math&lt;/span&gt;.sin);
+&lt;span class=&quot;comment&quot;&gt;// Which will return&lt;/span&gt;
+&lt;span class=&quot;comment&quot;&gt;/* Vector {
+  type: [Function: Float64Array],
+  length: 12,
+  buffer: ArrayBuffer {},
+  values:
+   Float64Array {
+     '0': 0,
+     '1': 0.25881904510252074,
+     '2': 0.49999999999999994,
+     '3': 0.7071067811865475,
+     '4': 0.8660254037844386,
+     '5': 0.9659258262890682,
+     '6': 1,
+     '7': 0.9659258262890684,
+     '8': 0.8660254037844387,
+     '9': 0.7071067811865476,
+     '10': 0.49999999999999994,
+     '11': 0.2588190451025206 } } */&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Besides the very extensive API it also accommodates extentions such as &lt;a href=&quot;https://github.com/mateogianolio/vectorious-solve&quot;&gt;Solve&lt;/a&gt; and &lt;a href=&quot;https://github.com/mateogianolio/vectorious-plot&quot;&gt;Plot&lt;/a&gt;.
+Plot for instance can be used to a two-dimensional SVG plot from two input vectors.&lt;/p&gt;
+</description>
+    </item>
+    <item>
+      <title>PSD.js</title>
+      <link>http://daily-javascript.com/articles/psdjs/</link>
+      <pubDate>Mon, 23 Nov 2015 01:00:00 +0100</pubDate>
+      <guid isPermaLink="true">http://daily-javascript.com/articles/psdjs/</guid>
+      <author></author>
+      <description>&lt;p&gt;PSD.js (GitHub: &lt;a href=&quot;https://github.com/meltingice/psd.js&quot;&gt;meltingice/psd.js&lt;/a&gt;, License: MIT, npm: psd)&lt;/p&gt;
+&lt;p&gt;PSD.js is a general purpose PSD parser written in Coffeescript. I was inspired by PSD.rb which allows you to work with a Photoshop document in a manageable tree structure and find out data such as:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Document structure&lt;/li&gt;
+&lt;li&gt;Document size&lt;/li&gt;
+&lt;li&gt;Layer/folder size + positioning&lt;/li&gt;
+&lt;li&gt;Layer/folder names&lt;/li&gt;
+&lt;li&gt;Layer/folder visibility and opacity&lt;/li&gt;
+&lt;li&gt;Font data (via psd-enginedata)&lt;ul&gt;
+&lt;li&gt;Text area contents&lt;/li&gt;
+&lt;li&gt;Font names, sizes, and colors&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Color mode and bit-depth&lt;/li&gt;
+&lt;li&gt;Vector mask data&lt;/li&gt;
+&lt;li&gt;Flattened image data&lt;/li&gt;
+&lt;li&gt;Layer comps&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Although there are still some pieces missing that are present in PSD.rb, the eventual goal is to have all the features PSD.rb offers.
+So let’s look at an example for converting &lt;code&gt;.psd&lt;/code&gt; as a &lt;code&gt;.png&lt;/code&gt;.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;import&lt;/span&gt; PSD &lt;span class=&quot;keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;'psd'&lt;/span&gt;;
+
+&lt;span class=&quot;keyword&quot;&gt;const&lt;/span&gt; psd = PSD.fromFile(&lt;span class=&quot;string&quot;&gt;'my/awesome/file.psd'&lt;/span&gt;);
+
+psd.parse();
+
+&lt;span class=&quot;comment&quot;&gt;// Log the tree structure of the .psd&lt;/span&gt;
+&lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.log(psd.tree().export());
+
+&lt;span class=&quot;comment&quot;&gt;// You can use promises syntax for opening and parsing&lt;/span&gt;
+PSD.open(&lt;span class=&quot;string&quot;&gt;'my/awesome/file'&lt;/span&gt;)
+    .then(psd =&amp;gt; psd.image.saveAsPng(&lt;span class=&quot;string&quot;&gt;'./output.png'&lt;/span&gt;))
+    .then(() =&amp;gt; &lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.log(&lt;span class=&quot;string&quot;&gt;'Finished!'&lt;/span&gt;));
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;There is a very extensive API for traversing the document. If you would know the path to a group or layer within the tree, there is a way you can search by that path.
+That would look something like this:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;psd.tree().childrenAtPath(&lt;span class=&quot;string&quot;&gt;'Version A/Matte'&lt;/span&gt;);
+psd.tree().childrenAtPath([&lt;span class=&quot;string&quot;&gt;'Version A'&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;'Matte'&lt;/span&gt;]);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Once you have the layer you are interested in you can access the data like so:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;comment&quot;&gt;// Get the first layer&lt;/span&gt;
+&lt;span class=&quot;keyword&quot;&gt;const&lt;/span&gt; node = psd.tree().descendants()[&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;];
+
+&lt;span class=&quot;comment&quot;&gt;// Read the name&lt;/span&gt;
+node.get(&lt;span class=&quot;string&quot;&gt;'name'&lt;/span&gt;);
+&lt;span class=&quot;comment&quot;&gt;// Read the width&lt;/span&gt;
+node.get(&lt;span class=&quot;string&quot;&gt;'width'&lt;/span&gt;);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Here is an example of the output &lt;code&gt;tree().export()&lt;/code&gt; would give you:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;{
+    children: [
+        {
+            type: &lt;span class=&quot;string&quot;&gt;'group'&lt;/span&gt;,
+            visible: &lt;span class=&quot;literal&quot;&gt;false&lt;/span&gt;,
+            opacity: &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;,
+            blendingMode: &lt;span class=&quot;string&quot;&gt;'normal'&lt;/span&gt;,
+            name: &lt;span class=&quot;string&quot;&gt;'VersionD'&lt;/span&gt;,
+            left: &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;,
+            right: &lt;span class=&quot;number&quot;&gt;900&lt;/span&gt;,
+            top: &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;,
+            bottom: &lt;span class=&quot;number&quot;&gt;600&lt;/span&gt;,
+            height: &lt;span class=&quot;number&quot;&gt;600&lt;/span&gt;,
+            width: &lt;span class=&quot;number&quot;&gt;900&lt;/span&gt;,
+            children: [
+                {
+                    type: &lt;span class=&quot;string&quot;&gt;'layer'&lt;/span&gt;,
+                    visible: &lt;span class=&quot;literal&quot;&gt;true&lt;/span&gt;,
+                    opacity: &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;,
+                    blendingMode: &lt;span class=&quot;string&quot;&gt;'normal'&lt;/span&gt;,
+                    name: &lt;span class=&quot;string&quot;&gt;'Makeachangeandsave.'&lt;/span&gt;,
+                    left: &lt;span class=&quot;number&quot;&gt;275&lt;/span&gt;,
+                    right: &lt;span class=&quot;number&quot;&gt;636&lt;/span&gt;,
+                    top: &lt;span class=&quot;number&quot;&gt;435&lt;/span&gt;,
+                    bottom: &lt;span class=&quot;number&quot;&gt;466&lt;/span&gt;,
+                    height: &lt;span class=&quot;number&quot;&gt;31&lt;/span&gt;,
+                    width: &lt;span class=&quot;number&quot;&gt;361&lt;/span&gt;,
+                    mask: {
+
+                    },
+                    text: {
+                        value: &lt;span class=&quot;string&quot;&gt;'Makeachangeandsave.'&lt;/span&gt;,
+                        font: {
+                            name: &lt;span class=&quot;string&quot;&gt;'HelveticaNeue-Light'&lt;/span&gt;,
+                            sizes: [
+                                &lt;span class=&quot;number&quot;&gt;33&lt;/span&gt;
+                            ],
+                            colors: [
+                                [
+                                    &lt;span class=&quot;number&quot;&gt;85&lt;/span&gt;,
+                                    &lt;span class=&quot;number&quot;&gt;96&lt;/span&gt;,
+                                    &lt;span class=&quot;number&quot;&gt;110&lt;/span&gt;,
+                                    &lt;span class=&quot;number&quot;&gt;255&lt;/span&gt;
+                                ]
+                            ],
+                            alignment: [
+                                &lt;span class=&quot;string&quot;&gt;'center'&lt;/span&gt;
+                            ]
+                        },
+                        left: &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;,
+                        top: &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;,
+                        right: &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;,
+                        bottom: &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;,
+                        transform: {
+                            xx: &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;,
+                            xy: &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;,
+                            yx: &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;,
+                            yy: &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;,
+                            tx: &lt;span class=&quot;number&quot;&gt;456&lt;/span&gt;,
+                            ty: &lt;span class=&quot;number&quot;&gt;459&lt;/span&gt;
+                        }
+                    },
+                    image: {
+
+                    }
+                }
+            ]
+        }
+    ],
+    &lt;span class=&quot;built_in&quot;&gt;document&lt;/span&gt;: {
+        width: &lt;span class=&quot;number&quot;&gt;900&lt;/span&gt;,
+        height: &lt;span class=&quot;number&quot;&gt;600&lt;/span&gt;,
+        resources: {
+            layerComps: [
+                {
+                    id: &lt;span class=&quot;number&quot;&gt;692243163&lt;/span&gt;,
+                    name: &lt;span class=&quot;string&quot;&gt;'VersionA'&lt;/span&gt;,
+                    capturedInfo: &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;
+                },
+                {
+                    id: &lt;span class=&quot;number&quot;&gt;725235304&lt;/span&gt;,
+                    name: &lt;span class=&quot;string&quot;&gt;'VersionB'&lt;/span&gt;,
+                    capturedInfo: &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;
+                },
+                {
+                    id: &lt;span class=&quot;number&quot;&gt;730932877&lt;/span&gt;,
+                    name: &lt;span class=&quot;string&quot;&gt;'VersionC'&lt;/span&gt;,
+                    capturedInfo: &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;
+                }
+            ],
+            guides: [
+
+            ],
+            slices: [
+
+            ]
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    <item>
+      <title>Node v5.1.0 Stable</title>
+      <link>http://daily-javascript.com/articles/node-5-1-0/</link>
+      <pubDate>Thu, 19 Nov 2015 01:00:00 +0100</pubDate>
+      <guid isPermaLink="true">http://daily-javascript.com/articles/node-5-1-0/</guid>
+      <author></author>
+      <description>&lt;p&gt;First of all my excuse for not posting the past 2 days. I had a few days off from my day job because I went to a concert of Bullet For My Valentine(for those of you that might me interested). This also caused me to mis this new release of Node.js so here is a small roundup of the notable changes.&lt;/p&gt;
+&lt;h3 id=&quot;-buffer-3767-https-github-com-nodejs-node-pull-3767-&quot;&gt;&lt;code&gt;buffer&lt;/code&gt; (&lt;a href=&quot;https://github.com/nodejs/node/pull/3767&quot;&gt;#3767&lt;/a&gt;)&lt;/h3&gt;
+&lt;p&gt;The &lt;code&gt;noAssert&lt;/code&gt; option for many buffer functions will now silently drop invalid write values rather than crashing This makes the behavior match what the docs suggest.&lt;/p&gt;
+&lt;h3 id=&quot;-child_process-3577-https-github-com-nodejs-node-pull-3577-&quot;&gt;&lt;code&gt;child_process&lt;/code&gt; (&lt;a href=&quot;https://github.com/nodejs/node/pull/3577&quot;&gt;#3577&lt;/a&gt;)&lt;/h3&gt;
+&lt;p&gt;child.send() now properly returns a boolean like the docs suggest.&lt;/p&gt;
+&lt;h3 id=&quot;-http_parser-3569-https-github-com-nodejs-node-pull-3569-&quot;&gt;&lt;code&gt;http_parser&lt;/code&gt; (&lt;a href=&quot;https://github.com/nodejs/node/pull/3569&quot;&gt;#3569&lt;/a&gt;)&lt;/h3&gt;
+&lt;p&gt;update http-parser to 2.6.0 from 2.5.0 (James M Snell) .
+Now supports the following HTTP methods: &lt;code&gt;LINK&lt;/code&gt;, &lt;code&gt;UNLINK&lt;/code&gt;, &lt;code&gt;BIND&lt;/code&gt;, &lt;code&gt;REBIND&lt;/code&gt;, &lt;code&gt;UNBIND&lt;/code&gt;.
+Also added ACL and IPv6 Zone ID support.&lt;/p&gt;
+&lt;h3 id=&quot;-npm-3685-https-github-com-nodejs-node-pull-3685-&quot;&gt;&lt;code&gt;npm&lt;/code&gt; (&lt;a href=&quot;https://github.com/nodejs/node/pull/3685&quot;&gt;#3685&lt;/a&gt;)&lt;/h3&gt;
+&lt;p&gt;upgrade npm to 3.3.12 from v3.3.6.
+See the release notes for &lt;a href=&quot;https://github.com/npm/npm/releases/tag/v3.3.7&quot;&gt;v3.3.7&lt;/a&gt;, &lt;a href=&quot;https://github.com/npm/npm/releases/tag/v3.3.8&quot;&gt;v3.3.8&lt;/a&gt;, &lt;a href=&quot;https://github.com/npm/npm/releases/tag/v3.3.9&quot;&gt;v3.3.9&lt;/a&gt;, &lt;a href=&quot;https://github.com/npm/npm/releases/tag/v3.3.10&quot;&gt;v3.3.10&lt;/a&gt;, &lt;a href=&quot;https://github.com/npm/npm/releases/tag/v3.3.11&quot;&gt;v3.3.11&lt;/a&gt;, and &lt;a href=&quot;https://github.com/npm/npm/releases/tag/v3.3.12&quot;&gt;v3.3.12&lt;/a&gt; for more details.&lt;/p&gt;
+&lt;h3 id=&quot;repl-3630-https-github-com-nodejs-node-pull-3630-&quot;&gt;REPL (&lt;a href=&quot;https://github.com/nodejs/node/pull/3630&quot;&gt;#3630&lt;/a&gt;)&lt;/h3&gt;
+&lt;p&gt;The REPL no longer crashes if the persistent history file cannot be opened.&lt;/p&gt;
+&lt;h3 id=&quot;tls-3755-https-github-com-nodejs-node-pull-3755-&quot;&gt;tls (&lt;a href=&quot;https://github.com/nodejs/node/pull/3755&quot;&gt;#3755&lt;/a&gt;)&lt;/h3&gt;
+&lt;p&gt;The default sessionIdContext now uses SHA1 in FIPS mode rather than MD5.&lt;/p&gt;
+&lt;h3 id=&quot;v8-3779-https-github-com-nodejs-node-pull-3779-&quot;&gt;v8(&lt;a href=&quot;https://github.com/nodejs/node/pull/3779&quot;&gt;#3779&lt;/a&gt;)&lt;/h3&gt;
+&lt;p&gt;Added some more useful post-mortem data.&lt;/p&gt;
+&lt;h3 id=&quot;documentation-3662-https-github-com-nodejs-node-pull-3662-&quot;&gt;Documentation (&lt;a href=&quot;https://github.com/nodejs/node/pull/3662&quot;&gt;#3662&lt;/a&gt;)&lt;/h3&gt;
+&lt;p&gt;All of the API docs have been re-ordered so as to read in alphabetical order.&lt;/p&gt;
+&lt;p&gt;The known issues that are still in there are:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Surrogate pair in REPL can freeze terminal. &lt;a href=&quot;https://github.com/nodejs/node/issues/690&quot;&gt;#690&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Calling dns.setServers() while a DNS query is in progress can cause the process to crash on a failed assertion. &lt;a href=&quot;https://github.com/nodejs/node/issues/894&quot;&gt;#894&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;url.resolve may transfer the auth portion of the url when resolving between two full hosts, see &lt;a href=&quot;https://github.com/nodejs/node/issues/1435&quot;&gt;#1435&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;Unicode characters in filesystem paths are not handled consistently across platforms or Node.js APIs. See &lt;a href=&quot;https://github.com/nodejs/node/issues/2088&quot;&gt;#2088&lt;/a&gt;, &lt;a href=&quot;https://github.com/nodejs/node/issues/3401&quot;&gt;#3401&lt;/a&gt; and &lt;a href=&quot;https://github.com/nodejs/node/issues/3519&quot;&gt;#3519&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    <item>
+      <title>Domcom</title>
+      <link>http://daily-javascript.com/articles/domcom/</link>
+      <pubDate>Mon, 16 Nov 2015 01:00:00 +0100</pubDate>
+      <guid isPermaLink="true">http://daily-javascript.com/articles/domcom/</guid>
+      <author></author>
+      <description>&lt;p&gt;Domcom (GitHub: &lt;a href=&quot;https://github.com/taijiweb/domcom&quot;&gt;taijiweb/domcom&lt;/a&gt;, License: MIT, npm: domcom)&lt;/p&gt;
+&lt;p&gt;Yesterday I got an email with the request to take a look at the Domcom.
+Domcom is a frontend framework which uses declarative components to proxy the DOM in order to implement better performance than &lt;a href=&quot;https://github.com/Matt-Esch/virtual-dom&quot;&gt;VirtualDOM&lt;/a&gt;. It comes with “lazy” reactive functions to manage data. A few of the features included in this framework are:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Declarative compostable components with reactive function&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Only render the invalidated components and refresh the really changed DOM nodes with automatic update status checking&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Decouple with model and controller&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Simple but powerful route&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Support for promise&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;And a whole lot more but I would refer you to the &lt;a href=&quot;https://github.com/taijiweb/domcom&quot;&gt;Github project&lt;/a&gt; for that.&lt;/p&gt;
+&lt;p&gt;Here is a code example provided by the developer to give a taste of Domcom:&lt;/p&gt;
+&lt;p&gt;In javascript:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;const&lt;/span&gt; {list, text, p, flow, see} = dc
+    ​
+    demoSum = &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;&lt;/span&gt;) &lt;/span&gt;{
+      &lt;span class=&quot;keyword&quot;&gt;let&lt;/span&gt; a, b, comp, p1, t1, t2;
+
+      a = see(&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;);
+      b = see(&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;);
+
+      comp = list((t1 = text({
+        value: a,
+        onchange() { &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; a(&lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;.value * &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;); }
+
+      })), (t2 = text({
+        value: b,
+        onchange() { &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; b(&lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;.value * &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;); }
+
+      })), p1 = p(flow.add(a, b)));
+
+      dc.updateWhen([t1, t2], &lt;span class=&quot;string&quot;&gt;'change'&lt;/span&gt;, p1);
+
+      &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; comp.mount();
+    };
+    ​
+    demoSum();
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Since the developer likes coffee-script is here the same example in coffee-script.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-coffeescript&quot;&gt;{list, text, p, flow, see} = dc
+&lt;span class=&quot;function&quot;&gt;
+&lt;span class=&quot;title&quot;&gt;demoSum&lt;/span&gt; = -&amp;gt;&lt;/span&gt;
+
+    a = see &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;; b = see &lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;
+
+    comp = list \
+        (t1 = text &lt;span class=&quot;attribute&quot;&gt;value&lt;/span&gt;: a, &lt;span class=&quot;attribute&quot;&gt;onchange&lt;/span&gt;: &lt;span class=&quot;function&quot;&gt;-&amp;gt;&lt;/span&gt; a &lt;span class=&quot;property&quot;&gt;@value&lt;/span&gt;*&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;),
+        (t2 = text &lt;span class=&quot;attribute&quot;&gt;value&lt;/span&gt;: b, &lt;span class=&quot;attribute&quot;&gt;onchange&lt;/span&gt;: &lt;span class=&quot;function&quot;&gt;-&amp;gt;&lt;/span&gt; b &lt;span class=&quot;property&quot;&gt;@value&lt;/span&gt;*&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;),
+        p1 = p flow.add a, b
+
+    dc.updateWhen [t1, t2], &lt;span class=&quot;string&quot;&gt;'change'&lt;/span&gt;, p1
+
+    comp.mount()
+
+demoSum()
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    <item>
+      <title>React Treebeard</title>
+      <link>http://daily-javascript.com/articles/react-treebeard/</link>
+      <pubDate>Thu, 12 Nov 2015 01:00:00 +0100</pubDate>
+      <guid isPermaLink="true">http://daily-javascript.com/articles/react-treebeard/</guid>
+      <author></author>
+      <description>&lt;p&gt;React Treebeard (GitHub: &lt;a href=&quot;https://github.com/alexcurtis/react-treebeard&quot;&gt;alexcurtis/react-treebeard&lt;/a&gt;, License: MIT, npm: react-treebeard)&lt;/p&gt;
+&lt;p&gt;Ever come a cross a task where you needed to quickly make a bunch of data explorable or where you needed to visualize a massive object?
+Now there is React Treebeard which gives you a tree with collapsed leafs.&lt;/p&gt;
+&lt;p&gt;So let’s say we have a batch of data like this:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;const&lt;/span&gt; myData = {
+    name: &lt;span class=&quot;string&quot;&gt;'root'&lt;/span&gt;,
+    toggled: &lt;span class=&quot;literal&quot;&gt;true&lt;/span&gt;,
+    children: [
+        {
+            name: &lt;span class=&quot;string&quot;&gt;'parent'&lt;/span&gt;,
+            children: [
+                {
+                    name: &lt;span class=&quot;string&quot;&gt;'child'&lt;/span&gt;,
+                    terminal: &lt;span class=&quot;literal&quot;&gt;true&lt;/span&gt;
+                }
+            ]
+        },
+        {
+            name: &lt;span class=&quot;string&quot;&gt;'loading parent'&lt;/span&gt;,
+            loading: &lt;span class=&quot;literal&quot;&gt;true&lt;/span&gt;
+        },
+        {
+            name: &lt;span class=&quot;string&quot;&gt;'parent'&lt;/span&gt;,
+            children: [
+                {
+                    name: &lt;span class=&quot;string&quot;&gt;'nested parent'&lt;/span&gt;,
+                    children: [
+                        {
+                            name: &lt;span class=&quot;string&quot;&gt;'nested child'&lt;/span&gt;,
+                            terminal: &lt;span class=&quot;literal&quot;&gt;true&lt;/span&gt;
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+};
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Then our component would look something like this:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;TreeExample&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;props&lt;/span&gt;)&lt;/span&gt;{
+    &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; (
+        &lt;span class=&quot;xml&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;Treebeard&lt;/span&gt;
+            &lt;span class=&quot;attribute&quot;&gt;data&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;{props.data}&lt;/span&gt;
+            &lt;span class=&quot;attribute&quot;&gt;onToggle&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;{onToggle}&lt;/span&gt;
+        /&amp;gt;&lt;/span&gt;
+    )&lt;/span&gt;;
+}
+
+&lt;span class=&quot;keyword&quot;&gt;const&lt;/span&gt; onToggle = () =&amp;gt; {
+    &lt;span class=&quot;comment&quot;&gt;// Implement custom behavior&lt;/span&gt;
+};
+
+&lt;span class=&quot;keyword&quot;&gt;const&lt;/span&gt; shell = &lt;span class=&quot;built_in&quot;&gt;document&lt;/span&gt;.querySelector(&lt;span class=&quot;string&quot;&gt;'#shell'&lt;/span&gt;);
+ReactDOM.render(&lt;span class=&quot;xml&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;TreeExample&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;data&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;myData&lt;/span&gt; }/&amp;gt;&lt;/span&gt;, shell);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;With the decorators it’s very easy for you to use your own Node Header, Toggle and Loading components.
+This would look something like this:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;let&lt;/span&gt; decorators = {
+    Loading: (props) =&amp;gt; {
+        &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; (
+            &lt;span class=&quot;xml&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;div&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;style&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;{props.style}&lt;/span&gt;&amp;gt;&lt;/span&gt;
+                loading...
+            &lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;title&quot;&gt;div&lt;/span&gt;&amp;gt;&lt;/span&gt;
+        )&lt;/span&gt;;
+    },
+    Toggle: (props) =&amp;gt; {
+        &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; (
+            &lt;span class=&quot;xml&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;div&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;style&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;{props.style}&lt;/span&gt;&amp;gt;&lt;/span&gt;
+                &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;svg&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;height&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;{props.height}&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;width&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;{props.width}&lt;/span&gt;&amp;gt;&lt;/span&gt;
+                    // Vector Toggle Here
+                &lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;title&quot;&gt;svg&lt;/span&gt;&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;title&quot;&gt;div&lt;/span&gt;&amp;gt;&lt;/span&gt;
+        )&lt;/span&gt;;
+    },
+    Header: (props) =&amp;gt; {
+        &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; (
+            &lt;span class=&quot;xml&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;div&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;style&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;{props.style}&lt;/span&gt;&amp;gt;&lt;/span&gt;
+                {props.node.name}
+            &lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;title&quot;&gt;div&lt;/span&gt;&amp;gt;&lt;/span&gt;
+        )&lt;/span&gt;;
+    }
+};
+
+&lt;span class=&quot;xml&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;Treebeard&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;data&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;{...}&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;decorators&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;{decorators}&lt;/span&gt;/&amp;gt;&lt;/span&gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;If you wanna see what this all looks like while running in the browser, check out the &lt;a href=&quot;http://alexcurtis.github.io/react-treebeard/#&quot;&gt;demo page&lt;/a&gt; provided by the developer.&lt;/p&gt;
+</description>
+    </item>
+    <item>
+      <title>Notie.js</title>
+      <link>http://daily-javascript.com/articles/notie/</link>
+      <pubDate>Wed, 11 Nov 2015 01:00:00 +0100</pubDate>
+      <guid isPermaLink="true">http://daily-javascript.com/articles/notie/</guid>
+      <author></author>
+      <description>&lt;p&gt;Notie.js (GitHub: &lt;a href=&quot;https://github.com/jaredreich/notie.js&quot;&gt;jaredreich/notie.js&lt;/a&gt;, License: MIT)&lt;/p&gt;
+&lt;p&gt;Notie.js is a simple notification plugin. It does not have any dependencies, which makes it very light and easy to work with.
+Throughout time I’ve seen multiple libraries and UI frameworks implement something similar,
+but what I like about this little library is that when you have a very small project, it can save you some time on implementing feedback to the user.&lt;/p&gt;
+&lt;p&gt;Sadly it’s not available via npm or bower, but I think that is kind of the point this library is trying to make.
+Everything nowadays is bundled and transpiled, which I like very much, but it is nice to see that some people still take this approach.&lt;/p&gt;
+&lt;p&gt;So let’s include it in our markup like this:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-html&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;body&lt;/span&gt;&amp;gt;&lt;/span&gt;
+  ...
+  &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;script&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;src&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;/path/to/notie.js&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;undefined&quot;&gt;&lt;/span&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;title&quot;&gt;script&lt;/span&gt;&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;title&quot;&gt;body&lt;/span&gt;&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now when you want to send a notification or confirm something with your user you can use it like this:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;
+notie.alert(style, &lt;span class=&quot;string&quot;&gt;'message'&lt;/span&gt;, time_in_seconds);
+
+notie.confirm(&lt;span class=&quot;string&quot;&gt;'Title text'&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;'Yes button text'&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;'No/cancel button text'&lt;/span&gt;, &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;&lt;/span&gt;)&lt;/span&gt;{
+    &lt;span class=&quot;comment&quot;&gt;// User choose Yes.&lt;/span&gt;
+});
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The style in this example would be the “theme” of the alert. By default these would be:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;OK ( Green )&lt;/li&gt;
+&lt;li&gt;Warning ( Yellowish )&lt;/li&gt;
+&lt;li&gt;Error ( Red )&lt;/li&gt;
+&lt;li&gt;Notice ( Blue )&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+    </item>
+    <item>
+      <title>Babel Typecheck</title>
+      <link>http://daily-javascript.com/articles/babel-typecheck/</link>
+      <pubDate>Tue, 10 Nov 2015 01:00:00 +0100</pubDate>
+      <guid isPermaLink="true">http://daily-javascript.com/articles/babel-typecheck/</guid>
+      <author></author>
+      <description>&lt;p&gt;Babel Typecheck (GitHub: &lt;a href=&quot;https://github.com/codemix/babel-plugin-typecheck&quot;&gt;codemix/babel-plugin-typecheck&lt;/a&gt;, License: MIT, npm: babel-plugin-typecheck)&lt;/p&gt;
+&lt;p&gt;Babel Typecheck is a &lt;a href=&quot;https://babeljs.io/&quot;&gt;Babel&lt;/a&gt; plugin for static and runtime type checking. It does so using &lt;a href=&quot;http://flowtype.org/&quot;&gt;Flow type&lt;/a&gt;.
+What it does is turn a code block like this:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;sendMessage&lt;/span&gt; (&lt;span class=&quot;params&quot;&gt;to: User, message: string&lt;/span&gt;): &lt;span class=&quot;title&quot;&gt;boolean&lt;/span&gt; &lt;/span&gt;{
+  &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; socket.send(to, message);
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Into this:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;sendMessage&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;to, message&lt;/span&gt;) &lt;/span&gt;{
+  &lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; _socket$send;
+
+  &lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt; (!(to &lt;span class=&quot;keyword&quot;&gt;instanceof&lt;/span&gt; User)) &lt;span class=&quot;keyword&quot;&gt;throw&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;built_in&quot;&gt;TypeError&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;&quot;Value of argument 'to' violates contract.&quot;&lt;/span&gt;);
+  &lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt; (&lt;span class=&quot;keyword&quot;&gt;typeof&lt;/span&gt; message !== &lt;span class=&quot;string&quot;&gt;&quot;string&quot;&lt;/span&gt;) &lt;span class=&quot;keyword&quot;&gt;throw&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;built_in&quot;&gt;TypeError&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;&quot;Value of argument 'message' violates contract.&quot;&lt;/span&gt;);
+  _socket$send = socket.send(to, message);
+  &lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt; (&lt;span class=&quot;keyword&quot;&gt;typeof&lt;/span&gt; _socket$send !== &lt;span class=&quot;string&quot;&gt;&quot;boolean&quot;&lt;/span&gt;) &lt;span class=&quot;keyword&quot;&gt;throw&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;built_in&quot;&gt;TypeError&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;&quot;Function 'sendMessage' return value violates contract.&quot;&lt;/span&gt;);
+  &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; _socket$send;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;What this does is it executes the same as when you would write your function like this:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;sendMessage&lt;/span&gt; (&lt;span class=&quot;params&quot;&gt;to, message&lt;/span&gt;) &lt;/span&gt;{
+  &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; socket.send(to, message);
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;But with one big difference, when you call this function with the wrong arguments your application just breaks.
+When using Babel Typecheck it would present you with a type error on transpiling so you will not make silly mistakes again. Well not the type error kind at least.&lt;/p&gt;
+&lt;p&gt;In the example above we see a few new things, mostly attached to the function call:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;    (to: User, message: string): boolean
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Which means that the &lt;code&gt;to&lt;/code&gt; parameter expects to be an instance of User.
+The &lt;code&gt;message&lt;/code&gt; parameter expects to be a String.
+The &lt;code&gt;:&lt;/code&gt; at the and of the function call is to indicate what the function will return which is a Boolean in this example.&lt;/p&gt;
+&lt;p&gt;This function demonstrates which kinds of annotations are supported:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;foo&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;
+    aNum: number,
+    anOptionalString: ?string, &lt;span class=&quot;comment&quot;&gt;// will allow null/undefined&lt;/span&gt;
+    anObject: Object,
+    aDate: Date,
+    anError: Error,
+    aUnionType: Object|string,
+    aClass: User,
+    aShape: {foo: number, bar: ?string},
+    anArray: Array,
+    arrayOf: string[] | Array&amp;lt;string&amp;gt;,
+    {x, y}: {x: string, y: number}, &lt;span class=&quot;comment&quot;&gt;// destructuring works&lt;/span&gt;
+    es6Defaults: number = 42
+&lt;/span&gt;) : &lt;span class=&quot;title&quot;&gt;number&lt;/span&gt; &lt;/span&gt;{
+  &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; aNum;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;When I saw the syntax of this plugin the first thing that jumped into my mind was why not just use Typescript then.
+Since Typescript had it’s own upstream this might not be inline with the ESnext(ES6/ES7) feature we have grown to love.
+By including this plugin in your &lt;code&gt;.babelrc&lt;/code&gt; to can have the power and security of strongly typed Javascript and all the new features provided by Babel.&lt;/p&gt;
+</description>
+    </item>
     <item>
       <title>Squiggle</title>
       <link>http://daily-javascript.com/articles/squiggle/</link>
@@ -652,6 +1265,53 @@ program
 </description>
     </item>
     <item>
+      <title>Chiffon</title>
+      <link>http://daily-javascript.com/articles/chiffon/</link>
+      <pubDate>Wed, 14 Oct 2015 02:00:00 +0200</pubDate>
+      <guid isPermaLink="true">http://daily-javascript.com/articles/chiffon/</guid>
+      <author></author>
+      <description>&lt;p&gt;Chiffon (GitHub: &lt;a href=&quot;https://github.com/trueadm/Chiffon&quot;&gt;polygonplanet/Chiffon&lt;/a&gt;, License: MIT, npm: chiffon, bower: chiffon)&lt;/p&gt;
+&lt;p&gt;Chiffon is a very small ECMAScript parser, tokenizer and minifier.
+Sometimes we come across an idea where you will need to parse or tokenize Javascript files for, for instance to do analysis on the code.&lt;/p&gt;
+&lt;p&gt;When using Chiffon for tokenizing you will get an Array of each “element” of the input code like this:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;let&lt;/span&gt; tokens = Chiffon.tokenize(&lt;span class=&quot;string&quot;&gt;'var a = 1'&lt;/span&gt;);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Which would then return:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;[ { type: &lt;span class=&quot;string&quot;&gt;'Keyword'&lt;/span&gt;,    value: &lt;span class=&quot;string&quot;&gt;'var'&lt;/span&gt; },
+  { type: &lt;span class=&quot;string&quot;&gt;'Identifier'&lt;/span&gt;, value: &lt;span class=&quot;string&quot;&gt;'a'&lt;/span&gt; },
+  { type: &lt;span class=&quot;string&quot;&gt;'Punctuator'&lt;/span&gt;, value: &lt;span class=&quot;string&quot;&gt;'='&lt;/span&gt; },
+  { type: &lt;span class=&quot;string&quot;&gt;'Numeric'&lt;/span&gt;,    value: &lt;span class=&quot;string&quot;&gt;'1'&lt;/span&gt; } ]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Here is a list of all possible tokens:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Comment&lt;/li&gt;
+&lt;li&gt;LineTerminator&lt;/li&gt;
+&lt;li&gt;Template&lt;/li&gt;
+&lt;li&gt;String&lt;/li&gt;
+&lt;li&gt;Punctuator&lt;/li&gt;
+&lt;li&gt;RegularExpression&lt;/li&gt;
+&lt;li&gt;Numeric&lt;/li&gt;
+&lt;li&gt;UnicodeEscapeSequence&lt;/li&gt;
+&lt;li&gt;Identifier&lt;/li&gt;
+&lt;li&gt;Null&lt;/li&gt;
+&lt;li&gt;Boolean&lt;/li&gt;
+&lt;li&gt;Keyword&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Sadly JavaScript AST is not currently supported.&lt;/p&gt;
+&lt;p&gt;When you wish to “untokenize” the Array, you can pass it into the &lt;code&gt;untokenize&lt;/code&gt; method like this:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;Chiffon.untokenize
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;When you want to use the minification, you would do something like this:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;Chiffon.minify(&lt;span class=&quot;string&quot;&gt;'var a = 1 + 1; // comment'&lt;/span&gt;);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Which is a simple implementation of &lt;code&gt;untokenize&lt;/code&gt; and &lt;code&gt;tokenize&lt;/code&gt; together like this:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;minify&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;code&lt;/span&gt;) &lt;/span&gt;{
+    &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; untokenize(tokenize(code, { lineTerminator: &lt;span class=&quot;literal&quot;&gt;true&lt;/span&gt; }));
+}
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    <item>
       <title>Smartcrop.js</title>
       <link>http://daily-javascript.com/articles/smart-crop/</link>
       <pubDate>Wed, 14 Oct 2015 02:00:00 +0200</pubDate>
@@ -698,53 +1358,6 @@ SmartCrop.crop(img, options, result =&amp;gt; {
 smartcrop-cli --width &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt; --height &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt; photo.jpg square-thumbnail.jpg
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Smartcrop-cli does requires &lt;a href=&quot;https://github.com/Automattic/node-canvas&quot;&gt;node-canvas&lt;/a&gt; which requires local libraries to be installed. Refer to the &lt;a href=&quot;https://github.com/Automattic/node-canvas/wiki/_pages&quot;&gt;node-canvas wiki&lt;/a&gt; installation instructions.&lt;/p&gt;
-</description>
-    </item>
-    <item>
-      <title>Chiffon</title>
-      <link>http://daily-javascript.com/articles/chiffon/</link>
-      <pubDate>Wed, 14 Oct 2015 02:00:00 +0200</pubDate>
-      <guid isPermaLink="true">http://daily-javascript.com/articles/chiffon/</guid>
-      <author></author>
-      <description>&lt;p&gt;Chiffon (GitHub: &lt;a href=&quot;https://github.com/trueadm/Chiffon&quot;&gt;polygonplanet/Chiffon&lt;/a&gt;, License: MIT, npm: chiffon, bower: chiffon)&lt;/p&gt;
-&lt;p&gt;Chiffon is a very small ECMAScript parser, tokenizer and minifier.
-Sometimes we come across an idea where you will need to parse or tokenize Javascript files for, for instance to do analysis on the code.&lt;/p&gt;
-&lt;p&gt;When using Chiffon for tokenizing you will get an Array of each “element” of the input code like this:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;let&lt;/span&gt; tokens = Chiffon.tokenize(&lt;span class=&quot;string&quot;&gt;'var a = 1'&lt;/span&gt;);
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Which would then return:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;[ { type: &lt;span class=&quot;string&quot;&gt;'Keyword'&lt;/span&gt;,    value: &lt;span class=&quot;string&quot;&gt;'var'&lt;/span&gt; },
-  { type: &lt;span class=&quot;string&quot;&gt;'Identifier'&lt;/span&gt;, value: &lt;span class=&quot;string&quot;&gt;'a'&lt;/span&gt; },
-  { type: &lt;span class=&quot;string&quot;&gt;'Punctuator'&lt;/span&gt;, value: &lt;span class=&quot;string&quot;&gt;'='&lt;/span&gt; },
-  { type: &lt;span class=&quot;string&quot;&gt;'Numeric'&lt;/span&gt;,    value: &lt;span class=&quot;string&quot;&gt;'1'&lt;/span&gt; } ]
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Here is a list of all possible tokens:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Comment&lt;/li&gt;
-&lt;li&gt;LineTerminator&lt;/li&gt;
-&lt;li&gt;Template&lt;/li&gt;
-&lt;li&gt;String&lt;/li&gt;
-&lt;li&gt;Punctuator&lt;/li&gt;
-&lt;li&gt;RegularExpression&lt;/li&gt;
-&lt;li&gt;Numeric&lt;/li&gt;
-&lt;li&gt;UnicodeEscapeSequence&lt;/li&gt;
-&lt;li&gt;Identifier&lt;/li&gt;
-&lt;li&gt;Null&lt;/li&gt;
-&lt;li&gt;Boolean&lt;/li&gt;
-&lt;li&gt;Keyword&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Sadly JavaScript AST is not currently supported.&lt;/p&gt;
-&lt;p&gt;When you wish to “untokenize” the Array, you can pass it into the &lt;code&gt;untokenize&lt;/code&gt; method like this:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;Chiffon.untokenize
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;When you want to use the minification, you would do something like this:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;Chiffon.minify(&lt;span class=&quot;string&quot;&gt;'var a = 1 + 1; // comment'&lt;/span&gt;);
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Which is a simple implementation of &lt;code&gt;untokenize&lt;/code&gt; and &lt;code&gt;tokenize&lt;/code&gt; together like this:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;minify&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;code&lt;/span&gt;) &lt;/span&gt;{
-    &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; untokenize(tokenize(code, { lineTerminator: &lt;span class=&quot;literal&quot;&gt;true&lt;/span&gt; }));
-}
-&lt;/code&gt;&lt;/pre&gt;
 </description>
     </item>
     <item>
@@ -1171,6 +1784,115 @@ This weekend I will be trying to include this within this website so you will be
 </description>
     </item>
     <item>
+      <title>Levi</title>
+      <link>http://daily-javascript.com/articles/levi/</link>
+      <pubDate>Mon, 28 Sep 2015 02:00:00 +0200</pubDate>
+      <guid isPermaLink="true">http://daily-javascript.com/articles/levi/</guid>
+      <author></author>
+      <description>&lt;p&gt;Levi (GitHub: &lt;a href=&quot;https://github.com/cshum/levi&quot;&gt;cshum/levi&lt;/a&gt;, License: MIT, npm: levi)&lt;/p&gt;
+&lt;p&gt;Levi is a streaming full-text search for Node.js and browsers which used LevelDB for storage.
+The search implementation is done by using &lt;a href=&quot;https://en.wikipedia.org/wiki/Tf%E2%80%93idf&quot;&gt;TF-IDF&lt;/a&gt; and &lt;a href=&quot;https://en.wikipedia.org/wiki/Cosine_similarity&quot;&gt;cosine similarity&lt;/a&gt;, and it’s provided with configurable text processing pipelines: Tokenizer, Porter Stemmer and Stopwords filter.&lt;/p&gt;
+&lt;p&gt;Levi is built on &lt;a href=&quot;https://github.com/Level/levelup&quot;&gt;LevelUP&lt;/a&gt; which is a fast, asynchronous, transactional storage interface. By default it uses LevelDB on Node.js, when in running in the browser it uses &lt;a href=&quot;https://github.com/maxogden/level.js&quot;&gt;IndexedDB&lt;/a&gt;. Levi supports with a variety of LevelDOWN compatible backends.&lt;/p&gt;
+&lt;p&gt;In addition, Levi provides relevancy scoring for live changing data using TF-ICF - a TF-IDF approximation based on existing corpus. Such scoring matches are comparably close to TF-IDF when existing corpus is sufficiently large, with significantly better performance O(N) instead of O(N^2).&lt;/p&gt;
+&lt;p&gt;Let’s take a look at the API. To get started, we need to create a new Levi instance. We do that like this:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;import&lt;/span&gt; levi &lt;span class=&quot;keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;'levi'&lt;/span&gt;;
+
+&lt;span class=&quot;keyword&quot;&gt;const&lt;/span&gt; lv = levi(&lt;span class=&quot;string&quot;&gt;'db'&lt;/span&gt;)
+.use(levi.tokenizer())
+.use(levi.stemmer())
+.use(levi.stopword());
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The text processing pipeline &lt;code&gt;levi.tokenizer()&lt;/code&gt;, &lt;code&gt;levi.stemmer()&lt;/code&gt;, &lt;code&gt;levi.stopword()&lt;/code&gt; are required for indexing. These are exposed as &lt;a href=&quot;https://github.com/cshum/ginga&quot;&gt;ginga&lt;/a&gt; plugins so that they can be swapped for different language configurations.&lt;/p&gt;
+&lt;p&gt;Now that we have an instance we can use it to talk to the API like this:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;lv.put(&lt;span class=&quot;string&quot;&gt;'a'&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;'Lorem Ipsum is simply dummy text.'&lt;/span&gt;, err =&amp;gt; {
+    &lt;span class=&quot;comment&quot;&gt;// ...&lt;/span&gt;
+ });
+
+&lt;span class=&quot;comment&quot;&gt;// object fields as value&lt;/span&gt;
+lv.put(&lt;span class=&quot;string&quot;&gt;'b'&lt;/span&gt;, {
+  id: &lt;span class=&quot;string&quot;&gt;'b'&lt;/span&gt;,
+  title: &lt;span class=&quot;string&quot;&gt;'Lorem Ipsum'&lt;/span&gt;,
+  body: &lt;span class=&quot;string&quot;&gt;'Dummy text of the printing and typesetting industry.'&lt;/span&gt;
+}, (err) =&amp;gt; {
+    &lt;span class=&quot;comment&quot;&gt;//...&lt;/span&gt;
+});
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Or retrieve it like:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;lv.get(&lt;span class=&quot;string&quot;&gt;'b'&lt;/span&gt;, res =&amp;gt; {
+    &lt;span class=&quot;comment&quot;&gt;// res here;&lt;/span&gt;
+});
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;To actually search we need to use Levi’s main interface which would be &lt;code&gt;searchStream&lt;/code&gt;. We use that like this.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;lv.searchStream(&lt;span class=&quot;string&quot;&gt;'lorem ipsum'&lt;/span&gt;).toArray(&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; (&lt;span class=&quot;params&quot;&gt;results&lt;/span&gt;) &lt;/span&gt;{ ... }) &lt;span class=&quot;comment&quot;&gt;// highland method&lt;/span&gt;
+
+lv.searchStream(&lt;span class=&quot;string&quot;&gt;'lorem ipsum'&lt;/span&gt;, {
+  fields: { title: &lt;span class=&quot;number&quot;&gt;10&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;'*'&lt;/span&gt;: &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt; } &lt;span class=&quot;comment&quot;&gt;// title field boost. '*' means any field&lt;/span&gt;
+}).pipe(...)
+
+lv.searchStream(&lt;span class=&quot;string&quot;&gt;'lorem ipusm'&lt;/span&gt;, {
+  fields: { title: &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt; }, &lt;span class=&quot;comment&quot;&gt;// title only&lt;/span&gt;
+}).pipe(...)
+
+&lt;span class=&quot;comment&quot;&gt;// ltgt&lt;/span&gt;
+lv.searchStream(&lt;span class=&quot;string&quot;&gt;'lorem ipusm'&lt;/span&gt;, {
+  gt: &lt;span class=&quot;string&quot;&gt;'!posts!'&lt;/span&gt;,
+  lt: &lt;span class=&quot;string&quot;&gt;'!posts!~'&lt;/span&gt;
+}).pipe(...)
+
+&lt;span class=&quot;comment&quot;&gt;// document as query&lt;/span&gt;
+lv.searchStream({
+  title: &lt;span class=&quot;string&quot;&gt;'Lorem Ipsum'&lt;/span&gt;,
+  body: &lt;span class=&quot;string&quot;&gt;'Dummy text of the printing and typesetting industry.'&lt;/span&gt;
+}).pipe(...)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Because I do not fully understand everything that is going on here, I need to refer you to the extensive documentation on the &lt;a href=&quot;https://github.com/cshum/levi&quot;&gt;GitHub page&lt;/a&gt;. The reason I still mention this library is that I understand from the explanation a colleague gave me that this library will have a significant impact on the speed of your text search.&lt;/p&gt;
+</description>
+    </item>
+    <item>
+      <title>Rune.js and queryl</title>
+      <link>http://daily-javascript.com/articles/runejs-and-queryl/</link>
+      <pubDate>Mon, 28 Sep 2015 02:00:00 +0200</pubDate>
+      <guid isPermaLink="true">http://daily-javascript.com/articles/runejs-and-queryl/</guid>
+      <author></author>
+      <description>&lt;p&gt;Rune.js (GitHub: &lt;a href=&quot;https://github.com/runemadsen/rune.js&quot;&gt;runemadsen/rune.js&lt;/a&gt;, License: MIT )&lt;/p&gt;
+&lt;p&gt;Rune.js is a library for programming graphic design systems with SVG. It has a fluent drawing API, an unobtrusive scene graph, and a bunch of features designed specifically for graphic designers, such as: native support for color conversion, grid systems, typography, pixel iteration and an expanding set of computational geometry helpers. What peaked my interest is that it uses a &lt;a href=&quot;https://github.com/Matt-Esch/virtual-dom&quot;&gt;virtual-dom&lt;/a&gt; under the hood.&lt;/p&gt;
+&lt;p&gt;If you’re not familiar with the virtual-dom I suggest you take a break to take a look at that first.&lt;/p&gt;
+&lt;p&gt;Unfortunately I could not find any npm or bower install instructions, so I am hoping that the developer will add that soon.&lt;/p&gt;
+&lt;p&gt;Rune.js has all basic shapes in the API.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;r.line(&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;);
+
+r.rect(&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;50&lt;/span&gt;);
+
+r.ellipse(&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;50&lt;/span&gt;);
+
+r.circle(&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;);
+
+r.triangle(&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;And for more complex shapes it fluent API makes drawing with SVG very readable and familiar.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;r.polygon(&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;).lineTo(&lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;).lineTo(&lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;).lineTo(&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;);
+
+r.path(&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;).lineTo(&lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;).curveTo(&lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Since this library is packed with features and concepts, I will only give you the tip of the iceberg right now. If you want to know more, consult the &lt;a href=&quot;http://runemadsen.github.io/rune.js/&quot;&gt;amazing documentation&lt;/a&gt;.&lt;/p&gt;
+&lt;h3 id=&quot;queryl&quot;&gt;queryl&lt;/h3&gt;
+&lt;p&gt;queryl (GitHub: &lt;a href=&quot;https://github.com/issuetrackapp/queryl&quot;&gt;issuetrackapp/queryl&lt;/a&gt;, License: MIT, npm: queryl)&lt;/p&gt;
+&lt;p&gt;queryl is a query language to preform complex object searches. The purpose of this “language” is to allow the developer to build very complex queries to e.g. search a collection of objects, to validate objects before you dump it in a db or even to make assertions in tests.&lt;/p&gt;
+&lt;p&gt;queryl comes with a very simple API. &lt;code&gt;queryl.match&lt;/code&gt; is the main entry at this point this will always return a boolean and expects an object to match. For example:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;queryl.match({
+  $contain: {
+    foo: &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;
+  }
+}, {
+  foo: [ &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;3&lt;/span&gt; ]
+});
+&amp;gt; &lt;span class=&quot;literal&quot;&gt;true&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This is just a very basic example of what it can do. The full API docs shows the entire power of this “language”.&lt;/p&gt;
+&lt;p&gt;I can see this working very well for matching and parsing certain objects like the ones you would receive from, for instance, the Google spreadsheet API.&lt;/p&gt;
+</description>
+    </item>
+    <item>
       <title>Clipboard.js</title>
       <link>http://daily-javascript.com/articles/clipboardjs/</link>
       <pubDate>Mon, 28 Sep 2015 02:00:00 +0200</pubDate>
@@ -1252,115 +1974,6 @@ clipboard.on(&lt;span class=&quot;string&quot;&gt;'error'&lt;/span&gt;, &lt;span
 &lt;/table&gt;
 &lt;p&gt;Although copy/cut operations with execCommand aren’t supported in Safari yet (including mobile), it gracefully degrades, because Selection is supported.&lt;/p&gt;
 &lt;p&gt;This means you could show a tooltip saying Copied! when success event is called and Press Ctrl+C to copy when error event is called because the text is already selected.&lt;/p&gt;
-</description>
-    </item>
-    <item>
-      <title>Rune.js and queryl</title>
-      <link>http://daily-javascript.com/articles/runejs-and-queryl/</link>
-      <pubDate>Mon, 28 Sep 2015 02:00:00 +0200</pubDate>
-      <guid isPermaLink="true">http://daily-javascript.com/articles/runejs-and-queryl/</guid>
-      <author></author>
-      <description>&lt;p&gt;Rune.js (GitHub: &lt;a href=&quot;https://github.com/runemadsen/rune.js&quot;&gt;runemadsen/rune.js&lt;/a&gt;, License: MIT )&lt;/p&gt;
-&lt;p&gt;Rune.js is a library for programming graphic design systems with SVG. It has a fluent drawing API, an unobtrusive scene graph, and a bunch of features designed specifically for graphic designers, such as: native support for color conversion, grid systems, typography, pixel iteration and an expanding set of computational geometry helpers. What peaked my interest is that it uses a &lt;a href=&quot;https://github.com/Matt-Esch/virtual-dom&quot;&gt;virtual-dom&lt;/a&gt; under the hood.&lt;/p&gt;
-&lt;p&gt;If you’re not familiar with the virtual-dom I suggest you take a break to take a look at that first.&lt;/p&gt;
-&lt;p&gt;Unfortunately I could not find any npm or bower install instructions, so I am hoping that the developer will add that soon.&lt;/p&gt;
-&lt;p&gt;Rune.js has all basic shapes in the API.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;r.line(&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;);
-
-r.rect(&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;50&lt;/span&gt;);
-
-r.ellipse(&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;50&lt;/span&gt;);
-
-r.circle(&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;);
-
-r.triangle(&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;);
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;And for more complex shapes it fluent API makes drawing with SVG very readable and familiar.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;r.polygon(&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;).lineTo(&lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;).lineTo(&lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;).lineTo(&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;);
-
-r.path(&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;).lineTo(&lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;).curveTo(&lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;);
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Since this library is packed with features and concepts, I will only give you the tip of the iceberg right now. If you want to know more, consult the &lt;a href=&quot;http://runemadsen.github.io/rune.js/&quot;&gt;amazing documentation&lt;/a&gt;.&lt;/p&gt;
-&lt;h3 id=&quot;queryl&quot;&gt;queryl&lt;/h3&gt;
-&lt;p&gt;queryl (GitHub: &lt;a href=&quot;https://github.com/issuetrackapp/queryl&quot;&gt;issuetrackapp/queryl&lt;/a&gt;, License: MIT, npm: queryl)&lt;/p&gt;
-&lt;p&gt;queryl is a query language to preform complex object searches. The purpose of this “language” is to allow the developer to build very complex queries to e.g. search a collection of objects, to validate objects before you dump it in a db or even to make assertions in tests.&lt;/p&gt;
-&lt;p&gt;queryl comes with a very simple API. &lt;code&gt;queryl.match&lt;/code&gt; is the main entry at this point this will always return a boolean and expects an object to match. For example:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;queryl.match({
-  $contain: {
-    foo: &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;
-  }
-}, {
-  foo: [ &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;3&lt;/span&gt; ]
-});
-&amp;gt; &lt;span class=&quot;literal&quot;&gt;true&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;This is just a very basic example of what it can do. The full API docs shows the entire power of this “language”.&lt;/p&gt;
-&lt;p&gt;I can see this working very well for matching and parsing certain objects like the ones you would receive from, for instance, the Google spreadsheet API.&lt;/p&gt;
-</description>
-    </item>
-    <item>
-      <title>Levi</title>
-      <link>http://daily-javascript.com/articles/levi/</link>
-      <pubDate>Mon, 28 Sep 2015 02:00:00 +0200</pubDate>
-      <guid isPermaLink="true">http://daily-javascript.com/articles/levi/</guid>
-      <author></author>
-      <description>&lt;p&gt;Levi (GitHub: &lt;a href=&quot;https://github.com/cshum/levi&quot;&gt;cshum/levi&lt;/a&gt;, License: MIT, npm: levi)&lt;/p&gt;
-&lt;p&gt;Levi is a streaming full-text search for Node.js and browsers which used LevelDB for storage.
-The search implementation is done by using &lt;a href=&quot;https://en.wikipedia.org/wiki/Tf%E2%80%93idf&quot;&gt;TF-IDF&lt;/a&gt; and &lt;a href=&quot;https://en.wikipedia.org/wiki/Cosine_similarity&quot;&gt;cosine similarity&lt;/a&gt;, and it’s provided with configurable text processing pipelines: Tokenizer, Porter Stemmer and Stopwords filter.&lt;/p&gt;
-&lt;p&gt;Levi is built on &lt;a href=&quot;https://github.com/Level/levelup&quot;&gt;LevelUP&lt;/a&gt; which is a fast, asynchronous, transactional storage interface. By default it uses LevelDB on Node.js, when in running in the browser it uses &lt;a href=&quot;https://github.com/maxogden/level.js&quot;&gt;IndexedDB&lt;/a&gt;. Levi supports with a variety of LevelDOWN compatible backends.&lt;/p&gt;
-&lt;p&gt;In addition, Levi provides relevancy scoring for live changing data using TF-ICF - a TF-IDF approximation based on existing corpus. Such scoring matches are comparably close to TF-IDF when existing corpus is sufficiently large, with significantly better performance O(N) instead of O(N^2).&lt;/p&gt;
-&lt;p&gt;Let’s take a look at the API. To get started, we need to create a new Levi instance. We do that like this:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;import&lt;/span&gt; levi &lt;span class=&quot;keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;'levi'&lt;/span&gt;;
-
-&lt;span class=&quot;keyword&quot;&gt;const&lt;/span&gt; lv = levi(&lt;span class=&quot;string&quot;&gt;'db'&lt;/span&gt;)
-.use(levi.tokenizer())
-.use(levi.stemmer())
-.use(levi.stopword());
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;The text processing pipeline &lt;code&gt;levi.tokenizer()&lt;/code&gt;, &lt;code&gt;levi.stemmer()&lt;/code&gt;, &lt;code&gt;levi.stopword()&lt;/code&gt; are required for indexing. These are exposed as &lt;a href=&quot;https://github.com/cshum/ginga&quot;&gt;ginga&lt;/a&gt; plugins so that they can be swapped for different language configurations.&lt;/p&gt;
-&lt;p&gt;Now that we have an instance we can use it to talk to the API like this:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;lv.put(&lt;span class=&quot;string&quot;&gt;'a'&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;'Lorem Ipsum is simply dummy text.'&lt;/span&gt;, err =&amp;gt; {
-    &lt;span class=&quot;comment&quot;&gt;// ...&lt;/span&gt;
- });
-
-&lt;span class=&quot;comment&quot;&gt;// object fields as value&lt;/span&gt;
-lv.put(&lt;span class=&quot;string&quot;&gt;'b'&lt;/span&gt;, {
-  id: &lt;span class=&quot;string&quot;&gt;'b'&lt;/span&gt;,
-  title: &lt;span class=&quot;string&quot;&gt;'Lorem Ipsum'&lt;/span&gt;,
-  body: &lt;span class=&quot;string&quot;&gt;'Dummy text of the printing and typesetting industry.'&lt;/span&gt;
-}, (err) =&amp;gt; {
-    &lt;span class=&quot;comment&quot;&gt;//...&lt;/span&gt;
-});
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Or retrieve it like:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;lv.get(&lt;span class=&quot;string&quot;&gt;'b'&lt;/span&gt;, res =&amp;gt; {
-    &lt;span class=&quot;comment&quot;&gt;// res here;&lt;/span&gt;
-});
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;To actually search we need to use Levi’s main interface which would be &lt;code&gt;searchStream&lt;/code&gt;. We use that like this.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;lv.searchStream(&lt;span class=&quot;string&quot;&gt;'lorem ipsum'&lt;/span&gt;).toArray(&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; (&lt;span class=&quot;params&quot;&gt;results&lt;/span&gt;) &lt;/span&gt;{ ... }) &lt;span class=&quot;comment&quot;&gt;// highland method&lt;/span&gt;
-
-lv.searchStream(&lt;span class=&quot;string&quot;&gt;'lorem ipsum'&lt;/span&gt;, {
-  fields: { title: &lt;span class=&quot;number&quot;&gt;10&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;'*'&lt;/span&gt;: &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt; } &lt;span class=&quot;comment&quot;&gt;// title field boost. '*' means any field&lt;/span&gt;
-}).pipe(...)
-
-lv.searchStream(&lt;span class=&quot;string&quot;&gt;'lorem ipusm'&lt;/span&gt;, {
-  fields: { title: &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt; }, &lt;span class=&quot;comment&quot;&gt;// title only&lt;/span&gt;
-}).pipe(...)
-
-&lt;span class=&quot;comment&quot;&gt;// ltgt&lt;/span&gt;
-lv.searchStream(&lt;span class=&quot;string&quot;&gt;'lorem ipusm'&lt;/span&gt;, {
-  gt: &lt;span class=&quot;string&quot;&gt;'!posts!'&lt;/span&gt;,
-  lt: &lt;span class=&quot;string&quot;&gt;'!posts!~'&lt;/span&gt;
-}).pipe(...)
-
-&lt;span class=&quot;comment&quot;&gt;// document as query&lt;/span&gt;
-lv.searchStream({
-  title: &lt;span class=&quot;string&quot;&gt;'Lorem Ipsum'&lt;/span&gt;,
-  body: &lt;span class=&quot;string&quot;&gt;'Dummy text of the printing and typesetting industry.'&lt;/span&gt;
-}).pipe(...)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Because I do not fully understand everything that is going on here, I need to refer you to the extensive documentation on the &lt;a href=&quot;https://github.com/cshum/levi&quot;&gt;GitHub page&lt;/a&gt;. The reason I still mention this library is that I understand from the explanation a colleague gave me that this library will have a significant impact on the speed of your text search.&lt;/p&gt;
 </description>
     </item>
     <item>

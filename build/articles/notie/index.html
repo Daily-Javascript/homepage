@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="For you daily dose of Javascript libraries">
+    <meta name="keywords" content="Javascript, React, ES2015, Daily, Updates">
+    <meta name="theme-color" content="#39424D">
+    <title>Notie.js - Daily Javascript
+    </title>
+    <link rel="alternate" href="http://localhost:8080/feed.xml" type="application/rss+xml" title="For your daily dose of Javascript libraries.">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic|Anonymous+Pro:400,700,400italic,700italic|Merriweather:400,700,300">
+    <link rel="stylesheet" href="/css/main.css">
+  </head>
+  <body class="article-detail">
+    <div class="social"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A//Daily-Javascript.com" target="_blank" class="social-btn facebook"></a><a href="https://twitter.com/home?status=Follow%20%40DailyJavascript%20for%20update%20of%20new%20Javascript%20libraries%20and%20challanges%0A%23Javascript" target="_blank" class="social-btn twitter"></a><a href="https://www.reddit.com/submit?url=http%3A//Daily-Javascript.com" target="_blank" class="social-btn reddit"></a><a href="https://plus.google.com/share?url=http%3A//Daily-Javascript.com" target="_blank" class="social-btn google"></a></div>
+    <header class="header">
+      <div class="content-wrap">
+        <h1>Notie.js</h1>
+        <p class="author">Written by <span class="author"><a href="mailto:ramon@ra-ge.net">Ramon Gebben</a></span>
+        </p>
+      </div>
+    </header>
+    <div id="content">
+      <div class="content-wrap">
+        <article class="article">
+          <section class="content"><p>Notie.js (GitHub: <a href="https://github.com/jaredreich/notie.js">jaredreich/notie.js</a>, License:&nbsp;<span class="caps">MIT</span>)</p>
+<p>Notie.js is a simple notification plugin. It does not have any dependencies, which makes it very light and easy to work with.
+Throughout time I’ve seen multiple libraries and <span class="caps">UI</span> frameworks implement something similar,
+but what I like about this little library is that when you have a very small project, it can save you some time on implementing feedback to the&nbsp;user.</p>
+<p>Sadly it’s not available via npm or bower, but I think that is kind of the point this library is trying to make.
+Everything nowadays is bundled and transpiled, which I like very much, but it is nice to see that some people still take this&nbsp;approach.</p>
+<p>So let’s include it in our markup like&nbsp;this:</p>
+<pre><code class="lang-html"><span class="tag">&lt;<span class="title">body</span>&gt;</span>
+  ...
+  <span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"/path/to/notie.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">body</span>&gt;</span>
+</code></pre>
+<p>Now when you want to send a notification or confirm something with your user you can use it like&nbsp;this:</p>
+<pre><code class="lang-javascript">
+notie.alert(style, <span class="string">'message'</span>, time_in_seconds);
+
+notie.confirm(<span class="string">'Title text'</span>, <span class="string">'Yes button text'</span>, <span class="string">'No/cancel button text'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+    <span class="comment">// User choose Yes.</span>
+});
+</code></pre>
+<p>The style in this example would be the “theme” of the alert. By default these would&nbsp;be:</p>
+<ol>
+<li><span class="caps">OK</span> ( Green&nbsp;)</li>
+<li>Warning ( Yellowish&nbsp;)</li>
+<li>Error ( Red&nbsp;)</li>
+<li>Notice ( Blue&nbsp;)</li>
+</ol>
+</section>
+          <div id="disqus_thread"></div>
+          <script>
+            (function() { var d = document, s = d.createElement('script'); s.src = '//daily-javascript.disqus.com/embed.js'; s.setAttribute('data-timestamp', +new Date()); (d.head || d.body).appendChild(s); })();
+            
+          </script>
+        </article>
+      </div>
+    </div>
+    <footer>
+      <script type="text/javascript">(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-68072930-1', 'auto');ga('send', 'pageview');</script>
+      <div class="content-wrap">
+        <div class="nav"><a href="/">« Full blog</a></div>
+        <section class="about">
+        </section>
+        <section class="copy">
+          <p>&copy; 2015 Ramon Gebben &mdash; powered by&nbsp;<a href="https://github.com/jnordberg/wintersmith">Wintersmith</a>
+          </p>
+        </section>
+      </div>
+    </footer>
+  </body>
+</html>

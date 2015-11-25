@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="For you daily dose of Javascript libraries">
+    <meta name="keywords" content="Javascript, React, ES2015, Daily, Updates">
+    <meta name="theme-color" content="#39424D">
+    <title>Node v5.1.0 Stable - Daily Javascript
+    </title>
+    <link rel="alternate" href="http://localhost:8080/feed.xml" type="application/rss+xml" title="For your daily dose of Javascript libraries.">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic|Anonymous+Pro:400,700,400italic,700italic|Merriweather:400,700,300">
+    <link rel="stylesheet" href="/css/main.css">
+  </head>
+  <body class="article-detail">
+    <div class="social"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A//Daily-Javascript.com" target="_blank" class="social-btn facebook"></a><a href="https://twitter.com/home?status=Follow%20%40DailyJavascript%20for%20update%20of%20new%20Javascript%20libraries%20and%20challanges%0A%23Javascript" target="_blank" class="social-btn twitter"></a><a href="https://www.reddit.com/submit?url=http%3A//Daily-Javascript.com" target="_blank" class="social-btn reddit"></a><a href="https://plus.google.com/share?url=http%3A//Daily-Javascript.com" target="_blank" class="social-btn google"></a></div>
+    <header class="header">
+      <div class="content-wrap">
+        <h1>Node v5.1.0 Stable</h1>
+        <p class="author">Written by <span class="author"><a href="mailto:ramon@ra-ge.net">Ramon Gebben</a></span>
+        </p>
+      </div>
+    </header>
+    <div id="content">
+      <div class="content-wrap">
+        <article class="article">
+          <section class="content"><p>First of all my excuse for not posting the past 2 days. I had a few days off from my day job because I went to a concert of Bullet For My Valentine(for those of you that might me interested). This also caused me to mis this new release of Node.js so here is a small roundup of the notable&nbsp;changes.</p>
+<h3 id="-buffer-3767-https-github-com-nodejs-node-pull-3767-"><code>buffer</code> (<a href="https://github.com/nodejs/node/pull/3767">#3767</a>)</h3>
+<p>The <code>noAssert</code> option for many buffer functions will now silently drop invalid write values rather than crashing This makes the behavior match what the docs&nbsp;suggest.</p>
+<h3 id="-child_process-3577-https-github-com-nodejs-node-pull-3577-"><code>child_process</code> (<a href="https://github.com/nodejs/node/pull/3577">#3577</a>)</h3>
+<p>child.send() now properly returns a boolean like the docs&nbsp;suggest.</p>
+<h3 id="-http_parser-3569-https-github-com-nodejs-node-pull-3569-"><code>http_parser</code> (<a href="https://github.com/nodejs/node/pull/3569">#3569</a>)</h3>
+<p>update http-parser to 2.6.0 from 2.5.0 (James M Snell) .
+Now supports the following <span class="caps">HTTP</span> methods: <code>LINK</code>, <code>UNLINK</code>, <code>BIND</code>, <code>REBIND</code>, <code>UNBIND</code>.
+Also added <span class="caps">ACL</span> and IPv6 Zone ID&nbsp;support.</p>
+<h3 id="-npm-3685-https-github-com-nodejs-node-pull-3685-"><code>npm</code> (<a href="https://github.com/nodejs/node/pull/3685">#3685</a>)</h3>
+<p>upgrade npm to 3.3.12 from v3.3.6.
+See the release notes for <a href="https://github.com/npm/npm/releases/tag/v3.3.7">v3.3.7</a>, <a href="https://github.com/npm/npm/releases/tag/v3.3.8">v3.3.8</a>, <a href="https://github.com/npm/npm/releases/tag/v3.3.9">v3.3.9</a>, <a href="https://github.com/npm/npm/releases/tag/v3.3.10">v3.3.10</a>, <a href="https://github.com/npm/npm/releases/tag/v3.3.11">v3.3.11</a>, and <a href="https://github.com/npm/npm/releases/tag/v3.3.12">v3.3.12</a> for more&nbsp;details.</p>
+<h3 id="repl-3630-https-github-com-nodejs-node-pull-3630-"><span class="caps">REPL</span> (<a href="https://github.com/nodejs/node/pull/3630">#3630</a>)</h3>
+<p>The <span class="caps">REPL</span> no longer crashes if the persistent history file cannot be&nbsp;opened.</p>
+<h3 id="tls-3755-https-github-com-nodejs-node-pull-3755-">tls (<a href="https://github.com/nodejs/node/pull/3755">#3755</a>)</h3>
+<p>The default sessionIdContext now uses <span class="caps">SHA1</span> in FIPS mode rather than&nbsp;MD5.</p>
+<h3 id="v8-3779-https-github-com-nodejs-node-pull-3779-">v8(<a href="https://github.com/nodejs/node/pull/3779">#3779</a>)</h3>
+<p>Added some more useful post-mortem&nbsp;data.</p>
+<h3 id="documentation-3662-https-github-com-nodejs-node-pull-3662-">Documentation (<a href="https://github.com/nodejs/node/pull/3662">#3662</a>)</h3>
+<p>All of the <span class="caps">API</span> docs have been re-ordered so as to read in alphabetical&nbsp;order.</p>
+<p>The known issues that are still in there&nbsp;are:</p>
+<ul>
+<li>Surrogate pair in <span class="caps">REPL</span> can freeze terminal. <a href="https://github.com/nodejs/node/issues/690">#690</a></li>
+<li>Calling dns.setServers() while a <span class="caps">DNS</span> query is in progress can cause the process to crash on a failed assertion. <a href="https://github.com/nodejs/node/issues/894">#894</a></li>
+<li>url.resolve may transfer the auth portion of the url when resolving between two full hosts, see <a href="https://github.com/nodejs/node/issues/1435">#1435</a>.</li>
+<li>Unicode characters in filesystem paths are not handled consistently across platforms or Node.js APIs. See <a href="https://github.com/nodejs/node/issues/2088">#2088</a>, <a href="https://github.com/nodejs/node/issues/3401">#3401</a> and <a href="https://github.com/nodejs/node/issues/3519">#3519</a>.</li>
+</ul>
+</section>
+          <div id="disqus_thread"></div>
+          <script>
+            (function() { var d = document, s = d.createElement('script'); s.src = '//daily-javascript.disqus.com/embed.js'; s.setAttribute('data-timestamp', +new Date()); (d.head || d.body).appendChild(s); })();
+            
+          </script>
+        </article>
+      </div>
+    </div>
+    <footer>
+      <script type="text/javascript">(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-68072930-1', 'auto');ga('send', 'pageview');</script>
+      <div class="content-wrap">
+        <div class="nav"><a href="/">« Full blog</a></div>
+        <section class="about">
+        </section>
+        <section class="copy">
+          <p>&copy; 2015 Ramon Gebben &mdash; powered by&nbsp;<a href="https://github.com/jnordberg/wintersmith">Wintersmith</a>
+          </p>
+        </section>
+      </div>
+    </footer>
+  </body>
+</html>
