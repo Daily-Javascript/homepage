@@ -5,9 +5,136 @@
     <atom:link href="http://localhost:8080/feed.xml" rel="self" type="application/rss+xml"></atom:link>
     <link>http://localhost:8080</link>
     <description>For your daily dose of Javascript libraries.</description>
-    <pubDate>Wed, 25 Nov 2015 01:00:00 +0100</pubDate>
+    <pubDate>Wed, 02 Dec 2015 01:00:00 +0100</pubDate>
     <generator>Wintersmith - https://github.com/jnordberg/wintersmith</generator>
     <language>en</language>
+    <item>
+      <title>ally.js</title>
+      <link>http://daily-javascript.com/articles/allyjs/</link>
+      <pubDate>Wed, 02 Dec 2015 01:00:00 +0100</pubDate>
+      <guid isPermaLink="true">http://daily-javascript.com/articles/allyjs/</guid>
+      <author></author>
+      <description>&lt;p&gt;ally.js (GitHub: &lt;a href=&quot;https://github.com/medialize/ally.js&quot;&gt;medialize/ally.js&lt;/a&gt;, License: MIT, npm: ally.js)&lt;/p&gt;
+&lt;p&gt;Ever had the problem of having to accommodate for instance blind people on your website?
+With the web app’s of nowadays accessibility sometimes goes to waste by not having the need for “semantic” HTML and just putting everything inside &lt;code&gt;div&lt;/code&gt;‘s.
+Don’t get me wrong, I ofter find myself using a &lt;code&gt;div&lt;/code&gt; to make buttons for instance. But for the blind users of the web this can be a serious problem, because their assistance software and the browser do not have the correct content they use all accessibility to your website.&lt;/p&gt;
+&lt;p&gt;ally.js is a library simplifying certain accessibility features, functions and behaviors.
+Its goal is to help web applications with accessibility concerns provide every user with a good experience.&lt;/p&gt;
+&lt;p&gt;It has an amazingly extensive API to solve most accessibility problems, way to much to even begin to describe so I will direct you to their &lt;a href=&quot;http://allyjs.io/index.html&quot;&gt;website&lt;/a&gt; where everything is explained into more detail than I could do in a day.&lt;/p&gt;
+</description>
+    </item>
+    <item>
+      <title>dotconf</title>
+      <link>http://daily-javascript.com/articles/dotconf/</link>
+      <pubDate>Tue, 01 Dec 2015 01:00:00 +0100</pubDate>
+      <guid isPermaLink="true">http://daily-javascript.com/articles/dotconf/</guid>
+      <author></author>
+      <description>&lt;p&gt;dotconf (GitHub: &lt;a href=&quot;https://github.com/yoannmoinet/dotconf&quot;&gt;yoannmoinet/dotconf&lt;/a&gt;, License: MIT, npm: dotconf)&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://github.com/yoannmoinet/dotconf/raw/master/media/demo.gif&quot; alt=&quot;demo&quot;&gt;&lt;/p&gt;
+&lt;p&gt;Are you also tired of all the &lt;code&gt;.something&lt;/code&gt; config files for all the tooling we need which is cluttering up your tree? Well &lt;a href=&quot;https://github.com/yoannmoinet&quot;&gt;Yoann Moinet&lt;/a&gt; made a solution for this problem, dotconf.&lt;/p&gt;
+&lt;p&gt;What is does is bundle all your existing &lt;code&gt;.something&lt;/code&gt; files and directories into one &lt;code&gt;.conf&lt;/code&gt;.
+Yoann uses the term “One config to rule them all”. Since I’m a big Lord of the Rings fan, this slogan catch my attention. After trying it our in some projects I really enjoyed how it cleans up all the config files in my tree view.&lt;/p&gt;
+&lt;p&gt;The CLI is very easy, use &lt;code&gt;-a&lt;/code&gt; to ‘archive’ all the &lt;code&gt;.something&lt;/code&gt; files and &lt;code&gt;-e&lt;/code&gt; to extract them again.
+Besides that it comes with a bunch more options to specify that way it should behave such as: destination, pattern, safe mode and what to ignore.&lt;/p&gt;
+</description>
+    </item>
+    <item>
+      <title>Microm</title>
+      <link>http://daily-javascript.com/articles/microm/</link>
+      <pubDate>Mon, 30 Nov 2015 01:00:00 +0100</pubDate>
+      <guid isPermaLink="true">http://daily-javascript.com/articles/microm/</guid>
+      <author></author>
+      <description>&lt;p&gt;Microm (GitHub: &lt;a href=&quot;https://github.com/zzarcon/microm&quot;&gt;zzarcon/microm&lt;/a&gt;, License: MIT, npm: microm, bower: microm)&lt;/p&gt;
+&lt;p&gt;Microm is a wrapper of few audio converting libraries to expose a Promise and Event oriented API.
+The goal of the library is to make it more trivial to play and convert audio in the browser. Besides that I would say this work in some &lt;a href=&quot;http://electron.atom.io/&quot;&gt;Electron&lt;/a&gt; application.&lt;/p&gt;
+&lt;p&gt;Microm uses the following libs:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/zhuker/lamejs&quot;&gt;lamejs&lt;/a&gt; mp3 encoder in javascript&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/webrtc/adapter&quot;&gt;webrtc-adapter&lt;/a&gt; Shim to insulate apps from spec changes and prefix differences&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/muaz-khan/RecordRTC&quot;&gt;RecordRTC&lt;/a&gt; record WebRTC audio/video media streams&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/tildeio/rsvp.js/&quot;&gt;RSVP&lt;/a&gt; Provides tools for organizing asynchronous code&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;In order to get the user recorded data, it use webrtc-adapter and RecordRTC to provide some shims and tools to make it easy to work with multiple browsers.
+Next they use lamejs to convert Wav to Mp3 and finally to provide a Promise based API, it uses RSVP to support the &lt;a href=&quot;https://promisesaplus.com/&quot;&gt;Promises/A+&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Let’s look at some example code. When you want to record the browsers microphone you can use the &lt;code&gt;startRecording&lt;/code&gt; like so:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;const&lt;/span&gt; microm = &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; Microm();
+
+microm.startRecording()
+      .then(() =&amp;gt; { &lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.log(&lt;span class=&quot;string&quot;&gt;'recording...'&lt;/span&gt;)})
+      .catch(() =&amp;gt; { &lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.log(&lt;span class=&quot;string&quot;&gt;'error recording'&lt;/span&gt;)});
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Because we want to do a bit more then just record, let’s play it back to the user. To do that we need to do this:
+We do this like so:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;microm.stop()
+      .then((result) =&amp;gt; { microm.play() });
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;If you want to provide you user with a download of the recording can use the &lt;code&gt;download&lt;/code&gt; method like so:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;microm.stop()
+      .then((result) =&amp;gt; { microm.download(&lt;span class=&quot;string&quot;&gt;'my-voice'&lt;/span&gt;) });
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Alternatively you could save the recording to a server by posting a base64 encoding of it.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;microm.getBase64().then((base64string) =&amp;gt; {
+    $.ajax({
+        type: &lt;span class=&quot;string&quot;&gt;'POST'&lt;/span&gt;,
+        contentType: &lt;span class=&quot;string&quot;&gt;'application/octet-stream'&lt;/span&gt;,
+        mimeType: &lt;span class=&quot;string&quot;&gt;'audio/mpeg'&lt;/span&gt;,
+        processData: &lt;span class=&quot;literal&quot;&gt;false&lt;/span&gt;,
+        url: &lt;span class=&quot;string&quot;&gt;'http://some.serv.er/upload-audio'&lt;/span&gt;,
+        data: base64string,
+        success: someSuccessCallBack
+    });
+});
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Besides recording, playing and downloading you want to give the user some feedback.
+We can use the events emitted by the library to present the user with feedback.&lt;/p&gt;
+&lt;p&gt;By attaching the &lt;code&gt;on&lt;/code&gt; listener we can listen for this list of events:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;timeupdate&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;loadedmetadata&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;play&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;pause&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ended&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;By example:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;microm.on(&lt;span class=&quot;string&quot;&gt;'timeupdate'&lt;/span&gt;, updateCurrentTime);
+&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;updateCurrentTime&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;time&lt;/span&gt;) &lt;/span&gt;{ &lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.log(time); }
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    <item>
+      <title>react-pull-to-refresh</title>
+      <link>http://daily-javascript.com/articles/react-pull-to-refresh/</link>
+      <pubDate>Thu, 26 Nov 2015 01:00:00 +0100</pubDate>
+      <guid isPermaLink="true">http://daily-javascript.com/articles/react-pull-to-refresh/</guid>
+      <author></author>
+      <description>&lt;p&gt;react-pull-to-refresh (GitHub: &lt;a href=&quot;https://github.com/bryaneaton13/react-pull-to-refresh&quot;&gt;bryaneaton13/react-pull-to-refresh&lt;/a&gt;, License: MIT, npm: react-pull-to-refresh)&lt;/p&gt;
+&lt;p&gt;react-pull-to-refresh is a library that does exactly what the name implies. It gives the pull to refresh behavior.
+&lt;img src=&quot;https://github.com/bryaneaton13/react-pull-to-refresh/raw/master/docs/demo.gif&quot; alt=&quot;demo&quot;&gt;&lt;/p&gt;
+&lt;p&gt;It is based on the &lt;a href=&quot;https://github.com/apeatling/web-pull-to-refresh&quot;&gt;library&lt;/a&gt; that Andy Peatling made and wrote a post about. You can find that &lt;a href=&quot;https://github.com/apeatling/web-pull-to-refresh&quot;&gt;here&lt;/a&gt;.
+So let’s take a look at how it works, your refresh handler takes in &lt;code&gt;resolve&lt;/code&gt; and &lt;code&gt;reject&lt;/code&gt; to tell the component when it’s finished. That would look something like this:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;handleRefresh(resolve, reject) {
+    &lt;span class=&quot;comment&quot;&gt;// do some async code here&lt;/span&gt;
+    &lt;span class=&quot;keyword&quot;&gt;let&lt;/span&gt; success = &lt;span class=&quot;literal&quot;&gt;false&lt;/span&gt;;
+    &lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt; (success) {
+        resolve();
+    } &lt;span class=&quot;keyword&quot;&gt;else&lt;/span&gt; {
+        reject();
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;And this is what the component would look like:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-html&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;ReactPullToRefresh&lt;/span&gt;
+    &lt;span class=&quot;attribute&quot;&gt;onRefresh&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;{this.handleRefresh}&lt;/span&gt;
+    &lt;span class=&quot;attribute&quot;&gt;className&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;your-own-class-if-you-want&quot;&lt;/span&gt;
+    &lt;span class=&quot;attribute&quot;&gt;style&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;{{&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;textAlign:&lt;/span&gt; '&lt;span class=&quot;attribute&quot;&gt;center&lt;/span&gt;' }}&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;h3&lt;/span&gt;&amp;gt;&lt;/span&gt;Pull down to refresh&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;title&quot;&gt;h3&lt;/span&gt;&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;div&lt;/span&gt;&amp;gt;&lt;/span&gt;{items}&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;title&quot;&gt;div&lt;/span&gt;&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;div&lt;/span&gt;&amp;gt;&lt;/span&gt;etc.&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;title&quot;&gt;div&lt;/span&gt;&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;title&quot;&gt;ReactPullToRefresh&lt;/span&gt;&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Basically that is all that there is to it. For the American readers I hope you have a nice Thanksgiving.&lt;/p&gt;
+</description>
+    </item>
     <item>
       <title>Vue.js</title>
       <link>http://daily-javascript.com/articles/vuejs/</link>
@@ -1784,6 +1911,50 @@ This weekend I will be trying to include this within this website so you will be
 </description>
     </item>
     <item>
+      <title>Rune.js and queryl</title>
+      <link>http://daily-javascript.com/articles/runejs-and-queryl/</link>
+      <pubDate>Mon, 28 Sep 2015 02:00:00 +0200</pubDate>
+      <guid isPermaLink="true">http://daily-javascript.com/articles/runejs-and-queryl/</guid>
+      <author></author>
+      <description>&lt;p&gt;Rune.js (GitHub: &lt;a href=&quot;https://github.com/runemadsen/rune.js&quot;&gt;runemadsen/rune.js&lt;/a&gt;, License: MIT )&lt;/p&gt;
+&lt;p&gt;Rune.js is a library for programming graphic design systems with SVG. It has a fluent drawing API, an unobtrusive scene graph, and a bunch of features designed specifically for graphic designers, such as: native support for color conversion, grid systems, typography, pixel iteration and an expanding set of computational geometry helpers. What peaked my interest is that it uses a &lt;a href=&quot;https://github.com/Matt-Esch/virtual-dom&quot;&gt;virtual-dom&lt;/a&gt; under the hood.&lt;/p&gt;
+&lt;p&gt;If you’re not familiar with the virtual-dom I suggest you take a break to take a look at that first.&lt;/p&gt;
+&lt;p&gt;Unfortunately I could not find any npm or bower install instructions, so I am hoping that the developer will add that soon.&lt;/p&gt;
+&lt;p&gt;Rune.js has all basic shapes in the API.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;r.line(&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;);
+
+r.rect(&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;50&lt;/span&gt;);
+
+r.ellipse(&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;50&lt;/span&gt;);
+
+r.circle(&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;);
+
+r.triangle(&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;And for more complex shapes it fluent API makes drawing with SVG very readable and familiar.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;r.polygon(&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;).lineTo(&lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;).lineTo(&lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;).lineTo(&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;);
+
+r.path(&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;).lineTo(&lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;).curveTo(&lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Since this library is packed with features and concepts, I will only give you the tip of the iceberg right now. If you want to know more, consult the &lt;a href=&quot;http://runemadsen.github.io/rune.js/&quot;&gt;amazing documentation&lt;/a&gt;.&lt;/p&gt;
+&lt;h3 id=&quot;queryl&quot;&gt;queryl&lt;/h3&gt;
+&lt;p&gt;queryl (GitHub: &lt;a href=&quot;https://github.com/issuetrackapp/queryl&quot;&gt;issuetrackapp/queryl&lt;/a&gt;, License: MIT, npm: queryl)&lt;/p&gt;
+&lt;p&gt;queryl is a query language to preform complex object searches. The purpose of this “language” is to allow the developer to build very complex queries to e.g. search a collection of objects, to validate objects before you dump it in a db or even to make assertions in tests.&lt;/p&gt;
+&lt;p&gt;queryl comes with a very simple API. &lt;code&gt;queryl.match&lt;/code&gt; is the main entry at this point this will always return a boolean and expects an object to match. For example:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;queryl.match({
+  $contain: {
+    foo: &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;
+  }
+}, {
+  foo: [ &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;3&lt;/span&gt; ]
+});
+&amp;gt; &lt;span class=&quot;literal&quot;&gt;true&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This is just a very basic example of what it can do. The full API docs shows the entire power of this “language”.&lt;/p&gt;
+&lt;p&gt;I can see this working very well for matching and parsing certain objects like the ones you would receive from, for instance, the Google spreadsheet API.&lt;/p&gt;
+</description>
+    </item>
+    <item>
       <title>Levi</title>
       <link>http://daily-javascript.com/articles/levi/</link>
       <pubDate>Mon, 28 Sep 2015 02:00:00 +0200</pubDate>
@@ -1846,50 +2017,6 @@ lv.searchStream({
 }).pipe(...)
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Because I do not fully understand everything that is going on here, I need to refer you to the extensive documentation on the &lt;a href=&quot;https://github.com/cshum/levi&quot;&gt;GitHub page&lt;/a&gt;. The reason I still mention this library is that I understand from the explanation a colleague gave me that this library will have a significant impact on the speed of your text search.&lt;/p&gt;
-</description>
-    </item>
-    <item>
-      <title>Rune.js and queryl</title>
-      <link>http://daily-javascript.com/articles/runejs-and-queryl/</link>
-      <pubDate>Mon, 28 Sep 2015 02:00:00 +0200</pubDate>
-      <guid isPermaLink="true">http://daily-javascript.com/articles/runejs-and-queryl/</guid>
-      <author></author>
-      <description>&lt;p&gt;Rune.js (GitHub: &lt;a href=&quot;https://github.com/runemadsen/rune.js&quot;&gt;runemadsen/rune.js&lt;/a&gt;, License: MIT )&lt;/p&gt;
-&lt;p&gt;Rune.js is a library for programming graphic design systems with SVG. It has a fluent drawing API, an unobtrusive scene graph, and a bunch of features designed specifically for graphic designers, such as: native support for color conversion, grid systems, typography, pixel iteration and an expanding set of computational geometry helpers. What peaked my interest is that it uses a &lt;a href=&quot;https://github.com/Matt-Esch/virtual-dom&quot;&gt;virtual-dom&lt;/a&gt; under the hood.&lt;/p&gt;
-&lt;p&gt;If you’re not familiar with the virtual-dom I suggest you take a break to take a look at that first.&lt;/p&gt;
-&lt;p&gt;Unfortunately I could not find any npm or bower install instructions, so I am hoping that the developer will add that soon.&lt;/p&gt;
-&lt;p&gt;Rune.js has all basic shapes in the API.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;r.line(&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;);
-
-r.rect(&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;50&lt;/span&gt;);
-
-r.ellipse(&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;50&lt;/span&gt;);
-
-r.circle(&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;);
-
-r.triangle(&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;);
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;And for more complex shapes it fluent API makes drawing with SVG very readable and familiar.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;r.polygon(&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;).lineTo(&lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;).lineTo(&lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;).lineTo(&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;);
-
-r.path(&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;).lineTo(&lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;).curveTo(&lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;);
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Since this library is packed with features and concepts, I will only give you the tip of the iceberg right now. If you want to know more, consult the &lt;a href=&quot;http://runemadsen.github.io/rune.js/&quot;&gt;amazing documentation&lt;/a&gt;.&lt;/p&gt;
-&lt;h3 id=&quot;queryl&quot;&gt;queryl&lt;/h3&gt;
-&lt;p&gt;queryl (GitHub: &lt;a href=&quot;https://github.com/issuetrackapp/queryl&quot;&gt;issuetrackapp/queryl&lt;/a&gt;, License: MIT, npm: queryl)&lt;/p&gt;
-&lt;p&gt;queryl is a query language to preform complex object searches. The purpose of this “language” is to allow the developer to build very complex queries to e.g. search a collection of objects, to validate objects before you dump it in a db or even to make assertions in tests.&lt;/p&gt;
-&lt;p&gt;queryl comes with a very simple API. &lt;code&gt;queryl.match&lt;/code&gt; is the main entry at this point this will always return a boolean and expects an object to match. For example:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;queryl.match({
-  $contain: {
-    foo: &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;
-  }
-}, {
-  foo: [ &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;3&lt;/span&gt; ]
-});
-&amp;gt; &lt;span class=&quot;literal&quot;&gt;true&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;This is just a very basic example of what it can do. The full API docs shows the entire power of this “language”.&lt;/p&gt;
-&lt;p&gt;I can see this working very well for matching and parsing certain objects like the ones you would receive from, for instance, the Google spreadsheet API.&lt;/p&gt;
 </description>
     </item>
     <item>

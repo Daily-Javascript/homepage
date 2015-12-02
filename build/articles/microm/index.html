@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="For you daily dose of Javascript libraries">
+    <meta name="keywords" content="Javascript, React, ES2015, Daily, Updates">
+    <meta name="theme-color" content="#39424D">
+    <title>Microm - Daily Javascript
+    </title>
+    <link rel="alternate" href="http://localhost:8080/feed.xml" type="application/rss+xml" title="For your daily dose of Javascript libraries.">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic|Anonymous+Pro:400,700,400italic,700italic|Merriweather:400,700,300">
+    <link rel="stylesheet" href="/css/main.css">
+  </head>
+  <body class="article-detail">
+    <div class="social"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A//Daily-Javascript.com" target="_blank" class="social-btn facebook"></a><a href="https://twitter.com/home?status=Follow%20%40DailyJavascript%20for%20update%20of%20new%20Javascript%20libraries%20and%20challanges%0A%23Javascript" target="_blank" class="social-btn twitter"></a><a href="https://www.reddit.com/submit?url=http%3A//Daily-Javascript.com" target="_blank" class="social-btn reddit"></a><a href="https://plus.google.com/share?url=http%3A//Daily-Javascript.com" target="_blank" class="social-btn google"></a></div>
+    <header class="header">
+      <div class="content-wrap">
+        <h1>Microm</h1>
+        <p class="author">Written by <span class="author"><a href="mailto:ramon@ra-ge.net">Ramon Gebben</a></span>
+        </p>
+      </div>
+    </header>
+    <div id="content">
+      <div class="content-wrap">
+        <article class="article">
+          <section class="content"><p>Microm (GitHub: <a href="https://github.com/zzarcon/microm">zzarcon/microm</a>, License: <span class="caps">MIT</span>, npm: microm, bower:&nbsp;microm)</p>
+<p>Microm is a wrapper of few audio converting libraries to expose a Promise and Event oriented <span class="caps">API</span>.
+The goal of the library is to make it more trivial to play and convert audio in the browser. Besides that I would say this work in some <a href="http://electron.atom.io/">Electron</a>&nbsp;application.</p>
+<p>Microm uses the following&nbsp;libs:</p>
+<ul>
+<li><a href="https://github.com/zhuker/lamejs">lamejs</a> mp3 encoder in&nbsp;javascript</li>
+<li><a href="https://github.com/webrtc/adapter">webrtc-adapter</a> Shim to insulate apps from spec changes and prefix&nbsp;differences</li>
+<li><a href="https://github.com/muaz-khan/RecordRTC">RecordRTC</a> record WebRTC audio/video media&nbsp;streams</li>
+<li><a href="https://github.com/tildeio/rsvp.js/"><span class="caps">RSVP</span></a> Provides tools for organizing asynchronous&nbsp;code</li>
+</ul>
+<p>In order to get the user recorded data, it use webrtc-adapter and RecordRTC to provide some shims and tools to make it easy to work with multiple browsers.
+Next they use lamejs to convert Wav to Mp3 and finally to provide a Promise based <span class="caps">API</span>, it uses RSVP to support the <a href="https://promisesaplus.com/">Promises/A+</a>.</p>
+<p>Let’s look at some example code. When you want to record the browsers microphone you can use the <code>startRecording</code> like&nbsp;so:</p>
+<pre><code class="lang-javascript"><span class="keyword">const</span> microm = <span class="keyword">new</span> Microm();
+
+microm.startRecording()
+      .then(() =&gt; { <span class="built_in">console</span>.log(<span class="string">'recording...'</span>)})
+      .catch(() =&gt; { <span class="built_in">console</span>.log(<span class="string">'error recording'</span>)});
+</code></pre>
+<p>Because we want to do a bit more then just record, let’s play it back to the user. To do that we need to do this:
+We do this like&nbsp;so:</p>
+<pre><code class="lang-javascript">microm.stop()
+      .then((result) =&gt; { microm.play() });
+</code></pre>
+<p>If you want to provide you user with a download of the recording can use the <code>download</code> method like&nbsp;so:</p>
+<pre><code class="lang-javascript">microm.stop()
+      .then((result) =&gt; { microm.download(<span class="string">'my-voice'</span>) });
+</code></pre>
+<p>Alternatively you could save the recording to a server by posting a base64 encoding of&nbsp;it.</p>
+<pre><code class="lang-javascript">microm.getBase64().then((base64<span class="ord">st</span>ring) =&gt; {
+    $.ajax({
+        type: <span class="string">'<span class="caps">POST</span>'</span>,
+        contentType: <span class="string">'application/octet-stream'</span>,
+        mimeType: <span class="string">'audio/mpeg'</span>,
+        processData: <span class="literal">false</span>,
+        url: <span class="string">'http://some.serv.er/upload-audio'</span>,
+        data: base64<span class="ord">st</span>ring,
+        success: someSuccessCallBack
+    });
+});
+</code></pre>
+<p>Besides recording, playing and downloading you want to give the user some feedback.
+We can use the events emitted by the library to present the user with&nbsp;feedback.</p>
+<p>By attaching the <code>on</code> listener we can listen for this list of&nbsp;events:</p>
+<ul>
+<li><code>timeupdate</code></li>
+<li><code>loadedmetadata</code></li>
+<li><code>play</code></li>
+<li><code>pause</code></li>
+<li><code>ended</code></li>
+</ul>
+<p>By&nbsp;example:</p>
+<pre><code class="lang-javascript">microm.on(<span class="string">'timeupdate'</span>, updateCurrentTime);
+<span class="function"><span class="keyword">function</span> <span class="title">updateCurrentTime</span>(<span class="params">time</span>) </span>{ <span class="built_in">console</span>.log(time); }
+</code></pre>
+</section>
+          <div id="disqus_thread"></div>
+          <script>
+            (function() { var d = document, s = d.createElement('script'); s.src = '//daily-javascript.disqus.com/embed.js'; s.setAttribute('data-timestamp', +new Date()); (d.head || d.body).appendChild(s); })();
+            
+          </script>
+        </article>
+      </div>
+    </div>
+    <footer>
+      <script type="text/javascript">(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-68072930-1', 'auto');ga('send', 'pageview');</script>
+      <div class="content-wrap">
+        <div class="nav"><a href="/">« Full blog</a></div>
+        <section class="about">
+        </section>
+        <section class="copy">
+          <p>&copy; 2015 Ramon Gebben &mdash; powered by&nbsp;<a href="https://github.com/jnordberg/wintersmith">Wintersmith</a>
+          </p>
+        </section>
+      </div>
+    </footer>
+  </body>
+</html>
