@@ -35,6 +35,133 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
+            <p class="date"><span>02. December 2015</span></p>
+            <h2><a href="/articles/allyjs/">ally.js</a></h2>
+          </header>
+          <section class="content"><p>ally.js (GitHub: <a href="https://github.com/medialize/ally.js">medialize/ally.js</a>, License: <span class="caps">MIT</span>, npm:&nbsp;ally.js)</p>
+<p>Ever had the problem of having to accommodate for instance blind people on your website?
+With the web app’s of nowadays accessibility sometimes goes to waste by not having the need for “semantic” <span class="caps">HTML</span> and just putting everything inside <code>div</code>‘s.
+Don’t get me wrong, I ofter find myself using a <code>div</code> to make buttons for instance. But for the blind users of the web this can be a serious problem, because their assistance software and the browser do not have the correct content they use all accessibility to your&nbsp;website.</p>
+<p>ally.js is a library simplifying certain accessibility features, functions and behaviors.
+Its goal is to help web applications with accessibility concerns provide every user with a good&nbsp;experience.</p>
+<p>It has an amazingly extensive <span class="caps">API</span> to solve most accessibility problems, way to much to even begin to describe so I will direct you to their <a href="http://allyjs.io/index.html">website</a> where everything is explained into more detail than I could do in a&nbsp;day.</p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
+            <p class="date"><span>01. December 2015</span></p>
+            <h2><a href="/articles/dotconf/">dotconf</a></h2>
+          </header>
+          <section class="content"><p>dotconf (GitHub: <a href="https://github.com/yoannmoinet/dotconf">yoannmoinet/dotconf</a>, License: <span class="caps">MIT</span>, npm:&nbsp;dotconf)</p>
+<p><img src="https://github.com/yoannmoinet/dotconf/raw/master/media/demo.gif" alt="demo"></p>
+<p>Are you also tired of all the <code>.something</code> config files for all the tooling we need which is cluttering up your tree? Well <a href="https://github.com/yoannmoinet">Yoann Moinet</a> made a solution for this problem,&nbsp;dotconf.</p>
+<p>What is does is bundle all your existing <code>.something</code> files and directories into one <code>.conf</code>.
+Yoann uses the term “One config to rule them all”. Since I’m a big Lord of the Rings fan, this slogan catch my attention. After trying it our in some projects I really enjoyed how it cleans up all the config files in my tree&nbsp;view.</p>
+<p>The <span class="caps">CLI</span> is very easy, use <code>-a</code> to ‘archive’ all the <code>.something</code> files and <code>-e</code> to extract them again.
+Besides that it comes with a bunch more options to specify that way it should behave such as: destination, pattern, safe mode and what to&nbsp;ignore.</p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
+            <p class="date"><span>30. November 2015</span></p>
+            <h2><a href="/articles/microm/">Microm</a></h2>
+          </header>
+          <section class="content"><p>Microm (GitHub: <a href="https://github.com/zzarcon/microm">zzarcon/microm</a>, License: <span class="caps">MIT</span>, npm: microm, bower:&nbsp;microm)</p>
+<p>Microm is a wrapper of few audio converting libraries to expose a Promise and Event oriented <span class="caps">API</span>.
+The goal of the library is to make it more trivial to play and convert audio in the browser. Besides that I would say this work in some <a href="http://electron.atom.io/">Electron</a>&nbsp;application.</p>
+<p>Microm uses the following&nbsp;libs:</p>
+<ul>
+<li><a href="https://github.com/zhuker/lamejs">lamejs</a> mp3 encoder in&nbsp;javascript</li>
+<li><a href="https://github.com/webrtc/adapter">webrtc-adapter</a> Shim to insulate apps from spec changes and prefix&nbsp;differences</li>
+<li><a href="https://github.com/muaz-khan/RecordRTC">RecordRTC</a> record WebRTC audio/video media&nbsp;streams</li>
+<li><a href="https://github.com/tildeio/rsvp.js/"><span class="caps">RSVP</span></a> Provides tools for organizing asynchronous&nbsp;code</li>
+</ul>
+<p>In order to get the user recorded data, it use webrtc-adapter and RecordRTC to provide some shims and tools to make it easy to work with multiple browsers.
+Next they use lamejs to convert Wav to Mp3 and finally to provide a Promise based <span class="caps">API</span>, it uses RSVP to support the <a href="https://promisesaplus.com/">Promises/A+</a>.</p>
+<p>Let’s look at some example code. When you want to record the browsers microphone you can use the <code>startRecording</code> like&nbsp;so:</p>
+<pre><code class="lang-javascript"><span class="keyword">const</span> microm = <span class="keyword">new</span> Microm();
+
+microm.startRecording()
+      .then(() =&gt; { <span class="built_in">console</span>.log(<span class="string">'recording...'</span>)})
+      .catch(() =&gt; { <span class="built_in">console</span>.log(<span class="string">'error recording'</span>)});
+</code></pre>
+<p>Because we want to do a bit more then just record, let’s play it back to the user. To do that we need to do this:
+We do this like&nbsp;so:</p>
+<pre><code class="lang-javascript">microm.stop()
+      .then((result) =&gt; { microm.play() });
+</code></pre>
+<p>If you want to provide you user with a download of the recording can use the <code>download</code> method like&nbsp;so:</p>
+<pre><code class="lang-javascript">microm.stop()
+      .then((result) =&gt; { microm.download(<span class="string">'my-voice'</span>) });
+</code></pre>
+<p>Alternatively you could save the recording to a server by posting a base64 encoding of&nbsp;it.</p>
+<pre><code class="lang-javascript">microm.getBase64().then((base64<span class="ord">st</span>ring) =&gt; {
+    $.ajax({
+        type: <span class="string">'<span class="caps">POST</span>'</span>,
+        contentType: <span class="string">'application/octet-stream'</span>,
+        mimeType: <span class="string">'audio/mpeg'</span>,
+        processData: <span class="literal">false</span>,
+        url: <span class="string">'http://some.serv.er/upload-audio'</span>,
+        data: base64<span class="ord">st</span>ring,
+        success: someSuccessCallBack
+    });
+});
+</code></pre>
+<p>Besides recording, playing and downloading you want to give the user some feedback.
+We can use the events emitted by the library to present the user with&nbsp;feedback.</p>
+<p>By attaching the <code>on</code> listener we can listen for this list of&nbsp;events:</p>
+<ul>
+<li><code>timeupdate</code></li>
+<li><code>loadedmetadata</code></li>
+<li><code>play</code></li>
+<li><code>pause</code></li>
+<li><code>ended</code></li>
+</ul>
+<p>By&nbsp;example:</p>
+<pre><code class="lang-javascript">microm.on(<span class="string">'timeupdate'</span>, updateCurrentTime);
+<span class="function"><span class="keyword">function</span> <span class="title">updateCurrentTime</span>(<span class="params">time</span>) </span>{ <span class="built_in">console</span>.log(time); }
+</code></pre>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
+            <p class="date"><span>26. November 2015</span></p>
+            <h2><a href="/articles/react-pull-to-refresh/">react-pull-to-refresh</a></h2>
+          </header>
+          <section class="content"><p>react-pull-to-refresh (GitHub: <a href="https://github.com/bryaneaton13/react-pull-to-refresh">bryaneaton13/react-pull-to-refresh</a>, License: <span class="caps">MIT</span>, npm:&nbsp;react-pull-to-refresh)</p>
+<p>react-pull-to-refresh is a library that does exactly what the name implies. It gives the pull to refresh behavior.
+<img src="https://github.com/bryaneaton13/react-pull-to-refresh/raw/master/docs/demo.gif" alt="demo"></p>
+<p>It is based on the <a href="https://github.com/apeatling/web-pull-to-refresh">library</a> that Andy Peatling made and wrote a post about. You can find that <a href="https://github.com/apeatling/web-pull-to-refresh">here</a>.
+So let’s take a look at how it works, your refresh handler takes in <code>resolve</code> and <code>reject</code> to tell the component when it’s finished. That would look something like&nbsp;this:</p>
+<pre><code class="lang-javascript">handleRefresh(resolve, reject) {
+    <span class="comment">// do some async code here</span>
+    <span class="keyword">let</span> success = <span class="literal">false</span>;
+    <span class="keyword">if</span> (success) {
+        resolve();
+    } <span class="keyword">else</span> {
+        reject();
+    }
+}
+</code></pre>
+<p>And this is what the component would look&nbsp;like:</p>
+<pre><code class="lang-html"><span class="tag">&lt;<span class="title">ReactPullToRefresh</span>
+    <span class="attribute">onRefresh</span>=<span class="value">{this.handleRefresh}</span>
+    <span class="attribute">className</span>=<span class="value">"your-own-class-if-you-want"</span>
+    <span class="attribute">style</span>=<span class="value">{{</span> <span class="attribute">textAlign:</span> '<span class="attribute">center</span>' }}&gt;</span>
+        <span class="tag">&lt;<span class="title">h3</span>&gt;</span>Pull down to refresh<span class="tag">&lt;/<span class="title">h3</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">div</span>&gt;</span>{items}<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">div</span>&gt;</span>etc.<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">ReactPullToRefresh</span>&gt;</span>
+</code></pre>
+<p>Basically that is all that there is to it. For the American readers I hope you have a nice&nbsp;Thanksgiving.</p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
             <p class="date"><span>25. November 2015</span></p>
             <h2><a href="/articles/vuejs/">Vue.js</a></h2>
           </header>
@@ -90,370 +217,6 @@ That would look something like&nbsp;this:</p>
 <p>There is a demo for the transition system which demonstrates state-based tweening with&nbsp;Vue:</p>
 <p><p data-height="268" data-theme-id="0" data-slug-hash="XmZNOG" data-default-tab="result" data-user="yyx990803" class='codepen'>See the Pen <a href='http://codepen.io/yyx990803/pen/XmZNOG/'>Vue.js elastic header component</a> by Evan You (<a href='http://codepen.io/yyx990803'>@yyx990803</a>) on <a href='http://codepen.io'>CodePen</a>.</p></p>
 <script async src="//assets.codepen.io/assets/embed/ei.js"></script>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>24. November 2015</span></p>
-            <h2><a href="/articles/vectorious/">Vectorious</a></h2>
-          </header>
-          <section class="content"><p>Vectorious (GitHub: <a href="https://github.com/mateogianolio/vectorious">mateogianolio/vectorious</a>, License: <span class="caps">MIT</span>, npm:&nbsp;vectorious)</p>
-<p>Vectorious is a high performance linear algebra library written in Javascript.
-It is available via npm or just as a script so you can include it on your&nbsp;page.</p>
-<p>Since I’m not a mathematician and did not do a lot of linear algebra, you will have to bare with me.
-I will try to give you a good description of what this library can&nbsp;do.</p>
-<p>It has two mayor <span class="caps">API</span> endpoints to work with: <code>Matrix</code> and <code>Vector</code>.
-The constructor functions for both these functions can be called with a range of different arguments.
-Since 2.1.0 Vector implements <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Typed_arrays">JavaScript typed arrays</a> for increased performance. The default Vector type is Float64Array, but this can be specified upon&nbsp;creation.</p>
-<p>We would work with it like&nbsp;so:</p>
-<pre><code class="lang-javascript"><span class="keyword">import</span> { Vector, Matrix } <span class="keyword">from</span> <span class="string">'vectorious'</span>;
-
-<span class="keyword">let</span> vector, matrix;
-
-<span class="comment">// Create an empty vector of default type Float64Array</span>
-vector = <span class="keyword">new</span> Vector();
-<span class="comment">/* Vector { type: [Function: Float64Array], length: 0 } */</span>
-
-<span class="comment">// Create an empty vector of type Uint8Array</span>
-vector = <span class="keyword">new</span> Vector(<span class="built_in">Uint8Array</span>);
-<span class="comment">/* Vector { type: [Function: Uint8Array], length: 0 } */</span>
-
-matrix = <span class="keyword">new</span> Matrix();
-<span class="comment">/* Matrix { type: [Function: Float64Array], shape: [] } */</span>
-
-vector = Vector.zeros(<span class="number">5</span>);
-<span class="comment">/* Vector {
-  type: [Function: Float64Array],
-  length: 5,
-  buffer: ArrayBuffer {},
-  values: Float64Array { '0': 0, '1': 0, '2': 0, '3': 0, '4': 0 } } */</span>
-
-vector = <span class="keyword">new</span> Vector(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>);
-<span class="comment">/* Vector {
-  type: [Function: Float64Array],
-  length: 5,
-  buffer: ArrayBuffer {},
-  values: Float64Array { '0': 1, '1': 2, '2': 3, '3': 4, '4': 5 } } */</span>
-
-matrix = <span class="keyword">new</span> Matrix(vector);
-<span class="comment">/* Matrix {
-  type: [Function: Float64Array],
-  shape: [ 5, 1 ],
-  data: Float64Array { '0': 1, '1': 2, '2': 3, '3': 4, '4': 5 } } */</span>
-
-matrix = Matrix.zeros(<span class="number">2</span>, <span class="number">2</span>);
-<span class="comment">/* Matrix {
-  shape: [ 2, 2 ],
-  data: Float64Array { '0': 0, '1': 0, '2': 0, '3': 0 },
-  type: [Function: Float64Array] } */</span>
-</code></pre>
-<p>The developer posted an example of how you would map a time range over a&nbsp;sinus.</p>
-<pre><code class="lang-javascript"><span class="keyword">var</span> time = Vector.range(<span class="number">0</span>, <span class="built_in">Math</span>.<span class="caps">PI</span> / <span class="number">12</span>, <span class="built_in">Math</span>.<span class="caps">PI</span>);
-<span class="comment">// Which will return</span>
-<span class="comment">/* Vector {
-  type: [Function: Float64Array],
-  length: 12,
-  buffer: ArrayBuffer {},
-  values:
-   Float64Array {
-     '0': 0,
-     '1': 0.2617993877991494,
-     '2': 0.5235987755982988,
-     '3': 0.7853981633974483,
-     '4': 1.0471975511965976,
-     '5': 1.308996938995747,
-     '6': 1.5707963267948963,
-     '7': 1.8325957145940457,
-     '8': 2.0943951023931953,
-     '9': 2.356194490192345,
-     '10': 2.6179938779914944,
-     '11': 2.879793265790644 } } */</span>
-
-<span class="keyword">var</span> sine = time.map(<span class="built_in">Math</span>.sin);
-<span class="comment">// Which will return</span>
-<span class="comment">/* Vector {
-  type: [Function: Float64Array],
-  length: 12,
-  buffer: ArrayBuffer {},
-  values:
-   Float64Array {
-     '0': 0,
-     '1': 0.25881904510252074,
-     '2': 0.49999999999999994,
-     '3': 0.7071067811865475,
-     '4': 0.8660254037844386,
-     '5': 0.9659258262890682,
-     '6': 1,
-     '7': 0.9659258262890684,
-     '8': 0.8660254037844387,
-     '9': 0.7071067811865476,
-     '10': 0.49999999999999994,
-     '11': 0.2588190451025206 } } */</span>
-</code></pre>
-<p>Besides the very extensive <span class="caps">API</span> it also accommodates extentions such as <a href="https://github.com/mateogianolio/vectorious-solve">Solve</a> and <a href="https://github.com/mateogianolio/vectorious-plot">Plot</a>.
-Plot for instance can be used to a two-dimensional <span class="caps">SVG</span> plot from two input&nbsp;vectors.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>23. November 2015</span></p>
-            <h2><a href="/articles/psdjs/">PSD.js</a></h2>
-          </header>
-          <section class="content"><p><span class="caps">PSD</span>.js (GitHub: <a href="https://github.com/meltingice/psd.js">meltingice/psd.js</a>, License: <span class="caps">MIT</span>, npm:&nbsp;psd)</p>
-<p><span class="caps">PSD</span>.js is a general purpose PSD parser written in Coffeescript. I was inspired by PSD.rb which allows you to work with a Photoshop document in a manageable tree structure and find out data such&nbsp;as:</p>
-<ul>
-<li>Document&nbsp;structure</li>
-<li>Document&nbsp;size</li>
-<li>Layer/folder size +&nbsp;positioning</li>
-<li>Layer/folder&nbsp;names</li>
-<li>Layer/folder visibility and&nbsp;opacity</li>
-<li>Font data (via psd-enginedata)<ul>
-<li>Text area&nbsp;contents</li>
-<li>Font names, sizes, and&nbsp;colors</li>
-</ul>
-</li>
-<li>Color mode and&nbsp;bit-depth</li>
-<li>Vector mask&nbsp;data</li>
-<li>Flattened image&nbsp;data</li>
-<li>Layer&nbsp;comps</li>
-</ul>
-<p>Although there are still some pieces missing that are present in <span class="caps">PSD</span>.rb, the eventual goal is to have all the features PSD.rb offers.
-So let’s look at an example for converting <code>.psd</code> as a <code>.png</code>.</p>
-<pre><code class="lang-javascript"><span class="keyword">import</span> <span class="caps">PSD</span> <span class="keyword">from</span> <span class="string">'psd'</span>;
-
-<span class="keyword">const</span> psd = <span class="caps">PSD</span>.fromFile(<span class="string">'my/awesome/file.psd'</span>);
-
-psd.parse();
-
-<span class="comment">// Log the tree structure of the .psd</span>
-<span class="built_in">console</span>.log(psd.tree().export());
-
-<span class="comment">// You can use promises syntax for opening and parsing</span>
-<span class="caps">PSD</span>.open(<span class="string">'my/awesome/file'</span>)
-    .then(psd =&gt; psd.image.saveAsPng(<span class="string">'./output.png'</span>))
-    .then(() =&gt; <span class="built_in">console</span>.log(<span class="string">'Finished!'</span>));
-</code></pre>
-<p>There is a very extensive <span class="caps">API</span> for traversing the document. If you would know the path to a group or layer within the tree, there is a way you can search by that path.
-That would look something like&nbsp;this:</p>
-<pre><code class="lang-javascript">psd.tree().childrenAtPath(<span class="string">'Version A/Matte'</span>);
-psd.tree().childrenAtPath([<span class="string">'Version A'</span>, <span class="string">'Matte'</span>]);
-</code></pre>
-<p>Once you have the layer you are interested in you can access the data like&nbsp;so:</p>
-<pre><code class="lang-javascript"><span class="comment">// Get the first layer</span>
-<span class="keyword">const</span> node = psd.tree().descendants()[<span class="number">0</span>];
-
-<span class="comment">// Read the name</span>
-node.get(<span class="string">'name'</span>);
-<span class="comment">// Read the width</span>
-node.get(<span class="string">'width'</span>);
-</code></pre>
-<p>Here is an example of the output <code>tree().export()</code> would give&nbsp;you:</p>
-<pre><code class="lang-javascript">{
-    children: [
-        {
-            type: <span class="string">'group'</span>,
-            visible: <span class="literal">false</span>,
-            opacity: <span class="number">1</span>,
-            blendingMode: <span class="string">'normal'</span>,
-            name: <span class="string">'VersionD'</span>,
-            left: <span class="number">0</span>,
-            right: <span class="number">900</span>,
-            top: <span class="number">0</span>,
-            bottom: <span class="number">600</span>,
-            height: <span class="number">600</span>,
-            width: <span class="number">900</span>,
-            children: [
-                {
-                    type: <span class="string">'layer'</span>,
-                    visible: <span class="literal">true</span>,
-                    opacity: <span class="number">1</span>,
-                    blendingMode: <span class="string">'normal'</span>,
-                    name: <span class="string">'Makeachangeandsave.'</span>,
-                    left: <span class="number">275</span>,
-                    right: <span class="number">636</span>,
-                    top: <span class="number">435</span>,
-                    bottom: <span class="number">466</span>,
-                    height: <span class="number">31</span>,
-                    width: <span class="number">361</span>,
-                    mask: {
-
-                    },
-                    text: {
-                        value: <span class="string">'Makeachangeandsave.'</span>,
-                        font: {
-                            name: <span class="string">'HelveticaNeue-Light'</span>,
-                            sizes: [
-                                <span class="number">33</span>
-                            ],
-                            colors: [
-                                [
-                                    <span class="number">85</span>,
-                                    <span class="number">96</span>,
-                                    <span class="number">110</span>,
-                                    <span class="number">255</span>
-                                ]
-                            ],
-                            alignment: [
-                                <span class="string">'center'</span>
-                            ]
-                        },
-                        left: <span class="number">0</span>,
-                        top: <span class="number">0</span>,
-                        right: <span class="number">0</span>,
-                        bottom: <span class="number">0</span>,
-                        transform: {
-                            xx: <span class="number">1</span>,
-                            xy: <span class="number">0</span>,
-                            yx: <span class="number">0</span>,
-                            yy: <span class="number">1</span>,
-                            tx: <span class="number">456</span>,
-                            ty: <span class="number">459</span>
-                        }
-                    },
-                    image: {
-
-                    }
-                }
-            ]
-        }
-    ],
-    <span class="built_in">document</span>: {
-        width: <span class="number">900</span>,
-        height: <span class="number">600</span>,
-        resources: {
-            layerComps: [
-                {
-                    id: <span class="number">692243163</span>,
-                    name: <span class="string">'VersionA'</span>,
-                    capturedInfo: <span class="number">1</span>
-                },
-                {
-                    id: <span class="number">725235304</span>,
-                    name: <span class="string">'VersionB'</span>,
-                    capturedInfo: <span class="number">1</span>
-                },
-                {
-                    id: <span class="number">730932877</span>,
-                    name: <span class="string">'VersionC'</span>,
-                    capturedInfo: <span class="number">1</span>
-                }
-            ],
-            guides: [
-
-            ],
-            slices: [
-
-            ]
-        }
-    }
-}
-</code></pre>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>19. November 2015</span></p>
-            <h2><a href="/articles/node-5-1-0/">Node v5.1.0 Stable</a></h2>
-          </header>
-          <section class="content"><p>First of all my excuse for not posting the past 2 days. I had a few days off from my day job because I went to a concert of Bullet For My Valentine(for those of you that might me interested). This also caused me to mis this new release of Node.js so here is a small roundup of the notable&nbsp;changes.</p>
-<h3 id="-buffer-3767-https-github-com-nodejs-node-pull-3767-"><code>buffer</code> (<a href="https://github.com/nodejs/node/pull/3767">#3767</a>)</h3>
-<p>The <code>noAssert</code> option for many buffer functions will now silently drop invalid write values rather than crashing This makes the behavior match what the docs&nbsp;suggest.</p>
-<h3 id="-child_process-3577-https-github-com-nodejs-node-pull-3577-"><code>child_process</code> (<a href="https://github.com/nodejs/node/pull/3577">#3577</a>)</h3>
-<p>child.send() now properly returns a boolean like the docs&nbsp;suggest.</p>
-<h3 id="-http_parser-3569-https-github-com-nodejs-node-pull-3569-"><code>http_parser</code> (<a href="https://github.com/nodejs/node/pull/3569">#3569</a>)</h3>
-<p>update http-parser to 2.6.0 from 2.5.0 (James M Snell) .
-Now supports the following <span class="caps">HTTP</span> methods: <code>LINK</code>, <code>UNLINK</code>, <code>BIND</code>, <code>REBIND</code>, <code>UNBIND</code>.
-Also added <span class="caps">ACL</span> and IPv6 Zone ID&nbsp;support.</p>
-<h3 id="-npm-3685-https-github-com-nodejs-node-pull-3685-"><code>npm</code> (<a href="https://github.com/nodejs/node/pull/3685">#3685</a>)</h3>
-<p>upgrade npm to 3.3.12 from v3.3.6.
-See the release notes for <a href="https://github.com/npm/npm/releases/tag/v3.3.7">v3.3.7</a>, <a href="https://github.com/npm/npm/releases/tag/v3.3.8">v3.3.8</a>, <a href="https://github.com/npm/npm/releases/tag/v3.3.9">v3.3.9</a>, <a href="https://github.com/npm/npm/releases/tag/v3.3.10">v3.3.10</a>, <a href="https://github.com/npm/npm/releases/tag/v3.3.11">v3.3.11</a>, and <a href="https://github.com/npm/npm/releases/tag/v3.3.12">v3.3.12</a> for more&nbsp;details.</p>
-<h3 id="repl-3630-https-github-com-nodejs-node-pull-3630-"><span class="caps">REPL</span> (<a href="https://github.com/nodejs/node/pull/3630">#3630</a>)</h3>
-<p>The <span class="caps">REPL</span> no longer crashes if the persistent history file cannot be&nbsp;opened.</p>
-<h3 id="tls-3755-https-github-com-nodejs-node-pull-3755-">tls (<a href="https://github.com/nodejs/node/pull/3755">#3755</a>)</h3>
-<p>The default sessionIdContext now uses <span class="caps">SHA1</span> in FIPS mode rather than&nbsp;MD5.</p>
-<h3 id="v8-3779-https-github-com-nodejs-node-pull-3779-">v8(<a href="https://github.com/nodejs/node/pull/3779">#3779</a>)</h3>
-<p>Added some more useful post-mortem&nbsp;data.</p>
-<h3 id="documentation-3662-https-github-com-nodejs-node-pull-3662-">Documentation (<a href="https://github.com/nodejs/node/pull/3662">#3662</a>)</h3>
-<p>All of the <span class="caps">API</span> docs have been re-ordered so as to read in alphabetical&nbsp;order.</p>
-<p>The known issues that are still in there&nbsp;are:</p>
-<ul>
-<li>Surrogate pair in <span class="caps">REPL</span> can freeze terminal. <a href="https://github.com/nodejs/node/issues/690">#690</a></li>
-<li>Calling dns.setServers() while a <span class="caps">DNS</span> query is in progress can cause the process to crash on a failed assertion. <a href="https://github.com/nodejs/node/issues/894">#894</a></li>
-<li>url.resolve may transfer the auth portion of the url when resolving between two full hosts, see <a href="https://github.com/nodejs/node/issues/1435">#1435</a>.</li>
-<li>Unicode characters in filesystem paths are not handled consistently across platforms or Node.js APIs. See <a href="https://github.com/nodejs/node/issues/2088">#2088</a>, <a href="https://github.com/nodejs/node/issues/3401">#3401</a> and <a href="https://github.com/nodejs/node/issues/3519">#3519</a>.</li>
-</ul>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>16. November 2015</span></p>
-            <h2><a href="/articles/domcom/">Domcom</a></h2>
-          </header>
-          <section class="content"><p>Domcom (GitHub: <a href="https://github.com/taijiweb/domcom">taijiweb/domcom</a>, License: <span class="caps">MIT</span>, npm:&nbsp;domcom)</p>
-<p>Yesterday I got an email with the request to take a look at the Domcom.
-Domcom is a frontend framework which uses declarative components to proxy the <span class="caps">DOM</span> in order to implement better performance than <a href="https://github.com/Matt-Esch/virtual-dom">VirtualDOM</a>. It comes with “lazy” reactive functions to manage data. A few of the features included in this framework&nbsp;are:</p>
-<ul>
-<li><p>Declarative compostable components with reactive&nbsp;function</p>
-</li>
-<li><p>Only render the invalidated components and refresh the really changed <span class="caps">DOM</span> nodes with automatic update status&nbsp;checking</p>
-</li>
-<li><p>Decouple with model and&nbsp;controller</p>
-</li>
-<li><p>Simple but powerful&nbsp;route</p>
-</li>
-<li><p>Support for&nbsp;promise</p>
-</li>
-</ul>
-<p>And a whole lot more but I would refer you to the <a href="https://github.com/taijiweb/domcom">Github project</a> for&nbsp;that.</p>
-<p>Here is a code example provided by the developer to give a taste of&nbsp;Domcom:</p>
-<p>In&nbsp;javascript:</p>
-<pre><code class="lang-javascript">    <span class="keyword">const</span> {list, text, p, flow, see} = dc
-    ​
-    demoSum = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
-      <span class="keyword">let</span> a, b, comp, p1, t1, t2;
-
-      a = see(<span class="number">1</span>);
-      b = see(<span class="number">2</span>);
-
-      comp = list((t1 = text({
-        value: a,
-        onchange() { <span class="keyword">return</span> a(<span class="keyword">this</span>.value * <span class="number">1</span>); }
-
-      })), (t2 = text({
-        value: b,
-        onchange() { <span class="keyword">return</span> b(<span class="keyword">this</span>.value * <span class="number">1</span>); }
-
-      })), p1 = p(flow.add(a, b)));
-
-      dc.updateWhen([t1, t2], <span class="string">'change'</span>, p1);
-
-      <span class="keyword">return</span> comp.mount();
-    };
-    ​
-    demoSum();
-</code></pre>
-<p>Since the developer likes coffee-script is here the same example in&nbsp;coffee-script.</p>
-<pre><code class="lang-coffeescript">{list, text, p, flow, see} = dc
-<span class="function">
-<span class="title">demoSum</span> = -&gt;</span>
-
-    a = see <span class="number">1</span>; b = see <span class="number">2</span>
-
-    comp = list \
-        (t1 = text <span class="attribute">value</span>: a, <span class="attribute">onchange</span>: <span class="function">-&gt;</span> a <span class="property">@value</span>*<span class="number">1</span>),
-        (t2 = text <span class="attribute">value</span>: b, <span class="attribute">onchange</span>: <span class="function">-&gt;</span> b <span class="property">@value</span>*<span class="number">1</span>),
-        p1 = p flow.add a, b
-
-    dc.updateWhen [t1, t2], <span class="string">'change'</span>, p1
-
-    comp.mount()
-
-demoSum()
-</code></pre>
 
           </section>
         </article>
