@@ -5,9 +5,80 @@
     <atom:link href="http://localhost:8080/feed.xml" rel="self" type="application/rss+xml"></atom:link>
     <link>http://localhost:8080</link>
     <description>For your daily dose of Javascript libraries.</description>
-    <pubDate>Wed, 02 Dec 2015 01:00:00 +0100</pubDate>
+    <pubDate>Thu, 03 Dec 2015 01:00:00 +0100</pubDate>
     <generator>Wintersmith - https://github.com/jnordberg/wintersmith</generator>
     <language>en</language>
+    <item>
+      <title>Matreshka</title>
+      <link>http://daily-javascript.com/articles/matreshka/</link>
+      <pubDate>Thu, 03 Dec 2015 01:00:00 +0100</pubDate>
+      <guid isPermaLink="true">http://daily-javascript.com/articles/matreshka/</guid>
+      <author></author>
+      <description>&lt;p&gt;Matreshka (GitHub: &lt;a href=&quot;https://github.com/matreshkajs/matreshka&quot;&gt;matreshkajs/matreshka&lt;/a&gt;, License: MIT, npm: matreshka, bower: matreshka)&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://camo.githubusercontent.com/27ecdbde13a34ee2555f36ba3e3ee9363413d6f0/687474703a2f2f6d6174726573686b612e696f2f696d672f6d6b352d6c6f676f5f66756c6c2d766572742e737667&quot; alt=&quot;http://matreshka.io/&quot;&gt;&lt;/p&gt;
+&lt;p&gt;Matreshka is small but powerful client-side framework that allows you to build single page applications.
+It describes it self as a event driven framework, which means that you put listeners on objects and elements to which you can react with configured handler functions.
+Besides it’s event system it comes with features such as: two-way data-binding, custom objects and custom arrays.&lt;/p&gt;
+&lt;p&gt;Let’s say we would be making a simple SPA then this would be our markup would look something like this&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-html&quot;&gt;&lt;span class=&quot;doctype&quot;&gt;&amp;lt;!DOCTYPE html&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;html&lt;/span&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;head&lt;/span&gt;&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;title&lt;/span&gt;&amp;gt;&lt;/span&gt;My first Matreshka application&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;title&quot;&gt;title&lt;/span&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;title&quot;&gt;head&lt;/span&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;body&lt;/span&gt;&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;input&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;type&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;text&quot;&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;class&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;my-input&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;div&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;class&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;my-output&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;title&quot;&gt;div&lt;/span&gt;&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;script&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;src&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;http://cdn.jsdelivr.net/matreshka/latest/matreshka.min.js&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;undefined&quot;&gt;&lt;/span&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;title&quot;&gt;script&lt;/span&gt;&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;script&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;undefined&quot;&gt;
+
+        &lt;/span&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;title&quot;&gt;script&lt;/span&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;title&quot;&gt;body&lt;/span&gt;&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;title&quot;&gt;html&lt;/span&gt;&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;As you can see we import the Matreshka via a script tag but it’s also possible to install via npm.
+Nothing new here right? So let’s put some code in our &lt;code&gt;script&lt;/code&gt; tag. Let’s make an “class” called Application:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; Application = Class({
+    &lt;span class=&quot;string&quot;&gt;'extends'&lt;/span&gt;: Matreshka,
+    constructor: &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;&lt;/span&gt;) &lt;/span&gt;{
+
+        &lt;span class=&quot;comment&quot;&gt;// bind the property x and the text field&lt;/span&gt;
+        &lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;.bindNode(&lt;span class=&quot;string&quot;&gt;'x'&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;'.my-input'&lt;/span&gt;);
+
+        &lt;span class=&quot;comment&quot;&gt;// bind the property x and the &quot;.my-output&quot; block&lt;/span&gt;
+        &lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;.bindNode(&lt;span class=&quot;string&quot;&gt;'x'&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;'.my-output'&lt;/span&gt;, {
+            setValue: &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;v&lt;/span&gt;) &lt;/span&gt;{
+                &lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;.innerHTML = v;
+            }
+        });
+        &lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;.on(&lt;span class=&quot;string&quot;&gt;'change:x'&lt;/span&gt;, &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;&lt;/span&gt;) &lt;/span&gt;{
+            &lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.log(&lt;span class=&quot;string&quot;&gt;'x changed to '&lt;/span&gt; + &lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;.x);
+        });
+    }
+});
+
+&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; app = &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; Application();
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Or the same code in ES2015:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;class&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;Application&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;Matreshka&lt;/span&gt; &lt;/span&gt;{
+    constructor() {
+        &lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;.bindNode(&lt;span class=&quot;string&quot;&gt;'x'&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;'.my-input'&lt;/span&gt;);
+        &lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;.bindNode(&lt;span class=&quot;string&quot;&gt;'x'&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;'.my-output'&lt;/span&gt;, {
+            setValue(v) {
+                &lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;.innerHTML = v;
+            }
+        });
+        &lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;.on(&lt;span class=&quot;string&quot;&gt;'change:x'&lt;/span&gt;, () =&amp;gt;
+            &lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.log(&lt;span class=&quot;string&quot;&gt;'x changed to '&lt;/span&gt; + &lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;.x));
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now when something happens we can change the value &lt;code&gt;x&lt;/code&gt; like this:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;app.x = &lt;span class=&quot;string&quot;&gt;'Hello Daily Javascript'&lt;/span&gt;;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This will fill the &lt;code&gt;input&lt;/code&gt; and the &lt;code&gt;#output&lt;/code&gt; elements with the string &lt;code&gt;&amp;#39;Hello Daily Javascript&amp;#39;&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Nowadays we are not impressed by data-binding any more. It comes with a lot more, but for that I would refer you to the &lt;a href=&quot;http://matreshka.io/&quot;&gt;full documentation&lt;/a&gt;. The API is very small and easy to reason about, so if you have a new POC project coming up I would suggest you give it a try.&lt;/p&gt;
+</description>
+    </item>
     <item>
       <title>ally.js</title>
       <link>http://daily-javascript.com/articles/allyjs/</link>
