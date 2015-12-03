@@ -35,6 +35,126 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
+            <p class="date"><span>28. October 2015</span></p>
+            <h2><a href="/articles/vstack-validator/">vstack-validator</a></h2>
+          </header>
+          <section class="content"><p>Vstack-validator (GitHub: <a href="https://github.com/vslinko/vstack-validator">vslinko/vstack-validator</a>, License: <span class="caps">MIT</span>, npm:&nbsp;vstack-validator)</p>
+<p>When you are working with very complex and deeply nested data structures, validation can become a real pain.
+Vstack-validator tries to solve this problem by providing you with a declarative <span class="caps">API</span> which consists of 3 methods: a validator, a constraint and a schema.
+The Validator is a function that receives a value and returns boolean result of validation.
+Constraint is a function that receives a value and returns validation metadata.
+With a Schema we create declarations of the constraints in a tree, which in turn can be used to validate an object, which would look like&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="keyword">import</span> {schema} <span class="keyword">from</span> <span class="string">'vstack-validator'</span>;
+
+<span class="keyword">const</span> userSchema = schema.type(<span class="string">'user'</span>, {
+    email: {
+        notEmpty: schema.constraint(schema.validators.isNotEmpty, <span class="string">'Email is empty'</span>),
+        email: schema.constraint(schema.validators.isEmail, <span class="string">'Email is not valid'</span>),
+    },
+    password: schema.optional({
+        notEmpty: schema.constraint(schema.validators.isNotEmpty, <span class="string">'Password is empty'</span>),
+        minLength: schema.minLength(<span class="number">3</span>, <span class="string">'Password is less than 3'</span>),
+    }),
+});
+
+<span class="keyword">const</span> itemSchema = schema.type(<span class="string">'item'</span>, {
+    name: {
+        notEmpty: schema.constraint(schema.validators.isNotEmpty, <span class="string">'Name is empty'</span>),
+    },
+});
+
+<span class="keyword">const</span> cartSchema = schema.type(<span class="string">'cart'</span>, {
+    user: userSchema,
+    items: schema.list(itemSchema),
+});
+
+<span class="keyword">let</span> validationData = {
+    user: {
+        email: <span class="string">''</span>,
+        password: <span class="string">''</span>,
+    },
+    items: [
+        { name: <span class="string">''</span> },
+    ],
+};
+
+cartSchema.check(validationData)
+          .then((constraintResult) =&gt; <span class="built_in">console</span>.log(constraintResult));
+</code></pre>
+<p>When the <code>check</code> is executed <code>constraintResult</code> it would look something like&nbsp;this:</p>
+<pre><code class="lang-javascript">{
+    valid: <span class="literal">false</span>,
+    message: <span class="string">'Objectisnotvalid'</span>,
+    children: {
+        user: {
+            valid: <span class="literal">false</span>,
+            message: <span class="string">'Objectisnotvalid'</span>,
+            children: {
+                email: {
+                    valid: <span class="literal">false</span>,
+                    message: <span class="string">'Valueisnotvalid'</span>,
+                    children: {
+                        notEmpty: {
+                            valid: <span class="literal">false</span>,
+                            message: <span class="string">'Emailisempty'</span>,
+                            children: <span class="literal">null</span>
+                        },
+                        email: {
+                            valid: <span class="literal">false</span>,
+                            message: <span class="string">'Emailisnotvalid'</span>,
+                            children: <span class="literal">null</span>
+                        }
+                    }
+                },
+                password: {
+                    valid: <span class="literal">false</span>,
+                    message: <span class="string">'Valueisnotvalid'</span>,
+                    children: {
+                        notEmpty: {
+                            valid: <span class="literal">false</span>,
+                            message: <span class="string">'Passwordisempty'</span>,
+                            children: <span class="literal">null</span>
+                        },
+                        minLength: {
+                            valid: <span class="literal">false</span>,
+                            message: <span class="string">'Passwordislessthan3'</span>,
+                            children: <span class="literal">null</span>
+                        }
+                    }
+                }
+            }
+        },
+        items: {
+            valid: <span class="literal">false</span>,
+            message: <span class="string">'Arrayisnotvalid'</span>,
+            children: [
+                {
+                    valid: <span class="literal">false</span>,
+                    message: <span class="string">'Objectisnotvalid'</span>,
+                    children: {
+                        name: {
+                            valid: <span class="literal">false</span>,
+                            message: <span class="string">'Valueisnotvalid'</span>,
+                            children: {
+                                notEmpty: {
+                                    valid: <span class="literal">false</span>,
+                                    message: <span class="string">'Nameisempty'</span>,
+                                    children: <span class="literal">null</span>
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        }
+    }
+}
+</code></pre>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
             <p class="date"><span>27. October 2015</span></p>
             <h2><a href="/articles/jsdoc2diagram/">jsdoc2diagram</a></h2>
           </header>
@@ -232,60 +352,6 @@ rollup <span class="operator">-f</span> iife --globals jquery:jQuery,angular:ng 
 <p>For more commands check out the <code>--help</code>.</p>
 <p>Alternatively, you could use rollup command from an npm run script cntext, you can install it as a devDependency&nbsp;using:</p>
 <pre><code class="lang-bash">npm i rollup -D
-</code></pre>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>20. October 2015</span></p>
-            <h2><a href="/articles/ljson/">λJSON</a></h2>
-          </header>
-          <section class="content"><p>λ<span class="caps">JSON</span> (GitHub: <a href="https://github.com/MaiaVictor/LJSON">MaiaVictor/<span class="caps">LJSON</span></a>, License: <span class="caps">MIT</span>, npm:&nbsp;ljson)</p>
-<p>λ<span class="caps">JSON</span> is a drop-in replacement for JSON which also allows you to parse and stringify pure functions and their contents. There are good security reasons for functions to be out of the JSON specs, but most of those are only significant when you allow arbitrary, side-effective programs.
-With pure functions, one is able to interchange code while still being as safe as with regular&nbsp;JSON.</p>
-<pre><code class="lang-javascript"><span class="keyword">var</span> <span class="caps">LJSON</span> = <span class="built_in">require</span>(<span class="string">"<span class="caps">LJSON</span>"</span>);
-
-<span class="comment">// `newPlayer` is a function and couldn't be serialized with <span class="caps">JSON</span>.</span>
-<span class="function"><span class="keyword">function</span> <span class="title">newPlayer</span>(<span class="params">name</span>)</span>{
-    <span class="keyword">return</span> {
-        name      : name,
-        hp        : <span class="number">12</span>,
-        atk       : <span class="number">5</span>,
-        def       : <span class="number">5</span>,
-        inventory : []}
-};
-
-<span class="comment">// <span class="caps">LJSON</span> has no trouble doing it because `newPlayer` is pure.</span>
-<span class="keyword">var</span> newPlayerSource = <span class="caps">LJSON</span>.stringify(newPlayer);
-<span class="keyword">var</span> John            = <span class="caps">LJSON</span>.parse(newPlayerSource)(<span class="string">"John"</span>);
-
-<span class="built_in">console</span>.log(<span class="string">"Serialized λ<span class="caps">JSON</span>: "</span> + newPlayerSource);
-<span class="built_in">console</span>.log(<span class="string">"Parsed and applied: "</span> + John);
-</code></pre>
-<p>Outputs:</p>
-<pre><code class="lang-javascript">
-<span class="comment">//Serialized λ<span class="caps">JSON</span>: (function(v0){return {name:v0,hp:12,atk:5,def:5,inventory:[]}})</span>
-<span class="comment">//Parsed and applied: { name: 'John', hp: 12, atk: 5, def: 5, inventory: [] }</span>
-</code></pre>
-<p>The fact you have to explicitly provide primitives to <span class="caps">LJSON</span> functions is what gives you confidence they won’t do any nasty thing such as stealing your password, mining bitcoins or launching missiles. LJSON functions can only do what you give them power to. You are still able to serialize side-effective functions, but the side effects will happen on the act of the serialization and get stripped from the serialized&nbsp;output.</p>
-<pre><code class="lang-javascript"><span class="function"><span class="keyword">function</span> <span class="title">nastyPair</span>(<span class="params">a,b</span>)</span>{
-    <span class="built_in">console</span>.log(<span class="string">"booom"</span>);
-    <span class="keyword">return</span> {
-        fst : a,
-        snd : (<span class="function"><span class="keyword">function</span> <span class="title">nastyId</span>(<span class="params">x</span>)</span>{
-            <span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;<span class="number">3</span>; ++i)
-                <span class="built_in">console</span>.log(<span class="string">"mwahahhahha"</span>);
-            <span class="keyword">return</span> x;
-        })(b)};
-};
-
-<span class="comment">// output:</span>
-<span class="comment">// booom</span>
-<span class="comment">// mwahahhahha</span>
-<span class="comment">// mwahahhahha</span>
-<span class="comment">// mwahahhahha</span>
-<span class="comment">// (function(v0,v1){return {fst:v0,snd:v1})</span>
 </code></pre>
 
           </section>
