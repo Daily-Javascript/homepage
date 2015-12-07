@@ -35,6 +35,56 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
+            <p class="date"><span>13. October 2015</span></p>
+            <h2><a href="/articles/t7/">t7</a></h2>
+          </header>
+          <section class="content"><p>t7 (GitHub: <a href="https://github.com/trueadm/t7">trueadm/t7</a>, License: <span class="caps">ISC</span>, npm:&nbsp;t7)</p>
+<p><img src="http://t7js.com/img/screenshot.png" style="max-width: 400px;width: 100%;left: 0;"></p>
+<p>While browsing I came across t7, which is a template library that compiles template strings into virtual <span class="caps">DOM</span> objects.
+Because of this functionality it’s used in frameworks such as <a href="https://github.com/trueadm/inferno">Inferno</a>, but it can also be used within&nbsp;React.</p>
+<p>There are multiple ways to work with t7. You could include the script on your page the old school way like&nbsp;this:</p>
+<pre><code class="lang-html"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"t7.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+</code></pre>
+<p>and you can build it with <a href="/articles/t7/">Browserify</a> or <a href="/articles/t7/">Webpack</a> by installing it via npm and require it like&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="keyword">import</span> t7 <span class="keyword">from</span> <span class="string">'t7'</span>;
+</code></pre>
+<p>Now let’s make a page with&nbsp;it.</p>
+<pre><code class="lang-javascript">const items = ['Pizza', 'Kebab', 'Donut'];
+const welcome = 'to the wonderful world of t7';
+
+t7`
+  &lt;div class="foo"&gt;
+    &lt;h1&gt;Welcome ${ welcome }&lt;/h1&gt;
+    &lt;ul&gt;
+      ${
+        items.map( item =&gt; t7`
+          &lt;li class="item"&gt;
+            &lt;span&gt;The item is: ${ item }&lt;/span&gt;
+          &lt;/li&gt;
+        `)
+      }
+    &lt;/ul&gt;
+  &lt;/div&gt;
+`;
+</code></pre>
+<p>By default t7 will attempt to check to see if React is available. If it is, t7 will automatically produce React elements as its output.
+When React is not present, you can use to export it to a Universal format.
+Universal <span class="caps">DOM</span> output should be compatible with most other virtual DOM frameworks out there, like <a href="https://github.com/Raynos/mercury">Mercury</a>, <a href="https://github.com/joelrich/citojs">Cito</a> and <a href="https://github.com/Matt-Esch/virtual-dom">Virtual-dom</a>.</p>
+<p>To set the way you want to output you&nbsp;use:</p>
+<pre><code class="lang-javascript">t7.setOutput(t7.Outputs.React);
+</code></pre>
+<p>The supported outputs&nbsp;are:</p>
+<ul>
+<li><a href="https://facebook.github.io/react/">React</a></li>
+<li><a href="https://github.com/trueadm/inferno">Inferno</a></li>
+<li><a href="http://mithril.js.org/">Mithril</a></li>
+<li>Universal</li>
+</ul>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
             <p class="date"><span>12. October 2015</span></p>
             <h2><a href="/articles/react-image-crop/">React Image Crop</a></h2>
           </header>
@@ -201,52 +251,6 @@ read(<span class="string">'/file.txt'</span>, <span class="string">'utf8'</span>
 <span class="keyword">var</span> absPath = toAbsPath(<span class="string">'/file.txt'</span>);
 </code></pre>
 <p>This is a nice addition to everybody’s toolbox. It doesn’t do much, but what it does, it does very&nbsp;well.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>06. October 2015</span></p>
-            <h2><a href="/articles/speckjs/">Speck JS</a></h2>
-          </header>
-          <section class="content"><p>SpeckJS (GitHub: <a href="https://github.com/speckjs/speckjs">speckjs/speckjs</a>, License: <span class="caps">MIT</span>, npm:&nbsp;speckjs)</p>
-<p>SpeckJS is a library that parses JavaScript comments and outputs unit-tests. SpeckJS currently supports <a href="https://github.com/substack/tape">Tape</a>, <a href="https://github.com/jasmine/jasmine">Jasmine</a>, and <a href="https://github.com/mochajs/mocha">Mocha</a>/<a href="https://github.com/chaijs/chai">Chai</a>.</p>
-<p>SpeckJS comes with plugins for <a href="https://github.com/speckjs/grunt-speckjs">Grunt</a>, <a href="https://github.com/speckjs/gulp-speckjs">Gulp</a> and <a href="https://github.com/speckjs/atom-speckjs">Atom</a>.</p>
-<p>The goal of SpeckJS is to make it as easy as possible to get started using Test-Driven Development on a new project or to quickly add unit-tests to your existing&nbsp;project.</p>
-<p>Let’s make a&nbsp;test.</p>
-<pre><code class="lang-javascript"><span class="comment">/*
-test &gt; sum function
-# sum(1, 2) == 3 (returns the sum of both params)
-# sum(3, 4) == 7 (returns the sum of both params)
-*/</span>
-
-<span class="function"><span class="keyword">function</span> <span class="title">sum</span>(<span class="params">a, b</span>)</span>{
-    <span class="keyword">return</span> a + b;
-}
-</code></pre>
-<p>SpeckJS supports some basic assertion like: equal, strict equal, not equal.
-Besides relying on all the tools already provided, such as <code>gulp</code> and atom plugins, you could also script yourself with the <span class="caps">API</span> like&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="keyword">var</span> speck = <span class="built_in">require</span>(<span class="string">'speckjs'</span>);
-
-<span class="comment">// file object to be passed as an argument</span>
-<span class="keyword">var</span> file = {
-  name: <span class="string">'demo.js'</span>,
-  content: scriptContent
-};
-
-<span class="comment">// options hash selecting Jasmine and specifying a callback</span>
-<span class="keyword">var</span> option = {
-  testFW: <span class="string">'jasmine'</span>,
-  onBuild: <span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>{
-    <span class="built_in">console</span>.log(data);
-  }
-}
-
-<span class="comment">// Returns Jasmine test file</span>
-<span class="keyword">var</span> result = speck.build(file, option);
-</code></pre>
-<p>We will start using this in my company from now on, because it makes it a lot easier to integrate testing in a long running project that has never being tested just by walking through the files.
-I hope to see other people pick this up&nbsp;aswel.</p>
 
           </section>
         </article>
