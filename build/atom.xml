@@ -10,9 +10,9 @@
     <language>en</language>
     <item>
       <title>iFrame Resizer</title>
-      <link>http://daily-javascript.com/articles/iFrame-Resizer/</link>
+      <link>http://daily-javascript.com/articles/iframe-resizer/</link>
       <pubDate>Mon, 07 Dec 2015 01:00:00 +0100</pubDate>
-      <guid isPermaLink="true">http://daily-javascript.com/articles/iFrame-Resizer/</guid>
+      <guid isPermaLink="true">http://daily-javascript.com/articles/iframe-resizer/</guid>
       <author></author>
       <description>&lt;p&gt;iFrame Resizer (GitHub: &lt;a href=&quot;https://github.com/davidjbradshaw/iFrame-resizer&quot;&gt;davidjbradshaw/iFrame-resizer&lt;/a&gt;, License: MIT, npm: iframe-resizer)&lt;/p&gt;
 &lt;p&gt;&lt;a href=&quot;https://github.com/davidjbradshaw&quot;&gt;David Bradshaw&lt;/a&gt; sent in iFrame-resizer. Which is a library to make working with the &lt;code&gt;&amp;lt;iframe&amp;gt;&lt;/code&gt; tag a lot easier.
@@ -2029,90 +2029,6 @@ This weekend I will be trying to include this within this website so you will be
 </description>
     </item>
     <item>
-      <title>Clipboard.js</title>
-      <link>http://daily-javascript.com/articles/clipboardjs/</link>
-      <pubDate>Mon, 28 Sep 2015 02:00:00 +0200</pubDate>
-      <guid isPermaLink="true">http://daily-javascript.com/articles/clipboardjs/</guid>
-      <author></author>
-      <description>&lt;p&gt;After writing this blog for a few days now I noticed that the bar of two libraries a day is hard to do when you have a day job next to it.
-Because I want to give each library a fair shot, I will be reducing it to one library a day on workdays so I can work on updates for the website as well.&lt;/p&gt;
-&lt;p&gt;Clipboard.js (GitHub: &lt;a href=&quot;https://github.com/zenorocha/clipboard.js&quot;&gt;zenorocha/clipboard.js&lt;/a&gt;, License: MIT, npm: clipboard, bower: clipboard )&lt;/p&gt;
-&lt;p&gt;During my daily browse I came across Clipboard.js which is a library to put given content to the users clipboard from Javascript.
-Normally we are used to implementing this behavior using Flash or some bloated framework. Luckley now there is Clipboard.js which is an 2kb implementation of “Copy to clipboard”.&lt;/p&gt;
-&lt;p&gt;To use it we need to require it first. If you are using &lt;a href=&quot;http://browserify.org/&quot;&gt;Browersify&lt;/a&gt; or &lt;a href=&quot;https://webpack.github.io/&quot;&gt;Webpack&lt;/a&gt; then use:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;import&lt;/span&gt; * &lt;span class=&quot;keyword&quot;&gt;as&lt;/span&gt; Clipboard &lt;span class=&quot;keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;'clipboard'&lt;/span&gt;;
-
-&lt;span class=&quot;comment&quot;&gt;// Or the old way&lt;/span&gt;
-&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; Clipboard = &lt;span class=&quot;built_in&quot;&gt;require&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;'clipboard'&lt;/span&gt;);
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;When including it in your html do it like this:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-html&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;script&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;src&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;dist/clipboard.min.js&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;undefined&quot;&gt;&lt;/span&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;title&quot;&gt;script&lt;/span&gt;&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Now we can instantiate it using a DOM selector. For instance&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; Clipboard(&lt;span class=&quot;string&quot;&gt;'.btn'&lt;/span&gt;);
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Internally, it needs to fetch all elements that match the selector and attach event listeners for each one. But what if you have hundreds of matches? Then this operation can consume a lot of memory.
-Because of this it uses event delegation which replaces multiple event listeners with just a single listener.&lt;/p&gt;
-&lt;p&gt;The most common usage of this library would be to copy the text value of an &lt;code&gt;input&lt;/code&gt; field or &lt;code&gt;textarea&lt;/code&gt;. This is how:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-html&quot;&gt;&lt;span class=&quot;comment&quot;&gt;&amp;lt;!-- Target --&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;input&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;id&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;foo&quot;&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;value&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;https://github.com/zenorocha/clipboard.js.git&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;
-
-&lt;span class=&quot;comment&quot;&gt;&amp;lt;!-- Trigger --&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;button&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;class&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;btn&quot;&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;data-clipboard-target&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;#foo&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;img&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;src&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;assets/clippy.svg&quot;&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;alt&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;Copy to clipboard&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;title&quot;&gt;button&lt;/span&gt;&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;It also has the ability to cut to clipboard. You would do this by attaching the &lt;code&gt;data-clipboard-action&lt;/code&gt; attribute to the trigger element like this:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-html&quot;&gt;&lt;span class=&quot;comment&quot;&gt;&amp;lt;!-- Target --&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;textarea&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;id&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;bar&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;Mussum ipsum cacilds...&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;title&quot;&gt;textarea&lt;/span&gt;&amp;gt;&lt;/span&gt;
-
-&lt;span class=&quot;comment&quot;&gt;&amp;lt;!-- Trigger --&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;button&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;class&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;btn&quot;&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;data-clipboard-action&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;cut&quot;&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;data-clipboard-target&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;#bar&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;
-    Cut to clipboard
-&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;title&quot;&gt;button&lt;/span&gt;&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;When you find yourself in a situation where you would like to show some feedback to the user or capture what has been selected after a copy/cut operation, you can make use of the &lt;code&gt;success&lt;/code&gt; and &lt;code&gt;error&lt;/code&gt; events that are being sent. You would use that like this:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; clipboard = &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; Clipboard(&lt;span class=&quot;string&quot;&gt;'.btn'&lt;/span&gt;);
-
-clipboard.on(&lt;span class=&quot;string&quot;&gt;'success'&lt;/span&gt;, &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;e&lt;/span&gt;) &lt;/span&gt;{
-    &lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.info(&lt;span class=&quot;string&quot;&gt;'Action:'&lt;/span&gt;, e.action);
-    &lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.info(&lt;span class=&quot;string&quot;&gt;'Text:'&lt;/span&gt;, e.text);
-    &lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.info(&lt;span class=&quot;string&quot;&gt;'Trigger:'&lt;/span&gt;, e.trigger);
-
-    e.clearSelection();
-});
-
-clipboard.on(&lt;span class=&quot;string&quot;&gt;'error'&lt;/span&gt;, &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;e&lt;/span&gt;) &lt;/span&gt;{
-    &lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.error(&lt;span class=&quot;string&quot;&gt;'Action:'&lt;/span&gt;, e.action);
-    &lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.error(&lt;span class=&quot;string&quot;&gt;'Trigger:'&lt;/span&gt;, e.trigger);
-});
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;The browser support on this project superised me, it relies on both Selection and execCommand APIs. The second one is supported in the following browsers.&lt;/p&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th style=&quot;text-align:center&quot;&gt;&lt;img src=&quot;http://zenorocha.github.io/clipboard.js/assets/images/chrome.png&quot; style=&quot;width:auto; left: auto;&quot; width=&quot;48px&quot; height=&quot;48px&quot; alt=&quot;Chrome logo&quot;&gt;&lt;/th&gt;
-&lt;th style=&quot;text-align:center&quot;&gt;&lt;img src=&quot;http://zenorocha.github.io/clipboard.js/assets/images/firefox.png&quot; style=&quot;width:auto; left: auto;&quot; width=&quot;48px&quot; height=&quot;48px&quot; alt=&quot;Firefox logo&quot;&gt;&lt;/th&gt;
-&lt;th style=&quot;text-align:center&quot;&gt;&lt;img src=&quot;http://zenorocha.github.io/clipboard.js/assets/images/ie.png&quot; style=&quot;width:auto; left: auto;&quot; width=&quot;48px&quot; height=&quot;48px&quot; alt=&quot;Internet Explorer logo&quot;&gt;&lt;/th&gt;
-&lt;th style=&quot;text-align:center&quot;&gt;&lt;img src=&quot;http://zenorocha.github.io/clipboard.js/assets/images/opera.png&quot; style=&quot;width:auto; left: auto;&quot; width=&quot;48px&quot; height=&quot;48px&quot; alt=&quot;Opera logo&quot;&gt;&lt;/th&gt;
-&lt;th style=&quot;text-align:center&quot;&gt;&lt;img src=&quot;http://zenorocha.github.io/clipboard.js/assets/images/safari.png&quot; style=&quot;width:auto; left: auto;&quot; width=&quot;48px&quot; height=&quot;48px&quot; alt=&quot;Safari logo&quot;&gt;&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td style=&quot;text-align:center&quot;&gt;42+ ✔&lt;/td&gt;
-&lt;td style=&quot;text-align:center&quot;&gt;41+ ✔&lt;/td&gt;
-&lt;td style=&quot;text-align:center&quot;&gt;9+ ✔&lt;/td&gt;
-&lt;td style=&quot;text-align:center&quot;&gt;29+ ✔&lt;/td&gt;
-&lt;td style=&quot;text-align:center&quot;&gt;Nope ✘&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;p&gt;Although copy/cut operations with execCommand aren’t supported in Safari yet (including mobile), it gracefully degrades, because Selection is supported.&lt;/p&gt;
-&lt;p&gt;This means you could show a tooltip saying Copied! when success event is called and Press Ctrl+C to copy when error event is called because the text is already selected.&lt;/p&gt;
-</description>
-    </item>
-    <item>
       <title>Rune.js and queryl</title>
       <link>http://daily-javascript.com/articles/runejs-and-queryl/</link>
       <pubDate>Mon, 28 Sep 2015 02:00:00 +0200</pubDate>
@@ -2219,6 +2135,90 @@ lv.searchStream({
 }).pipe(...)
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Because I do not fully understand everything that is going on here, I need to refer you to the extensive documentation on the &lt;a href=&quot;https://github.com/cshum/levi&quot;&gt;GitHub page&lt;/a&gt;. The reason I still mention this library is that I understand from the explanation a colleague gave me that this library will have a significant impact on the speed of your text search.&lt;/p&gt;
+</description>
+    </item>
+    <item>
+      <title>Clipboard.js</title>
+      <link>http://daily-javascript.com/articles/clipboardjs/</link>
+      <pubDate>Mon, 28 Sep 2015 02:00:00 +0200</pubDate>
+      <guid isPermaLink="true">http://daily-javascript.com/articles/clipboardjs/</guid>
+      <author></author>
+      <description>&lt;p&gt;After writing this blog for a few days now I noticed that the bar of two libraries a day is hard to do when you have a day job next to it.
+Because I want to give each library a fair shot, I will be reducing it to one library a day on workdays so I can work on updates for the website as well.&lt;/p&gt;
+&lt;p&gt;Clipboard.js (GitHub: &lt;a href=&quot;https://github.com/zenorocha/clipboard.js&quot;&gt;zenorocha/clipboard.js&lt;/a&gt;, License: MIT, npm: clipboard, bower: clipboard )&lt;/p&gt;
+&lt;p&gt;During my daily browse I came across Clipboard.js which is a library to put given content to the users clipboard from Javascript.
+Normally we are used to implementing this behavior using Flash or some bloated framework. Luckley now there is Clipboard.js which is an 2kb implementation of “Copy to clipboard”.&lt;/p&gt;
+&lt;p&gt;To use it we need to require it first. If you are using &lt;a href=&quot;http://browserify.org/&quot;&gt;Browersify&lt;/a&gt; or &lt;a href=&quot;https://webpack.github.io/&quot;&gt;Webpack&lt;/a&gt; then use:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;import&lt;/span&gt; * &lt;span class=&quot;keyword&quot;&gt;as&lt;/span&gt; Clipboard &lt;span class=&quot;keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;'clipboard'&lt;/span&gt;;
+
+&lt;span class=&quot;comment&quot;&gt;// Or the old way&lt;/span&gt;
+&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; Clipboard = &lt;span class=&quot;built_in&quot;&gt;require&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;'clipboard'&lt;/span&gt;);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;When including it in your html do it like this:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-html&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;script&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;src&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;dist/clipboard.min.js&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;undefined&quot;&gt;&lt;/span&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;title&quot;&gt;script&lt;/span&gt;&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now we can instantiate it using a DOM selector. For instance&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; Clipboard(&lt;span class=&quot;string&quot;&gt;'.btn'&lt;/span&gt;);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Internally, it needs to fetch all elements that match the selector and attach event listeners for each one. But what if you have hundreds of matches? Then this operation can consume a lot of memory.
+Because of this it uses event delegation which replaces multiple event listeners with just a single listener.&lt;/p&gt;
+&lt;p&gt;The most common usage of this library would be to copy the text value of an &lt;code&gt;input&lt;/code&gt; field or &lt;code&gt;textarea&lt;/code&gt;. This is how:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-html&quot;&gt;&lt;span class=&quot;comment&quot;&gt;&amp;lt;!-- Target --&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;input&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;id&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;foo&quot;&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;value&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;https://github.com/zenorocha/clipboard.js.git&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;
+
+&lt;span class=&quot;comment&quot;&gt;&amp;lt;!-- Trigger --&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;button&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;class&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;btn&quot;&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;data-clipboard-target&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;#foo&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;img&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;src&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;assets/clippy.svg&quot;&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;alt&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;Copy to clipboard&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;title&quot;&gt;button&lt;/span&gt;&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;It also has the ability to cut to clipboard. You would do this by attaching the &lt;code&gt;data-clipboard-action&lt;/code&gt; attribute to the trigger element like this:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-html&quot;&gt;&lt;span class=&quot;comment&quot;&gt;&amp;lt;!-- Target --&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;textarea&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;id&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;bar&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;Mussum ipsum cacilds...&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;title&quot;&gt;textarea&lt;/span&gt;&amp;gt;&lt;/span&gt;
+
+&lt;span class=&quot;comment&quot;&gt;&amp;lt;!-- Trigger --&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;button&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;class&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;btn&quot;&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;data-clipboard-action&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;cut&quot;&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;data-clipboard-target&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;#bar&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;
+    Cut to clipboard
+&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;title&quot;&gt;button&lt;/span&gt;&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;When you find yourself in a situation where you would like to show some feedback to the user or capture what has been selected after a copy/cut operation, you can make use of the &lt;code&gt;success&lt;/code&gt; and &lt;code&gt;error&lt;/code&gt; events that are being sent. You would use that like this:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; clipboard = &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; Clipboard(&lt;span class=&quot;string&quot;&gt;'.btn'&lt;/span&gt;);
+
+clipboard.on(&lt;span class=&quot;string&quot;&gt;'success'&lt;/span&gt;, &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;e&lt;/span&gt;) &lt;/span&gt;{
+    &lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.info(&lt;span class=&quot;string&quot;&gt;'Action:'&lt;/span&gt;, e.action);
+    &lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.info(&lt;span class=&quot;string&quot;&gt;'Text:'&lt;/span&gt;, e.text);
+    &lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.info(&lt;span class=&quot;string&quot;&gt;'Trigger:'&lt;/span&gt;, e.trigger);
+
+    e.clearSelection();
+});
+
+clipboard.on(&lt;span class=&quot;string&quot;&gt;'error'&lt;/span&gt;, &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;e&lt;/span&gt;) &lt;/span&gt;{
+    &lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.error(&lt;span class=&quot;string&quot;&gt;'Action:'&lt;/span&gt;, e.action);
+    &lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.error(&lt;span class=&quot;string&quot;&gt;'Trigger:'&lt;/span&gt;, e.trigger);
+});
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The browser support on this project superised me, it relies on both Selection and execCommand APIs. The second one is supported in the following browsers.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&quot;text-align:center&quot;&gt;&lt;img src=&quot;http://zenorocha.github.io/clipboard.js/assets/images/chrome.png&quot; style=&quot;width:auto; left: auto;&quot; width=&quot;48px&quot; height=&quot;48px&quot; alt=&quot;Chrome logo&quot;&gt;&lt;/th&gt;
+&lt;th style=&quot;text-align:center&quot;&gt;&lt;img src=&quot;http://zenorocha.github.io/clipboard.js/assets/images/firefox.png&quot; style=&quot;width:auto; left: auto;&quot; width=&quot;48px&quot; height=&quot;48px&quot; alt=&quot;Firefox logo&quot;&gt;&lt;/th&gt;
+&lt;th style=&quot;text-align:center&quot;&gt;&lt;img src=&quot;http://zenorocha.github.io/clipboard.js/assets/images/ie.png&quot; style=&quot;width:auto; left: auto;&quot; width=&quot;48px&quot; height=&quot;48px&quot; alt=&quot;Internet Explorer logo&quot;&gt;&lt;/th&gt;
+&lt;th style=&quot;text-align:center&quot;&gt;&lt;img src=&quot;http://zenorocha.github.io/clipboard.js/assets/images/opera.png&quot; style=&quot;width:auto; left: auto;&quot; width=&quot;48px&quot; height=&quot;48px&quot; alt=&quot;Opera logo&quot;&gt;&lt;/th&gt;
+&lt;th style=&quot;text-align:center&quot;&gt;&lt;img src=&quot;http://zenorocha.github.io/clipboard.js/assets/images/safari.png&quot; style=&quot;width:auto; left: auto;&quot; width=&quot;48px&quot; height=&quot;48px&quot; alt=&quot;Safari logo&quot;&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;42+ ✔&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;41+ ✔&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;9+ ✔&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;29+ ✔&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;Nope ✘&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Although copy/cut operations with execCommand aren’t supported in Safari yet (including mobile), it gracefully degrades, because Selection is supported.&lt;/p&gt;
+&lt;p&gt;This means you could show a tooltip saying Copied! when success event is called and Press Ctrl+C to copy when error event is called because the text is already selected.&lt;/p&gt;
 </description>
     </item>
     <item>
