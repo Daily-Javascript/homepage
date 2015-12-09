@@ -5,40 +5,30 @@ author: ramon
 template: article.jade
 ---
 
-bigfloat (GitHub: [ritz078/bigfloat](https://github.com/ritz078/bigfloat/), License: MIT, npm: embed-js)
+bigfloat (GitHub: [charto/bigfloat](https://github.com/charto/bigfloat), License: MIT, npm: bigfloat)
 
-bigfloat is plugin which analyses a string and automatically transform is to embeds emojis, media, maps, tweets, code and services.
-No more hassle on finding out how different services work, no more putting off features, because the intergration would be complicated. Just transform it using bigfloat.
+bigfloat is an arbitrary precision math library optimized for computation on geometry and geoinformatics. It provides a base 2 floating point.
+It can covert Javascript float's, add, subtract, multiply and convert it back to a Javascript String. It can do all this whiteout losing any significant bits. Numbers are  treaded as immutable and will return a new BigFloat.
 
-So how do we use it? Imagine having a blog and the content of a post would look like this:
+So how does it do this?
+Numbers are represented in 32-bit limbs (digits in base 2^32).
+The least significant limb is stored first. This because basic algorithms for arithmetic operations progress from the least to most significant digit while propagating carry. If carry causes the output to grow, adding a new limb at the end of the Array is faster than adding it in the beginning.
+The library was optimized for exponents relatively close to zero, so the location of the decimal point is always present in the limb array, even if that introduces otherwise insignificant leading or trailing zero digits.
 
+Let's look at a quick example if I would run this:
+```javascript
+const x = Math.pow(2, 53),
+	result = x + 1 - x;
+
+console.log( result );
 ```
-This is the blog we al know and :heart:. Url will become clickable like this http://daily-javascript.com.
-youtube videos. https://www.youtube.com/watch?v=bQRLVxZHKPs
-and embed codepen's like so: http://codepen.io/ThePizzaMan/pen/YwPOVd
-```
-This would get transformed into a pretty post with all the services embedded. The only thing needed is a Google Auth key which you can get [here](https://console.developers.google.com/)
-
-Then if we want to transform a specific element we would do something like this:
+It will give me back `0`. But we would expect to get `1`. If we would do the same using bigfloat:
 
 ```javascript
-function embed() {
-	var x = new EmbedJS({
-		element: document.getElementById('rawText'),
-		googleAuthKey: '<googleAuthKey>',
-		videoWidth: 800,
-		tweetOptions: {
-			hideMedia: true
-		},
-		codeEmbedHeight:600
-	});
-	x.render();
-};
+const BigFloat = require('bigfloat').BigFloat,
+ 	  x = Math.pow(2, 53),
+	  result = new BigFloat(x).add(1).sub(x).toString();
+
+console.log(result);
 ```
-It supports emoji's, Twitter, Gists, Codepen's, photo's, Spotify, Google Maps, Markdown and many more.
-For more options and list of supported services check the [project page](http://riteshkr.com/bigfloat/).
-
-Here is a small CodePen demo of what it can do with the example code for you to try out.
-
-<iframe height='268' scrolling='no' src='//codepen.io/ThePizzaMan/embed/YwPOVd/?height=268&theme-id=0&default-tab=result' frameborder='no' allowtransparency='true' allowfullscreen='true' style='width: 100%;'>See the Pen <a href='http://codepen.io/ThePizzaMan/pen/YwPOVd'>bigfloat</a> by Ritesh Kumar (<a href='http://codepen.io/ritz078'>@ritz078</a>) on <a href='http://codepen.io'>CodePen</a>.
-</iframe>
+It would log `1`, as we would suspect.
