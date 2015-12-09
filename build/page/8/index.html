@@ -35,6 +35,144 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
+            <p class="date"><span>09. October 2015</span></p>
+            <h2><a href="/articles/gulp-load-subtasks/">Gulp load subtasks</a></h2>
+          </header>
+          <section class="content"><p>gulp-load-subtasks (GitHub: <a href="https://github.com/skorlir/gulp-load-subtasks">skorlir/gulp-load-subtasks</a>, License: <span class="caps">ISC</span>, npm:&nbsp;gulp-load-subtasks)</p>
+<p>gulp-load-subtasks is a gulp “extention” which was long overdue in my opinion. The problem that it solves is that it is reducing the amount of clutter the forms inside a Gulpfile when working on big&nbsp;projects.</p>
+<p>This does require a bit of a shift in contrast of how we are used to writing our Gulpfile.
+Normally you would do something like&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="comment">// gulpfile.js</span>
+<span class="keyword">var</span> gulp = <span class="built_in">require</span>(<span class="string">'gulp'</span>);
+
+gulp.task(<span class="string">'some-task'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+    <span class="comment">// Your stuff here</span>
+});
+</code></pre>
+<p>After a while you would get stuck with one big spaggetti of tasks.
+Now you can split that up into different files with their own&nbsp;dependencies.</p>
+<p>The file structure would look something like&nbsp;this:</p>
+<pre><code>+ gulpfile.js
+|
++ tasks/
+  + a.tasks.js
+  + b.tasks.js
+</code></pre><p>Task A would look like&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span> (<span class="params">gulp</span>) </span>{
+  gulp.task(<span class="string">'subtaskA1'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{
+    <span class="comment">// do things... A1</span>
+  })
+  gulp.task(<span class="string">'subtaskA2'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{
+    <span class="comment">// do things... A2</span>
+  })
+}
+</code></pre>
+<p>And task B like&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span> (<span class="params">gulp, plugins</span>) </span>{
+  gulp.task(<span class="string">'subtaskB'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{
+    <span class="comment">// do things... B</span>
+    <span class="comment">// You can use plugins!</span>
+  })
+}
+</code></pre>
+<p>Then when we get back to the Gulpfile we can do&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="keyword">var</span> gulp    = <span class="built_in">require</span>(<span class="string">'gulp'</span>),
+    plugins = <span class="built_in">require</span>(<span class="string">'gulp-load-plugins'</span>)()
+
+$.loadSubtasks(<span class="string">'tasks/**/*.js'</span>, gulp, plugins);
+
+<span class="comment">// refer tasks in a.tasks.js and b.tasks.js</span>
+gulp.task(<span class="string">'default'</span>, [ <span class="string">'subtaskA'</span>, <span class="string">'subtaskB'</span> ])
+</code></pre>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
+            <p class="date"><span>08. October 2015</span></p>
+            <h2><a href="/articles/generator-nom/">Generator Nom</a></h2>
+          </header>
+          <section class="content"><p>generator-nom (GitHub: <a href="https://github.com/inikulin/read-file-relative">ironSource/node-generator-nom</a>, License: <span class="caps">MIT</span>, npm:&nbsp;generator-nom)</p>
+<p>We all strive to write <span class="caps">DRY</span> code, but still while setting up projects and maintaining depenencies we are constantly repeating ourselves.
+I find myself going through the same flow time and time again. <code>git init</code>, <code>npm init</code>, <code>touch README.md</code>, going to Github getting an origin to push to et cetra. This process is a pain every time. What if you could just generate all this stuff with one&nbsp;command.</p>
+<p>That is where the <code>yo nom</code> come in.
+Nom is a <a href="http://yeoman.io">Yeoman</a> generator which is a collection of several sub-generators. It includes the following&nbsp;generators;</p>
+<h4 id="npm">npm</h4>
+<p>Create package.json and prompt to keep dependencies of a previous package.json if any. Create .gitignore, cli.js (optional), install test framework (tape, tap, mocha, grunt, cake, or ava), add <span class="caps">LICENSE</span> file (MIT, BSD2 or&nbsp;BSD3).</p>
+<h4 id="git">git</h4>
+<p>Initialize local git repository, unless .git directory&nbsp;exists</p>
+<h4 id="github">github</h4>
+<p>Create public or private GitHub project, named “module-name” or “node-module-name”, unless local git already has configured remotes. Asks for access token and repository owner (which defaults to the owner of the token), skips creation if the repository already exists, adds URLs to package.json and adds remote&nbsp;origin.</p>
+<h4 id="travis">travis</h4>
+<p>Add .travis.yml for node 0.10 and iojs, setup GitHub hook. The travis tool asks for username and&nbsp;password.</p>
+<h4 id="appveyor">appveyor</h4>
+<p>Add appveyor.yml for node 0.10 and iojs, setup GitHub hook. Asks for access&nbsp;token.</p>
+<h4 id="gulp">gulp</h4>
+<p>Create an <span class="caps">ES6</span> gulpfile and tasks&nbsp;directory.</p>
+<h4 id="style-still-to-come-">style (still to&nbsp;come)</h4>
+<p>Add standard or xo as a pretest&nbsp;script</p>
+<h4 id="readme">readme</h4>
+<p>Add readme.md with common sections and shield.io badges for npm and david. If you did the travis and/or appveyor setup, badges for those services will be added as&nbsp;well.</p>
+<p><img src="https://github.com/ironSource/node-generator-nom/raw/master/demo.gif" style="max-width: 400px; width: 100%; position:static;"></p>
+<p>To use a specific generator you can select it like&nbsp;this:</p>
+<pre><code class="lang-bash">yo nom:&lt;generator&gt;
+</code></pre>
+<p>To run them all&nbsp;use:</p>
+<pre><code class="lang-bash">yo nom:*
+</code></pre>
+<p>That’s&nbsp;it.</p>
+<p>I’ve tried this out and will probably be using this to make my workflow a bit more <span class="caps">DRY</span> and hope that other people will also consider to optimize their workflow with modules like <code>nom</code>.</p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
+            <p class="date"><span>07. October 2015</span></p>
+            <h2><a href="/articles/read-file-relative/">Read file relative</a></h2>
+          </header>
+          <section class="content"><p>read-file-relative (GitHub: <a href="https://github.com/inikulin/read-file-relative">inikulin/read-file-relative</a>, License: Unknown, npm:&nbsp;read-file-relative)</p>
+<p>A problem everybody probably encounters once in a while is relativity of file paths while reading files with Node.js.
+You would do something like&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="keyword">var</span> fs   = <span class="built_in">require</span>(<span class="string">'fs'</span>);
+<span class="keyword">var</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);
+<span class="keyword">var</span> data = fs.readFileSync(path.join(__dirname, <span class="string">'/data-file.txt'</span>)).toString();
+
+<span class="comment">// Or like:</span>
+<span class="keyword">var</span> fs   = <span class="built_in">require</span>(<span class="string">'fs'</span>);
+<span class="keyword">var</span> data = fs.readFileSync(__dirname + <span class="string">'/data-file.txt'</span>).toString();
+
+<span class="comment">// Or even like this</span>
+<span class="keyword">var</span> fs   = <span class="built_in">require</span>(<span class="string">'fs'</span>);
+<span class="keyword">var</span> data = fs.readFileSync(<span class="string">'./data-file.txt'</span>).toString();
+</code></pre>
+<p>Now you can easily read out files without all the annoying boilerplate code.
+Imagine a world where you could do&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="keyword">var</span> data = readSync(<span class="string">'/data-file.txt'</span>);
+</code></pre>
+<p>Well you can stop imagining, because it’s here and it’s called <code>read-file-relative</code>.
+<code>Read-file-relative</code> comes with two main functions on it’s <span class="caps">API</span>: read and readSync.
+Let’s take a&nbsp;look.</p>
+<p>To read out the file synchronously this is what you would&nbsp;do.</p>
+<pre><code class="lang-javascript"><span class="keyword">var</span> readSync = <span class="built_in">require</span>(<span class="string">'read-file-relative'</span>).readSync;
+<span class="keyword">var</span> data = readSync(<span class="string">'/file.txt'</span>);
+</code></pre>
+<p>When you prefer asynchronously reading you just provide a callback like&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="keyword">var</span> read = <span class="built_in">require</span>(<span class="string">'read-file-relative'</span>).read;
+read(<span class="string">'/file.txt'</span>, <span class="string">'utf8'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">err, content</span>) </span>{
+   <span class="comment">// ...</span>
+});
+</code></pre>
+<p>Note that for the <code>read</code> we need to provide the encoding else it will return a&nbsp;buffer.</p>
+<p>Besides reading files you can also just convert a path to an absolute path like&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="keyword">var</span> toAbsPath = <span class="built_in">require</span>(<span class="string">'read-file-relative'</span>).toAbsPath;
+<span class="keyword">var</span> absPath = toAbsPath(<span class="string">'/file.txt'</span>);
+</code></pre>
+<p>This is a nice addition to everybody’s toolbox. It doesn’t do much, but what it does, it does very&nbsp;well.</p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
             <p class="date"><span>06. October 2015</span></p>
             <h2><a href="/articles/speckjs/">Speck JS</a></h2>
           </header>
@@ -129,153 +267,6 @@ Offical introduction can be found <a href="https://fabric.io/blog/introducing-th
 <p>As the name implies <code>&lt;VelocityTransitionGroup /&gt;</code> can be used to animate a group of element at the same time. In the example on the Fabric blog we can use it being used to animate an input slider, but that’s not all. When you pay close attention you will the the toggle switch animating and a “jawbone” collapse. Al these animation are done at&nbsp;once.</p>
 <p><img src="https://static1.squarespace.com/static/54ac6f9ae4b0cf1d82a4b59e/t/560a9a69e4b0a427e3b70022/1443535503361/?format=750w" tyle="max-width: 320px; width: 100%; position:static;"></p>
 <p>I was very impressed with the work and I’m trying to push this as the new standard for animating React components at the company where I work. And will be the default for all my pet&nbsp;projects.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>02. October 2015</span></p>
-            <h2><a href="/articles/scroller-friday/">Scroller Friday</a></h2>
-          </header>
-          <section class="content"><p>fartscroll.js (GitHub: <a href="https://github.com/theonion/fartscroll.js">theonion/fartscroll.js</a>, License:&nbsp;<span class="caps">MIT</span>)</p>
-<p>Since it is Friday today my colleages and me are in a humorous mood. So when I started looking what to write about today I got some real fun suggestions.
-The first one is&nbsp;fartscroll.js.</p>
-<p>The name already saids it all, it’s a library that makes your page fart when the user is scrolling.
-Because everybody farts and likes farting, why not give your application the same privilege? Here is&nbsp;how:</p>
-<p>First we need to include the script within our&nbsp;markup.</p>
-<pre><code class="lang-html"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"http://code.onion.com/fartscroll.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
-</code></pre>
-<p>Then we call it like&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="comment">// Fart every 400 pixels scrolled in the window</span>
-fartscroll();
-</code></pre>
-<p>When you think you pages farts to often you can increase the amount of pixels that need to be scrolled before farting like&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="comment">// Fart every 800 pixels scrolled in the window</span>
-fartscroll(<span class="number">800</span>);
-</code></pre>
-<p>If you just want to have some fun on other webpages, you can use <a href="javascript:%20(function%20()%20{%20%20%20%20%20var%20fs%20=%20document.createElement('script');%20%20%20%20%20fs.setAttribute('src',%20'http://code.onion.com/fartscroll.js');%20%20%20%20%20document.head.appendChild(fs);%20%20%20%20%20window.setTimeout(function(){%20%20%20%20%20%20%20%20%20fartscroll(800);%20%20%20%20%20%20%20%20%20},%20500);%20}());">this bookmarklet</a>. Here is the code for&nbsp;it.</p>
-<pre><code class="lang-javascript">javascript:%20(function%20()%20{%20%20%20%20%20var%20fs%20=%20document.createElement(&#39;script&#39;);%20%20%20%20%20fs.setAttribute(&#39;src&#39;,%20&#39;http://code.onion.com/fartscroll.js&#39;);%20%20%20%20%20document.head.appendChild(fs);%20%20%20%20%20window.setTimeout(function(){%20%20%20%20%20%20%20%20%20fartscroll(800);%20%20%20%20%20%20%20%20%20},%20500);%20}());
-</code></pre>
-<h3 id="elevator-js">Elevator.js</h3>
-<p>elevator.js (GitHub: <a href="https://github.com/tholman/elevator.js">tholman/elevator.js</a>, License:&nbsp;<span class="caps">MIT</span>)</p>
-<p>While we are in the theme of scrolling libraries, here is another fun one. I cannot say that this one is very new, but it’s still gold in my opinion. So what does it do?
-Elevator.js is provides you with a “back to top” button that behaves like a real elevator. Now your users don’t have to be bored during the awkward time they spend waiting for your page to scroll back to the top. How do we use&nbsp;this?</p>
-<p>First we need to include the script within our&nbsp;markup.</p>
-<pre><code class="lang-html"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"https://cdn.rawgit.com/tholman/elevator.js/master/elevator.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
-</code></pre>
-<p>Now we need to instantiate it with some mp3 files and a trigger target like&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
-  <span class="keyword">var</span> elevator = <span class="keyword">new</span> Elevator({
-    element: <span class="built_in">document</span>.querySelector(<span class="string">'.elevator-button'</span>),
-    mainAudio: <span class="string">'/src/to/audio.mp3'</span>,
-    endAudio: <span class="string">'/src/to/end-audio.mp3'</span>
-  });
-}
-</code></pre>
-<p>If you do not have any inspiration for sounds you can just use the defaults like&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
-  <span class="keyword">var</span> elevator = <span class="keyword">new</span> Elevator({
-    element: <span class="built_in">document</span>.querySelector(<span class="string">'.elevator-button'</span>),
-    duration: <span class="number">1000</span> <span class="comment">// milliseconds</span>
-  });
-}
-</code></pre>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>01. October 2015</span></p>
-            <h2><a href="/articles/tonic/">Tonic</a></h2>
-          </header>
-          <section class="content"><p>During my browse session at work this morning I came across <a href="https://tonicdev.com/docs/embed">this post</a>.
-If I understand correctly the easiest way to describe Tonic is as a plugin that let’s you run Node.js in a&nbsp;browser.</p>
-<p>The reason why I write about this today is because of the newley released feature of embedding it on your page.
-This feature can be accessed in two ways. Via <span class="caps">HTML</span> markup or by initializing it programatically.
-Lets take a look at some&nbsp;examples.</p>
-<p>When you have access to the document markup we would make it work like&nbsp;this:</p>
-<pre><code class="lang-html"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"https://embed.tonicdev.com"</span> <span class="attribute">data-element-id</span>=<span class="value">"daily-element"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
-
-<span class="comment">&lt;!-- anywhere else on your page --&gt;</span>
-<span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"daily-element"</span>&gt;</span>
-var request = require('request');
-request('http://www.google.com', function (error, response, body) {
-    console.log(body) // Show the <span class="caps">HTML</span> for the Google homepage.
-});
-<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-</code></pre>
-<p>If this code runs Tonic it will dropdown an element showing the log&nbsp;output.</p>
-<p>If you do not have access to the document markup you can trigger it from Javascript like&nbsp;this:</p>
-<pre><code class="lang-javascript">
-<span class="keyword">var</span> scriptTag = <span class="built_in">document</span>.createElement(<span class="string">"script"</span>),
-    head = <span class="built_in">document</span>.querySelector(<span class="string">"head"</span>),
-    dailyElement = <span class="built_in">document</span>.createElement(<span class="string">'div'</span>);
-scriptTag.src = <span class="string">"https://embed.tonicdev.com"</span>;
-dailyElement.id = <span class="string">"daily-element"</span>;
-head.appendChild( scriptTag );
-
-<span class="built_in">document</span>.body.appendChild( dailyElement );
-
-<span class="keyword">var</span> notebook = Tonic.createNotebook({
-    <span class="comment">// the parent element for the new notebook</span>
-    element: <span class="built_in">document</span>.querySelector(<span class="string">"#daily-element"</span>),
-
-    <span class="comment">// specify the source of the notebook</span>
-    source: <span class="string">"\"hello world\""</span>,
-
-    <span class="comment">// optionally, set the notebook to be read-only</span>
-    readOnly: <span class="literal">false</span>,
-
-    <span class="comment">// optionally, provide a callback to be called when the notebook has finished loading</span>
-    onLoad: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{}
-});
-</code></pre>
-<p>On of the things I’m still missing is the ability to run <span class="caps">ES2015</span>. I hope that the support for that will come very soon.
-This weekend I will be trying to include this within this website so you will be able to run the examples that I post right there in the&nbsp;browser.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>28. September 2015</span></p>
-            <h2><a href="/articles/runejs-and-queryl/">Rune.js and queryl</a></h2>
-          </header>
-          <section class="content"><p>Rune.js (GitHub: <a href="https://github.com/runemadsen/rune.js">runemadsen/rune.js</a>, License: <span class="caps">MIT</span>&nbsp;)</p>
-<p>Rune.js is a library for programming graphic design systems with <span class="caps">SVG</span>. It has a fluent drawing API, an unobtrusive scene graph, and a bunch of features designed specifically for graphic designers, such as: native support for color conversion, grid systems, typography, pixel iteration and an expanding set of computational geometry helpers. What peaked my interest is that it uses a <a href="https://github.com/Matt-Esch/virtual-dom">virtual-dom</a> under the&nbsp;hood.</p>
-<p>If you’re not familiar with the virtual-dom I suggest you take a break to take a look at that&nbsp;first.</p>
-<p>Unfortunately I could not find any npm or bower install instructions, so I am hoping that the developer will add that&nbsp;soon.</p>
-<p>Rune.js has all basic shapes in the&nbsp;<span class="caps">API</span>.</p>
-<pre><code class="lang-javascript">r.line(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">100</span>);
-
-r.rect(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">50</span>);
-
-r.ellipse(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">50</span>);
-
-r.circle(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>);
-
-r.triangle(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">100</span>);
-</code></pre>
-<p>And for more complex shapes it fluent <span class="caps">API</span> makes drawing with SVG very readable and&nbsp;familiar.</p>
-<pre><code class="lang-javascript">r.polygon(<span class="number">0</span>, <span class="number">0</span>).lineTo(<span class="number">100</span>, <span class="number">0</span>).lineTo(<span class="number">100</span>, <span class="number">100</span>).lineTo(<span class="number">0</span>, <span class="number">100</span>);
-
-r.path(<span class="number">0</span>, <span class="number">0</span>).lineTo(<span class="number">100</span>, <span class="number">0</span>).curveTo(<span class="number">100</span>, <span class="number">100</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">0</span>, <span class="number">0</span>);
-</code></pre>
-<p>Since this library is packed with features and concepts, I will only give you the tip of the iceberg right now. If you want to know more, consult the <a href="http://runemadsen.github.io/rune.js/">amazing documentation</a>.</p>
-<h3 id="queryl">queryl</h3>
-<p>queryl (GitHub: <a href="https://github.com/issuetrackapp/queryl">issuetrackapp/queryl</a>, License: <span class="caps">MIT</span>, npm:&nbsp;queryl)</p>
-<p>queryl is a query language to preform complex object searches. The purpose of this “language” is to allow the developer to build very complex queries to e.g. search a collection of objects, to validate objects before you dump it in a db or even to make assertions in&nbsp;tests.</p>
-<p>queryl comes with a very simple <span class="caps">API</span>. <code>queryl.match</code> is the main entry at this point this will always return a boolean and expects an object to match. For&nbsp;example:</p>
-<pre><code class="lang-javascript">queryl.match({
-  $contain: {
-    foo: <span class="number">1</span>
-  }
-}, {
-  foo: [ <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span> ]
-});
-&gt; <span class="literal">true</span>
-</code></pre>
-<p>This is just a very basic example of what it can do. The full <span class="caps">API</span> docs shows the entire power of this&nbsp;“language”.</p>
-<p>I can see this working very well for matching and parsing certain objects like the ones you would receive from, for instance, the Google spreadsheet&nbsp;<span class="caps">API</span>.</p>
 
           </section>
         </article>
