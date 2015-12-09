@@ -36,35 +36,6 @@
         <article class="article intro">
           <header>
             <p class="date"><span>09. December 2015</span></p>
-            <h2><a href="/articles/big-float/">bigfloat</a></h2>
-          </header>
-          <section class="content"><p>bigfloat (GitHub: <a href="https://github.com/charto/bigfloat">charto/bigfloat</a>, License: <span class="caps">MIT</span>, npm:&nbsp;bigfloat)</p>
-<p>bigfloat is an arbitrary precision math library optimized for computation on geometry and geoinformatics. It provides a base 2 floating point.
-It can covert Javascript float’s, add, subtract, multiply and convert it back to a Javascript String. It can do all this whiteout losing any significant bits. Numbers are  treaded as immutable and will return a new&nbsp;BigFloat.</p>
-<p>So how does it do this?
-Numbers are represented in 32-bit limbs (digits in base 2^32).
-The least significant limb is stored first. This because basic algorithms for arithmetic operations progress from the least to most significant digit while propagating carry. If carry causes the output to grow, adding a new limb at the end of the Array is faster than adding it in the beginning.
-The library was optimized for exponents relatively close to zero, so the location of the decimal point is always present in the limb array, even if that introduces otherwise insignificant leading or trailing zero&nbsp;digits.</p>
-<p>Let’s look at a quick example if I would run&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="keyword">const</span> x = <span class="built_in">Math</span>.pow(<span class="number">2</span>, <span class="number">53</span>),
-    result = x + <span class="number">1</span> - x;
-
-<span class="built_in">console</span>.log( result );
-</code></pre>
-<p>It will give me back <code>0</code>. But we would expect to get <code>1</code>. If we would do the same using&nbsp;bigfloat:</p>
-<pre><code class="lang-javascript"><span class="keyword">const</span> BigFloat = <span class="built_in">require</span>(<span class="string">'bigfloat'</span>).BigFloat,
-       x = <span class="built_in">Math</span>.pow(<span class="number">2</span>, <span class="number">53</span>),
-      result = <span class="keyword">new</span> BigFloat(x).add(<span class="number">1</span>).sub(x).toString();
-
-<span class="built_in">console</span>.log(result);
-</code></pre>
-<p>It would log <code>1</code>, as we would&nbsp;suspect.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>09. December 2015</span></p>
             <h2><a href="/articles/bigfloat/">bigfloat</a></h2>
           </header>
           <section class="content"><p>bigfloat (GitHub: <a href="https://github.com/ritz078/bigfloat/">ritz078/bigfloat</a>, License: <span class="caps">MIT</span>, npm:&nbsp;embed-js)</p>
@@ -247,6 +218,21 @@ Nothing new here right? So let’s put some code in our <code>script</code> tag.
 </code></pre>
 <p>This will fill the <code>input</code> and the <code>#output</code> elements with the string <code>&#39;Hello Daily Javascript&#39;</code>.</p>
 <p>Nowadays we are not impressed by data-binding any more. It comes with a lot more, but for that I would refer you to the <a href="http://matreshka.io/">full documentation</a>. The <span class="caps">API</span> is very small and easy to reason about, so if you have a new POC project coming up I would suggest you give it a&nbsp;try.</p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
+            <p class="date"><span>02. December 2015</span></p>
+            <h2><a href="/articles/allyjs/">ally.js</a></h2>
+          </header>
+          <section class="content"><p>ally.js (GitHub: <a href="https://github.com/medialize/ally.js">medialize/ally.js</a>, License: <span class="caps">MIT</span>, npm:&nbsp;ally.js)</p>
+<p>Ever had the problem of having to accommodate for instance blind people on your website?
+With the web app’s of nowadays accessibility sometimes goes to waste by not having the need for “semantic” <span class="caps">HTML</span> and just putting everything inside <code>div</code>‘s.
+Don’t get me wrong, I ofter find myself using a <code>div</code> to make buttons for instance. But for the blind users of the web this can be a serious problem, because their assistance software and the browser do not have the correct content they use all accessibility to your&nbsp;website.</p>
+<p>ally.js is a library simplifying certain accessibility features, functions and behaviors.
+Its goal is to help web applications with accessibility concerns provide every user with a good&nbsp;experience.</p>
+<p>It has an amazingly extensive <span class="caps">API</span> to solve most accessibility problems, way to much to even begin to describe so I will direct you to their <a href="http://allyjs.io/index.html">website</a> where everything is explained into more detail than I could do in a&nbsp;day.</p>
 
           </section>
         </article>

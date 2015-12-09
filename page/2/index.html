@@ -35,21 +35,6 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
-            <p class="date"><span>02. December 2015</span></p>
-            <h2><a href="/articles/allyjs/">ally.js</a></h2>
-          </header>
-          <section class="content"><p>ally.js (GitHub: <a href="https://github.com/medialize/ally.js">medialize/ally.js</a>, License: <span class="caps">MIT</span>, npm:&nbsp;ally.js)</p>
-<p>Ever had the problem of having to accommodate for instance blind people on your website?
-With the web app’s of nowadays accessibility sometimes goes to waste by not having the need for “semantic” <span class="caps">HTML</span> and just putting everything inside <code>div</code>‘s.
-Don’t get me wrong, I ofter find myself using a <code>div</code> to make buttons for instance. But for the blind users of the web this can be a serious problem, because their assistance software and the browser do not have the correct content they use all accessibility to your&nbsp;website.</p>
-<p>ally.js is a library simplifying certain accessibility features, functions and behaviors.
-Its goal is to help web applications with accessibility concerns provide every user with a good&nbsp;experience.</p>
-<p>It has an amazingly extensive <span class="caps">API</span> to solve most accessibility problems, way to much to even begin to describe so I will direct you to their <a href="http://allyjs.io/index.html">website</a> where everything is explained into more detail than I could do in a&nbsp;day.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
             <p class="date"><span>01. December 2015</span></p>
             <h2><a href="/articles/dotconf/">dotconf</a></h2>
           </header>
@@ -217,6 +202,109 @@ That would look something like&nbsp;this:</p>
 <p>There is a demo for the transition system which demonstrates state-based tweening with&nbsp;Vue:</p>
 <p><p data-height="268" data-theme-id="0" data-slug-hash="XmZNOG" data-default-tab="result" data-user="yyx990803" class='codepen'>See the Pen <a href='http://codepen.io/yyx990803/pen/XmZNOG/'>Vue.js elastic header component</a> by Evan You (<a href='http://codepen.io/yyx990803'>@yyx990803</a>) on <a href='http://codepen.io'>CodePen</a>.</p></p>
 <script async src="//assets.codepen.io/assets/embed/ei.js"></script>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
+            <p class="date"><span>24. November 2015</span></p>
+            <h2><a href="/articles/vectorious/">Vectorious</a></h2>
+          </header>
+          <section class="content"><p>Vectorious (GitHub: <a href="https://github.com/mateogianolio/vectorious">mateogianolio/vectorious</a>, License: <span class="caps">MIT</span>, npm:&nbsp;vectorious)</p>
+<p>Vectorious is a high performance linear algebra library written in Javascript.
+It is available via npm or just as a script so you can include it on your&nbsp;page.</p>
+<p>Since I’m not a mathematician and did not do a lot of linear algebra, you will have to bare with me.
+I will try to give you a good description of what this library can&nbsp;do.</p>
+<p>It has two mayor <span class="caps">API</span> endpoints to work with: <code>Matrix</code> and <code>Vector</code>.
+The constructor functions for both these functions can be called with a range of different arguments.
+Since 2.1.0 Vector implements <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Typed_arrays">JavaScript typed arrays</a> for increased performance. The default Vector type is Float64Array, but this can be specified upon&nbsp;creation.</p>
+<p>We would work with it like&nbsp;so:</p>
+<pre><code class="lang-javascript"><span class="keyword">import</span> { Vector, Matrix } <span class="keyword">from</span> <span class="string">'vectorious'</span>;
+
+<span class="keyword">let</span> vector, matrix;
+
+<span class="comment">// Create an empty vector of default type Float64Array</span>
+vector = <span class="keyword">new</span> Vector();
+<span class="comment">/* Vector { type: [Function: Float64Array], length: 0 } */</span>
+
+<span class="comment">// Create an empty vector of type Uint8Array</span>
+vector = <span class="keyword">new</span> Vector(<span class="built_in">Uint8Array</span>);
+<span class="comment">/* Vector { type: [Function: Uint8Array], length: 0 } */</span>
+
+matrix = <span class="keyword">new</span> Matrix();
+<span class="comment">/* Matrix { type: [Function: Float64Array], shape: [] } */</span>
+
+vector = Vector.zeros(<span class="number">5</span>);
+<span class="comment">/* Vector {
+  type: [Function: Float64Array],
+  length: 5,
+  buffer: ArrayBuffer {},
+  values: Float64Array { '0': 0, '1': 0, '2': 0, '3': 0, '4': 0 } } */</span>
+
+vector = <span class="keyword">new</span> Vector(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>);
+<span class="comment">/* Vector {
+  type: [Function: Float64Array],
+  length: 5,
+  buffer: ArrayBuffer {},
+  values: Float64Array { '0': 1, '1': 2, '2': 3, '3': 4, '4': 5 } } */</span>
+
+matrix = <span class="keyword">new</span> Matrix(vector);
+<span class="comment">/* Matrix {
+  type: [Function: Float64Array],
+  shape: [ 5, 1 ],
+  data: Float64Array { '0': 1, '1': 2, '2': 3, '3': 4, '4': 5 } } */</span>
+
+matrix = Matrix.zeros(<span class="number">2</span>, <span class="number">2</span>);
+<span class="comment">/* Matrix {
+  shape: [ 2, 2 ],
+  data: Float64Array { '0': 0, '1': 0, '2': 0, '3': 0 },
+  type: [Function: Float64Array] } */</span>
+</code></pre>
+<p>The developer posted an example of how you would map a time range over a&nbsp;sinus.</p>
+<pre><code class="lang-javascript"><span class="keyword">var</span> time = Vector.range(<span class="number">0</span>, <span class="built_in">Math</span>.<span class="caps">PI</span> / <span class="number">12</span>, <span class="built_in">Math</span>.<span class="caps">PI</span>);
+<span class="comment">// Which will return</span>
+<span class="comment">/* Vector {
+  type: [Function: Float64Array],
+  length: 12,
+  buffer: ArrayBuffer {},
+  values:
+   Float64Array {
+     '0': 0,
+     '1': 0.2617993877991494,
+     '2': 0.5235987755982988,
+     '3': 0.7853981633974483,
+     '4': 1.0471975511965976,
+     '5': 1.308996938995747,
+     '6': 1.5707963267948963,
+     '7': 1.8325957145940457,
+     '8': 2.0943951023931953,
+     '9': 2.356194490192345,
+     '10': 2.6179938779914944,
+     '11': 2.879793265790644 } } */</span>
+
+<span class="keyword">var</span> sine = time.map(<span class="built_in">Math</span>.sin);
+<span class="comment">// Which will return</span>
+<span class="comment">/* Vector {
+  type: [Function: Float64Array],
+  length: 12,
+  buffer: ArrayBuffer {},
+  values:
+   Float64Array {
+     '0': 0,
+     '1': 0.25881904510252074,
+     '2': 0.49999999999999994,
+     '3': 0.7071067811865475,
+     '4': 0.8660254037844386,
+     '5': 0.9659258262890682,
+     '6': 1,
+     '7': 0.9659258262890684,
+     '8': 0.8660254037844387,
+     '9': 0.7071067811865476,
+     '10': 0.49999999999999994,
+     '11': 0.2588190451025206 } } */</span>
+</code></pre>
+<p>Besides the very extensive <span class="caps">API</span> it also accommodates extentions such as <a href="https://github.com/mateogianolio/vectorious-solve">Solve</a> and <a href="https://github.com/mateogianolio/vectorious-plot">Plot</a>.
+Plot for instance can be used to a two-dimensional <span class="caps">SVG</span> plot from two input&nbsp;vectors.</p>
 
           </section>
         </article>
