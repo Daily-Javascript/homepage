@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width">
     <meta name="description" content="For you daily dose of Javascript libraries">
-    <meta name="keywords" content="Javascript, React, ES2015, Daily, Updates">
+    <meta name="keywords" content="Javascript News, React, ES2015, Daily, Updates">
     <meta name="theme-color" content="#39424D">
     <title>Daily Javascript
     </title>
@@ -18,7 +18,7 @@
     <header class="header">
       <div class="content-wrap">
         <div class="logo">
-          <h1><a href="http://localhost:8080">Daily Javascript</a></h1>
+          <h1><a href="http://daily-javascript.com">Daily Javascript</a></h1>
           <p class="description">For your daily dose of Javascript libraries.</p>
           <p class="description">Do you have a library you want mentioned? <a href="mailto:daily-javascript@ra-ge.net" class="mailto">Send it in!</a></p>
           <div class="follow">
@@ -33,6 +33,67 @@
     </header>
     <div id="content">
       <div class="content-wrap">
+        <article class="article intro">
+          <header>
+            <p class="date"><span>10. December 2015</span></p>
+            <h2><a href="/articles/splitjs/">Split.js</a></h2>
+          </header>
+          <section class="content"><p>Split.js (GitHub: <a href="https://github.com/nathancahill/Split.js">nathancahill/Split.js</a>, License: <span class="caps">MIT</span>, npm:&nbsp;split.js)</p>
+<p>Split.js is a lightweight, unopinionated utility for creating adjustable split views or panes. What I like about this library is the minimal requirements to get it to work.
+It has no depenencies such as jQuery and does not require you to jump through three burning hoopes before you have it working,
+just two elements that have a parent in common and you are set.
+I comes with draggable gutters to resize the panes and the <span class="caps">API</span> is very easy, just one function, <code>Split</code>.</p>
+<p>So let’s look at some code. Let’s say we have a markup that looks something like&nbsp;this:</p>
+<pre><code class="lang-html"><span class="comment">&lt;!-- .... --&gt;</span>
+<span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"parent"</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"one"</span>&gt;</span>
+        <span class="comment">&lt;!-- .... --&gt;</span>
+    <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"two"</span>&gt;</span>
+        <span class="comment">&lt;!-- .... --&gt;</span>
+    <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+<span class="comment">&lt;!-- .... --&gt;</span>
+</code></pre>
+<p>Then a basic split would work like this in&nbsp;Javascript:</p>
+<pre><code class="lang-javascript">Split([<span class="string">'#one'</span>, <span class="string">'#two'</span>], {
+    sizes: [<span class="number">25</span>, <span class="number">75</span>],
+    minSize: <span class="number">200</span>
+});
+</code></pre>
+<p>It’s possible to add as many elements as you want, as long as they share the same parent. Let’s take three as&nbsp;example:</p>
+<pre><code class="lang-javascript">Split([<span class="string">'#one'</span>, <span class="string">'#two'</span>, <span class="string">'#three'</span>], {
+    minSize: [<span class="number">100</span>, <span class="number">100</span>, <span class="number">300</span>]
+});
+</code></pre>
+<p>Because this library is unopinionated, it does not come with much styling. You can implement your own styles like&nbsp;so:</p>
+<pre><code class="lang-css"><span class="class">.gutter</span> <span class="rules">{
+  <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="hexcolor">#eee</span></span></span>;
+  <span class="rule"><span class="attribute">background-repeat</span>:<span class="value"> no-repeat</span></span>;
+  <span class="rule"><span class="attribute">background-position</span>:<span class="value"> <span class="number">50%</span></span></span>;
+}</span>
+
+<span class="class">.gutter</span><span class="class">.gutter-horizontal</span> <span class="rules">{
+  <span class="rule"><span class="attribute">background-image</span>:<span class="value"> <span class="function">url</span>(<span class="string">'grips/vertical.png'</span>)</span></span>;
+  <span class="rule"><span class="attribute">cursor</span>:<span class="value"> ew-resize</span></span>;
+}</span>
+
+<span class="class">.gutter</span><span class="class">.gutter-vertical</span> <span class="rules">{
+  <span class="rule"><span class="attribute">background-image</span>:<span class="value"> <span class="function">url</span>(<span class="string">'grips/horizontal.png'</span>)</span></span>;
+  <span class="rule"><span class="attribute">cursor</span>:<span class="value"> ns-resize</span></span>;
+}</span>
+</code></pre>
+<p>Note that split works the best with <code>border-box</code>ed element’s, so if you did not apply this within your reset, you could set it like&nbsp;this:</p>
+<pre><code class="lang-css"><span class="class">.split</span> <span class="rules">{
+  <span class="rule"><span class="attribute">-webkit-box-sizing</span>:<span class="value"> border-box</span></span>;
+     <span class="rule"><span class="attribute">-moz-box-sizing</span>:<span class="value"> border-box</span></span>;
+          <span class="rule"><span class="attribute">box-sizing</span>:<span class="value"> border-box</span></span>;
+}</span>
+</code></pre>
+<p>The library comes with a lot of extra options which will infusence how the panes and the gutters should act. Check the <a href="https://github.com/nathancahill/Split.js"><span class="caps">REAME</span></a> for&nbsp;that.</p>
+
+          </section>
+        </article>
         <article class="article intro">
           <header>
             <p class="date"><span>09. December 2015</span></p>
@@ -212,21 +273,6 @@ Nothing new here right? So let’s put some code in our <code>script</code> tag.
 </code></pre>
 <p>This will fill the <code>input</code> and the <code>#output</code> elements with the string <code>&#39;Hello Daily Javascript&#39;</code>.</p>
 <p>Nowadays we are not impressed by data-binding any more. It comes with a lot more, but for that I would refer you to the <a href="http://matreshka.io/">full documentation</a>. The <span class="caps">API</span> is very small and easy to reason about, so if you have a new POC project coming up I would suggest you give it a&nbsp;try.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>02. December 2015</span></p>
-            <h2><a href="/articles/allyjs/">ally.js</a></h2>
-          </header>
-          <section class="content"><p>ally.js (GitHub: <a href="https://github.com/medialize/ally.js">medialize/ally.js</a>, License: <span class="caps">MIT</span>, npm:&nbsp;ally.js)</p>
-<p>Ever had the problem of having to accommodate for instance blind people on your website?
-With the web app’s of nowadays accessibility sometimes goes to waste by not having the need for “semantic” <span class="caps">HTML</span> and just putting everything inside <code>div</code>‘s.
-Don’t get me wrong, I ofter find myself using a <code>div</code> to make buttons for instance. But for the blind users of the web this can be a serious problem, because their assistance software and the browser do not have the correct content they use all accessibility to your&nbsp;website.</p>
-<p>ally.js is a library simplifying certain accessibility features, functions and behaviors.
-Its goal is to help web applications with accessibility concerns provide every user with a good&nbsp;experience.</p>
-<p>It has an amazingly extensive <span class="caps">API</span> to solve most accessibility problems, way to much to even begin to describe so I will direct you to their <a href="http://allyjs.io/index.html">website</a> where everything is explained into more detail than I could do in a&nbsp;day.</p>
 
           </section>
         </article>

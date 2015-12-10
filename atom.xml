@@ -5,9 +5,70 @@
     <atom:link href="http://localhost:8080/feed.xml" rel="self" type="application/rss+xml"></atom:link>
     <link>http://localhost:8080</link>
     <description>For your daily dose of Javascript libraries.</description>
-    <pubDate>Wed, 09 Dec 2015 01:00:00 +0100</pubDate>
+    <pubDate>Thu, 10 Dec 2015 01:00:00 +0100</pubDate>
     <generator>Wintersmith - https://github.com/jnordberg/wintersmith</generator>
     <language>en</language>
+    <item>
+      <title>Split.js</title>
+      <link>http://daily-javascript.com/articles/splitjs/</link>
+      <pubDate>Thu, 10 Dec 2015 01:00:00 +0100</pubDate>
+      <guid isPermaLink="true">http://daily-javascript.com/articles/splitjs/</guid>
+      <author></author>
+      <description>&lt;p&gt;Split.js (GitHub: &lt;a href=&quot;https://github.com/nathancahill/Split.js&quot;&gt;nathancahill/Split.js&lt;/a&gt;, License: MIT, npm: split.js)&lt;/p&gt;
+&lt;p&gt;Split.js is a lightweight, unopinionated utility for creating adjustable split views or panes. What I like about this library is the minimal requirements to get it to work.
+It has no depenencies such as jQuery and does not require you to jump through three burning hoopes before you have it working,
+just two elements that have a parent in common and you are set.
+I comes with draggable gutters to resize the panes and the API is very easy, just one function, &lt;code&gt;Split&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;So let’s look at some code. Let’s say we have a markup that looks something like this:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-html&quot;&gt;&lt;span class=&quot;comment&quot;&gt;&amp;lt;!-- .... --&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;div&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;class&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;parent&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;div&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;id&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;one&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;comment&quot;&gt;&amp;lt;!-- .... --&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;title&quot;&gt;div&lt;/span&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;div&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;id&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;two&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;comment&quot;&gt;&amp;lt;!-- .... --&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;title&quot;&gt;div&lt;/span&gt;&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;title&quot;&gt;div&lt;/span&gt;&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;comment&quot;&gt;&amp;lt;!-- .... --&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Then a basic split would work like this in Javascript:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;Split([&lt;span class=&quot;string&quot;&gt;'#one'&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;'#two'&lt;/span&gt;], {
+    sizes: [&lt;span class=&quot;number&quot;&gt;25&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;75&lt;/span&gt;],
+    minSize: &lt;span class=&quot;number&quot;&gt;200&lt;/span&gt;
+});
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;It’s possible to add as many elements as you want, as long as they share the same parent. Let’s take three as example:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;Split([&lt;span class=&quot;string&quot;&gt;'#one'&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;'#two'&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;'#three'&lt;/span&gt;], {
+    minSize: [&lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;300&lt;/span&gt;]
+});
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Because this library is unopinionated, it does not come with much styling. You can implement your own styles like so:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-css&quot;&gt;&lt;span class=&quot;class&quot;&gt;.gutter&lt;/span&gt; &lt;span class=&quot;rules&quot;&gt;{
+  &lt;span class=&quot;rule&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;background-color&lt;/span&gt;:&lt;span class=&quot;value&quot;&gt; &lt;span class=&quot;hexcolor&quot;&gt;#eee&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;;
+  &lt;span class=&quot;rule&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;background-repeat&lt;/span&gt;:&lt;span class=&quot;value&quot;&gt; no-repeat&lt;/span&gt;&lt;/span&gt;;
+  &lt;span class=&quot;rule&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;background-position&lt;/span&gt;:&lt;span class=&quot;value&quot;&gt; &lt;span class=&quot;number&quot;&gt;50%&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;;
+}&lt;/span&gt;
+
+&lt;span class=&quot;class&quot;&gt;.gutter&lt;/span&gt;&lt;span class=&quot;class&quot;&gt;.gutter-horizontal&lt;/span&gt; &lt;span class=&quot;rules&quot;&gt;{
+  &lt;span class=&quot;rule&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;background-image&lt;/span&gt;:&lt;span class=&quot;value&quot;&gt; &lt;span class=&quot;function&quot;&gt;url&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;'grips/vertical.png'&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;;
+  &lt;span class=&quot;rule&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;cursor&lt;/span&gt;:&lt;span class=&quot;value&quot;&gt; ew-resize&lt;/span&gt;&lt;/span&gt;;
+}&lt;/span&gt;
+
+&lt;span class=&quot;class&quot;&gt;.gutter&lt;/span&gt;&lt;span class=&quot;class&quot;&gt;.gutter-vertical&lt;/span&gt; &lt;span class=&quot;rules&quot;&gt;{
+  &lt;span class=&quot;rule&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;background-image&lt;/span&gt;:&lt;span class=&quot;value&quot;&gt; &lt;span class=&quot;function&quot;&gt;url&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;'grips/horizontal.png'&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;;
+  &lt;span class=&quot;rule&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;cursor&lt;/span&gt;:&lt;span class=&quot;value&quot;&gt; ns-resize&lt;/span&gt;&lt;/span&gt;;
+}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Note that split works the best with &lt;code&gt;border-box&lt;/code&gt;ed element’s, so if you did not apply this within your reset, you could set it like this:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-css&quot;&gt;&lt;span class=&quot;class&quot;&gt;.split&lt;/span&gt; &lt;span class=&quot;rules&quot;&gt;{
+  &lt;span class=&quot;rule&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;-webkit-box-sizing&lt;/span&gt;:&lt;span class=&quot;value&quot;&gt; border-box&lt;/span&gt;&lt;/span&gt;;
+     &lt;span class=&quot;rule&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;-moz-box-sizing&lt;/span&gt;:&lt;span class=&quot;value&quot;&gt; border-box&lt;/span&gt;&lt;/span&gt;;
+          &lt;span class=&quot;rule&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;box-sizing&lt;/span&gt;:&lt;span class=&quot;value&quot;&gt; border-box&lt;/span&gt;&lt;/span&gt;;
+}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The library comes with a lot of extra options which will infusence how the panes and the gutters should act. Check the &lt;a href=&quot;https://github.com/nathancahill/Split.js&quot;&gt;REAME&lt;/a&gt; for that.&lt;/p&gt;
+</description>
+    </item>
     <item>
       <title>bigfloat</title>
       <link>http://daily-javascript.com/articles/bigfloat/</link>
@@ -2177,50 +2238,6 @@ clipboard.on(&lt;span class=&quot;string&quot;&gt;'error'&lt;/span&gt;, &lt;span
 </description>
     </item>
     <item>
-      <title>Rune.js and queryl</title>
-      <link>http://daily-javascript.com/articles/runejs-and-queryl/</link>
-      <pubDate>Mon, 28 Sep 2015 02:00:00 +0200</pubDate>
-      <guid isPermaLink="true">http://daily-javascript.com/articles/runejs-and-queryl/</guid>
-      <author></author>
-      <description>&lt;p&gt;Rune.js (GitHub: &lt;a href=&quot;https://github.com/runemadsen/rune.js&quot;&gt;runemadsen/rune.js&lt;/a&gt;, License: MIT )&lt;/p&gt;
-&lt;p&gt;Rune.js is a library for programming graphic design systems with SVG. It has a fluent drawing API, an unobtrusive scene graph, and a bunch of features designed specifically for graphic designers, such as: native support for color conversion, grid systems, typography, pixel iteration and an expanding set of computational geometry helpers. What peaked my interest is that it uses a &lt;a href=&quot;https://github.com/Matt-Esch/virtual-dom&quot;&gt;virtual-dom&lt;/a&gt; under the hood.&lt;/p&gt;
-&lt;p&gt;If you’re not familiar with the virtual-dom I suggest you take a break to take a look at that first.&lt;/p&gt;
-&lt;p&gt;Unfortunately I could not find any npm or bower install instructions, so I am hoping that the developer will add that soon.&lt;/p&gt;
-&lt;p&gt;Rune.js has all basic shapes in the API.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;r.line(&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;);
-
-r.rect(&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;50&lt;/span&gt;);
-
-r.ellipse(&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;50&lt;/span&gt;);
-
-r.circle(&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;);
-
-r.triangle(&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;);
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;And for more complex shapes it fluent API makes drawing with SVG very readable and familiar.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;r.polygon(&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;).lineTo(&lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;).lineTo(&lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;).lineTo(&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;);
-
-r.path(&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;).lineTo(&lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;).curveTo(&lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;);
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Since this library is packed with features and concepts, I will only give you the tip of the iceberg right now. If you want to know more, consult the &lt;a href=&quot;http://runemadsen.github.io/rune.js/&quot;&gt;amazing documentation&lt;/a&gt;.&lt;/p&gt;
-&lt;h3 id=&quot;queryl&quot;&gt;queryl&lt;/h3&gt;
-&lt;p&gt;queryl (GitHub: &lt;a href=&quot;https://github.com/issuetrackapp/queryl&quot;&gt;issuetrackapp/queryl&lt;/a&gt;, License: MIT, npm: queryl)&lt;/p&gt;
-&lt;p&gt;queryl is a query language to preform complex object searches. The purpose of this “language” is to allow the developer to build very complex queries to e.g. search a collection of objects, to validate objects before you dump it in a db or even to make assertions in tests.&lt;/p&gt;
-&lt;p&gt;queryl comes with a very simple API. &lt;code&gt;queryl.match&lt;/code&gt; is the main entry at this point this will always return a boolean and expects an object to match. For example:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;queryl.match({
-  $contain: {
-    foo: &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;
-  }
-}, {
-  foo: [ &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;3&lt;/span&gt; ]
-});
-&amp;gt; &lt;span class=&quot;literal&quot;&gt;true&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;This is just a very basic example of what it can do. The full API docs shows the entire power of this “language”.&lt;/p&gt;
-&lt;p&gt;I can see this working very well for matching and parsing certain objects like the ones you would receive from, for instance, the Google spreadsheet API.&lt;/p&gt;
-</description>
-    </item>
-    <item>
       <title>Levi</title>
       <link>http://daily-javascript.com/articles/levi/</link>
       <pubDate>Mon, 28 Sep 2015 02:00:00 +0200</pubDate>
@@ -2283,6 +2300,50 @@ lv.searchStream({
 }).pipe(...)
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Because I do not fully understand everything that is going on here, I need to refer you to the extensive documentation on the &lt;a href=&quot;https://github.com/cshum/levi&quot;&gt;GitHub page&lt;/a&gt;. The reason I still mention this library is that I understand from the explanation a colleague gave me that this library will have a significant impact on the speed of your text search.&lt;/p&gt;
+</description>
+    </item>
+    <item>
+      <title>Rune.js and queryl</title>
+      <link>http://daily-javascript.com/articles/runejs-and-queryl/</link>
+      <pubDate>Mon, 28 Sep 2015 02:00:00 +0200</pubDate>
+      <guid isPermaLink="true">http://daily-javascript.com/articles/runejs-and-queryl/</guid>
+      <author></author>
+      <description>&lt;p&gt;Rune.js (GitHub: &lt;a href=&quot;https://github.com/runemadsen/rune.js&quot;&gt;runemadsen/rune.js&lt;/a&gt;, License: MIT )&lt;/p&gt;
+&lt;p&gt;Rune.js is a library for programming graphic design systems with SVG. It has a fluent drawing API, an unobtrusive scene graph, and a bunch of features designed specifically for graphic designers, such as: native support for color conversion, grid systems, typography, pixel iteration and an expanding set of computational geometry helpers. What peaked my interest is that it uses a &lt;a href=&quot;https://github.com/Matt-Esch/virtual-dom&quot;&gt;virtual-dom&lt;/a&gt; under the hood.&lt;/p&gt;
+&lt;p&gt;If you’re not familiar with the virtual-dom I suggest you take a break to take a look at that first.&lt;/p&gt;
+&lt;p&gt;Unfortunately I could not find any npm or bower install instructions, so I am hoping that the developer will add that soon.&lt;/p&gt;
+&lt;p&gt;Rune.js has all basic shapes in the API.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;r.line(&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;);
+
+r.rect(&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;50&lt;/span&gt;);
+
+r.ellipse(&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;50&lt;/span&gt;);
+
+r.circle(&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;);
+
+r.triangle(&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;And for more complex shapes it fluent API makes drawing with SVG very readable and familiar.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;r.polygon(&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;).lineTo(&lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;).lineTo(&lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;).lineTo(&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;);
+
+r.path(&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;).lineTo(&lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;).curveTo(&lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Since this library is packed with features and concepts, I will only give you the tip of the iceberg right now. If you want to know more, consult the &lt;a href=&quot;http://runemadsen.github.io/rune.js/&quot;&gt;amazing documentation&lt;/a&gt;.&lt;/p&gt;
+&lt;h3 id=&quot;queryl&quot;&gt;queryl&lt;/h3&gt;
+&lt;p&gt;queryl (GitHub: &lt;a href=&quot;https://github.com/issuetrackapp/queryl&quot;&gt;issuetrackapp/queryl&lt;/a&gt;, License: MIT, npm: queryl)&lt;/p&gt;
+&lt;p&gt;queryl is a query language to preform complex object searches. The purpose of this “language” is to allow the developer to build very complex queries to e.g. search a collection of objects, to validate objects before you dump it in a db or even to make assertions in tests.&lt;/p&gt;
+&lt;p&gt;queryl comes with a very simple API. &lt;code&gt;queryl.match&lt;/code&gt; is the main entry at this point this will always return a boolean and expects an object to match. For example:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;queryl.match({
+  $contain: {
+    foo: &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;
+  }
+}, {
+  foo: [ &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;3&lt;/span&gt; ]
+});
+&amp;gt; &lt;span class=&quot;literal&quot;&gt;true&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This is just a very basic example of what it can do. The full API docs shows the entire power of this “language”.&lt;/p&gt;
+&lt;p&gt;I can see this working very well for matching and parsing certain objects like the ones you would receive from, for instance, the Google spreadsheet API.&lt;/p&gt;
 </description>
     </item>
     <item>

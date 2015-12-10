@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width">
     <meta name="description" content="For you daily dose of Javascript libraries">
-    <meta name="keywords" content="Javascript, React, ES2015, Daily, Updates">
+    <meta name="keywords" content="Javascript News, React, ES2015, Daily, Updates">
     <meta name="theme-color" content="#39424D">
     <title>Daily Javascript
     </title>
@@ -18,7 +18,7 @@
     <header class="header">
       <div class="content-wrap">
         <div class="logo">
-          <h1><a href="http://localhost:8080">Daily Javascript</a></h1>
+          <h1><a href="http://daily-javascript.com">Daily Javascript</a></h1>
           <p class="description">For your daily dose of Javascript libraries.</p>
           <p class="description">Do you have a library you want mentioned? <a href="mailto:daily-javascript@ra-ge.net" class="mailto">Send it in!</a></p>
           <div class="follow">
@@ -33,6 +33,60 @@
     </header>
     <div id="content">
       <div class="content-wrap">
+        <article class="article intro">
+          <header>
+            <p class="date"><span>09. October 2015</span></p>
+            <h2><a href="/articles/gulp-load-subtasks/">Gulp load subtasks</a></h2>
+          </header>
+          <section class="content"><p>gulp-load-subtasks (GitHub: <a href="https://github.com/skorlir/gulp-load-subtasks">skorlir/gulp-load-subtasks</a>, License: <span class="caps">ISC</span>, npm:&nbsp;gulp-load-subtasks)</p>
+<p>gulp-load-subtasks is a gulp “extention” which was long overdue in my opinion. The problem that it solves is that it is reducing the amount of clutter the forms inside a Gulpfile when working on big&nbsp;projects.</p>
+<p>This does require a bit of a shift in contrast of how we are used to writing our Gulpfile.
+Normally you would do something like&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="comment">// gulpfile.js</span>
+<span class="keyword">var</span> gulp = <span class="built_in">require</span>(<span class="string">'gulp'</span>);
+
+gulp.task(<span class="string">'some-task'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+    <span class="comment">// Your stuff here</span>
+});
+</code></pre>
+<p>After a while you would get stuck with one big spaggetti of tasks.
+Now you can split that up into different files with their own&nbsp;dependencies.</p>
+<p>The file structure would look something like&nbsp;this:</p>
+<pre><code>+ gulpfile.js
+|
++ tasks/
+  + a.tasks.js
+  + b.tasks.js
+</code></pre><p>Task A would look like&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span> (<span class="params">gulp</span>) </span>{
+  gulp.task(<span class="string">'subtaskA1'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{
+    <span class="comment">// do things... A1</span>
+  })
+  gulp.task(<span class="string">'subtaskA2'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{
+    <span class="comment">// do things... A2</span>
+  })
+}
+</code></pre>
+<p>And task B like&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span> (<span class="params">gulp, plugins</span>) </span>{
+  gulp.task(<span class="string">'subtaskB'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{
+    <span class="comment">// do things... B</span>
+    <span class="comment">// You can use plugins!</span>
+  })
+}
+</code></pre>
+<p>Then when we get back to the Gulpfile we can do&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="keyword">var</span> gulp    = <span class="built_in">require</span>(<span class="string">'gulp'</span>),
+    plugins = <span class="built_in">require</span>(<span class="string">'gulp-load-plugins'</span>)()
+
+$.loadSubtasks(<span class="string">'tasks/**/*.js'</span>, gulp, plugins);
+
+<span class="comment">// refer tasks in a.tasks.js and b.tasks.js</span>
+gulp.task(<span class="string">'default'</span>, [ <span class="string">'subtaskA'</span>, <span class="string">'subtaskB'</span> ])
+</code></pre>
+
+          </section>
+        </article>
         <article class="article intro">
           <header>
             <p class="date"><span>08. October 2015</span></p>
@@ -213,57 +267,6 @@ Offical introduction can be found <a href="https://fabric.io/blog/introducing-th
 <p>As the name implies <code>&lt;VelocityTransitionGroup /&gt;</code> can be used to animate a group of element at the same time. In the example on the Fabric blog we can use it being used to animate an input slider, but that’s not all. When you pay close attention you will the the toggle switch animating and a “jawbone” collapse. Al these animation are done at&nbsp;once.</p>
 <p><img src="https://static1.squarespace.com/static/54ac6f9ae4b0cf1d82a4b59e/t/560a9a69e4b0a427e3b70022/1443535503361/?format=750w" tyle="max-width: 320px; width: 100%; position:static;"></p>
 <p>I was very impressed with the work and I’m trying to push this as the new standard for animating React components at the company where I work. And will be the default for all my pet&nbsp;projects.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>02. October 2015</span></p>
-            <h2><a href="/articles/scroller-friday/">Scroller Friday</a></h2>
-          </header>
-          <section class="content"><p>fartscroll.js (GitHub: <a href="https://github.com/theonion/fartscroll.js">theonion/fartscroll.js</a>, License:&nbsp;<span class="caps">MIT</span>)</p>
-<p>Since it is Friday today my colleages and me are in a humorous mood. So when I started looking what to write about today I got some real fun suggestions.
-The first one is&nbsp;fartscroll.js.</p>
-<p>The name already saids it all, it’s a library that makes your page fart when the user is scrolling.
-Because everybody farts and likes farting, why not give your application the same privilege? Here is&nbsp;how:</p>
-<p>First we need to include the script within our&nbsp;markup.</p>
-<pre><code class="lang-html"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"http://code.onion.com/fartscroll.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
-</code></pre>
-<p>Then we call it like&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="comment">// Fart every 400 pixels scrolled in the window</span>
-fartscroll();
-</code></pre>
-<p>When you think you pages farts to often you can increase the amount of pixels that need to be scrolled before farting like&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="comment">// Fart every 800 pixels scrolled in the window</span>
-fartscroll(<span class="number">800</span>);
-</code></pre>
-<p>If you just want to have some fun on other webpages, you can use <a href="javascript:%20(function%20()%20{%20%20%20%20%20var%20fs%20=%20document.createElement('script');%20%20%20%20%20fs.setAttribute('src',%20'http://code.onion.com/fartscroll.js');%20%20%20%20%20document.head.appendChild(fs);%20%20%20%20%20window.setTimeout(function(){%20%20%20%20%20%20%20%20%20fartscroll(800);%20%20%20%20%20%20%20%20%20},%20500);%20}());">this bookmarklet</a>. Here is the code for&nbsp;it.</p>
-<pre><code class="lang-javascript">javascript:%20(function%20()%20{%20%20%20%20%20var%20fs%20=%20document.createElement(&#39;script&#39;);%20%20%20%20%20fs.setAttribute(&#39;src&#39;,%20&#39;http://code.onion.com/fartscroll.js&#39;);%20%20%20%20%20document.head.appendChild(fs);%20%20%20%20%20window.setTimeout(function(){%20%20%20%20%20%20%20%20%20fartscroll(800);%20%20%20%20%20%20%20%20%20},%20500);%20}());
-</code></pre>
-<h3 id="elevator-js">Elevator.js</h3>
-<p>elevator.js (GitHub: <a href="https://github.com/tholman/elevator.js">tholman/elevator.js</a>, License:&nbsp;<span class="caps">MIT</span>)</p>
-<p>While we are in the theme of scrolling libraries, here is another fun one. I cannot say that this one is very new, but it’s still gold in my opinion. So what does it do?
-Elevator.js is provides you with a “back to top” button that behaves like a real elevator. Now your users don’t have to be bored during the awkward time they spend waiting for your page to scroll back to the top. How do we use&nbsp;this?</p>
-<p>First we need to include the script within our&nbsp;markup.</p>
-<pre><code class="lang-html"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"https://cdn.rawgit.com/tholman/elevator.js/master/elevator.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
-</code></pre>
-<p>Now we need to instantiate it with some mp3 files and a trigger target like&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
-  <span class="keyword">var</span> elevator = <span class="keyword">new</span> Elevator({
-    element: <span class="built_in">document</span>.querySelector(<span class="string">'.elevator-button'</span>),
-    mainAudio: <span class="string">'/src/to/audio.mp3'</span>,
-    endAudio: <span class="string">'/src/to/end-audio.mp3'</span>
-  });
-}
-</code></pre>
-<p>If you do not have any inspiration for sounds you can just use the defaults like&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
-  <span class="keyword">var</span> elevator = <span class="keyword">new</span> Elevator({
-    element: <span class="built_in">document</span>.querySelector(<span class="string">'.elevator-button'</span>),
-    duration: <span class="number">1000</span> <span class="comment">// milliseconds</span>
-  });
-}
-</code></pre>
 
           </section>
         </article>
