@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width">
     <meta name="description" content="For you daily dose of Javascript libraries">
-    <meta name="keywords" content="Javascript, React, ES2015, Daily, Updates">
+    <meta name="keywords" content="Javascript News, React, ES2015, Daily, Updates">
     <meta name="theme-color" content="#39424D">
     <title>Daily Javascript
     </title>
@@ -18,7 +18,7 @@
     <header class="header">
       <div class="content-wrap">
         <div class="logo">
-          <h1><a href="http://localhost:8080">Daily Javascript</a></h1>
+          <h1><a href="http://daily-javascript.com">Daily Javascript</a></h1>
           <p class="description">For your daily dose of Javascript libraries.</p>
           <p class="description">Do you have a library you want mentioned? <a href="mailto:daily-javascript@ra-ge.net" class="mailto">Send it in!</a></p>
           <div class="follow">
@@ -33,6 +33,25 @@
     </header>
     <div id="content">
       <div class="content-wrap">
+        <article class="article intro">
+          <header>
+            <p class="date"><span>04. November 2015</span></p>
+            <h2><a href="/articles/rotjs/">Rot.js</a></h2>
+          </header>
+          <section class="content"><p>Rot.js (GitHub: <a href="https://github.com/ondras/rot.js">ondras/rot.js</a>, License: <span class="caps">BSD</span>, bower:&nbsp;rot.js)</p>
+<p>Rot.js is a <a href="https://en.wikipedia.org/wiki/Roguelike">Roguelike</a> Toolkit in JavaScript.
+In a nutshell it is a set of JavaScript libraries, designed to help with a roguelike development in browser environment.
+It is modeled after <a href="http://doryen.eptalys.net/libtcod/">libtcod</a> and offers the following&nbsp;features:</p>
+<ul>
+<li><span class="caps">JS</span> prototype&nbsp;enhancements</li>
+<li><span class="caps">RNG</span>, Map generation, FOV,&nbsp;Lighting</li>
+<li>Pathfinding, turn&nbsp;scheduling  </li>
+<li>Canvas-based <span class="caps">ASCII</span>&nbsp;display</li>
+</ul>
+<p>It comes with some very <a href="http://ondras.github.io/rot.js/doc/">extensive documentation</a> and has a <a href="http://www.roguebasin.com/index.php?title=Rot.js_tutorial">tutorial</a>.</p>
+
+          </section>
+        </article>
         <article class="article intro">
           <header>
             <p class="date"><span>03. November 2015</span></p>
@@ -250,74 +269,6 @@ cartSchema.check(validationData)
     }
 }
 </code></pre>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>27. October 2015</span></p>
-            <h2><a href="/articles/jsdoc2diagram/">jsdoc2diagram</a></h2>
-          </header>
-          <section class="content"><p>jsdoc2diagram (GitHub: <a href="https://github.com/amcmillan01/jsdoc2diagram">amcmillan01/jsdoc2diagram</a>, License: <span class="caps">MIT</span>, npm:&nbsp;jsdoc2diagram)</p>
-<p>If your day job looks anything like mine, the problem of sharing knowledge will be a well known issue for you.
-We try our best to keep the docs up to date and inform our co-workers of any changes that would be crucial. But what if a new developer joins the team? He will be spending the next week or 2 getting the know the entire app but mostly how everything hangs&nbsp;together.</p>
-<p>Since we are probably already using <a href="http://usejsdoc.org">JSDoc</a> there is a great addition available for giving insight on how the application is put together called <code>jsdoc2diagram</code>.</p>
-<p>What jsdoc2diagram does is literally what the name implies it does. It turns JSDocs documentation into graphs using <a href="/articles/jsdoc2diagram/d3js.org">d3.js</a>.</p>
-<p>This is an example of the kind of graph it would present you&nbsp;with:</p>
-<p><img src="https://github.com/amcmillan01/jsdoc2diagram/raw/master/example/diagram.png" style="max-width: 756px; width: 100%; position:static;"></p>
-<p>The for for this diagram looks like&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="comment">/**
- * @constructor
- */</span>
-<span class="keyword">var</span> Garage = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
-
-};
-
-<span class="comment">/**
- * @return {number}
- */</span>
-Garage.prototype.getVehicleCount = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
-
-};
-
-
-<span class="comment">/**
- *
- * @constructor
- * @memberof Garage
- */</span>
-<span class="keyword">var</span> Car = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
-  <span class="comment">/**
-   *
-   * @type {string}
-   */</span>
-  <span class="keyword">this</span>.name = <span class="string">''</span>;
-  <span class="comment">/**
-   *
-   * @type {string}
-   */</span>
-  <span class="keyword">this</span>.color = <span class="string">''</span>;
-};
-
-<span class="comment">/**
- * @return {boolean}
- */</span>
-Car.prototype.isOn = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
-
-};
-
-<span class="comment">/**
- * @return {boolean}
- */</span>
-Car.prototype.hasNavigation = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
-
-};
-</code></pre>
-<p>I think this is a great addition to every bit of documentation. It gives a clear overview of how objects and methods are in relation to each other, which is something I was really&nbsp;missing.</p>
-<p>To get started using this you will need to have <code>jsdoc</code> installed once you have that you only need to install <code>jsdoc2diagram</code> via npm and then you could use it like&nbsp;this:</p>
-<pre><code class="lang-bash">jsdoc -t PATH/TO/jsdoc2diagram -r JS_SOURCE_DIR/FILE <span class="operator">-d</span> OUTPUT_DIR
-</code></pre>
-<p>I could imagine that you would call this from an npm run script after your JSDocs are&nbsp;generated.</p>
 
           </section>
         </article>

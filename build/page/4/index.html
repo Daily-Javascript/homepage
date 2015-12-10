@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width">
     <meta name="description" content="For you daily dose of Javascript libraries">
-    <meta name="keywords" content="Javascript, React, ES2015, Daily, Updates">
+    <meta name="keywords" content="Javascript News, React, ES2015, Daily, Updates">
     <meta name="theme-color" content="#39424D">
     <title>Daily Javascript
     </title>
@@ -18,7 +18,7 @@
     <header class="header">
       <div class="content-wrap">
         <div class="logo">
-          <h1><a href="http://localhost:8080">Daily Javascript</a></h1>
+          <h1><a href="http://daily-javascript.com">Daily Javascript</a></h1>
           <p class="description">For your daily dose of Javascript libraries.</p>
           <p class="description">Do you have a library you want mentioned? <a href="mailto:daily-javascript@ra-ge.net" class="mailto">Send it in!</a></p>
           <div class="follow">
@@ -33,6 +33,41 @@
     </header>
     <div id="content">
       <div class="content-wrap">
+        <article class="article intro">
+          <header>
+            <p class="date"><span>11. November 2015</span></p>
+            <h2><a href="/articles/notie/">Notie.js</a></h2>
+          </header>
+          <section class="content"><p>Notie.js (GitHub: <a href="https://github.com/jaredreich/notie.js">jaredreich/notie.js</a>, License:&nbsp;<span class="caps">MIT</span>)</p>
+<p>Notie.js is a simple notification plugin. It does not have any dependencies, which makes it very light and easy to work with.
+Throughout time I’ve seen multiple libraries and <span class="caps">UI</span> frameworks implement something similar,
+but what I like about this little library is that when you have a very small project, it can save you some time on implementing feedback to the&nbsp;user.</p>
+<p>Sadly it’s not available via npm or bower, but I think that is kind of the point this library is trying to make.
+Everything nowadays is bundled and transpiled, which I like very much, but it is nice to see that some people still take this&nbsp;approach.</p>
+<p>So let’s include it in our markup like&nbsp;this:</p>
+<pre><code class="lang-html"><span class="tag">&lt;<span class="title">body</span>&gt;</span>
+  ...
+  <span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"/path/to/notie.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">body</span>&gt;</span>
+</code></pre>
+<p>Now when you want to send a notification or confirm something with your user you can use it like&nbsp;this:</p>
+<pre><code class="lang-javascript">
+notie.alert(style, <span class="string">'message'</span>, time_in_seconds);
+
+notie.confirm(<span class="string">'Title text'</span>, <span class="string">'Yes button text'</span>, <span class="string">'No/cancel button text'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+    <span class="comment">// User choose Yes.</span>
+});
+</code></pre>
+<p>The style in this example would be the “theme” of the alert. By default these would&nbsp;be:</p>
+<ol>
+<li><span class="caps">OK</span> ( Green&nbsp;)</li>
+<li>Warning ( Yellowish&nbsp;)</li>
+<li>Error ( Red&nbsp;)</li>
+<li>Notice ( Blue&nbsp;)</li>
+</ol>
+
+          </section>
+        </article>
         <article class="article intro">
           <header>
             <p class="date"><span>10. November 2015</span></p>
@@ -208,25 +243,6 @@ Is it a dog? <span class="literal">true</span>
 Is it a robot? <span class="literal">true</span>
 </code></pre>
 <p>This project currently is very young but I like the direction where it is going. Momentairley it can be used as a base template by just cloning the repo. Sadly there are no other ways to generate a project holding this methodologies but as the developer tells me there will be in the&nbsp;future.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>04. November 2015</span></p>
-            <h2><a href="/articles/rotjs/">Rot.js</a></h2>
-          </header>
-          <section class="content"><p>Rot.js (GitHub: <a href="https://github.com/ondras/rot.js">ondras/rot.js</a>, License: <span class="caps">BSD</span>, bower:&nbsp;rot.js)</p>
-<p>Rot.js is a <a href="https://en.wikipedia.org/wiki/Roguelike">Roguelike</a> Toolkit in JavaScript.
-In a nutshell it is a set of JavaScript libraries, designed to help with a roguelike development in browser environment.
-It is modeled after <a href="http://doryen.eptalys.net/libtcod/">libtcod</a> and offers the following&nbsp;features:</p>
-<ul>
-<li><span class="caps">JS</span> prototype&nbsp;enhancements</li>
-<li><span class="caps">RNG</span>, Map generation, FOV,&nbsp;Lighting</li>
-<li>Pathfinding, turn&nbsp;scheduling  </li>
-<li>Canvas-based <span class="caps">ASCII</span>&nbsp;display</li>
-</ul>
-<p>It comes with some very <a href="http://ondras.github.io/rot.js/doc/">extensive documentation</a> and has a <a href="http://www.roguebasin.com/index.php?title=Rot.js_tutorial">tutorial</a>.</p>
 
           </section>
         </article>
