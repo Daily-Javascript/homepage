@@ -14,33 +14,27 @@
       <pubDate>Wed, 09 Dec 2015 01:00:00 +0100</pubDate>
       <guid isPermaLink="true">http://daily-javascript.com/articles/bigfloat/</guid>
       <author></author>
-      <description>&lt;p&gt;bigfloat (GitHub: &lt;a href=&quot;https://github.com/ritz078/bigfloat/&quot;&gt;ritz078/bigfloat&lt;/a&gt;, License: MIT, npm: embed-js)&lt;/p&gt;
-&lt;p&gt;bigfloat is plugin which analyses a string and automatically transform is to embeds emojis, media, maps, tweets, code and services.
-No more hassle on finding out how different services work, no more putting off features, because the intergration would be complicated. Just transform it using bigfloat.&lt;/p&gt;
-&lt;p&gt;So how do we use it? Imagine having a blog and the content of a post would look like this:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;This is the blog we al know and :heart:. Url will become clickable like this http://daily-javascript.com.
-youtube videos. https://www.youtube.com/watch?v=bQRLVxZHKPs
-and embed codepen&amp;#39;s like so: http://codepen.io/ThePizzaMan/pen/YwPOVd
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;This would get transformed into a pretty post with all the services embedded. The only thing needed is a Google Auth key which you can get &lt;a href=&quot;https://console.developers.google.com/&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;Then if we want to transform a specific element we would do something like this:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;embed&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;&lt;/span&gt;) &lt;/span&gt;{
-    &lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; x = &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; EmbedJS({
-        element: &lt;span class=&quot;built_in&quot;&gt;document&lt;/span&gt;.getElementById(&lt;span class=&quot;string&quot;&gt;'rawText'&lt;/span&gt;),
-        googleAuthKey: &lt;span class=&quot;string&quot;&gt;'&amp;lt;googleAuthKey&amp;gt;'&lt;/span&gt;,
-        videoWidth: &lt;span class=&quot;number&quot;&gt;800&lt;/span&gt;,
-        tweetOptions: {
-            hideMedia: &lt;span class=&quot;literal&quot;&gt;true&lt;/span&gt;
-        },
-        codeEmbedHeight:&lt;span class=&quot;number&quot;&gt;600&lt;/span&gt;
-    });
-    x.render();
-};
+      <description>&lt;p&gt;bigfloat (GitHub: &lt;a href=&quot;https://github.com/charto/bigfloat&quot;&gt;charto/bigfloat&lt;/a&gt;, License: MIT, npm: bigfloat)&lt;/p&gt;
+&lt;p&gt;bigfloat is an arbitrary precision math library optimized for computation on geometry and geoinformatics. It provides a base 2 floating point.
+It can covert Javascript float’s, add, subtract, multiply and convert it back to a Javascript String. It can do all this whiteout losing any significant bits. Numbers are  treaded as immutable and will return a new BigFloat.&lt;/p&gt;
+&lt;p&gt;So how does it do this?
+Numbers are represented in 32-bit limbs (digits in base 2^32).
+The least significant limb is stored first. This because basic algorithms for arithmetic operations progress from the least to most significant digit while propagating carry. If carry causes the output to grow, adding a new limb at the end of the Array is faster than adding it in the beginning.
+The library was optimized for exponents relatively close to zero, so the location of the decimal point is always present in the limb array, even if that introduces otherwise insignificant leading or trailing zero digits.&lt;/p&gt;
+&lt;p&gt;Let’s look at a quick example if I would run this:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;const&lt;/span&gt; x = &lt;span class=&quot;built_in&quot;&gt;Math&lt;/span&gt;.pow(&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;53&lt;/span&gt;),
+    result = x + &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt; - x;
+
+&lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.log( result );
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;It supports emoji’s, Twitter, Gists, Codepen’s, photo’s, Spotify, Google Maps, Markdown and many more.
-For more options and list of supported services check the &lt;a href=&quot;http://riteshkr.com/bigfloat/&quot;&gt;project page&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;Here is a small CodePen demo of what it can do with the example code for you to try out.&lt;/p&gt;
-&lt;iframe height='268' scrolling='no' src='//codepen.io/ThePizzaMan/embed/YwPOVd/?height=268&amp;theme-id=0&amp;default-tab=result' frameborder='no' allowtransparency='true' allowfullscreen='true' style='width: 100%;'&gt;See the Pen &lt;a href='http://codepen.io/ThePizzaMan/pen/YwPOVd'&gt;bigfloat&lt;/a&gt; by Ritesh Kumar (&lt;a href='http://codepen.io/ritz078'&gt;@ritz078&lt;/a&gt;) on &lt;a href='http://codepen.io'&gt;CodePen&lt;/a&gt;.
-&lt;/iframe&gt;
+&lt;p&gt;It will give me back &lt;code&gt;0&lt;/code&gt;. But we would expect to get &lt;code&gt;1&lt;/code&gt;. If we would do the same using bigfloat:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;const&lt;/span&gt; BigFloat = &lt;span class=&quot;built_in&quot;&gt;require&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;'bigfloat'&lt;/span&gt;).BigFloat,
+       x = &lt;span class=&quot;built_in&quot;&gt;Math&lt;/span&gt;.pow(&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;53&lt;/span&gt;),
+      result = &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; BigFloat(x).add(&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;).sub(x).toString();
+
+&lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.log(result);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;It would log &lt;code&gt;1&lt;/code&gt;, as we would suspect.&lt;/p&gt;
 </description>
     </item>
     <item>
