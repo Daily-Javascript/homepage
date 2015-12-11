@@ -69,4 +69,4 @@ Note that split works the best with `border-box`ed element's, so if you did not 
 }
 ```
 
-The library comes with a lot of extra options which will infusence how the panes and the gutters should act. Check the [REAME](https://github.com/nathancahill/Split.js) for that.
+The library comes with a lot of extra options which will infusence how the panes and the gutters should act. Check the [README](https://github.com/nathancahill/Split.js) for that.
