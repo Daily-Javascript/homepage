@@ -1,6 +1,6 @@
 {
   "locals": {
-    "url": "http://localhost:8080",
+    "url": "http://daily-javascript.com",
     "name": "Daily Javascript",
     "owner": "Ramon Gebben",
     "description": "For your daily dose of Javascript libraries."
