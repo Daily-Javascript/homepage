@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="For you daily dose of Javascript libraries">
+    <meta name="keywords" content="Javascript News, React, ES2015, Daily, Updates">
+    <meta name="theme-color" content="#39424D">
+    <title>Daily Javascript
+    </title>
+    <link rel="alternate" href="http://localhost:8080/feed.xml" type="application/rss+xml" title="For your daily dose of Javascript libraries.">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic|Anonymous+Pro:400,700,400italic,700italic|Merriweather:400,700,300">
+    <link rel="stylesheet" href="/css/main.css">
+  </head>
+  <body>
+    <div class="social"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A//Daily-Javascript.com" target="_blank" class="social-btn facebook"></a><a href="https://twitter.com/home?status=Follow%20%40DailyJavascript%20for%20update%20of%20new%20Javascript%20libraries%20and%20challanges%0A%23Javascript" target="_blank" class="social-btn twitter"></a><a href="https://www.reddit.com/submit?url=http%3A//Daily-Javascript.com" target="_blank" class="social-btn reddit"></a><a href="https://plus.google.com/share?url=http%3A//Daily-Javascript.com" target="_blank" class="social-btn google"></a></div>
+    <header class="header">
+      <div class="content-wrap">
+        <div class="logo">
+          <h1><a href="http://daily-javascript.com">Daily Javascript</a></h1>
+          <p class="description">For your daily dose of Javascript libraries.</p>
+          <p class="description">Do you have a library you want mentioned? <a href="mailto:daily-javascript@ra-ge.net" class="mailto">Send it in!</a></p>
+          <div class="follow">
+            <h3>Follow Daily Javascript</h3>
+            <div class="follow-item"><a href="http://cloud.feedly.com/#subscription%2Ffeed%2Fhttp%3A%2F%2Fdaily-javascript.com%2Fatom.xml" target="_blank"><span>via Feedly</span></a></div>
+            <div class="follow-item"><a href="http://twitter.com/DailyJavascript" target="blank"><span>via Twitter</span></a></div>
+            <div class="follow-item"><a href="http://eepurl.com/bAAxM9" target="blank"><span>via E-Mail</span></a></div>
+            <div class="follow-item"><a href="http://daily-javascript.com/atom.xml" target="blank"><span>via RSS</span></a></div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <div id="content">
+      <div class="content-wrap">
+        <article class="article intro">
+          <header>
+            <p class="date"><span>25. September 2015</span></p>
+            <h2><a href="/articles/plop-and-selectize/">Plop and Selectize</a></h2>
+          </header>
+          <section class="content"><p>Plop (GitHub: <a href="https://github.com/amwmedia/plop">amwmedia/plop</a>, License: <span class="caps">MIT</span>, npm:&nbsp;plop)</p>
+<p>Plop is a command line tool that helps you introduce uniformity to your team by generating new modules, files or even documentation pages.
+The problem it tries to solve is one that we all must have. You have a project which is nicely structured. Lets say this is our pages&nbsp;folder;</p>
+<pre><code>|-- Pages
+    |-- HomePage
+        |-- HomePage.jsx
+        |-- config.json
+        |-- styles.css
+</code></pre><p>What we need to do is add a new page. Normally we would do is copy the <code>HomePage</code> folder and walk through the files and what is needed. This will cost you some time and slow you&nbsp;down.</p>
+<h4 id="plop-to-the-rescue">Plop to the&nbsp;rescue</h4>
+<p>By defining how modules, pages or components should look before hand you could write a template for it.
+By using <a href="http://handlebarsjs.com/">handlebars</a> it lets you set the values you would normally change by&nbsp;hand.</p>
+<p>Here is an example template&nbsp;file</p>
+<pre><code>class {{ properCase name }} extends React.Component {
+  render(){
+    return &lt;div className=&#39;{{ name }}&#39;&gt;Newly generated Component {{ name }}&lt;/div&gt;
+  }
+}
+</code></pre><p>To fill up this template I will need a <code>plopfile</code> which would look like&nbsp;this</p>
+<pre><code class="lang-javascript"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span> (<span class="params">plop</span>) </span>{
+    plop.setGenerator(<span class="string">'component'</span>, {
+        description: <span class="string">'Generate a React Component'</span>,
+        prompts: [{
+            type: <span class="string">'input'</span>,
+            name: <span class="string">'name'</span>,
+            message: <span class="string">'What should it be called?'</span>,
+            validate: <span class="function"><span class="keyword">function</span> (<span class="params">value</span>) </span>{
+                <span class="keyword">if</span> ((<span class="regexp">/.+/</span>).test(value)) { <span class="keyword">return</span> <span class="literal">true</span>; }
+                <span class="keyword">return</span> <span class="string">'name is required'</span>;
+            }
+        }],
+        actions: [{
+            type: <span class="string">'add'</span>,
+            path: <span class="string">'src/Components/{{properCase name}}.jsx'</span>,
+            templateFile: <span class="string">'component.txt'</span>
+        }]
+    });
+}
+</code></pre>
+<p>Now you could call <code>plop</code> to select it from a list of generators or <code>plop &lt;generator&gt;</code> to call it&nbsp;directly.</p>
+<p>What I love about this tool is the size of it. In contrast with Yeoman which is great for initialization of a codebase but after that you are still copying files, Plop is designed to work in throughout the life entire cycle of a&nbsp;project.</p>
+<h3 id="react-selectize">React&nbsp;Selectize</h3>
+<p>React Selectize (GitHub: <a href="https://github.com/furqanZafar/react-selectize">furqanZafar/react-selectize</a>, License: Apache 2.0, npm:&nbsp;react-selectize)</p>
+<p>React Selectize is a stateless Select component for ReactJS, which provides a platform for a more developer friendly SimpleSelect <span class="amp">&amp;</span> MultiSelect component.
+<img src="https://camo.githubusercontent.com/251a1a6254a1a1c46074c79d7c68ec4108e0fbbe/687474703a2f2f692e696d6775722e636f6d2f72526d7566786d2e676966" style="max-width: 320px; width: 100%; position:static;"></p>
+<p>Getting it to work was surprisingly simple. Here is my&nbsp;example</p>
+<pre><code class="lang-javascript"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;
+<span class="keyword">import</span> ReactSelectize <span class="keyword">from</span> <span class="string">'react-selectize'</span>
+const SimpleSelect = React.createFactory(ReactSelectize.SimpleSelect);
+<span class="keyword">const</span> MultiSelect = React.createFactory(ReactSelectize.MultiSelect);
+
+<span class="xml"><span class="tag">&lt;<span class="title">SimpleSelect</span>
+    <span class="attribute">placeholder</span> = "<span class="attribute">Select</span> <span class="attribute">a</span> <span class="attribute">food</span>"
+    <span class="attribute">onValueChange</span> = {(<span class="attribute">value</span>, <span class="attribute">callback</span>) =&gt;</span> {
+        alert(value);
+        callback();
+    }}
+    &gt;
+    <span class="tag">&lt;<span class="title">option</span> <span class="attribute">value</span> = "<span class="attribute">pizza</span>"&gt;</span>pizza<span class="tag">&lt;/<span class="title">option</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">option</span> <span class="attribute">value</span> = "<span class="attribute">kebab</span>"&gt;</span>kebab<span class="tag">&lt;/<span class="title">option</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">option</span> <span class="attribute">value</span> = "<span class="attribute">donut</span>"&gt;</span>donut<span class="tag">&lt;/<span class="title">option</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">SimpleSelect</span>&gt;</span>
+
+<span class="tag">&lt;<span class="title">MultiSelect</span>
+    <span class="attribute">placeholder</span> = "<span class="attribute">Select</span> <span class="attribute">foods</span>"
+    <span class="attribute">options</span> = ["<span class="attribute">pizza</span>", "<span class="attribute">kebab</span>", "<span class="attribute">donut</span>"]<span class="attribute">.map</span>(<span class="attribute">function</span>(<span class="attribute">food</span>){
+        <span class="attribute">return</span> {<span class="attribute">label:</span> <span class="attribute">food</span>, <span class="attribute">value:</span> <span class="attribute">food</span>};
+    });
+    <span class="attribute">onValuesChange</span> = {<span class="attribute">function</span>(<span class="attribute">values</span>, <span class="attribute">callback</span>){
+        <span class="attribute">alert</span>(<span class="attribute">values</span>);
+        <span class="attribute">callback</span>();
+    }}
+/&gt;</span></span>
+</code></pre>
+<p>What I love about this component is the ease of the setup and the flexibility and compactness of the&nbsp;<span class="caps">API</span>.</p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
+            <p class="date"><span>24. September 2015</span></p>
+            <h2><a href="/articles/the_start_of_something_new/">The start of something new.</a></h2>
+          </header>
+          <section class="content"><p>Since this is the first “blog post” I have ever written it will be a bit rough.
+In it, I will be explaining the reason I started this blog and the goal of&nbsp;it.</p>
+<h3 id="who-am-i-">Who am&nbsp;I?</h3>
+<p>My name is Ramon Gebben. I’m 24 years young and I work as a front-end developer for a Dutch digital media company called <a href="http://touchtribe.nl">TouchTribe</a>.
+On a regular work day my work involves writing a lot of Javascript for web, server and hybrid&nbsp;applications.</p>
+<h3 id="dailyjs-part-two">DailyJS part&nbsp;two</h3>
+<p>After being a loyal subscriber to <a href="http://dailyjs.com">DailyJS</a> for a long time, I was very disappointed to hear that <a href="http://alexyoung.org/">Alex Young</a> stopped with DailyJS. I started noticing an absence of a similar platform.
+As a front-end developer DailyJS helped me to keep up with updates from the community, such as new version from node/io.js, and to get informed about new libraries, frameworks and reviews of new build&nbsp;tools.</p>
+<p>Sure, we all look at <a href="https://news.ycombinator.com/news">Hackers News</a>, <a href="http://echojs.com">EchoJS</a> et cetera, but the nice part of DailyJS was that it was filtered and tested. Most libraries look very cool at first sight, but when you try to test them agains “real world” problems, they fail.
+I want to be is the new filter. I spend a large part of my days searching for new libraries and frameworks, because it is wonderful what everybody is doing and everyday the bar is set a little higher. Normally I share the things I notice and experienced with the team I work with. Since this is very well received I thought why not take it further and give this a&nbsp;shot.</p>
+<h3 id="daily-updates">Daily&nbsp;updates</h3>
+<p>The goal of this page is giving other developers, that enjoy working with Javascript as much as I do, a daily updates about new libraries, frameworks et cetera. I will test each library that I mention and tell you about my experience. I will also try to filter out some of the “gotcha’s” to make your life&nbsp;easier.</p>
+<p>I will try my best to post at least two libraries a day with a small summery of what it does and what it does&nbsp;great.</p>
+<p>In the future I also would like see posts from developers whom in my opinion exceed in the field to give an expertise view on area and subjects that might be unclear to you and&nbsp;me.</p>
+<h3 id="contribute">Contribute</h3>
+<p>If you have an awesome library or you’re working on something, please let me know. In this message, enclose a Github link and maybe your motivation to start building your&nbsp;project.</p>
+<p>Because I’m not an experienced writer I welcome all feedback on my writing style, word choice et cetera.
+Tweet to <a href="https://twitter.com/DailyJavascript">@DailyJavascript</a></p>
+
+          </section>
+        </article>
+      </div>
+    </div>
+    <footer>
+      <script type="text/javascript">(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-68072930-1', 'auto');ga('send', 'pageview');</script>
+      <div class="content-wrap">
+        <div class="nav"><a href="/page/10/">« Newer</a>
+        </div>
+        <section class="about">
+        </section>
+        <section class="copy">
+          <p>&copy; 2015 Ramon Gebben &mdash; powered by&nbsp;<a href="https://github.com/jnordberg/wintersmith">Wintersmith</a>
+          </p>
+        </section>
+      </div>
+    </footer>
+  </body>
+</html>
