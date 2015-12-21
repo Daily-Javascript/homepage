@@ -5,9 +5,64 @@
     <atom:link href="http://daily-javascript.com/feed.xml" rel="self" type="application/rss+xml"></atom:link>
     <link>http://daily-javascript.com</link>
     <description>For your daily dose of Javascript libraries.</description>
-    <pubDate>Thu, 17 Dec 2015 01:00:00 +0100</pubDate>
+    <pubDate>Mon, 21 Dec 2015 01:00:00 +0100</pubDate>
     <generator>Wintersmith - https://github.com/jnordberg/wintersmith</generator>
     <language>en</language>
+    <item>
+      <title>Inspire Tree</title>
+      <link>http://daily-javascript.com/articles/inspire-tree/</link>
+      <pubDate>Mon, 21 Dec 2015 01:00:00 +0100</pubDate>
+      <guid isPermaLink="true">http://daily-javascript.com/articles/inspire-tree/</guid>
+      <author></author>
+      <description>&lt;p&gt;Inspire Tree (GitHub: &lt;a href=&quot;https://github.com/helion3/inspire-tree&quot;&gt;helion3/inspire-tree&lt;/a&gt;, License: MIT, npm: inspire-tree)&lt;/p&gt;
+&lt;p&gt;First of all I would like to thank everybody that took the time to look at the &lt;a href=&quot;http://daily-javascript.com/challenges&quot;&gt;Weekly Challenges&lt;/a&gt; over the weekend. If you have not looked at the challenge of last week you can still submit until Thursday night.&lt;/p&gt;
+&lt;p&gt;Now to business, &lt;a href=&quot;https://github.com/viveleroi&quot;&gt;Mike Botsko&lt;/a&gt; sent in Inspire Tree which is a un-opinionated collapsable tree UI library.
+The need for the library grew with the developers because the alternatives already out there where not extensive enough or just took to much hacking to make it listen to what they wanted.&lt;/p&gt;
+&lt;p&gt;Some of the features that jumped out to me are:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Events everywhere&lt;/li&gt;
+&lt;li&gt;~40k minified, uncompressed&lt;/li&gt;
+&lt;li&gt;No external dependencies&lt;/li&gt;
+&lt;li&gt;Load data directly, via promises, callbacks, etc&lt;/li&gt;
+&lt;li&gt;Load child nodes upfront or dynamically (or a mix of both)&lt;/li&gt;
+&lt;li&gt;Tri-state checkboxes (optional)&lt;/li&gt;
+&lt;li&gt;Multiselect (optional)&lt;/li&gt;
+&lt;li&gt;Search by plain string, RegExp, custom matcher, or external resources (optional)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The renderer used by the library can be replaced with a custom renderer for framework support.
+Sadly there is only one example listed within the docs but it will be easy it would be to include it within React or Riot due to the Virtual DOM.&lt;/p&gt;
+&lt;p&gt;To work with this library you need to have an element on the page to target:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-html&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;div&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;class&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;myTree&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;title&quot;&gt;div&lt;/span&gt;&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now we can init tree functionality and fetch the data at the same time like so:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;const&lt;/span&gt; tree = &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; InspireTree({
+    target: &lt;span class=&quot;string&quot;&gt;'.tree'&lt;/span&gt;,
+    data: $.getJSON(&lt;span class=&quot;string&quot;&gt;'http://example.com/some-data.json'&lt;/span&gt;)
+});
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;When custom behavior is needed you can attach this to be fired when curtain events are emitted. There is a list of events present on the Github page for reference. This is an example of how a click handler would look like:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;tree.on(&lt;span class=&quot;string&quot;&gt;'node.click'&lt;/span&gt;, (evt, node) =&amp;gt; {
+    &lt;span class=&quot;comment&quot;&gt;// node clicked!&lt;/span&gt;
+    &lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.log([&lt;span class=&quot;string&quot;&gt;'node clicked'&lt;/span&gt;, evt, node]);
+});
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The rest of the API is very well documented so I would suggest you browse through it if you need more convincing that this is one of the most extensive UI tree library out there.&lt;/p&gt;
+</description>
+    </item>
+    <item>
+      <title>Weekly Challenges</title>
+      <link>http://daily-javascript.com/articles/weekly-challenge-2015-51/</link>
+      <pubDate>Fri, 18 Dec 2015 01:00:00 +0100</pubDate>
+      <guid isPermaLink="true">http://daily-javascript.com/articles/weekly-challenge-2015-51/</guid>
+      <author></author>
+      <description>&lt;p&gt;Since I started missing a lot of Friday posts, I came up with a new section for which I can prepare during the week.&lt;/p&gt;
+&lt;p&gt;I’m introducing Weekly Challenges. Every Friday I will post an assignment related to programming. These challenges can be math problems, mathematical phenomenons or building something using a previously mentioned library.&lt;/p&gt;
+&lt;p&gt;These assignments are to challenges yourself. This is not a competition. I will do my best to design/pick challenges that will be interesting for developers of all skill levels.
+But do not feel limited to the challenge description, if you can create something more complex than the challenge describes, do it!&lt;/p&gt;
+&lt;p&gt;If you have great idea’s for futures challenges please submit it via &lt;a href=&quot;http://goo.gl/forms/8FaZJSBxjO&quot;&gt;this Google Form&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;An overview of the challenges can be found at &lt;a href=&quot;http://daily-javascript.com/challenges&quot;&gt;/challenges&lt;/a&gt;. This weeks challenge is the &lt;a href=&quot;http://daily-javascript.com/challenges/pythagoras-tree/&quot;&gt;Pythagoras Tree&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
     <item>
       <title>isomorphine</title>
       <link>http://daily-javascript.com/articles/isomorphine/</link>
@@ -2346,71 +2401,6 @@ This weekend I will be trying to include this within this website so you will be
 </description>
     </item>
     <item>
-      <title>Levi</title>
-      <link>http://daily-javascript.com/articles/levi/</link>
-      <pubDate>Mon, 28 Sep 2015 02:00:00 +0200</pubDate>
-      <guid isPermaLink="true">http://daily-javascript.com/articles/levi/</guid>
-      <author></author>
-      <description>&lt;p&gt;Levi (GitHub: &lt;a href=&quot;https://github.com/cshum/levi&quot;&gt;cshum/levi&lt;/a&gt;, License: MIT, npm: levi)&lt;/p&gt;
-&lt;p&gt;Levi is a streaming full-text search for Node.js and browsers which used LevelDB for storage.
-The search implementation is done by using &lt;a href=&quot;https://en.wikipedia.org/wiki/Tf%E2%80%93idf&quot;&gt;TF-IDF&lt;/a&gt; and &lt;a href=&quot;https://en.wikipedia.org/wiki/Cosine_similarity&quot;&gt;cosine similarity&lt;/a&gt;, and it’s provided with configurable text processing pipelines: Tokenizer, Porter Stemmer and Stopwords filter.&lt;/p&gt;
-&lt;p&gt;Levi is built on &lt;a href=&quot;https://github.com/Level/levelup&quot;&gt;LevelUP&lt;/a&gt; which is a fast, asynchronous, transactional storage interface. By default it uses LevelDB on Node.js, when in running in the browser it uses &lt;a href=&quot;https://github.com/maxogden/level.js&quot;&gt;IndexedDB&lt;/a&gt;. Levi supports with a variety of LevelDOWN compatible backends.&lt;/p&gt;
-&lt;p&gt;In addition, Levi provides relevancy scoring for live changing data using TF-ICF - a TF-IDF approximation based on existing corpus. Such scoring matches are comparably close to TF-IDF when existing corpus is sufficiently large, with significantly better performance O(N) instead of O(N^2).&lt;/p&gt;
-&lt;p&gt;Let’s take a look at the API. To get started, we need to create a new Levi instance. We do that like this:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;import&lt;/span&gt; levi &lt;span class=&quot;keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;'levi'&lt;/span&gt;;
-
-&lt;span class=&quot;keyword&quot;&gt;const&lt;/span&gt; lv = levi(&lt;span class=&quot;string&quot;&gt;'db'&lt;/span&gt;)
-.use(levi.tokenizer())
-.use(levi.stemmer())
-.use(levi.stopword());
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;The text processing pipeline &lt;code&gt;levi.tokenizer()&lt;/code&gt;, &lt;code&gt;levi.stemmer()&lt;/code&gt;, &lt;code&gt;levi.stopword()&lt;/code&gt; are required for indexing. These are exposed as &lt;a href=&quot;https://github.com/cshum/ginga&quot;&gt;ginga&lt;/a&gt; plugins so that they can be swapped for different language configurations.&lt;/p&gt;
-&lt;p&gt;Now that we have an instance we can use it to talk to the API like this:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;lv.put(&lt;span class=&quot;string&quot;&gt;'a'&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;'Lorem Ipsum is simply dummy text.'&lt;/span&gt;, err =&amp;gt; {
-    &lt;span class=&quot;comment&quot;&gt;// ...&lt;/span&gt;
- });
-
-&lt;span class=&quot;comment&quot;&gt;// object fields as value&lt;/span&gt;
-lv.put(&lt;span class=&quot;string&quot;&gt;'b'&lt;/span&gt;, {
-  id: &lt;span class=&quot;string&quot;&gt;'b'&lt;/span&gt;,
-  title: &lt;span class=&quot;string&quot;&gt;'Lorem Ipsum'&lt;/span&gt;,
-  body: &lt;span class=&quot;string&quot;&gt;'Dummy text of the printing and typesetting industry.'&lt;/span&gt;
-}, (err) =&amp;gt; {
-    &lt;span class=&quot;comment&quot;&gt;//...&lt;/span&gt;
-});
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Or retrieve it like:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;lv.get(&lt;span class=&quot;string&quot;&gt;'b'&lt;/span&gt;, res =&amp;gt; {
-    &lt;span class=&quot;comment&quot;&gt;// res here;&lt;/span&gt;
-});
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;To actually search we need to use Levi’s main interface which would be &lt;code&gt;searchStream&lt;/code&gt;. We use that like this.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;lv.searchStream(&lt;span class=&quot;string&quot;&gt;'lorem ipsum'&lt;/span&gt;).toArray(&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; (&lt;span class=&quot;params&quot;&gt;results&lt;/span&gt;) &lt;/span&gt;{ ... }) &lt;span class=&quot;comment&quot;&gt;// highland method&lt;/span&gt;
-
-lv.searchStream(&lt;span class=&quot;string&quot;&gt;'lorem ipsum'&lt;/span&gt;, {
-  fields: { title: &lt;span class=&quot;number&quot;&gt;10&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;'*'&lt;/span&gt;: &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt; } &lt;span class=&quot;comment&quot;&gt;// title field boost. '*' means any field&lt;/span&gt;
-}).pipe(...)
-
-lv.searchStream(&lt;span class=&quot;string&quot;&gt;'lorem ipusm'&lt;/span&gt;, {
-  fields: { title: &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt; }, &lt;span class=&quot;comment&quot;&gt;// title only&lt;/span&gt;
-}).pipe(...)
-
-&lt;span class=&quot;comment&quot;&gt;// ltgt&lt;/span&gt;
-lv.searchStream(&lt;span class=&quot;string&quot;&gt;'lorem ipusm'&lt;/span&gt;, {
-  gt: &lt;span class=&quot;string&quot;&gt;'!posts!'&lt;/span&gt;,
-  lt: &lt;span class=&quot;string&quot;&gt;'!posts!~'&lt;/span&gt;
-}).pipe(...)
-
-&lt;span class=&quot;comment&quot;&gt;// document as query&lt;/span&gt;
-lv.searchStream({
-  title: &lt;span class=&quot;string&quot;&gt;'Lorem Ipsum'&lt;/span&gt;,
-  body: &lt;span class=&quot;string&quot;&gt;'Dummy text of the printing and typesetting industry.'&lt;/span&gt;
-}).pipe(...)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Because I do not fully understand everything that is going on here, I need to refer you to the extensive documentation on the &lt;a href=&quot;https://github.com/cshum/levi&quot;&gt;GitHub page&lt;/a&gt;. The reason I still mention this library is that I understand from the explanation a colleague gave me that this library will have a significant impact on the speed of your text search.&lt;/p&gt;
-</description>
-    </item>
-    <item>
       <title>Rune.js and queryl</title>
       <link>http://daily-javascript.com/articles/runejs-and-queryl/</link>
       <pubDate>Mon, 28 Sep 2015 02:00:00 +0200</pubDate>
@@ -2536,6 +2526,71 @@ clipboard.on(&lt;span class=&quot;string&quot;&gt;'error'&lt;/span&gt;, &lt;span
 &lt;/table&gt;
 &lt;p&gt;Although copy/cut operations with execCommand aren’t supported in Safari yet (including mobile), it gracefully degrades, because Selection is supported.&lt;/p&gt;
 &lt;p&gt;This means you could show a tooltip saying Copied! when success event is called and Press Ctrl+C to copy when error event is called because the text is already selected.&lt;/p&gt;
+</description>
+    </item>
+    <item>
+      <title>Levi</title>
+      <link>http://daily-javascript.com/articles/levi/</link>
+      <pubDate>Mon, 28 Sep 2015 02:00:00 +0200</pubDate>
+      <guid isPermaLink="true">http://daily-javascript.com/articles/levi/</guid>
+      <author></author>
+      <description>&lt;p&gt;Levi (GitHub: &lt;a href=&quot;https://github.com/cshum/levi&quot;&gt;cshum/levi&lt;/a&gt;, License: MIT, npm: levi)&lt;/p&gt;
+&lt;p&gt;Levi is a streaming full-text search for Node.js and browsers which used LevelDB for storage.
+The search implementation is done by using &lt;a href=&quot;https://en.wikipedia.org/wiki/Tf%E2%80%93idf&quot;&gt;TF-IDF&lt;/a&gt; and &lt;a href=&quot;https://en.wikipedia.org/wiki/Cosine_similarity&quot;&gt;cosine similarity&lt;/a&gt;, and it’s provided with configurable text processing pipelines: Tokenizer, Porter Stemmer and Stopwords filter.&lt;/p&gt;
+&lt;p&gt;Levi is built on &lt;a href=&quot;https://github.com/Level/levelup&quot;&gt;LevelUP&lt;/a&gt; which is a fast, asynchronous, transactional storage interface. By default it uses LevelDB on Node.js, when in running in the browser it uses &lt;a href=&quot;https://github.com/maxogden/level.js&quot;&gt;IndexedDB&lt;/a&gt;. Levi supports with a variety of LevelDOWN compatible backends.&lt;/p&gt;
+&lt;p&gt;In addition, Levi provides relevancy scoring for live changing data using TF-ICF - a TF-IDF approximation based on existing corpus. Such scoring matches are comparably close to TF-IDF when existing corpus is sufficiently large, with significantly better performance O(N) instead of O(N^2).&lt;/p&gt;
+&lt;p&gt;Let’s take a look at the API. To get started, we need to create a new Levi instance. We do that like this:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;import&lt;/span&gt; levi &lt;span class=&quot;keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;'levi'&lt;/span&gt;;
+
+&lt;span class=&quot;keyword&quot;&gt;const&lt;/span&gt; lv = levi(&lt;span class=&quot;string&quot;&gt;'db'&lt;/span&gt;)
+.use(levi.tokenizer())
+.use(levi.stemmer())
+.use(levi.stopword());
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The text processing pipeline &lt;code&gt;levi.tokenizer()&lt;/code&gt;, &lt;code&gt;levi.stemmer()&lt;/code&gt;, &lt;code&gt;levi.stopword()&lt;/code&gt; are required for indexing. These are exposed as &lt;a href=&quot;https://github.com/cshum/ginga&quot;&gt;ginga&lt;/a&gt; plugins so that they can be swapped for different language configurations.&lt;/p&gt;
+&lt;p&gt;Now that we have an instance we can use it to talk to the API like this:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;lv.put(&lt;span class=&quot;string&quot;&gt;'a'&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;'Lorem Ipsum is simply dummy text.'&lt;/span&gt;, err =&amp;gt; {
+    &lt;span class=&quot;comment&quot;&gt;// ...&lt;/span&gt;
+ });
+
+&lt;span class=&quot;comment&quot;&gt;// object fields as value&lt;/span&gt;
+lv.put(&lt;span class=&quot;string&quot;&gt;'b'&lt;/span&gt;, {
+  id: &lt;span class=&quot;string&quot;&gt;'b'&lt;/span&gt;,
+  title: &lt;span class=&quot;string&quot;&gt;'Lorem Ipsum'&lt;/span&gt;,
+  body: &lt;span class=&quot;string&quot;&gt;'Dummy text of the printing and typesetting industry.'&lt;/span&gt;
+}, (err) =&amp;gt; {
+    &lt;span class=&quot;comment&quot;&gt;//...&lt;/span&gt;
+});
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Or retrieve it like:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;lv.get(&lt;span class=&quot;string&quot;&gt;'b'&lt;/span&gt;, res =&amp;gt; {
+    &lt;span class=&quot;comment&quot;&gt;// res here;&lt;/span&gt;
+});
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;To actually search we need to use Levi’s main interface which would be &lt;code&gt;searchStream&lt;/code&gt;. We use that like this.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;lv.searchStream(&lt;span class=&quot;string&quot;&gt;'lorem ipsum'&lt;/span&gt;).toArray(&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; (&lt;span class=&quot;params&quot;&gt;results&lt;/span&gt;) &lt;/span&gt;{ ... }) &lt;span class=&quot;comment&quot;&gt;// highland method&lt;/span&gt;
+
+lv.searchStream(&lt;span class=&quot;string&quot;&gt;'lorem ipsum'&lt;/span&gt;, {
+  fields: { title: &lt;span class=&quot;number&quot;&gt;10&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;'*'&lt;/span&gt;: &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt; } &lt;span class=&quot;comment&quot;&gt;// title field boost. '*' means any field&lt;/span&gt;
+}).pipe(...)
+
+lv.searchStream(&lt;span class=&quot;string&quot;&gt;'lorem ipusm'&lt;/span&gt;, {
+  fields: { title: &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt; }, &lt;span class=&quot;comment&quot;&gt;// title only&lt;/span&gt;
+}).pipe(...)
+
+&lt;span class=&quot;comment&quot;&gt;// ltgt&lt;/span&gt;
+lv.searchStream(&lt;span class=&quot;string&quot;&gt;'lorem ipusm'&lt;/span&gt;, {
+  gt: &lt;span class=&quot;string&quot;&gt;'!posts!'&lt;/span&gt;,
+  lt: &lt;span class=&quot;string&quot;&gt;'!posts!~'&lt;/span&gt;
+}).pipe(...)
+
+&lt;span class=&quot;comment&quot;&gt;// document as query&lt;/span&gt;
+lv.searchStream({
+  title: &lt;span class=&quot;string&quot;&gt;'Lorem Ipsum'&lt;/span&gt;,
+  body: &lt;span class=&quot;string&quot;&gt;'Dummy text of the printing and typesetting industry.'&lt;/span&gt;
+}).pipe(...)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Because I do not fully understand everything that is going on here, I need to refer you to the extensive documentation on the &lt;a href=&quot;https://github.com/cshum/levi&quot;&gt;GitHub page&lt;/a&gt;. The reason I still mention this library is that I understand from the explanation a colleague gave me that this library will have a significant impact on the speed of your text search.&lt;/p&gt;
 </description>
     </item>
     <item>

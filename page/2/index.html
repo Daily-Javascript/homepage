@@ -27,12 +27,103 @@
             <div class="follow-item"><a href="http://twitter.com/DailyJavascript" target="_blank"><span>via Twitter</span></a></div>
             <div class="follow-item"><a href="http://eepurl.com/bAAxM9" target="_blank"><span>via E-Mail</span></a></div>
             <div class="follow-item"><a href="http://daily-javascript.com/atom.xml" target="_blank"><span>via RSS</span></a></div>
-          </div>
+          </div><br>
+          <p class="description">Feeling like challenging yourself? Check out the <a href="/challenges" class="mailto">Weekly Challenges</a></p>
         </div>
       </div>
     </header>
     <div id="content">
       <div class="content-wrap">
+        <article class="article intro">
+          <header>
+            <p class="date"><span>10. December 2015</span></p>
+            <h2><a href="/articles/splitjs/">Split.js</a></h2>
+          </header>
+          <section class="content"><p>Split.js (GitHub: <a href="https://github.com/nathancahill/Split.js">nathancahill/Split.js</a>, License: <span class="caps">MIT</span>, npm:&nbsp;split.js)</p>
+<p>Split.js is a lightweight, unopinionated utility for creating adjustable split views or panes. What I like about this library is the minimal requirements to get it to work.
+It has no depenencies such as jQuery and does not require you to jump through three burning hoopes before you have it working,
+just two elements that have a parent in common and you are set.
+I comes with draggable gutters to resize the panes and the <span class="caps">API</span> is very easy, just one function, <code>Split</code>.</p>
+<p>So let’s look at some code. Let’s say we have a markup that looks something like&nbsp;this:</p>
+<pre><code class="lang-html"><span class="comment">&lt;!-- .... --&gt;</span>
+<span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"parent"</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"one"</span>&gt;</span>
+        <span class="comment">&lt;!-- .... --&gt;</span>
+    <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"two"</span>&gt;</span>
+        <span class="comment">&lt;!-- .... --&gt;</span>
+    <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+<span class="comment">&lt;!-- .... --&gt;</span>
+</code></pre>
+<p>Then a basic split would work like this in&nbsp;Javascript:</p>
+<pre><code class="lang-javascript">Split([<span class="string">'#one'</span>, <span class="string">'#two'</span>], {
+    sizes: [<span class="number">25</span>, <span class="number">75</span>],
+    minSize: <span class="number">200</span>
+});
+</code></pre>
+<p>It’s possible to add as many elements as you want, as long as they share the same parent. Let’s take three as&nbsp;example:</p>
+<pre><code class="lang-javascript">Split([<span class="string">'#one'</span>, <span class="string">'#two'</span>, <span class="string">'#three'</span>], {
+    minSize: [<span class="number">100</span>, <span class="number">100</span>, <span class="number">300</span>]
+});
+</code></pre>
+<p>Because this library is unopinionated, it does not come with much styling. You can implement your own styles like&nbsp;so:</p>
+<pre><code class="lang-css"><span class="class">.gutter</span> <span class="rules">{
+  <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="hexcolor">#eee</span></span></span>;
+  <span class="rule"><span class="attribute">background-repeat</span>:<span class="value"> no-repeat</span></span>;
+  <span class="rule"><span class="attribute">background-position</span>:<span class="value"> <span class="number">50%</span></span></span>;
+}</span>
+
+<span class="class">.gutter</span><span class="class">.gutter-horizontal</span> <span class="rules">{
+  <span class="rule"><span class="attribute">background-image</span>:<span class="value"> <span class="function">url</span>(<span class="string">'grips/vertical.png'</span>)</span></span>;
+  <span class="rule"><span class="attribute">cursor</span>:<span class="value"> ew-resize</span></span>;
+}</span>
+
+<span class="class">.gutter</span><span class="class">.gutter-vertical</span> <span class="rules">{
+  <span class="rule"><span class="attribute">background-image</span>:<span class="value"> <span class="function">url</span>(<span class="string">'grips/horizontal.png'</span>)</span></span>;
+  <span class="rule"><span class="attribute">cursor</span>:<span class="value"> ns-resize</span></span>;
+}</span>
+</code></pre>
+<p>Note that split works the best with <code>border-box</code>ed element’s, so if you did not apply this within your reset, you could set it like&nbsp;this:</p>
+<pre><code class="lang-css"><span class="class">.split</span> <span class="rules">{
+  <span class="rule"><span class="attribute">-webkit-box-sizing</span>:<span class="value"> border-box</span></span>;
+     <span class="rule"><span class="attribute">-moz-box-sizing</span>:<span class="value"> border-box</span></span>;
+          <span class="rule"><span class="attribute">box-sizing</span>:<span class="value"> border-box</span></span>;
+}</span>
+</code></pre>
+<p>The library comes with a lot of extra options which will infusence how the panes and the gutters should act. Check the <a href="https://github.com/nathancahill/Split.js"><span class="caps">README</span></a> for&nbsp;that.</p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
+            <p class="date"><span>09. December 2015</span></p>
+            <h2><a href="/articles/bigfloat/">bigfloat</a></h2>
+          </header>
+          <section class="content"><p>bigfloat (GitHub: <a href="https://github.com/charto/bigfloat">charto/bigfloat</a>, License: <span class="caps">MIT</span>, npm:&nbsp;bigfloat)</p>
+<p>bigfloat is an arbitrary precision math library optimized for computation on geometry and geoinformatics. It provides a base 2 floating point.
+It can covert Javascript float’s, add, subtract, multiply and convert it back to a Javascript String. It can do all this whiteout losing any significant bits. Numbers are  treaded as immutable and will return a new&nbsp;BigFloat.</p>
+<p>So how does it do this?
+Numbers are represented in 32-bit limbs (digits in base 2^32).
+The least significant limb is stored first. This because basic algorithms for arithmetic operations progress from the least to most significant digit while propagating carry. If carry causes the output to grow, adding a new limb at the end of the Array is faster than adding it in the beginning.
+The library was optimized for exponents relatively close to zero, so the location of the decimal point is always present in the limb array, even if that introduces otherwise insignificant leading or trailing zero&nbsp;digits.</p>
+<p>Let’s look at a quick example if I would run&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="keyword">const</span> x = <span class="built_in">Math</span>.pow(<span class="number">2</span>, <span class="number">53</span>),
+    result = x + <span class="number">1</span> - x;
+
+<span class="built_in">console</span>.log( result );
+</code></pre>
+<p>It will give me back <code>0</code>. But we would expect to get <code>1</code>. If we would do the same using&nbsp;bigfloat:</p>
+<pre><code class="lang-javascript"><span class="keyword">const</span> BigFloat = <span class="built_in">require</span>(<span class="string">'bigfloat'</span>).BigFloat,
+       x = <span class="built_in">Math</span>.pow(<span class="number">2</span>, <span class="number">53</span>),
+      result = <span class="keyword">new</span> BigFloat(x).add(<span class="number">1</span>).sub(x).toString();
+
+<span class="built_in">console</span>.log(result);
+</code></pre>
+<p>It would log <code>1</code>, as we would&nbsp;suspect.</p>
+
+          </section>
+        </article>
         <article class="article intro">
           <header>
             <p class="date"><span>08. December 2015</span></p>
@@ -183,36 +274,6 @@ Nothing new here right? So let’s put some code in our <code>script</code> tag.
 </code></pre>
 <p>This will fill the <code>input</code> and the <code>#output</code> elements with the string <code>&#39;Hello Daily Javascript&#39;</code>.</p>
 <p>Nowadays we are not impressed by data-binding any more. It comes with a lot more, but for that I would refer you to the <a href="http://matreshka.io/">full documentation</a>. The <span class="caps">API</span> is very small and easy to reason about, so if you have a new POC project coming up I would suggest you give it a&nbsp;try.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>02. December 2015</span></p>
-            <h2><a href="/articles/allyjs/">ally.js</a></h2>
-          </header>
-          <section class="content"><p>ally.js (GitHub: <a href="https://github.com/medialize/ally.js">medialize/ally.js</a>, License: <span class="caps">MIT</span>, npm:&nbsp;ally.js)</p>
-<p>Ever had the problem of having to accommodate for instance blind people on your website?
-With the web app’s of nowadays accessibility sometimes goes to waste by not having the need for “semantic” <span class="caps">HTML</span> and just putting everything inside <code>div</code>‘s.
-Don’t get me wrong, I ofter find myself using a <code>div</code> to make buttons for instance. But for the blind users of the web this can be a serious problem, because their assistance software and the browser do not have the correct content they use all accessibility to your&nbsp;website.</p>
-<p>ally.js is a library simplifying certain accessibility features, functions and behaviors.
-Its goal is to help web applications with accessibility concerns provide every user with a good&nbsp;experience.</p>
-<p>It has an amazingly extensive <span class="caps">API</span> to solve most accessibility problems, way to much to even begin to describe so I will direct you to their <a href="http://allyjs.io/index.html">website</a> where everything is explained into more detail than I could do in a&nbsp;day.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>01. December 2015</span></p>
-            <h2><a href="/articles/dotconf/">dotconf</a></h2>
-          </header>
-          <section class="content"><p>dotconf (GitHub: <a href="https://github.com/yoannmoinet/dotconf">yoannmoinet/dotconf</a>, License: <span class="caps">MIT</span>, npm:&nbsp;dotconf)</p>
-<p><img src="https://github.com/yoannmoinet/dotconf/raw/master/media/demo.gif" alt="demo"></p>
-<p>Are you also tired of all the <code>.something</code> config files for all the tooling we need which is cluttering up your tree? Well <a href="https://github.com/yoannmoinet">Yoann Moinet</a> made a solution for this problem,&nbsp;dotconf.</p>
-<p>What is does is bundle all your existing <code>.something</code> files and directories into one <code>.conf</code>.
-Yoann uses the term “One config to rule them all”. Since I’m a big Lord of the Rings fan, this slogan catch my attention. After trying it our in some projects I really enjoyed how it cleans up all the config files in my tree&nbsp;view.</p>
-<p>The <span class="caps">CLI</span> is very easy, use <code>-a</code> to ‘archive’ all the <code>.something</code> files and <code>-e</code> to extract them again.
-Besides that it comes with a bunch more options to specify that way it should behave such as: destination, pattern, safe mode and what to&nbsp;ignore.</p>
 
           </section>
         </article>
