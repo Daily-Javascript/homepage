@@ -19,3 +19,4 @@ I prepared a [Codepen](http://codepen.io/DailyJavascript/pen/MKyjoN#0) template 
 Do not feel limited to this pen or to the setup. This is to challenge yourself so if the 2d context is to simple for you check out this [Codepen](http://codepen.io/DailyJavascript/pen/LGNxZv) for a 3D template.
 
 The most amazing implementations will be posted next Friday along with the next challenge so make sure you finish by then.
+Submissions can be sent to [this email](mailto:weekly-challenge@ra-ge.net)
