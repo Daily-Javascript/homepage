@@ -36,6 +36,146 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
+            <p class="date"><span>22. October 2015</span></p>
+            <h2><a href="/articles/observatory/">Observatory</a></h2>
+          </header>
+          <section class="content"><p>Observatory (GitHub: <a href="https://github.com/mikesizz/observatory">mikesizz/observatory</a>, License: <span class="caps">MIT</span>, npm:&nbsp;observatoryjs)</p>
+<p>When you are following the spec proposals or read any other blog you have probably heard about <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/observe">Object.observe</a>, which is used for asynchronously observing the changes to an&nbsp;object.</p>
+<p>Observatory is an attempt to provide javascript developers an interface for Object.observe with mongodb style querying for&nbsp;specificity.</p>
+<p>In order to use it we need to create a new instance of&nbsp;Observatory.</p>
+<pre><code class="lang-javascript"><span class="keyword">import</span> Observatory <span class="keyword">from</span> <span class="string">'Observatory'</span>;
+<span class="keyword">const</span> observer = <span class="keyword">new</span> Observatory();
+</code></pre>
+<p>Now we can observe an object by binding an event to it like&nbsp;so:</p>
+<pre><code class="lang-javascript">observer.on( object , query , callback );
+</code></pre>
+<p>Currently it supports the following&nbsp;events:</p>
+<ul>
+<li>$update which observes events that include an update to a queried&nbsp;property</li>
+<li>$add which observes events that include an addition to a queried&nbsp;property</li>
+<li>$delete which observes events that include an deletion from a queried&nbsp;property</li>
+</ul>
+<p>The real power is within the query expressions, by using different selectors you can create an expression for more specific event&nbsp;handling.</p>
+<pre><code class="lang-javascript"><span class="keyword">let</span> cat = {
+    age: <span class="number">3</span>
+};
+
+observer.on( cat , { $update: { <span class="string">"age"</span>: { $gt: <span class="number">10</span> } } } , () =&gt; {
+    <span class="built_in">console</span>.log(<span class="string">"Your cat is older than 10"</span>);
+});
+</code></pre>
+<p>It provides the following value&nbsp;selectors:</p>
+<ul>
+<li>$lt - check if the property is less than the query&nbsp;value</li>
+<li>$gte - check if the property is greater than or equal to the query&nbsp;value</li>
+<li>$lte - check if the property is less than or equal to the query&nbsp;value</li>
+<li>$eq - check if the property is equal to the query&nbsp;value</li>
+</ul>
+<p>For arrays it has a couple&nbsp;extra:</p>
+<ul>
+<li>$in - check if the target array contains any of the query values after the event&nbsp;fires</li>
+<li>$all - check if the target array contains all of the query values after the event&nbsp;fires</li>
+</ul>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
+            <p class="date"><span>21. October 2015</span></p>
+            <h2><a href="/articles/roll-up/">Rollup.js</a></h2>
+          </header>
+          <section class="content"><p>Rollup.js (GitHub: <a href="https://github.com/rollup/rollup">rollup/rollup</a>, License: <span class="caps">MIT</span>, npm:&nbsp;rollup)</p>
+<p>Rollup is a next-generation Javascript module bundler. Build your app or library using <span class="caps">ES2015</span> modules, then efficiently bundle them up into a single file for use in browsers and Node.js.
+This is not an unfamiliar concept to the most of us. What makes Rollup stand out is that fact that it’s using only the functionality that you&nbsp;import.</p>
+<p>Normally you would do something like&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="keyword">var</span> util = <span class="built_in">require</span>(<span class="string">'util'</span>);
+util.ajax(<span class="string">'http://some-api.com/?q=DailyJavascript'</span>).then( handleData );
+</code></pre>
+<p>What this does is include the entire module <code>util</code> but we only use the <code>ajax</code> method. This will increase the total size of our app.
+Now there is <span class="caps">ES2015</span> module loading which allows us to include only the functions we need like&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="keyword">import</span> { ajax } <span class="keyword">from</span> <span class="string">'util'</span>;
+ajax(<span class="string">'http://some-api.com/?q=DailyJavascript'</span>).then( handleData );
+</code></pre>
+<p>When we build the second example, with for instance Browserify, what would happen is that the entire module would still get loaded. Kinda beats the point of using <code>import</code> right?
+Luckily there is Rollup to the rescue which will only build that what you&nbsp;need.</p>
+<p>For the moment it only provides a command line interface which you can acquire&nbsp;via:</p>
+<pre><code class="lang-bash">npm i rollup -g
+</code></pre>
+<p>The usage is pretty straight&nbsp;forward.</p>
+<pre><code class="lang-bash"><span class="comment"># create a self-executing bundle...</span>
+rollup --format iife -- src/app.js &gt; build/app.js
+
+<span class="comment"># ...with inline sourcemaps:</span>
+rollup <span class="operator">-f</span> iife --sourcemap inline -- src/app.js &gt; build/app.js
+
+<span class="comment"># create a bundle with dependencies on jQuery and Angular,</span>
+<span class="comment"># with a sourcemap in a separate file</span>
+rollup <span class="operator">-f</span> iife --globals jquery:jQuery,angular:ng \
+  -i src/app.js -o build/app.js -m build/app.js.map
+</code></pre>
+<p>For more commands check out the <code>--help</code>.</p>
+<p>Alternatively, you could use rollup command from an npm run script cntext, you can install it as a devDependency&nbsp;using:</p>
+<pre><code class="lang-bash">npm i rollup -D
+</code></pre>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
+            <p class="date"><span>20. October 2015</span></p>
+            <h2><a href="/articles/ljson/">λJSON</a></h2>
+          </header>
+          <section class="content"><p>λ<span class="caps">JSON</span> (GitHub: <a href="https://github.com/MaiaVictor/LJSON">MaiaVictor/<span class="caps">LJSON</span></a>, License: <span class="caps">MIT</span>, npm:&nbsp;ljson)</p>
+<p>λ<span class="caps">JSON</span> is a drop-in replacement for JSON which also allows you to parse and stringify pure functions and their contents. There are good security reasons for functions to be out of the JSON specs, but most of those are only significant when you allow arbitrary, side-effective programs.
+With pure functions, one is able to interchange code while still being as safe as with regular&nbsp;JSON.</p>
+<pre><code class="lang-javascript"><span class="keyword">var</span> <span class="caps">LJSON</span> = <span class="built_in">require</span>(<span class="string">"<span class="caps">LJSON</span>"</span>);
+
+<span class="comment">// `newPlayer` is a function and couldn't be serialized with <span class="caps">JSON</span>.</span>
+<span class="function"><span class="keyword">function</span> <span class="title">newPlayer</span>(<span class="params">name</span>)</span>{
+    <span class="keyword">return</span> {
+        name      : name,
+        hp        : <span class="number">12</span>,
+        atk       : <span class="number">5</span>,
+        def       : <span class="number">5</span>,
+        inventory : []}
+};
+
+<span class="comment">// <span class="caps">LJSON</span> has no trouble doing it because `newPlayer` is pure.</span>
+<span class="keyword">var</span> newPlayerSource = <span class="caps">LJSON</span>.stringify(newPlayer);
+<span class="keyword">var</span> John            = <span class="caps">LJSON</span>.parse(newPlayerSource)(<span class="string">"John"</span>);
+
+<span class="built_in">console</span>.log(<span class="string">"Serialized λ<span class="caps">JSON</span>: "</span> + newPlayerSource);
+<span class="built_in">console</span>.log(<span class="string">"Parsed and applied: "</span> + John);
+</code></pre>
+<p>Outputs:</p>
+<pre><code class="lang-javascript">
+<span class="comment">//Serialized λ<span class="caps">JSON</span>: (function(v0){return {name:v0,hp:12,atk:5,def:5,inventory:[]}})</span>
+<span class="comment">//Parsed and applied: { name: 'John', hp: 12, atk: 5, def: 5, inventory: [] }</span>
+</code></pre>
+<p>The fact you have to explicitly provide primitives to <span class="caps">LJSON</span> functions is what gives you confidence they won’t do any nasty thing such as stealing your password, mining bitcoins or launching missiles. LJSON functions can only do what you give them power to. You are still able to serialize side-effective functions, but the side effects will happen on the act of the serialization and get stripped from the serialized&nbsp;output.</p>
+<pre><code class="lang-javascript"><span class="function"><span class="keyword">function</span> <span class="title">nastyPair</span>(<span class="params">a,b</span>)</span>{
+    <span class="built_in">console</span>.log(<span class="string">"booom"</span>);
+    <span class="keyword">return</span> {
+        fst : a,
+        snd : (<span class="function"><span class="keyword">function</span> <span class="title">nastyId</span>(<span class="params">x</span>)</span>{
+            <span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;<span class="number">3</span>; ++i)
+                <span class="built_in">console</span>.log(<span class="string">"mwahahhahha"</span>);
+            <span class="keyword">return</span> x;
+        })(b)};
+};
+
+<span class="comment">// output:</span>
+<span class="comment">// booom</span>
+<span class="comment">// mwahahhahha</span>
+<span class="comment">// mwahahhahha</span>
+<span class="comment">// mwahahhahha</span>
+<span class="comment">// (function(v0,v1){return {fst:v0,snd:v1})</span>
+</code></pre>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
             <p class="date"><span>19. October 2015</span></p>
             <h2><a href="/articles/vorpal/">Vorpal.js</a></h2>
           </header>
@@ -107,138 +247,6 @@ Sometimes we come across an idea where you will need to parse or tokenize Javasc
     <span class="keyword">return</span> untokenize(tokenize(code, { lineTerminator: <span class="literal">true</span> }));
 }
 </code></pre>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>14. October 2015</span></p>
-            <h2><a href="/articles/smart-crop/">Smartcrop.js</a></h2>
-          </header>
-          <section class="content"><p>Smartcrop (GitHub: <a href="https://github.com/jwagner/smartcrop.js">jwagner/smartcrop.js</a>, License: <span class="caps">MIT</span>, npm: smartcrop, bower:&nbsp;smartcrop)</p>
-<p>Smartcrop.js is not just another image cropping library. It detects the primary region of an image such as faces.
-It does this using the following&nbsp;algorithm.</p>
-<ol>
-<li>Find edges using <a href="https://en.wikipedia.org/wiki/Laplace&#39;s_method">Laplace&nbsp;method</a></li>
-<li>Find regions with a color like&nbsp;skin</li>
-<li>Find regions high in&nbsp;saturation</li>
-<li>Generate a set of candidate crops using a sliding&nbsp;window</li>
-<li>Rank them using a importance function to focus the detail in the center and avoid it in the&nbsp;edges.</li>
-<li>Output the candidate crop with the highest&nbsp;rank</li>
-</ol>
-<p>Using it in a simple&nbsp;example:</p>
-<pre><code class="lang-javascript">SmartCrop.crop(image, {width: <span class="number">100</span>, height: <span class="number">100</span>}, result =&gt; <span class="built_in">console</span>.log(result) );
-<span class="comment">// Which will return</span>
-<span class="comment">// -&gt; {topCrop: {x: 300, y: 200, height: 200, width: 200}}</span>
-</code></pre>
-<p>When you wanna use it within node.js you would have to do something like&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="keyword">import</span> fs <span class="keyword">from</span> <span class="string">'fs'</span>;
-<span class="keyword">import</span> Canvas <span class="keyword">from</span> <span class="string">'canvas'</span>;
-<span class="keyword">import</span> SmartCrop <span class="keyword">from</span> <span class="string">'smartcrop'</span>;
-
-SmartCrop.crop(img, options, result =&gt; {
-    <span class="built_in">console</span>.log(<span class="built_in"><span class="caps">JSON</span></span>.stringify(result, <span class="literal">null</span>, <span class="number">2</span>));
-    <span class="keyword">if</span>(output &amp;&amp; options.width &amp;&amp; options.height){
-        <span class="keyword">var</span> canvas = <span class="keyword">new</span> Canvas(options.width, options.height),
-            ctx = canvas.getContext(<span class="string">'2d'</span>),
-            crop = result.topCrop,
-            f = fs.createWriteStream(output);
-        ctx.patternQuality = <span class="string">'best'</span>;
-        ctx.filter = <span class="string">'best'</span>;
-        ctx.drawImage(img, crop.x, crop.y, crop.width, crop.height, <span class="number">0</span>, <span class="number">0</span>, canvas.width, canvas.height);
-        canvas.syncJPEGStream({quality: quality}).pipe(f);
-    }
-});
-</code></pre>
-<p>Smartcrop.js also offers a command line interface under the npm package name <a href="https://github.com/jwagner/smartcrop-cli"><code>smartcrop-cli</code></a>. Which based uses&nbsp;node-canvas.</p>
-<p>That one you would use like&nbsp;this:</p>
-<pre><code class="lang-bash">npm i smartcrop-cli -g
-smartcrop-cli --width <span class="number">100</span> --height <span class="number">100</span> photo.jpg square-thumbnail.jpg
-</code></pre>
-<p>Smartcrop-cli does requires <a href="https://github.com/Automattic/node-canvas">node-canvas</a> which requires local libraries to be installed. Refer to the <a href="https://github.com/Automattic/node-canvas/wiki/_pages">node-canvas wiki</a> installation&nbsp;instructions.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>13. October 2015</span></p>
-            <h2><a href="/articles/t7/">t7</a></h2>
-          </header>
-          <section class="content"><p>t7 (GitHub: <a href="https://github.com/trueadm/t7">trueadm/t7</a>, License: <span class="caps">ISC</span>, npm:&nbsp;t7)</p>
-<p><img src="http://t7js.com/img/screenshot.png" style="max-width: 400px;width: 100%;left: 0;"></p>
-<p>While browsing I came across t7, which is a template library that compiles template strings into virtual <span class="caps">DOM</span> objects.
-Because of this functionality it’s used in frameworks such as <a href="https://github.com/trueadm/inferno">Inferno</a>, but it can also be used within&nbsp;React.</p>
-<p>There are multiple ways to work with t7. You could include the script on your page the old school way like&nbsp;this:</p>
-<pre><code class="lang-html"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"t7.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
-</code></pre>
-<p>and you can build it with <a href="/articles/t7/">Browserify</a> or <a href="/articles/t7/">Webpack</a> by installing it via npm and require it like&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="keyword">import</span> t7 <span class="keyword">from</span> <span class="string">'t7'</span>;
-</code></pre>
-<p>Now let’s make a page with&nbsp;it.</p>
-<pre><code class="lang-javascript">const items = ['Pizza', 'Kebab', 'Donut'];
-const welcome = 'to the wonderful world of t7';
-
-t7`
-  &lt;div class="foo"&gt;
-    &lt;h1&gt;Welcome ${ welcome }&lt;/h1&gt;
-    &lt;ul&gt;
-      ${
-        items.map( item =&gt; t7`
-          &lt;li class="item"&gt;
-            &lt;span&gt;The item is: ${ item }&lt;/span&gt;
-          &lt;/li&gt;
-        `)
-      }
-    &lt;/ul&gt;
-  &lt;/div&gt;
-`;
-</code></pre>
-<p>By default t7 will attempt to check to see if React is available. If it is, t7 will automatically produce React elements as its output.
-When React is not present, you can use to export it to a Universal format.
-Universal <span class="caps">DOM</span> output should be compatible with most other virtual DOM frameworks out there, like <a href="https://github.com/Raynos/mercury">Mercury</a>, <a href="https://github.com/joelrich/citojs">Cito</a> and <a href="https://github.com/Matt-Esch/virtual-dom">Virtual-dom</a>.</p>
-<p>To set the way you want to output you&nbsp;use:</p>
-<pre><code class="lang-javascript">t7.setOutput(t7.Outputs.React);
-</code></pre>
-<p>The supported outputs&nbsp;are:</p>
-<ul>
-<li><a href="https://facebook.github.io/react/">React</a></li>
-<li><a href="https://github.com/trueadm/inferno">Inferno</a></li>
-<li><a href="http://mithril.js.org/">Mithril</a></li>
-<li>Universal</li>
-</ul>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>12. October 2015</span></p>
-            <h2><a href="/articles/react-image-crop/">React Image Crop</a></h2>
-          </header>
-          <section class="content"><p>react-image-crop (GitHub: <a href="https://github.com/DominicTobias/react-image-crop">DominicTobias/react-image-crop</a>, License: <span class="caps">ISC</span>, npm:&nbsp;react-image-crop)</p>
-<p><img src="https://raw.githubusercontent.com/DominicTobias/react-image-crop/master/crop-demo.gif" style="max-width: 400px;width: 100%;left: 0;"></p>
-<p>React-image-crop is a React component for client side cropping of images. This mainly got my interest because I had several moments where I needed to implement something similar.
-This will take away that work in the future. I used to do the cropping server side which was a hassle. Upload the image, Getting the dimensions, crop with imagemagick then communicate that back to the&nbsp;browser.</p>
-<p>In hindsight I now know that there are a lot of different ways to approach this&nbsp;problem.</p>
-<p>What I like about react-image-crop is that it’s the basics of what you need to crop images.
-It gives you an object which can be used to render the cropped image in canvas to get a base64 encoded image. Another way to display this would be via clipping it with&nbsp;<span class="caps">CSS</span>.</p>
-<p>And you guys can probably come up with a few more ways.
-Let’s take a look at the setup for this&nbsp;component.</p>
-<pre><code class="lang-javascript"><span class="keyword">import</span> ReactCrop <span class="keyword">from</span> <span class="string">'react-image-crop'</span>;
-
-&lt;ReactCrop src=<span class="string">'path/to/image.jpg'</span> /&gt;
-</code></pre>
-<p>When you already want to add a crop, you just pass it as a prop like&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="keyword">var</span> crop = {
-    x: <span class="number">20</span>,
-    y: <span class="number">10</span>,
-    width: <span class="number">30</span>,
-    height: <span class="number">10</span>
-}
-
-&lt;ReactCrop src=<span class="string">'path/to/image.jpg'</span> crop={crop} /&gt;
-</code></pre>
-<p>The <code>crop</code> object also has a property called <code>aspect</code>. With that you can lock the aspect if the cropped&nbsp;area.</p>
-<p>If you want to get the dimensions to where to crop you use the <code>onChange</code> or <code>onComplete</code> props.</p>
 
           </section>
         </article>

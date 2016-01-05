@@ -11,3 +11,4 @@ template: challenges.jade
 | Week | Challenge |
 |:----:|:----------|
 |  51  | [Pythagoras Tree](/challenges/pythagoras-tree) |
+|  52  | [Let it snow](/challenges/let-it-snow) |

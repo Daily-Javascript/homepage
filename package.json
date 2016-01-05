@@ -1,8 +1,13 @@
 {
+  "scripts": {
+    "weekly": "/usr/local/bin/node tools/results.js"
+  },
   "dependencies": {
     "moment": "2.3.x",
+    "tabletop": "^1.4.2",
+    "typogr": "0.5.x",
     "underscore": "1.4.x",
-    "typogr": "0.5.x"
+    "yargs": "^3.31.0"
   },
   "private": "true"
 }
