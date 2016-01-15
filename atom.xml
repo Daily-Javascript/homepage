@@ -5,9 +5,236 @@
     <atom:link href="http://daily-javascript.com/feed.xml" rel="self" type="application/rss+xml"></atom:link>
     <link>http://daily-javascript.com</link>
     <description>For your daily dose of Javascript libraries.</description>
-    <pubDate>Fri, 25 Dec 2015 01:00:00 +0100</pubDate>
+    <pubDate>Fri, 15 Jan 2016 01:00:00 +0100</pubDate>
     <generator>Wintersmith - https://github.com/jnordberg/wintersmith</generator>
     <language>en</language>
+    <item>
+      <title>Weekly Challenge - Tic tac toe</title>
+      <link>http://daily-javascript.com/articles/weekly-challenge-2016-03/</link>
+      <pubDate>Fri, 15 Jan 2016 01:00:00 +0100</pubDate>
+      <guid isPermaLink="true">http://daily-javascript.com/articles/weekly-challenge-2016-03/</guid>
+      <author></author>
+      <description>&lt;p&gt;&lt;img style=&quot;width: 100%; display:block;&quot; src=&quot;http://i.imgur.com/AMfBBzl.png&quot; &gt;&lt;/p&gt;
+&lt;p&gt;First of all here is a link to &lt;a href=&quot;http://daily-javascript.com/challenges/mandelbrot/results&quot;&gt;last weeks results&lt;/a&gt; sadly the challenge was a bit to hard, so I heard in some direct feedback. So I will switch it up this week.
+No more fractals this time. This weeks challenge is create a Tic Tac Toe game using Javascript.&lt;/p&gt;
+&lt;p&gt;You can go two ways for this implementation.&lt;/p&gt;
+&lt;p&gt;The first one would be very naive. Simply switch between 2 users, the first user would be X the other would be O.
+The program should be able to detect when one of the players has won or if it is a tie.&lt;/p&gt;
+&lt;p&gt;If you are feeling very confident implement AI for player O. Same rules would apply.
+Be mindful in your implementation because next week there will come some additional requirements.&lt;/p&gt;
+&lt;p&gt;Again I’ve created &lt;a href=&quot;http://codepen.io/DailyJavascript/pen/ZQXBaK&quot;&gt;a Codepen for you to start with&lt;/a&gt;.
+Please submit your solution to this &lt;a href=&quot;http://goo.gl/forms/vM1b4oUXC6&quot;&gt;Google Form&lt;/a&gt; and happy coding.&lt;/p&gt;
+</description>
+    </item>
+    <item>
+      <title>ChakraCore and 10 years of jQuery</title>
+      <link>http://daily-javascript.com/articles/chakracore-and-10-years-jquery/</link>
+      <pubDate>Thu, 14 Jan 2016 01:00:00 +0100</pubDate>
+      <guid isPermaLink="true">http://daily-javascript.com/articles/chakracore-and-10-years-jquery/</guid>
+      <author></author>
+      <description>&lt;p&gt;ChakraCore (GitHub: &lt;a href=&quot;https://github.com/Microsoft/ChakraCore&quot;&gt;Microsoft/ChakraCore&lt;/a&gt;, License: MIT)&lt;/p&gt;
+&lt;p&gt;In case you did not see or hear it yet, Microsoft has open sourced the ChakraCore.
+ChakraCore is the Javascript engine that powers Microsoft Edge.&lt;/p&gt;
+&lt;p&gt;The ChakraCore repository provides a fully supported and open-source standalone JavaScript engine, with the same  as the Microsoft Edge’s Chakra engine, to embed within your projects.&lt;/p&gt;
+&lt;p&gt;For more in depth information I would refer you to the &lt;a href=&quot;https://blogs.windows.com/msedgedev/2016/01/13/chakracore-now-open/&quot;&gt;official post by Microsoft&lt;/a&gt;. When you don’t feel like reading that, just watch this &lt;a href=&quot;https://youtu.be/1bfDB3YPHFI&quot;&gt;announcement video&lt;/a&gt;.&lt;/p&gt;
+&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/1bfDB3YPHFI&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;
+
+&lt;p&gt;Besides the great news coming from Microsoft, jQuery has a special day to celebrate. The ten year existence of the most used library on the web.
+The first release was at 14th of January 2006. Since then it has changed a lot and helped evolve the web to the great platform it is nowadays.&lt;/p&gt;
+&lt;p&gt;Go over to the &lt;a href=&quot;http://blog.jquery.com/2016/01/14/ten-years-of-jquery-and-beyond/&quot;&gt;jQuery blog&lt;/a&gt; to read a little bit about the journey to today.&lt;/p&gt;
+&lt;p&gt;Don’t forget to submit your implementation of this weeks challenge. If you need a refresher on what the assignment was head over the &lt;a href=&quot;http://daily-javascript.com/challenges/mandelbrot/&quot;&gt;challenge page&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    <item>
+      <title>Feature.js</title>
+      <link>http://daily-javascript.com/articles/featurejs/</link>
+      <pubDate>Wed, 13 Jan 2016 01:00:00 +0100</pubDate>
+      <guid isPermaLink="true">http://daily-javascript.com/articles/featurejs/</guid>
+      <author></author>
+      <description>&lt;p&gt;Feature.js (GitHub: &lt;a href=&quot;https://github.com/viljamis/feature.js/&quot;&gt;viljamis/feature.js&lt;/a&gt;, License: MIT)&lt;/p&gt;
+&lt;p&gt;Feature.js is a very fast, simple and lightweight browser feature detection library. I received this from a ex-colleage of mine and I was amazed I did not stumble upon this before, since it has more than 1200 stars on Github.
+There are several features you can test with this library, here is a list of them:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;AddEventListener&lt;/li&gt;
+&lt;li&gt;Async attribute&lt;/li&gt;
+&lt;li&gt;Canvas&lt;/li&gt;
+&lt;li&gt;ClassList API&lt;/li&gt;
+&lt;li&gt;CORS API&lt;/li&gt;
+&lt;li&gt;Context Menu&lt;/li&gt;
+&lt;li&gt;CSS 3D transform&lt;/li&gt;
+&lt;li&gt;CSS transform&lt;/li&gt;
+&lt;li&gt;CSS transition&lt;/li&gt;
+&lt;li&gt;Defer attribute&lt;/li&gt;
+&lt;li&gt;DeviceOrientation&lt;/li&gt;
+&lt;li&gt;DeviceMotion&lt;/li&gt;
+&lt;li&gt;Geolocation&lt;/li&gt;
+&lt;li&gt;History API&lt;/li&gt;
+&lt;li&gt;Input Placeholder&lt;/li&gt;
+&lt;li&gt;LocalStorage&lt;/li&gt;
+&lt;li&gt;MatchMedia&lt;/li&gt;
+&lt;li&gt;Picture element&lt;/li&gt;
+&lt;li&gt;QuerySelectorAll&lt;/li&gt;
+&lt;li&gt;REM Units&lt;/li&gt;
+&lt;li&gt;Service Worker&lt;/li&gt;
+&lt;li&gt;Sizes attribute&lt;/li&gt;
+&lt;li&gt;Srcset attribute&lt;/li&gt;
+&lt;li&gt;SVG&lt;/li&gt;
+&lt;li&gt;Touch&lt;/li&gt;
+&lt;li&gt;Viewport Units&lt;/li&gt;
+&lt;li&gt;WebGL&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Since the tests it uses are pretty straight forward I will not go into this al to much. The most used test is done by simply checking if the requested feature is within the object in needs to be in.&lt;/p&gt;
+&lt;p&gt;You use it with simple &lt;code&gt;if&lt;/code&gt; statements like so:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt; (feature.webGL) {
+    &lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.log(&lt;span class=&quot;string&quot;&gt;'WebGL supported'&lt;/span&gt;);
+} &lt;span class=&quot;keyword&quot;&gt;else&lt;/span&gt; {
+    &lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.log(&lt;span class=&quot;string&quot;&gt;'WebGL not supported'&lt;/span&gt;);
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;If you want to see it in action head over to the &lt;a href=&quot;http://featurejs.com/&quot;&gt;project page&lt;/a&gt; where the developer has implemented a nice demo.&lt;/p&gt;
+</description>
+    </item>
+    <item>
+      <title>Catbee</title>
+      <link>http://daily-javascript.com/articles/catbee/</link>
+      <pubDate>Tue, 12 Jan 2016 01:00:00 +0100</pubDate>
+      <guid isPermaLink="true">http://daily-javascript.com/articles/catbee/</guid>
+      <author></author>
+      <description>&lt;p&gt;Catbee (GitHub: &lt;a href=&quot;https://github.com/markuplab/catbee&quot;&gt;markuplab/catbee&lt;/a&gt;, License: MIT, npm: little-loader)&lt;/p&gt;
+&lt;p&gt;&lt;p style=&quot;text-align: center; display: block;&quot;&gt;
+&lt;img src=&quot;https://raw.githubusercontent.com/markuplab/catbee-todomvc/master/logo.png&quot; style=&quot;max-width: 300px; width: 100%;&quot;&gt;
+&lt;/p&gt;
+Catbee is an high level isomorphic framework inspired and based on best practices from &lt;a href=&quot;https://github.com/catberry/catberry&quot;&gt;Catberry&lt;/a&gt;, &lt;a href=&quot;https://github.com/Yomguithereal/baobab&quot;&gt;Baobab&lt;/a&gt; and &lt;a href=&quot;https://github.com/cerebral/cerebral&quot;&gt;Cerebral&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Catbee is Catberry little brother. Unlike Catberry, Catbee use “Single State Tree” conception.
+All state mutations run in signals, and powered by the &lt;a href=&quot;https://github.com/markuplab/appstate&quot;&gt;AppState&lt;/a&gt; module.&lt;/p&gt;
+&lt;p&gt;All data focused in Baobab tree, instead of distributed flux stores. The tree contains the full application state, and it has 2 interfaces: modify API also known as “Signals”, and read API also known as “Watchers”.&lt;/p&gt;
+&lt;p&gt;Signal is the only way to modify state tree. It looks like middleware, but it is way more flexible and adopted for sync/async operations.
+If you want to learn more about signals, checkout &lt;a href=&quot;http://cerebraljs.com/&quot;&gt;this&lt;/a&gt; and &lt;a href=&quot;https://github.com/markuplab/appstate&quot;&gt;this&lt;/a&gt;.
+The developers recommend running signal on each user action, when you need change application state, and also signal automatically run on every url change.&lt;/p&gt;
+&lt;p&gt;Signals use composition conception, and contains an array of independent functions. It’s very simple way to maintain big codebase. Here is an example of a Signal:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;let&lt;/span&gt; signal = [
+  setLoading, &lt;span class=&quot;comment&quot;&gt;// Sync function&lt;/span&gt;
+  [ &lt;span class=&quot;comment&quot;&gt;// Here we run parallel functions&lt;/span&gt;
+    getUser, { &lt;span class=&quot;comment&quot;&gt;// Async function with 2 outputs success and error&lt;/span&gt;
+      success: [setUser], &lt;span class=&quot;comment&quot;&gt;// Run if we call output.success in getUser&lt;/span&gt;
+      error: [setUserError] &lt;span class=&quot;comment&quot;&gt;// Run if we call output.error in getUser&lt;/span&gt;
+    },
+    getNews, { &lt;span class=&quot;comment&quot;&gt;// It's function will run parallel with getUser, like Promise.all&lt;/span&gt;
+      loaded: [setNews],
+      error: [setNewsError]
+    }
+  ],
+  unsetLoading
+];
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Components can access data by &lt;a href=&quot;https://github.com/Yomguithereal/baobab#specialized-getters&quot;&gt;watchers&lt;/a&gt;. There are two main reasons you should use watchers. You’ll need data context for template rendering, and you’ll also need state update events to rerender your component.
+You do not need bind watchers manually, it’s inside of Catbee.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;comment&quot;&gt;// Here we use simple Baobab.watch API&lt;/span&gt;
+&lt;span class=&quot;built_in&quot;&gt;module&lt;/span&gt;.exports = {
+  news: [&lt;span class=&quot;string&quot;&gt;'news'&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;'data'&lt;/span&gt;],
+  isVisible: [&lt;span class=&quot;string&quot;&gt;'news'&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;'UIState'&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;'isVisible'&lt;/span&gt;]
+};
+
+&lt;span class=&quot;comment&quot;&gt;// You can also use Baobab.watch dynamicly&lt;/span&gt;
+&lt;span class=&quot;built_in&quot;&gt;module&lt;/span&gt;.exports = &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; (&lt;span class=&quot;params&quot;&gt;attributes&lt;/span&gt;) &lt;/span&gt;{
+  &lt;span class=&quot;comment&quot;&gt;// Here attributes is &amp;lt;cat-component id=&quot;unique&quot; cat-id=&quot;1&quot; watcher= &quot;dynamic&quot;&amp;gt;&amp;lt;/cat-component&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; id = attributes[&lt;span class=&quot;string&quot;&gt;'cat-id'&lt;/span&gt;];
+
+  &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; {
+    title: [&lt;span class=&quot;string&quot;&gt;'news'&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;'data'&lt;/span&gt;, { id: id }, &lt;span class=&quot;string&quot;&gt;'title'&lt;/span&gt;]
+  };
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;I really like this library because of my associations with Baobab. My first encounter with it was via the post &lt;a href=&quot;http://christianalfoni.github.io/javascript/2015/02/06/plant-a-baobab-tree-in-your-flux-application.html&quot;&gt;“Plant a Baobab tree in your flux application”&lt;/a&gt; which was written by &lt;a href=&quot;https://twitter.com/christianalfoni&quot;&gt;Christian Alfoni&lt;/a&gt;. It lead me to think differently about flux and redux, I recommend you read it.&lt;/p&gt;
+&lt;p&gt;Don’t forget to challenge yourself this week. I prepared another weekly challenge which is: &lt;a href=&quot;http://daily-javascript.com/challenges/mandelbrot/&quot;&gt;“Implement the Mandelbrot set using Javascript”&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
+    <item>
+      <title>Little Loader</title>
+      <link>http://daily-javascript.com/articles/little-loader/</link>
+      <pubDate>Mon, 11 Jan 2016 01:00:00 +0100</pubDate>
+      <guid isPermaLink="true">http://daily-javascript.com/articles/little-loader/</guid>
+      <author></author>
+      <description>&lt;p&gt;Little Loader (GitHub: &lt;a href=&quot;https://github.com/walmartlabs/little-loader&quot;&gt;walmartlabs/little-loader&lt;/a&gt;, License: MIT, npm: little-loader)&lt;/p&gt;
+&lt;p&gt;Little Loader is a lightweight JavaScript loader which is advertised as “The Only Correct Script Loader Ever Made”.
+It was developed by &lt;a href=&quot;http://formidable.com&quot;&gt;Formidable&lt;/a&gt; for a project they did for Mallmart.&lt;/p&gt;
+&lt;p&gt;The need for this library grew from the lack of browser support for the which the team needed.
+To give an example look at the overview made by the team.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://cdn-images-1.medium.com/max/600/1*NUr1sQqkxQ8mdAcrWWLvjg.png&quot; alt=&quot;https://cdn-images-1.medium.com/max/600/1*NUr1sQqkxQ8mdAcrWWLvjg.png&quot;&gt;&lt;/p&gt;
+&lt;p&gt;I’m already using it in one of my projects because after watching the introduction video I was convinced this is the best library for dynamically loading remote JavaScript files.&lt;/p&gt;
+&lt;iframe width=&quot;100%&quot; height=&quot;480&quot; src=&quot;https://www.youtube.com/embed/F080X3Tp6_8&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;
+
+&lt;p&gt;So how do we work with it?
+First of all make use it is installed by running:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-bash&quot;&gt;npm i little-loader -S
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now we can require it within our app like so:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;const&lt;/span&gt; load = &lt;span class=&quot;built_in&quot;&gt;require&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;&quot;little-loader&quot;&lt;/span&gt;);
+
+load(&lt;span class=&quot;string&quot;&gt;&quot;http://example.com/foo.js&quot;&lt;/span&gt;, &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; (&lt;span class=&quot;params&quot;&gt;err&lt;/span&gt;) &lt;/span&gt;{
+  &lt;span class=&quot;comment&quot;&gt;// .. This is where you continue with your app.&lt;/span&gt;
+});
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;That’s all actually. There are multiple ways to include Little Loader. You can get it from a CDN, from npm and it is compatible with AMD loaders such as RequireJS.&lt;/p&gt;
+&lt;p&gt;When including Little Loader via a normal script tag, it will attach it self to the &lt;code&gt;window&lt;/code&gt; Object and can be accessed via &lt;code&gt;window._lload&lt;/code&gt; like so:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-html&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;script&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;javascript&quot;&gt;
+  &lt;span class=&quot;built_in&quot;&gt;window&lt;/span&gt;._lload(&lt;span class=&quot;string&quot;&gt;&quot;http://example.com/foo.js&quot;&lt;/span&gt;, &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; (&lt;span class=&quot;params&quot;&gt;err&lt;/span&gt;) &lt;/span&gt;{
+    &lt;span class=&quot;comment&quot;&gt;// .. Your code....&lt;/span&gt;
+  });
+&lt;/span&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;title&quot;&gt;script&lt;/span&gt;&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    <item>
+      <title>Weekly Challenge Week 2</title>
+      <link>http://daily-javascript.com/articles/weekly-challenge-2016-02/</link>
+      <pubDate>Fri, 08 Jan 2016 01:00:00 +0100</pubDate>
+      <guid isPermaLink="true">http://daily-javascript.com/articles/weekly-challenge-2016-02/</guid>
+      <author></author>
+      <description>&lt;p&gt;It’s Friday again, which means no new library today, but to make up for it I think I chose a really nice challenge. The Mandelbrot set.
+Some of you guys are probably familiar with it already from school or as a performance test.&lt;/p&gt;
+&lt;p&gt;I came across this problem just recently when I was looking at the &lt;a href=&quot;http://daily-javascript.com/articles/bigfloat/&quot;&gt;bigfloat&lt;/a&gt; library.
+The developer included it as a performance demo and it got my interest because of &lt;a href=&quot;http://benchmarksgame.alioth.debian.org/u64q/performance.php?test=mandelbrot&quot;&gt;“The Computer Language Benchmarks Game”&lt;/a&gt;. Where it is listed as one of the benchmarks challenges.&lt;/p&gt;
+&lt;p&gt;For details on the challenge go to the &lt;a href=&quot;http://daily-javascript.com/challenges/mandelbrot&quot;&gt;challenge page&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The results will be up next Friday so make sure you have submitted your implementation before then.&lt;/p&gt;
+</description>
+    </item>
+    <item>
+      <title>NuclearJS</title>
+      <link>http://daily-javascript.com/articles/nuclear-js/</link>
+      <pubDate>Thu, 07 Jan 2016 01:00:00 +0100</pubDate>
+      <guid isPermaLink="true">http://daily-javascript.com/articles/nuclear-js/</guid>
+      <author></author>
+      <description>&lt;p&gt;NuclearJS (GitHub: &lt;a href=&quot;https://github.com/optimizely/nuclear-js&quot;&gt;optimizely/nuclear-js&lt;/a&gt;, License: MIT, npm: nuclear-js)&lt;/p&gt;
+&lt;p&gt;NuclearJS is a reactive flux implementation build with &lt;a href=&quot;https://facebook.github.io/immutable-js/&quot;&gt;ImmutableJS&lt;/a&gt; data structures.
+It has been developed by &lt;a href=&quot;https://www.optimizely.com/&quot;&gt;Optimizely&lt;/a&gt;, which is a company that provides A/B testing suite and more as a service.&lt;/p&gt;
+&lt;p&gt;NuclearJS was designed first for large scale production apps. For a much more lightweight Flux implementation that shares many of the same ideas and design principles, as check out &lt;a href=&quot;https://github.com/vigetlabs/microcosm&quot;&gt;Microcosm&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;As we have seen many Flux implementations already we have grown skeptical about new implementations.
+So that bears the question: “How NuclearJS differs from other Flux implementations?”.&lt;/p&gt;
+&lt;p&gt;Well all app state is in a singular immutable map. In development you can see your entire application state at every point in time thanks to awesome debugging tools built into NuclearJS.&lt;/p&gt;
+&lt;p&gt;State is not spread out through stores, instead stores are a declarative way of describing some top-level domain of your app state. For each key in the app state map a store declares the initial state of that key and how that piece of the app state reacts over time to actions dispatched on the flux system.&lt;/p&gt;
+&lt;p&gt;Stores are not reference-able nor have any getX methods on them. Instead NuclearJS uses a functional lens concept called getters. In fact, the use of getters obviates the need for any store to know about another store, eliminating the confusing store.waitsFor method found in other flux implementations.&lt;/p&gt;
+&lt;p&gt;NuclearJS is insanely efficient - change detection granularity is infinitesimal, you can even observe computed state where several pieces of the state map are combined together and run through a transform function. NuclearJS is smart enough to know when the value of any computed changes and only call its observer if and only if its value changed in a way that is orders of magnitude more efficient than traditional dirty checking. It does this by leveraging ImmutableJS data structure and using a state1 !== state2 reference comparison which runs in constant time.&lt;/p&gt;
+&lt;p&gt;Automatic data observation / rendering – automatic re-rendering is built in for React in the form of a very lightweight mixin. It is also easily possible to build the same functionality for any UI framework such as VueJS, AngularJS and even Backbone.&lt;/p&gt;
+&lt;p&gt;NuclearJS is not a side-project, it’s used as the default Flux implementation that powers all of Optimizely. It is well tested and will continue to be maintained for the foreseeable future. Our current codebase has over dozens of stores, actions and getters, we even share our prescribed method of large scale code organization and testing strategies.&lt;/p&gt;
+&lt;p&gt;For examples I would refer you to &lt;a href=&quot;https://optimizely.github.io/nuclear-js/&quot;&gt;project homepage&lt;/a&gt; because there you can find better explaintions than I can give it in my daily posts.&lt;/p&gt;
+</description>
+    </item>
+    <item>
+      <title>Happy new year</title>
+      <link>http://daily-javascript.com/articles/happy-new-year/</link>
+      <pubDate>Wed, 06 Jan 2016 01:00:00 +0100</pubDate>
+      <guid isPermaLink="true">http://daily-javascript.com/articles/happy-new-year/</guid>
+      <author></author>
+      <description>&lt;p&gt;First of all let me say Happy new year! The last couple of weeks I did not do any posted due to all the celebrations and illness.
+Luckily the holiday season is over and we can get back to creating and learning to make beautiful applications.
+Something some people might be interested in is the results of the latest challenge which was &lt;a href=&quot;http://daily-javascript.com/challenges/let-it-snow&quot;&gt;“Let it snow”&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Well sadly I only received two submissions. Which let me to believe people did not feel challenged by this assignment. I will do my best to find something more interesting.
+The results can be found on the results page of the challenge which would be &lt;a href=&quot;http://daily-javascript.com/challenges/let-it-snow/results&quot;&gt;Daily-Javascript.com/challenges/let-it-snow/results&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;From tomorrow on Daily-Javascript will be getting daily updates again. Hope you guys keep on reading.&lt;/p&gt;
+&lt;p&gt;Happy coding.&lt;/p&gt;
+</description>
+    </item>
     <item>
       <title>Weekly Challenge Week 52</title>
       <link>http://daily-javascript.com/articles/weekly-challenge-2015-52/</link>
@@ -1952,53 +2179,6 @@ program
 </description>
     </item>
     <item>
-      <title>Chiffon</title>
-      <link>http://daily-javascript.com/articles/chiffon/</link>
-      <pubDate>Wed, 14 Oct 2015 02:00:00 +0200</pubDate>
-      <guid isPermaLink="true">http://daily-javascript.com/articles/chiffon/</guid>
-      <author></author>
-      <description>&lt;p&gt;Chiffon (GitHub: &lt;a href=&quot;https://github.com/trueadm/Chiffon&quot;&gt;polygonplanet/Chiffon&lt;/a&gt;, License: MIT, npm: chiffon, bower: chiffon)&lt;/p&gt;
-&lt;p&gt;Chiffon is a very small ECMAScript parser, tokenizer and minifier.
-Sometimes we come across an idea where you will need to parse or tokenize Javascript files for, for instance to do analysis on the code.&lt;/p&gt;
-&lt;p&gt;When using Chiffon for tokenizing you will get an Array of each “element” of the input code like this:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;let&lt;/span&gt; tokens = Chiffon.tokenize(&lt;span class=&quot;string&quot;&gt;'var a = 1'&lt;/span&gt;);
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Which would then return:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;[ { type: &lt;span class=&quot;string&quot;&gt;'Keyword'&lt;/span&gt;,    value: &lt;span class=&quot;string&quot;&gt;'var'&lt;/span&gt; },
-  { type: &lt;span class=&quot;string&quot;&gt;'Identifier'&lt;/span&gt;, value: &lt;span class=&quot;string&quot;&gt;'a'&lt;/span&gt; },
-  { type: &lt;span class=&quot;string&quot;&gt;'Punctuator'&lt;/span&gt;, value: &lt;span class=&quot;string&quot;&gt;'='&lt;/span&gt; },
-  { type: &lt;span class=&quot;string&quot;&gt;'Numeric'&lt;/span&gt;,    value: &lt;span class=&quot;string&quot;&gt;'1'&lt;/span&gt; } ]
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Here is a list of all possible tokens:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Comment&lt;/li&gt;
-&lt;li&gt;LineTerminator&lt;/li&gt;
-&lt;li&gt;Template&lt;/li&gt;
-&lt;li&gt;String&lt;/li&gt;
-&lt;li&gt;Punctuator&lt;/li&gt;
-&lt;li&gt;RegularExpression&lt;/li&gt;
-&lt;li&gt;Numeric&lt;/li&gt;
-&lt;li&gt;UnicodeEscapeSequence&lt;/li&gt;
-&lt;li&gt;Identifier&lt;/li&gt;
-&lt;li&gt;Null&lt;/li&gt;
-&lt;li&gt;Boolean&lt;/li&gt;
-&lt;li&gt;Keyword&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Sadly JavaScript AST is not currently supported.&lt;/p&gt;
-&lt;p&gt;When you wish to “untokenize” the Array, you can pass it into the &lt;code&gt;untokenize&lt;/code&gt; method like this:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;Chiffon.untokenize
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;When you want to use the minification, you would do something like this:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;Chiffon.minify(&lt;span class=&quot;string&quot;&gt;'var a = 1 + 1; // comment'&lt;/span&gt;);
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Which is a simple implementation of &lt;code&gt;untokenize&lt;/code&gt; and &lt;code&gt;tokenize&lt;/code&gt; together like this:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;minify&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;code&lt;/span&gt;) &lt;/span&gt;{
-    &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; untokenize(tokenize(code, { lineTerminator: &lt;span class=&quot;literal&quot;&gt;true&lt;/span&gt; }));
-}
-&lt;/code&gt;&lt;/pre&gt;
-</description>
-    </item>
-    <item>
       <title>Smartcrop.js</title>
       <link>http://daily-javascript.com/articles/smart-crop/</link>
       <pubDate>Wed, 14 Oct 2015 02:00:00 +0200</pubDate>
@@ -2045,6 +2225,53 @@ SmartCrop.crop(img, options, result =&amp;gt; {
 smartcrop-cli --width &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt; --height &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt; photo.jpg square-thumbnail.jpg
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Smartcrop-cli does requires &lt;a href=&quot;https://github.com/Automattic/node-canvas&quot;&gt;node-canvas&lt;/a&gt; which requires local libraries to be installed. Refer to the &lt;a href=&quot;https://github.com/Automattic/node-canvas/wiki/_pages&quot;&gt;node-canvas wiki&lt;/a&gt; installation instructions.&lt;/p&gt;
+</description>
+    </item>
+    <item>
+      <title>Chiffon</title>
+      <link>http://daily-javascript.com/articles/chiffon/</link>
+      <pubDate>Wed, 14 Oct 2015 02:00:00 +0200</pubDate>
+      <guid isPermaLink="true">http://daily-javascript.com/articles/chiffon/</guid>
+      <author></author>
+      <description>&lt;p&gt;Chiffon (GitHub: &lt;a href=&quot;https://github.com/trueadm/Chiffon&quot;&gt;polygonplanet/Chiffon&lt;/a&gt;, License: MIT, npm: chiffon, bower: chiffon)&lt;/p&gt;
+&lt;p&gt;Chiffon is a very small ECMAScript parser, tokenizer and minifier.
+Sometimes we come across an idea where you will need to parse or tokenize Javascript files for, for instance to do analysis on the code.&lt;/p&gt;
+&lt;p&gt;When using Chiffon for tokenizing you will get an Array of each “element” of the input code like this:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;let&lt;/span&gt; tokens = Chiffon.tokenize(&lt;span class=&quot;string&quot;&gt;'var a = 1'&lt;/span&gt;);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Which would then return:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;[ { type: &lt;span class=&quot;string&quot;&gt;'Keyword'&lt;/span&gt;,    value: &lt;span class=&quot;string&quot;&gt;'var'&lt;/span&gt; },
+  { type: &lt;span class=&quot;string&quot;&gt;'Identifier'&lt;/span&gt;, value: &lt;span class=&quot;string&quot;&gt;'a'&lt;/span&gt; },
+  { type: &lt;span class=&quot;string&quot;&gt;'Punctuator'&lt;/span&gt;, value: &lt;span class=&quot;string&quot;&gt;'='&lt;/span&gt; },
+  { type: &lt;span class=&quot;string&quot;&gt;'Numeric'&lt;/span&gt;,    value: &lt;span class=&quot;string&quot;&gt;'1'&lt;/span&gt; } ]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Here is a list of all possible tokens:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Comment&lt;/li&gt;
+&lt;li&gt;LineTerminator&lt;/li&gt;
+&lt;li&gt;Template&lt;/li&gt;
+&lt;li&gt;String&lt;/li&gt;
+&lt;li&gt;Punctuator&lt;/li&gt;
+&lt;li&gt;RegularExpression&lt;/li&gt;
+&lt;li&gt;Numeric&lt;/li&gt;
+&lt;li&gt;UnicodeEscapeSequence&lt;/li&gt;
+&lt;li&gt;Identifier&lt;/li&gt;
+&lt;li&gt;Null&lt;/li&gt;
+&lt;li&gt;Boolean&lt;/li&gt;
+&lt;li&gt;Keyword&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Sadly JavaScript AST is not currently supported.&lt;/p&gt;
+&lt;p&gt;When you wish to “untokenize” the Array, you can pass it into the &lt;code&gt;untokenize&lt;/code&gt; method like this:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;Chiffon.untokenize
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;When you want to use the minification, you would do something like this:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;Chiffon.minify(&lt;span class=&quot;string&quot;&gt;'var a = 1 + 1; // comment'&lt;/span&gt;);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Which is a simple implementation of &lt;code&gt;untokenize&lt;/code&gt; and &lt;code&gt;tokenize&lt;/code&gt; together like this:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;minify&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;code&lt;/span&gt;) &lt;/span&gt;{
+    &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; untokenize(tokenize(code, { lineTerminator: &lt;span class=&quot;literal&quot;&gt;true&lt;/span&gt; }));
+}
+&lt;/code&gt;&lt;/pre&gt;
 </description>
     </item>
     <item>

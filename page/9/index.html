@@ -36,225 +36,324 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
-            <p class="date"><span>14. October 2015</span></p>
-            <h2><a href="/articles/smart-crop/">Smartcrop.js</a></h2>
+            <p class="date"><span>28. October 2015</span></p>
+            <h2><a href="/articles/vstack-validator/">vstack-validator</a></h2>
           </header>
-          <section class="content"><p>Smartcrop (GitHub: <a href="https://github.com/jwagner/smartcrop.js">jwagner/smartcrop.js</a>, License: <span class="caps">MIT</span>, npm: smartcrop, bower:&nbsp;smartcrop)</p>
-<p>Smartcrop.js is not just another image cropping library. It detects the primary region of an image such as faces.
-It does this using the following&nbsp;algorithm.</p>
-<ol>
-<li>Find edges using <a href="https://en.wikipedia.org/wiki/Laplace&#39;s_method">Laplace&nbsp;method</a></li>
-<li>Find regions with a color like&nbsp;skin</li>
-<li>Find regions high in&nbsp;saturation</li>
-<li>Generate a set of candidate crops using a sliding&nbsp;window</li>
-<li>Rank them using a importance function to focus the detail in the center and avoid it in the&nbsp;edges.</li>
-<li>Output the candidate crop with the highest&nbsp;rank</li>
-</ol>
-<p>Using it in a simple&nbsp;example:</p>
-<pre><code class="lang-javascript">SmartCrop.crop(image, {width: <span class="number">100</span>, height: <span class="number">100</span>}, result =&gt; <span class="built_in">console</span>.log(result) );
-<span class="comment">// Which will return</span>
-<span class="comment">// -&gt; {topCrop: {x: 300, y: 200, height: 200, width: 200}}</span>
-</code></pre>
-<p>When you wanna use it within node.js you would have to do something like&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="keyword">import</span> fs <span class="keyword">from</span> <span class="string">'fs'</span>;
-<span class="keyword">import</span> Canvas <span class="keyword">from</span> <span class="string">'canvas'</span>;
-<span class="keyword">import</span> SmartCrop <span class="keyword">from</span> <span class="string">'smartcrop'</span>;
+          <section class="content"><p>Vstack-validator (GitHub: <a href="https://github.com/vslinko/vstack-validator">vslinko/vstack-validator</a>, License: <span class="caps">MIT</span>, npm:&nbsp;vstack-validator)</p>
+<p>When you are working with very complex and deeply nested data structures, validation can become a real pain.
+Vstack-validator tries to solve this problem by providing you with a declarative <span class="caps">API</span> which consists of 3 methods: a validator, a constraint and a schema.
+The Validator is a function that receives a value and returns boolean result of validation.
+Constraint is a function that receives a value and returns validation metadata.
+With a Schema we create declarations of the constraints in a tree, which in turn can be used to validate an object, which would look like&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="keyword">import</span> {schema} <span class="keyword">from</span> <span class="string">'vstack-validator'</span>;
 
-SmartCrop.crop(img, options, result =&gt; {
-    <span class="built_in">console</span>.log(<span class="built_in"><span class="caps">JSON</span></span>.stringify(result, <span class="literal">null</span>, <span class="number">2</span>));
-    <span class="keyword">if</span>(output &amp;&amp; options.width &amp;&amp; options.height){
-        <span class="keyword">var</span> canvas = <span class="keyword">new</span> Canvas(options.width, options.height),
-            ctx = canvas.getContext(<span class="string">'2d'</span>),
-            crop = result.topCrop,
-            f = fs.createWriteStream(output);
-        ctx.patternQuality = <span class="string">'best'</span>;
-        ctx.filter = <span class="string">'best'</span>;
-        ctx.drawImage(img, crop.x, crop.y, crop.width, crop.height, <span class="number">0</span>, <span class="number">0</span>, canvas.width, canvas.height);
-        canvas.syncJPEGStream({quality: quality}).pipe(f);
-    }
+<span class="keyword">const</span> userSchema = schema.type(<span class="string">'user'</span>, {
+    email: {
+        notEmpty: schema.constraint(schema.validators.isNotEmpty, <span class="string">'Email is empty'</span>),
+        email: schema.constraint(schema.validators.isEmail, <span class="string">'Email is not valid'</span>),
+    },
+    password: schema.optional({
+        notEmpty: schema.constraint(schema.validators.isNotEmpty, <span class="string">'Password is empty'</span>),
+        minLength: schema.minLength(<span class="number">3</span>, <span class="string">'Password is less than 3'</span>),
+    }),
 });
+
+<span class="keyword">const</span> itemSchema = schema.type(<span class="string">'item'</span>, {
+    name: {
+        notEmpty: schema.constraint(schema.validators.isNotEmpty, <span class="string">'Name is empty'</span>),
+    },
+});
+
+<span class="keyword">const</span> cartSchema = schema.type(<span class="string">'cart'</span>, {
+    user: userSchema,
+    items: schema.list(itemSchema),
+});
+
+<span class="keyword">let</span> validationData = {
+    user: {
+        email: <span class="string">''</span>,
+        password: <span class="string">''</span>,
+    },
+    items: [
+        { name: <span class="string">''</span> },
+    ],
+};
+
+cartSchema.check(validationData)
+          .then((constraintResult) =&gt; <span class="built_in">console</span>.log(constraintResult));
 </code></pre>
-<p>Smartcrop.js also offers a command line interface under the npm package name <a href="https://github.com/jwagner/smartcrop-cli"><code>smartcrop-cli</code></a>. Which based uses&nbsp;node-canvas.</p>
-<p>That one you would use like&nbsp;this:</p>
-<pre><code class="lang-bash">npm i smartcrop-cli -g
-smartcrop-cli --width <span class="number">100</span> --height <span class="number">100</span> photo.jpg square-thumbnail.jpg
+<p>When the <code>check</code> is executed <code>constraintResult</code> it would look something like&nbsp;this:</p>
+<pre><code class="lang-javascript">{
+    valid: <span class="literal">false</span>,
+    message: <span class="string">'Objectisnotvalid'</span>,
+    children: {
+        user: {
+            valid: <span class="literal">false</span>,
+            message: <span class="string">'Objectisnotvalid'</span>,
+            children: {
+                email: {
+                    valid: <span class="literal">false</span>,
+                    message: <span class="string">'Valueisnotvalid'</span>,
+                    children: {
+                        notEmpty: {
+                            valid: <span class="literal">false</span>,
+                            message: <span class="string">'Emailisempty'</span>,
+                            children: <span class="literal">null</span>
+                        },
+                        email: {
+                            valid: <span class="literal">false</span>,
+                            message: <span class="string">'Emailisnotvalid'</span>,
+                            children: <span class="literal">null</span>
+                        }
+                    }
+                },
+                password: {
+                    valid: <span class="literal">false</span>,
+                    message: <span class="string">'Valueisnotvalid'</span>,
+                    children: {
+                        notEmpty: {
+                            valid: <span class="literal">false</span>,
+                            message: <span class="string">'Passwordisempty'</span>,
+                            children: <span class="literal">null</span>
+                        },
+                        minLength: {
+                            valid: <span class="literal">false</span>,
+                            message: <span class="string">'Passwordislessthan3'</span>,
+                            children: <span class="literal">null</span>
+                        }
+                    }
+                }
+            }
+        },
+        items: {
+            valid: <span class="literal">false</span>,
+            message: <span class="string">'Arrayisnotvalid'</span>,
+            children: [
+                {
+                    valid: <span class="literal">false</span>,
+                    message: <span class="string">'Objectisnotvalid'</span>,
+                    children: {
+                        name: {
+                            valid: <span class="literal">false</span>,
+                            message: <span class="string">'Valueisnotvalid'</span>,
+                            children: {
+                                notEmpty: {
+                                    valid: <span class="literal">false</span>,
+                                    message: <span class="string">'Nameisempty'</span>,
+                                    children: <span class="literal">null</span>
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        }
+    }
+}
 </code></pre>
-<p>Smartcrop-cli does requires <a href="https://github.com/Automattic/node-canvas">node-canvas</a> which requires local libraries to be installed. Refer to the <a href="https://github.com/Automattic/node-canvas/wiki/_pages">node-canvas wiki</a> installation&nbsp;instructions.</p>
 
           </section>
         </article>
         <article class="article intro">
           <header>
-            <p class="date"><span>13. October 2015</span></p>
-            <h2><a href="/articles/t7/">t7</a></h2>
+            <p class="date"><span>27. October 2015</span></p>
+            <h2><a href="/articles/jsdoc2diagram/">jsdoc2diagram</a></h2>
           </header>
-          <section class="content"><p>t7 (GitHub: <a href="https://github.com/trueadm/t7">trueadm/t7</a>, License: <span class="caps">ISC</span>, npm:&nbsp;t7)</p>
-<p><img src="http://t7js.com/img/screenshot.png" style="max-width: 400px;width: 100%;left: 0;"></p>
-<p>While browsing I came across t7, which is a template library that compiles template strings into virtual <span class="caps">DOM</span> objects.
-Because of this functionality it’s used in frameworks such as <a href="https://github.com/trueadm/inferno">Inferno</a>, but it can also be used within&nbsp;React.</p>
-<p>There are multiple ways to work with t7. You could include the script on your page the old school way like&nbsp;this:</p>
-<pre><code class="lang-html"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"t7.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
-</code></pre>
-<p>and you can build it with <a href="/articles/t7/">Browserify</a> or <a href="/articles/t7/">Webpack</a> by installing it via npm and require it like&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="keyword">import</span> t7 <span class="keyword">from</span> <span class="string">'t7'</span>;
-</code></pre>
-<p>Now let’s make a page with&nbsp;it.</p>
-<pre><code class="lang-javascript">const items = ['Pizza', 'Kebab', 'Donut'];
-const welcome = 'to the wonderful world of t7';
+          <section class="content"><p>jsdoc2diagram (GitHub: <a href="https://github.com/amcmillan01/jsdoc2diagram">amcmillan01/jsdoc2diagram</a>, License: <span class="caps">MIT</span>, npm:&nbsp;jsdoc2diagram)</p>
+<p>If your day job looks anything like mine, the problem of sharing knowledge will be a well known issue for you.
+We try our best to keep the docs up to date and inform our co-workers of any changes that would be crucial. But what if a new developer joins the team? He will be spending the next week or 2 getting the know the entire app but mostly how everything hangs&nbsp;together.</p>
+<p>Since we are probably already using <a href="http://usejsdoc.org">JSDoc</a> there is a great addition available for giving insight on how the application is put together called <code>jsdoc2diagram</code>.</p>
+<p>What jsdoc2diagram does is literally what the name implies it does. It turns JSDocs documentation into graphs using <a href="/articles/jsdoc2diagram/d3js.org">d3.js</a>.</p>
+<p>This is an example of the kind of graph it would present you&nbsp;with:</p>
+<p><img src="https://github.com/amcmillan01/jsdoc2diagram/raw/master/example/diagram.png" style="max-width: 756px; width: 100%; position:static;"></p>
+<p>The for for this diagram looks like&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="comment">/**
+ * @constructor
+ */</span>
+<span class="keyword">var</span> Garage = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
 
-t7`
-  &lt;div class="foo"&gt;
-    &lt;h1&gt;Welcome ${ welcome }&lt;/h1&gt;
-    &lt;ul&gt;
-      ${
-        items.map( item =&gt; t7`
-          &lt;li class="item"&gt;
-            &lt;span&gt;The item is: ${ item }&lt;/span&gt;
-          &lt;/li&gt;
-        `)
-      }
-    &lt;/ul&gt;
-  &lt;/div&gt;
-`;
+};
+
+<span class="comment">/**
+ * @return {number}
+ */</span>
+Garage.prototype.getVehicleCount = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+
+};
+
+
+<span class="comment">/**
+ *
+ * @constructor
+ * @memberof Garage
+ */</span>
+<span class="keyword">var</span> Car = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+  <span class="comment">/**
+   *
+   * @type {string}
+   */</span>
+  <span class="keyword">this</span>.name = <span class="string">''</span>;
+  <span class="comment">/**
+   *
+   * @type {string}
+   */</span>
+  <span class="keyword">this</span>.color = <span class="string">''</span>;
+};
+
+<span class="comment">/**
+ * @return {boolean}
+ */</span>
+Car.prototype.isOn = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+
+};
+
+<span class="comment">/**
+ * @return {boolean}
+ */</span>
+Car.prototype.hasNavigation = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+
+};
 </code></pre>
-<p>By default t7 will attempt to check to see if React is available. If it is, t7 will automatically produce React elements as its output.
-When React is not present, you can use to export it to a Universal format.
-Universal <span class="caps">DOM</span> output should be compatible with most other virtual DOM frameworks out there, like <a href="https://github.com/Raynos/mercury">Mercury</a>, <a href="https://github.com/joelrich/citojs">Cito</a> and <a href="https://github.com/Matt-Esch/virtual-dom">Virtual-dom</a>.</p>
-<p>To set the way you want to output you&nbsp;use:</p>
-<pre><code class="lang-javascript">t7.setOutput(t7.Outputs.React);
+<p>I think this is a great addition to every bit of documentation. It gives a clear overview of how objects and methods are in relation to each other, which is something I was really&nbsp;missing.</p>
+<p>To get started using this you will need to have <code>jsdoc</code> installed once you have that you only need to install <code>jsdoc2diagram</code> via npm and then you could use it like&nbsp;this:</p>
+<pre><code class="lang-bash">jsdoc -t PATH/TO/jsdoc2diagram -r JS_SOURCE_DIR/FILE <span class="operator">-d</span> OUTPUT_DIR
 </code></pre>
-<p>The supported outputs&nbsp;are:</p>
+<p>I could imagine that you would call this from an npm run script after your JSDocs are&nbsp;generated.</p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
+            <p class="date"><span>26. October 2015</span></p>
+            <h2><a href="/articles/react-dom-stream/">React DOM Stream</a></h2>
+          </header>
+          <section class="content"><p>React <span class="caps">DOM</span> Stream (GitHub: <a href="https://github.com/aickin/react-dom-stream">aickin/react-dom-stream</a>, License: <span class="caps">MIT</span>, npm:&nbsp;react-dom-stream)</p>
+<p>react-dom-stream is a React renderer for generating markup on a NodeJS server. Unlike the built-in ReactDOM.renderToString, this module renders to a stream.
+Streams make this library as much as 47% faster in sending down a full page than&nbsp;ReactDOM.renderToString.</p>
+<p>One difficulty with ReactDOM.renderToString is that it is synchronous, which could cost you performance with server-side rendering of React sites. Especially true with large <span class="caps">HTML</span> payloads. Which could lead to the following problems as the developer&nbsp;saids:</p>
+<blockquote>
+<ol>
+<li>The server cannot send out any part of the response until all the <span class="caps">HTML</span> is created, which means that browsers can’t start working on painting the page until the renderToString call is done. With larger pages, this can introduce a latency of hundreds of&nbsp;milliseconds.</li>
+<li>The server has to allocate memory for the entire <span class="caps">HTML</span>&nbsp;string.</li>
+<li>One call to ReactDOM.renderToString can dominate the <span class="caps">CPU</span> and starve out other requests. This is particularly troublesome on servers that serve a mix of small and large&nbsp;pages.</li>
+</ol>
+</blockquote>
+<p>react-dom-stream tries to fix those problems for&nbsp;us.</p>
+<p>Let’s take a look, To use the server-side methods, we’ll need to require <code>react-dom-stream/server</code>.
+To render an <code>element</code> as a <code>stream</code> using express we would use the <code>renderToString</code> method. This would look something like&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="keyword">var</span> ReactDOMStream = <span class="built_in">require</span>(<span class="string">"react-dom-stream/server"</span>);
+
+app.get(<span class="string">'/'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">req, res</span>) </span>{
+    ReactDOMStream.renderToString(<span class="xml"><span class="tag">&lt;<span class="title">Foo</span> <span class="attribute">prop</span>=<span class="value">{value}</span>/&gt;</span>, res)
+        .then(function(hash) {
+            // <span class="caps">TODO</span>: write the hash out to the page in a script tag
+            res.end();
+        });
+});</span>
+</code></pre>
+<p>When you are working with static pages where you don’t intend to use React to render on the client side you could use the <code>renderToStaticMarkup</code> method to generates smaller sized markup than <code>renderToString</code>.</p>
+<p>Again with an express&nbsp;example:</p>
+<pre><code class="lang-javascript"><span class="keyword">var</span> ReactDOMStream = <span class="built_in">require</span>(<span class="string">"react-dom-stream/server"</span>);
+
+app.get(<span class="string">'/'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">req, res</span>) </span>{
+    ReactDOMStream.renderToStaticMarkup(<span class="xml"><span class="tag">&lt;<span class="title">Foo</span> <span class="attribute">prop</span>=<span class="value">{value}</span>/&gt;</span>, res)
+        .then(function() {
+            res.end();
+        });
+});</span>
+</code></pre>
+<p>When you are generating server markup using <code>react-dom-stream</code>, <em>you cannot use the standard ReactDOM.render;</em> you must use the render method in <code>react-dom-stream</code>. The difference between react-dom’s version and this one is that this render also takes in the hash returned from <code>renderToString</code>.</p>
+<pre><code class="lang-javascript"><span class="keyword">var</span> ReactDOMStream = <span class="built_in">require</span>(<span class="string">"react-dom-stream"</span>);
+
+<span class="keyword">var</span> hash = <span class="number">1234567890</span>; <span class="comment">// returned from renderToString's promise and read out into the page</span>
+ReactDOMStream.render(<span class="xml"><span class="tag">&lt;<span class="title">Foo</span> <span class="attribute">prop</span>=<span class="value">{value}</span>/&gt;</span>, document.getElementById("bar"), hash);</span>
+</code></pre>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
+            <p class="date"><span>22. October 2015</span></p>
+            <h2><a href="/articles/observatory/">Observatory</a></h2>
+          </header>
+          <section class="content"><p>Observatory (GitHub: <a href="https://github.com/mikesizz/observatory">mikesizz/observatory</a>, License: <span class="caps">MIT</span>, npm:&nbsp;observatoryjs)</p>
+<p>When you are following the spec proposals or read any other blog you have probably heard about <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/observe">Object.observe</a>, which is used for asynchronously observing the changes to an&nbsp;object.</p>
+<p>Observatory is an attempt to provide javascript developers an interface for Object.observe with mongodb style querying for&nbsp;specificity.</p>
+<p>In order to use it we need to create a new instance of&nbsp;Observatory.</p>
+<pre><code class="lang-javascript"><span class="keyword">import</span> Observatory <span class="keyword">from</span> <span class="string">'Observatory'</span>;
+<span class="keyword">const</span> observer = <span class="keyword">new</span> Observatory();
+</code></pre>
+<p>Now we can observe an object by binding an event to it like&nbsp;so:</p>
+<pre><code class="lang-javascript">observer.on( object , query , callback );
+</code></pre>
+<p>Currently it supports the following&nbsp;events:</p>
 <ul>
-<li><a href="https://facebook.github.io/react/">React</a></li>
-<li><a href="https://github.com/trueadm/inferno">Inferno</a></li>
-<li><a href="http://mithril.js.org/">Mithril</a></li>
-<li>Universal</li>
+<li>$update which observes events that include an update to a queried&nbsp;property</li>
+<li>$add which observes events that include an addition to a queried&nbsp;property</li>
+<li>$delete which observes events that include an deletion from a queried&nbsp;property</li>
+</ul>
+<p>The real power is within the query expressions, by using different selectors you can create an expression for more specific event&nbsp;handling.</p>
+<pre><code class="lang-javascript"><span class="keyword">let</span> cat = {
+    age: <span class="number">3</span>
+};
+
+observer.on( cat , { $update: { <span class="string">"age"</span>: { $gt: <span class="number">10</span> } } } , () =&gt; {
+    <span class="built_in">console</span>.log(<span class="string">"Your cat is older than 10"</span>);
+});
+</code></pre>
+<p>It provides the following value&nbsp;selectors:</p>
+<ul>
+<li>$lt - check if the property is less than the query&nbsp;value</li>
+<li>$gte - check if the property is greater than or equal to the query&nbsp;value</li>
+<li>$lte - check if the property is less than or equal to the query&nbsp;value</li>
+<li>$eq - check if the property is equal to the query&nbsp;value</li>
+</ul>
+<p>For arrays it has a couple&nbsp;extra:</p>
+<ul>
+<li>$in - check if the target array contains any of the query values after the event&nbsp;fires</li>
+<li>$all - check if the target array contains all of the query values after the event&nbsp;fires</li>
 </ul>
 
           </section>
         </article>
         <article class="article intro">
           <header>
-            <p class="date"><span>12. October 2015</span></p>
-            <h2><a href="/articles/react-image-crop/">React Image Crop</a></h2>
+            <p class="date"><span>21. October 2015</span></p>
+            <h2><a href="/articles/roll-up/">Rollup.js</a></h2>
           </header>
-          <section class="content"><p>react-image-crop (GitHub: <a href="https://github.com/DominicTobias/react-image-crop">DominicTobias/react-image-crop</a>, License: <span class="caps">ISC</span>, npm:&nbsp;react-image-crop)</p>
-<p><img src="https://raw.githubusercontent.com/DominicTobias/react-image-crop/master/crop-demo.gif" style="max-width: 400px;width: 100%;left: 0;"></p>
-<p>React-image-crop is a React component for client side cropping of images. This mainly got my interest because I had several moments where I needed to implement something similar.
-This will take away that work in the future. I used to do the cropping server side which was a hassle. Upload the image, Getting the dimensions, crop with imagemagick then communicate that back to the&nbsp;browser.</p>
-<p>In hindsight I now know that there are a lot of different ways to approach this&nbsp;problem.</p>
-<p>What I like about react-image-crop is that it’s the basics of what you need to crop images.
-It gives you an object which can be used to render the cropped image in canvas to get a base64 encoded image. Another way to display this would be via clipping it with&nbsp;<span class="caps">CSS</span>.</p>
-<p>And you guys can probably come up with a few more ways.
-Let’s take a look at the setup for this&nbsp;component.</p>
-<pre><code class="lang-javascript"><span class="keyword">import</span> ReactCrop <span class="keyword">from</span> <span class="string">'react-image-crop'</span>;
+          <section class="content"><p>Rollup.js (GitHub: <a href="https://github.com/rollup/rollup">rollup/rollup</a>, License: <span class="caps">MIT</span>, npm:&nbsp;rollup)</p>
+<p>Rollup is a next-generation Javascript module bundler. Build your app or library using <span class="caps">ES2015</span> modules, then efficiently bundle them up into a single file for use in browsers and Node.js.
+This is not an unfamiliar concept to the most of us. What makes Rollup stand out is that fact that it’s using only the functionality that you&nbsp;import.</p>
+<p>Normally you would do something like&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="keyword">var</span> util = <span class="built_in">require</span>(<span class="string">'util'</span>);
+util.ajax(<span class="string">'http://some-api.com/?q=DailyJavascript'</span>).then( handleData );
+</code></pre>
+<p>What this does is include the entire module <code>util</code> but we only use the <code>ajax</code> method. This will increase the total size of our app.
+Now there is <span class="caps">ES2015</span> module loading which allows us to include only the functions we need like&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="keyword">import</span> { ajax } <span class="keyword">from</span> <span class="string">'util'</span>;
+ajax(<span class="string">'http://some-api.com/?q=DailyJavascript'</span>).then( handleData );
+</code></pre>
+<p>When we build the second example, with for instance Browserify, what would happen is that the entire module would still get loaded. Kinda beats the point of using <code>import</code> right?
+Luckily there is Rollup to the rescue which will only build that what you&nbsp;need.</p>
+<p>For the moment it only provides a command line interface which you can acquire&nbsp;via:</p>
+<pre><code class="lang-bash">npm i rollup -g
+</code></pre>
+<p>The usage is pretty straight&nbsp;forward.</p>
+<pre><code class="lang-bash"><span class="comment"># create a self-executing bundle...</span>
+rollup --format iife -- src/app.js &gt; build/app.js
 
-&lt;ReactCrop src=<span class="string">'path/to/image.jpg'</span> /&gt;
-</code></pre>
-<p>When you already want to add a crop, you just pass it as a prop like&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="keyword">var</span> crop = {
-    x: <span class="number">20</span>,
-    y: <span class="number">10</span>,
-    width: <span class="number">30</span>,
-    height: <span class="number">10</span>
-}
+<span class="comment"># ...with inline sourcemaps:</span>
+rollup <span class="operator">-f</span> iife --sourcemap inline -- src/app.js &gt; build/app.js
 
-&lt;ReactCrop src=<span class="string">'path/to/image.jpg'</span> crop={crop} /&gt;
+<span class="comment"># create a bundle with dependencies on jQuery and Angular,</span>
+<span class="comment"># with a sourcemap in a separate file</span>
+rollup <span class="operator">-f</span> iife --globals jquery:jQuery,angular:ng \
+  -i src/app.js -o build/app.js -m build/app.js.map
 </code></pre>
-<p>The <code>crop</code> object also has a property called <code>aspect</code>. With that you can lock the aspect if the cropped&nbsp;area.</p>
-<p>If you want to get the dimensions to where to crop you use the <code>onChange</code> or <code>onComplete</code> props.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>09. October 2015</span></p>
-            <h2><a href="/articles/gulp-load-subtasks/">Gulp load subtasks</a></h2>
-          </header>
-          <section class="content"><p>gulp-load-subtasks (GitHub: <a href="https://github.com/skorlir/gulp-load-subtasks">skorlir/gulp-load-subtasks</a>, License: <span class="caps">ISC</span>, npm:&nbsp;gulp-load-subtasks)</p>
-<p>gulp-load-subtasks is a gulp “extention” which was long overdue in my opinion. The problem that it solves is that it is reducing the amount of clutter the forms inside a Gulpfile when working on big&nbsp;projects.</p>
-<p>This does require a bit of a shift in contrast of how we are used to writing our Gulpfile.
-Normally you would do something like&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="comment">// gulpfile.js</span>
-<span class="keyword">var</span> gulp = <span class="built_in">require</span>(<span class="string">'gulp'</span>);
-
-gulp.task(<span class="string">'some-task'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
-    <span class="comment">// Your stuff here</span>
-});
+<p>For more commands check out the <code>--help</code>.</p>
+<p>Alternatively, you could use rollup command from an npm run script cntext, you can install it as a devDependency&nbsp;using:</p>
+<pre><code class="lang-bash">npm i rollup -D
 </code></pre>
-<p>After a while you would get stuck with one big spaggetti of tasks.
-Now you can split that up into different files with their own&nbsp;dependencies.</p>
-<p>The file structure would look something like&nbsp;this:</p>
-<pre><code>+ gulpfile.js
-|
-+ tasks/
-  + a.tasks.js
-  + b.tasks.js
-</code></pre><p>Task A would look like&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span> (<span class="params">gulp</span>) </span>{
-  gulp.task(<span class="string">'subtaskA1'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{
-    <span class="comment">// do things... A1</span>
-  })
-  gulp.task(<span class="string">'subtaskA2'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{
-    <span class="comment">// do things... A2</span>
-  })
-}
-</code></pre>
-<p>And task B like&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span> (<span class="params">gulp, plugins</span>) </span>{
-  gulp.task(<span class="string">'subtaskB'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{
-    <span class="comment">// do things... B</span>
-    <span class="comment">// You can use plugins!</span>
-  })
-}
-</code></pre>
-<p>Then when we get back to the Gulpfile we can do&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="keyword">var</span> gulp    = <span class="built_in">require</span>(<span class="string">'gulp'</span>),
-    plugins = <span class="built_in">require</span>(<span class="string">'gulp-load-plugins'</span>)()
-
-$.loadSubtasks(<span class="string">'tasks/**/*.js'</span>, gulp, plugins);
-
-<span class="comment">// refer tasks in a.tasks.js and b.tasks.js</span>
-gulp.task(<span class="string">'default'</span>, [ <span class="string">'subtaskA'</span>, <span class="string">'subtaskB'</span> ])
-</code></pre>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>08. October 2015</span></p>
-            <h2><a href="/articles/generator-nom/">Generator Nom</a></h2>
-          </header>
-          <section class="content"><p>generator-nom (GitHub: <a href="https://github.com/inikulin/read-file-relative">ironSource/node-generator-nom</a>, License: <span class="caps">MIT</span>, npm:&nbsp;generator-nom)</p>
-<p>We all strive to write <span class="caps">DRY</span> code, but still while setting up projects and maintaining depenencies we are constantly repeating ourselves.
-I find myself going through the same flow time and time again. <code>git init</code>, <code>npm init</code>, <code>touch README.md</code>, going to Github getting an origin to push to et cetra. This process is a pain every time. What if you could just generate all this stuff with one&nbsp;command.</p>
-<p>That is where the <code>yo nom</code> come in.
-Nom is a <a href="http://yeoman.io">Yeoman</a> generator which is a collection of several sub-generators. It includes the following&nbsp;generators;</p>
-<h4 id="npm">npm</h4>
-<p>Create package.json and prompt to keep dependencies of a previous package.json if any. Create .gitignore, cli.js (optional), install test framework (tape, tap, mocha, grunt, cake, or ava), add <span class="caps">LICENSE</span> file (MIT, BSD2 or&nbsp;BSD3).</p>
-<h4 id="git">git</h4>
-<p>Initialize local git repository, unless .git directory&nbsp;exists</p>
-<h4 id="github">github</h4>
-<p>Create public or private GitHub project, named “module-name” or “node-module-name”, unless local git already has configured remotes. Asks for access token and repository owner (which defaults to the owner of the token), skips creation if the repository already exists, adds URLs to package.json and adds remote&nbsp;origin.</p>
-<h4 id="travis">travis</h4>
-<p>Add .travis.yml for node 0.10 and iojs, setup GitHub hook. The travis tool asks for username and&nbsp;password.</p>
-<h4 id="appveyor">appveyor</h4>
-<p>Add appveyor.yml for node 0.10 and iojs, setup GitHub hook. Asks for access&nbsp;token.</p>
-<h4 id="gulp">gulp</h4>
-<p>Create an <span class="caps">ES6</span> gulpfile and tasks&nbsp;directory.</p>
-<h4 id="style-still-to-come-">style (still to&nbsp;come)</h4>
-<p>Add standard or xo as a pretest&nbsp;script</p>
-<h4 id="readme">readme</h4>
-<p>Add readme.md with common sections and shield.io badges for npm and david. If you did the travis and/or appveyor setup, badges for those services will be added as&nbsp;well.</p>
-<p><img src="https://github.com/ironSource/node-generator-nom/raw/master/demo.gif" style="max-width: 400px; width: 100%; position:static;"></p>
-<p>To use a specific generator you can select it like&nbsp;this:</p>
-<pre><code class="lang-bash">yo nom:&lt;generator&gt;
-</code></pre>
-<p>To run them all&nbsp;use:</p>
-<pre><code class="lang-bash">yo nom:*
-</code></pre>
-<p>That’s&nbsp;it.</p>
-<p>I’ve tried this out and will probably be using this to make my workflow a bit more <span class="caps">DRY</span> and hope that other people will also consider to optimize their workflow with modules like <code>nom</code>.</p>
 
           </section>
         </article>
@@ -268,7 +367,7 @@ Nom is a <a href="http://yeoman.io">Yeoman</a> generator which is a collection o
         <section class="about">
         </section>
         <section class="copy">
-          <p>&copy; 2015 Ramon Gebben &mdash; powered by&nbsp;<a href="https://github.com/jnordberg/wintersmith">Wintersmith</a>
+          <p>&copy; 2016 Ramon Gebben &mdash; powered by&nbsp;<a href="https://github.com/jnordberg/wintersmith">Wintersmith</a>
           </p>
         </section>
       </div>
