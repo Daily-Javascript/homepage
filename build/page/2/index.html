@@ -36,283 +36,105 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
-            <p class="date"><span>17. December 2015</span></p>
-            <h2><a href="/articles/isomorphine/">isomorphine</a></h2>
+            <p class="date"><span>08. January 2016</span></p>
+            <h2><a href="/articles/weekly-challenge-2016-02/">Weekly Challenge Week 2</a></h2>
           </header>
-          <section class="content"><p>isomorphine (GitHub: <a href="https://github.com/d-oliveros/isomorphine">d-oliveros/isomorphine</a>, License: <span class="caps">MIT</span>, npm:&nbsp;isomorphine)</p>
-<p>Earlier this week I came across <a href="https://medium.com/@MarcFly1103/a-painkiller-for-isomorphic-data-fetching-c829ecc84274#.hqabvytiu">a post</a> by <a href="https://medium.com/@MarcFly1103">Marco Romero</a>. It was a highlight of isomorphine, which is a Webpack loader that lets you require and use server-side entities from the browser, as if you were in the server.
-The browser accesses a proxy of the server’s methods that are being required. The proxy is a mirror of the server-side entity and creates an <span class="caps">HTTP</span> request to Isomorphine’s endpoint within the&nbsp;server.</p>
-<p>Marco describes it as “A Painkiller for Isomorphic Data Fetching”. With which I totally agree. When developing Isomorphic/Universal apps data retrieval can be a real hassle and this little marble will take way a lot of that&nbsp;pain.</p>
-<p>Of course there are established libraries and techniques for solving this issue such as: <a href="https://facebook.github.io/relay/">Relay</a> and <a href="https://github.com/RickWong/react-transmit">React-Transmit</a>. The downside of these approaches is that you are doing a commitment to a framework which could collide with your business philosophy or you just do not like React. Don’t get me wrong I love React, but I can understand if some developer do not or need something more agnostic and now you&nbsp;can.</p>
-<p>I could go into the details of how you would use it but I doubt that it will be more complete than the great post Marco did. So I won’t and instead refer you to the <a href="https://medium.com/@MarcFly1103/a-painkiller-for-isomorphic-data-fetching-c829ecc84274#.hqabvytiu">post on medium</a> and for more extensive documentation check the <a href="https://github.com/d-oliveros/isomorphine"><span class="caps">README</span></a>.</p>
+          <section class="content"><p>It’s Friday again, which means no new library today, but to make up for it I think I chose a really nice challenge. The Mandelbrot set.
+Some of you guys are probably familiar with it already from school or as a performance&nbsp;test.</p>
+<p>I came across this problem just recently when I was looking at the <a href="http://daily-javascript.com/articles/bigfloat/">bigfloat</a> library.
+The developer included it as a performance demo and it got my interest because of <a href="http://benchmarksgame.alioth.debian.org/u64q/performance.php?test=mandelbrot">“The Computer Language Benchmarks Game”</a>. Where it is listed as one of the benchmarks&nbsp;challenges.</p>
+<p>For details on the challenge go to the <a href="http://daily-javascript.com/challenges/mandelbrot">challenge page</a>.</p>
+<p>The results will be up next Friday so make sure you have submitted your implementation before&nbsp;then.</p>
 
           </section>
         </article>
         <article class="article intro">
           <header>
-            <p class="date"><span>15. December 2015</span></p>
-            <h2><a href="/articles/runjs/">Runjs</a></h2>
+            <p class="date"><span>07. January 2016</span></p>
+            <h2><a href="/articles/nuclear-js/">NuclearJS</a></h2>
           </header>
-          <section class="content"><p>Runjs (GitHub: <a href="https://github.com/pawelgalazka/runjs">pawelgalazka/runjs</a>, License: <span class="caps">MIT</span>, npm:&nbsp;runjs)</p>
-<p>Back in the days we used to do everything with Makefile’s now we have Gulpfile’s, Gruntfile’s and probably too much to put in a list.
-Now there is a new friend in the build family, Runjs, which is a minimalistic framework for executing build&nbsp;tasks.</p>
-<p>It’s <span class="caps">API</span> consists of just a few functions run, watch, generate and call. With these functions you would create a runfile.js.
-A simple runfile would look something like&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="keyword">import</span> {run} <span class="keyword">from</span> <span class="string">'runjs'</span>;
+          <section class="content"><p>NuclearJS (GitHub: <a href="https://github.com/optimizely/nuclear-js">optimizely/nuclear-js</a>, License: <span class="caps">MIT</span>, npm:&nbsp;nuclear-js)</p>
+<p>NuclearJS is a reactive flux implementation build with <a href="https://facebook.github.io/immutable-js/">ImmutableJS</a> data structures.
+It has been developed by <a href="https://www.optimizely.com/">Optimizely</a>, which is a company that provides A/B testing suite and more as a&nbsp;service.</p>
+<p>NuclearJS was designed first for large scale production apps. For a much more lightweight Flux implementation that shares many of the same ideas and design principles, as check out <a href="https://github.com/vigetlabs/microcosm">Microcosm</a>.</p>
+<p>As we have seen many Flux implementations already we have grown skeptical about new implementations.
+So that bears the question: “How NuclearJS differs from other Flux&nbsp;implementations?”.</p>
+<p>Well all app state is in a singular immutable map. In development you can see your entire application state at every point in time thanks to awesome debugging tools built into&nbsp;NuclearJS.</p>
+<p>State is not spread out through stores, instead stores are a declarative way of describing some top-level domain of your app state. For each key in the app state map a store declares the initial state of that key and how that piece of the app state reacts over time to actions dispatched on the flux&nbsp;system.</p>
+<p>Stores are not reference-able nor have any getX methods on them. Instead NuclearJS uses a functional lens concept called getters. In fact, the use of getters obviates the need for any store to know about another store, eliminating the confusing store.waitsFor method found in other flux&nbsp;implementations.</p>
+<p>NuclearJS is insanely efficient - change detection granularity is infinitesimal, you can even observe computed state where several pieces of the state map are combined together and run through a transform function. NuclearJS is smart enough to know when the value of any computed changes and only call its observer if and only if its value changed in a way that is orders of magnitude more efficient than traditional dirty checking. It does this by leveraging ImmutableJS data structure and using a state1 !== state2 reference comparison which runs in constant&nbsp;time.</p>
+<p>Automatic data observation / rendering – automatic re-rendering is built in for React in the form of a very lightweight mixin. It is also easily possible to build the same functionality for any <span class="caps">UI</span> framework such as VueJS, AngularJS and even&nbsp;Backbone.</p>
+<p>NuclearJS is not a side-project, it’s used as the default Flux implementation that powers all of Optimizely. It is well tested and will continue to be maintained for the foreseeable future. Our current codebase has over dozens of stores, actions and getters, we even share our prescribed method of large scale code organization and testing&nbsp;strategies.</p>
+<p>For examples I would refer you to <a href="https://optimizely.github.io/nuclear-js/">project homepage</a> because there you can find better explaintions than I can give it in my daily&nbsp;posts.</p>
 
-<span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">showFiles</span>(<span class="params"></span>)</span>{
-    run(<span class="string">'ls'</span>);
-}
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
+            <p class="date"><span>06. January 2016</span></p>
+            <h2><a href="/articles/happy-new-year/">Happy new year</a></h2>
+          </header>
+          <section class="content"><p>First of all let me say Happy new year! The last couple of weeks I did not do any posted due to all the celebrations and illness.
+Luckily the holiday season is over and we can get back to creating and learning to make beautiful applications.
+Something some people might be interested in is the results of the latest challenge which was <a href="http://daily-javascript.com/challenges/let-it-snow">“Let it snow”</a>.</p>
+<p>Well sadly I only received two submissions. Which let me to believe people did not feel challenged by this assignment. I will do my best to find something more interesting.
+The results can be found on the results page of the challenge which would be <a href="http://daily-javascript.com/challenges/let-it-snow/results">Daily-Javascript.com/challenges/let-it-snow/results</a></p>
+<p>From tomorrow on Daily-Javascript will be getting daily updates again. Hope you guys keep on&nbsp;reading.</p>
+<p>Happy&nbsp;coding.</p>
 
-<span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">mkdir</span>(<span class="params">name</span>)</span>{
-    run(<span class="string">`mkdir <span class="subst">${name}</span>`</span>);
-}
-</code></pre>
-<p>These tasks can be executed via the Runjs cli like&nbsp;so:</p>
-<pre><code class="lang-bash">run showFiles
-run mkdir someDirName
-</code></pre>
-<p>It can do everything from watching files to generating new files based on configured templates etc.
-What I like about this little framework is that it does not require plugins but just Node packages for extra functionality. This in contrast to Gulp where most plugins are wrapped as a gulp-plugin and using libraries that do not have this is as&nbsp;hassle.</p>
-<p>To help you get started this is what full runfile would look&nbsp;like:</p>
-<pre><code class="lang-javascript"><span class="keyword">import</span> {run, generate, watch} <span class="keyword">from</span> <span class="string">'runjs'</span>;
-<span class="keyword">import</span> fs <span class="keyword">from</span> <span class="string">'fs'</span>;
-<span class="keyword">import</span> crypto <span class="keyword">from</span> <span class="string">'crypto'</span>;
-<span class="keyword">import</span> {sleep} <span class="keyword">from</span> <span class="string">'sleep'</span>;
-<span class="keyword">import</span> express <span class="keyword">from</span> <span class="string">'express'</span>;
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
+            <p class="date"><span>25. December 2015</span></p>
+            <h2><a href="/articles/weekly-challenge-2015-52/">Weekly Challenge Week 52</a></h2>
+          </header>
+          <section class="content"><p>First of all let me say Merry Christmas! Last weeks challenge was a blast and I’d like to thanks everybody who submitted a solution.
+To view the submitted solutions check the <a href="http://daily-javascript.com/challenges/pythagoras-tree/results">results section of the challenge</a>.</p>
+<p>For this weeks challenge I wanted to something Christmas themed and came up with a lot of ideas, but since we can not spend the entire week working on the challenge I thought to go for something simple: Let it&nbsp;snow.</p>
+<p>An overview of the challenges can be found at <a href="/challenges">/challenges</a>. For more details about this weeks challenge go to <a href="http://daily-javascript.com/challenges/let-it-snow/">Let it snow</a>.</p>
 
-<span class="keyword">let</span> task = {};
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
+            <p class="date"><span>23. December 2015</span></p>
+            <h2><a href="/articles/shipit/">Shipit</a></h2>
+          </header>
+          <section class="content"><p>Shipit (GitHub: <a href="https://github.com/shipitjs/shipit">shipitjs/shipit</a>, License: <span class="caps">MIT</span>, npm:&nbsp;shipit)</p>
+<p>Shipit is an automation engine and a deployment tool written for&nbsp;Node.</p>
+<p>Shipit is an alternative for <a href="http://capistranorb.com/">Capistrano</a>. If you are not familiar Capistrano, it is a remote server automation and deployment tool written in Ruby.
+Since Capistrano was written in Ruby, you needed to be comfortable working in Ruby and be familiar with the tooling that comes with it.
+Nowadays we are using Javascript for everything. Web servers, build tooling, bot’s you can even control a drone using Javascript.
+So it makes sense to do deployment in Javascript as&nbsp;well.</p>
+<p>Shipit’s task structure is very similar to that of <a href="http://gulpjs.com/">Gulp</a>. Since they are both based on <a href="https://github.com/orchestrator/orchestrator">orchestrator</a>.</p>
+<p>Besides the main <span class="caps">API</span> for handling remote work, there is also a dedicated deploy package based on git and rsync commands.
+With which you can deploy tag, branch or commit. Add additional behavior using hooks, build your project locally or remotely and you can do easy&nbsp;rollback.</p>
+<p>A simple <code>shipitfile.js</code> would look something like&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span> (<span class="params">shipit</span>) </span>{
+  <span class="built_in">require</span>(<span class="string">'shipit-deploy'</span>)(shipit);
 
-<span class="function"><span class="keyword">function</span> <span class="title">timeHash</span>(<span class="params"></span>)</span>{
-    <span class="keyword">let</span> time = <span class="built_in">Date</span>.now();
-    <span class="keyword">return</span> crypto.createHash(<span class="string">'sha1'</span>).update(time.toString()).digest(<span class="string">'hex'</span>);
-}
-
-<span class="function"><span class="keyword">function</span> <span class="title">exist</span>(<span class="params">path</span>)</span>{
-    <span class="keyword">try</span> {
-        fs.accessSync(path, fs.F_OK);
-        <span class="keyword">return</span> <span class="literal">true</span>;
-    } <span class="keyword">catch</span>(e){
-        <span class="keyword">return</span> <span class="literal">false</span>;
+  shipit.initConfig({
+    <span class="keyword">default</span>: {
+      workspace: <span class="string">'/tmp/github-monitor'</span>,
+      deployTo: <span class="string">'/tmp/deploy_to'</span>,
+      repositoryUrl: <span class="string">'https://github.com/user/repo.git'</span>,
+      ignores: [<span class="string">'.git'</span>, <span class="string">'node_modules'</span>],
+      rsync: [<span class="string">'--del'</span>],
+      keepReleases: <span class="number">2</span>,
+      key: <span class="string">'/path/to/key'</span>,
+      shallowClone: <span class="literal">true</span>
+    },
+    staging: {
+      servers: <span class="string">'user@myserver.com'</span>
     }
-}
-
-task.echo = () =&gt; {
-    <span class="built_in">console</span>.log(<span class="string">'echo'</span>);
+  });
 };
-
-task.install = () =&gt; {
-    run(<span class="string">'npm install'</span>);
-    run(<span class="string">'jspm install'</span>);
-    task[<span class="string">'build:dev:configure'</span>](<span class="literal">true</span>);
-};
-
-task.uninstall = () =&gt; {
-    task[<span class="string">'clean:dist'</span>]();
-    task[<span class="string">'clean:cache'</span>]();
-    run(<span class="string">'rm -rf node_modules'</span>);
-};
-
-task.test = () =&gt; {
-    run(<span class="string">'mocha'</span>);
-};
-
-task[<span class="string">'clean:dist'</span>] = () =&gt; {
-    run(<span class="string">'rm -rf dist/*'</span>);
-};
-
-task.cmd = (...args) =&gt; {
-    run(args.join(<span class="string">' '</span>));
-};
-
-task[<span class="string">'build:dev:configure'</span>] = (force) =&gt; {
-    <span class="keyword">if</span>(!exist(<span class="string">'dist/react.bundle.js'</span>) || force){
-        run(<span class="string">'jspm bundle react + react-dom dist/react.bundle.js --inject'</span>);
-    }
-};
-
-task.watch = () =&gt; {
-    watch(<span class="string">'src/app.less'</span>, () =&gt; {
-        run(<span class="string">'lessc src/app.less dist/app.css --source-map'</span>);
-    });
-
-    watch(<span class="string">'src/*.jsx'</span>, (path) =&gt; {
-        <span class="keyword">let</span> outPath = path.split(<span class="string">'/'</span>);
-        outPath.shift();
-        outPath.unshift(<span class="string">'dist'</span>);
-        outPath = outPath.join(<span class="string">'/'</span>);
-        outPath = outPath.split(<span class="string">'.'</span>);
-        outPath.pop();
-        outPath.push(<span class="string">'js'</span>);
-        outPath = outPath.join(<span class="string">'.'</span>);
-        run(<span class="string">`babel <span class="subst">${path}</span> --out-file <span class="subst">${outPath}</span> --source-maps inline`</span>);
-    });
-};
-
-task[<span class="string">'build:template'</span>] = (src, dst, context) =&gt; {
-    generate(src, dst, context);
-};
-
-task[<span class="string">'build:dev'</span>] = () =&gt; {
-    run(<span class="string">'lessc src/app.less dist/app.css --source-map-map-inline'</span>);
-    run(<span class="string">'babel src --out-dir dist --source-maps inline'</span>);
-    run(<span class="string">'rm dist/config.js'</span>);
-    task[<span class="string">'build:template'</span>](<span class="string">'src/index.tpl.html'</span>, <span class="string">'dist/index.html'</span>, {compiled: <span class="literal">false</span>});
-    task[<span class="string">'build:dev:configure'</span>]();
-};
-
-task[<span class="string">'build:dist'</span>] = () =&gt; {
-    task[<span class="string">'clean:dist'</span>]();
-    <span class="keyword">let</span> fingerprint = timeHash();
-    task[<span class="string">'build:template'</span>](<span class="string">'src/index.tpl.html'</span>, <span class="string">'dist/index.html'</span>, {compiled: <span class="literal">true</span>, fingerprint: fingerprint});
-    run(<span class="string">`jspm bundle-sfx app dist/app.<span class="subst">${fingerprint}</span>.js --minify`</span>);
-    run(<span class="string">`cleancss src/app.css -o dist/app.<span class="subst">${fingerprint}</span>.css`</span>);
-};
-
-task[<span class="string">'serve:express'</span>] = (prod) =&gt; {
-    <span class="keyword">let</span> port = <span class="number">9090</span>;
-    <span class="keyword">let</span> app = express();
-    app.use(express.static(<span class="string">'dist'</span>, {etag: <span class="literal">true</span>}));
-    <span class="keyword">if</span>(!prod){
-        app.use(express.static(<span class="string">'src'</span>, {etag: <span class="literal">true</span>}));
-    }
-    <span class="keyword">let</span> server = app.listen(port);
-    <span class="built_in">console</span>.log(<span class="string">'Express static server listening at http://localhost:%s'</span>, port);
-};
-
-task[<span class="string">'serve:dev'</span>] = () =&gt; {
-    task[<span class="string">'build:dev'</span>]();
-    task[<span class="string">'serve:express'</span>]();
-    run(<span class="string">'live-reload --port 9091 dist'</span>, {<span class="keyword">async</span>: <span class="literal">true</span>});
-    sleep(<span class="number">1</span>);
-    run(<span class="string">'open -a "Google Chrome" http://localhost:9090'</span>);
-    task.watch();
-};
-
-task[<span class="string">'serve:dist'</span>] = () =&gt; {
-    task[<span class="string">'build:dist'</span>]();
-    task[<span class="string">'serve:express'</span>](<span class="literal">true</span>);
-    sleep(<span class="number">1</span>);
-    run(<span class="string">'open -a "Google Chrome" http://localhost:9090'</span>);
-};
-
-
-<span class="keyword">export</span> <span class="keyword">default</span> task;
 </code></pre>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>14. December 2015</span></p>
-            <h2><a href="/articles/shem/">Shem</a></h2>
-          </header>
-          <section class="content"><p>Shem (GitHub: <a href="https://github.com/xixixao/Shem">xixixao/Shem</a>, License:&nbsp;<span class="caps">MIT</span>)</p>
-<p><img src="https://camo.githubusercontent.com/5bc68d66ae5953c7097414ac8a978271b11d7e2a/687474703a2f2f7368656d2e696f2f696d672f73637265656e2d73686f742d62696e6172797365617263682e706e67" alt="demo"></p>
-<p>Shem is a new “compiled-to-<span class="caps">JS</span>”, functional programming language which is statically typed.
-The semantics are based on <a href="/articles/shem/">Haskell</a> but the language evaluates strictly in a similar way to <a href="/articles/shem/">PureScript</a>. The syntax is S-expressions-based.
-This for allowing for a <a href="/articles/shem/"><span class="caps">LISP</span></a>-like macro system. Shem’s prelude includes a full-featured, highly-polymorphic collections library backed by <a href="/articles/shem/">ImmutableJS</a>.</p>
-<p>It comes with an amazing <span class="caps">IDE</span> called “<a href="https://github.com/xixixao/Golem">Golem</a>“. This <span class="caps">IDE</span> was designed with the language to make the integration seamlessly.
-The IDE is available at <a href="http://shem.io/">shem.io</a> to work with in the browser. There are plan’s to make it also accessible as a local <span class="caps">IDE</span> for developing applications native platform such as&nbsp;desktop.</p>
-<p>There is a video available of what I believe is one of the first presentations check it out to see Shem and Golem in&nbsp;action</p>
-<iframe width="100%" height="480" src="https://www.youtube.com/embed/HnZipJOan54" frameborder="0" allowfullscreen></iframe>
-
-<p>When this language interests you, you can go over to <span class="caps">IDE</span> and follow a small tutorial to give you a quick overview of how the language works.
-If you are familiar with languages such as LISP and Haskell you will feel right at&nbsp;home.</p>
-<p>The owner of the project <a href="https://github.com/xixixao">Michal Srb</a> also want you to know the&nbsp;following:</p>
-<blockquote>
-<p>I am providing code in this repository to you under an open source license. Because this is my personal repository, the license you receive to my code is from me and not from my employer&nbsp;(Facebook).</p>
-</blockquote>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>10. December 2015</span></p>
-            <h2><a href="/articles/splitjs/">Split.js</a></h2>
-          </header>
-          <section class="content"><p>Split.js (GitHub: <a href="https://github.com/nathancahill/Split.js">nathancahill/Split.js</a>, License: <span class="caps">MIT</span>, npm:&nbsp;split.js)</p>
-<p>Split.js is a lightweight, unopinionated utility for creating adjustable split views or panes. What I like about this library is the minimal requirements to get it to work.
-It has no depenencies such as jQuery and does not require you to jump through three burning hoopes before you have it working,
-just two elements that have a parent in common and you are set.
-I comes with draggable gutters to resize the panes and the <span class="caps">API</span> is very easy, just one function, <code>Split</code>.</p>
-<p>So let’s look at some code. Let’s say we have a markup that looks something like&nbsp;this:</p>
-<pre><code class="lang-html"><span class="comment">&lt;!-- .... --&gt;</span>
-<span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"parent"</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"one"</span>&gt;</span>
-        <span class="comment">&lt;!-- .... --&gt;</span>
-    <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"two"</span>&gt;</span>
-        <span class="comment">&lt;!-- .... --&gt;</span>
-    <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-<span class="comment">&lt;!-- .... --&gt;</span>
+<p>The <span class="caps">CLI</span> structure works like: <code>shipit &lt;environment&gt; &lt;tasks ...&gt;</code>.
+So with a <code>shipitfile.js</code> like&nbsp;this:</p>
+<pre><code class="lang-bash">shipit staging deploy
 </code></pre>
-<p>Then a basic split would work like this in&nbsp;Javascript:</p>
-<pre><code class="lang-javascript">Split([<span class="string">'#one'</span>, <span class="string">'#two'</span>], {
-    sizes: [<span class="number">25</span>, <span class="number">75</span>],
-    minSize: <span class="number">200</span>
-});
-</code></pre>
-<p>It’s possible to add as many elements as you want, as long as they share the same parent. Let’s take three as&nbsp;example:</p>
-<pre><code class="lang-javascript">Split([<span class="string">'#one'</span>, <span class="string">'#two'</span>, <span class="string">'#three'</span>], {
-    minSize: [<span class="number">100</span>, <span class="number">100</span>, <span class="number">300</span>]
-});
-</code></pre>
-<p>Because this library is unopinionated, it does not come with much styling. You can implement your own styles like&nbsp;so:</p>
-<pre><code class="lang-css"><span class="class">.gutter</span> <span class="rules">{
-  <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="hexcolor">#eee</span></span></span>;
-  <span class="rule"><span class="attribute">background-repeat</span>:<span class="value"> no-repeat</span></span>;
-  <span class="rule"><span class="attribute">background-position</span>:<span class="value"> <span class="number">50%</span></span></span>;
-}</span>
-
-<span class="class">.gutter</span><span class="class">.gutter-horizontal</span> <span class="rules">{
-  <span class="rule"><span class="attribute">background-image</span>:<span class="value"> <span class="function">url</span>(<span class="string">'grips/vertical.png'</span>)</span></span>;
-  <span class="rule"><span class="attribute">cursor</span>:<span class="value"> ew-resize</span></span>;
-}</span>
-
-<span class="class">.gutter</span><span class="class">.gutter-vertical</span> <span class="rules">{
-  <span class="rule"><span class="attribute">background-image</span>:<span class="value"> <span class="function">url</span>(<span class="string">'grips/horizontal.png'</span>)</span></span>;
-  <span class="rule"><span class="attribute">cursor</span>:<span class="value"> ns-resize</span></span>;
-}</span>
-</code></pre>
-<p>Note that split works the best with <code>border-box</code>ed element’s, so if you did not apply this within your reset, you could set it like&nbsp;this:</p>
-<pre><code class="lang-css"><span class="class">.split</span> <span class="rules">{
-  <span class="rule"><span class="attribute">-webkit-box-sizing</span>:<span class="value"> border-box</span></span>;
-     <span class="rule"><span class="attribute">-moz-box-sizing</span>:<span class="value"> border-box</span></span>;
-          <span class="rule"><span class="attribute">box-sizing</span>:<span class="value"> border-box</span></span>;
-}</span>
-</code></pre>
-<p>The library comes with a lot of extra options which will infusence how the panes and the gutters should act. Check the <a href="https://github.com/nathancahill/Split.js"><span class="caps">README</span></a> for&nbsp;that.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>09. December 2015</span></p>
-            <h2><a href="/articles/bigfloat/">bigfloat</a></h2>
-          </header>
-          <section class="content"><p>bigfloat (GitHub: <a href="https://github.com/charto/bigfloat">charto/bigfloat</a>, License: <span class="caps">MIT</span>, npm:&nbsp;bigfloat)</p>
-<p>bigfloat is an arbitrary precision math library optimized for computation on geometry and geoinformatics. It provides a base 2 floating point.
-It can covert Javascript float’s, add, subtract, multiply and convert it back to a Javascript String. It can do all this whiteout losing any significant bits. Numbers are  treaded as immutable and will return a new&nbsp;BigFloat.</p>
-<p>So how does it do this?
-Numbers are represented in 32-bit limbs (digits in base 2^32).
-The least significant limb is stored first. This because basic algorithms for arithmetic operations progress from the least to most significant digit while propagating carry. If carry causes the output to grow, adding a new limb at the end of the Array is faster than adding it in the beginning.
-The library was optimized for exponents relatively close to zero, so the location of the decimal point is always present in the limb array, even if that introduces otherwise insignificant leading or trailing zero&nbsp;digits.</p>
-<p>Let’s look at a quick example if I would run&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="keyword">const</span> x = <span class="built_in">Math</span>.pow(<span class="number">2</span>, <span class="number">53</span>),
-    result = x + <span class="number">1</span> - x;
-
-<span class="built_in">console</span>.log( result );
-</code></pre>
-<p>It will give me back <code>0</code>. But we would expect to get <code>1</code>. If we would do the same using&nbsp;bigfloat:</p>
-<pre><code class="lang-javascript"><span class="keyword">const</span> BigFloat = <span class="built_in">require</span>(<span class="string">'bigfloat'</span>).BigFloat,
-       x = <span class="built_in">Math</span>.pow(<span class="number">2</span>, <span class="number">53</span>),
-      result = <span class="keyword">new</span> BigFloat(x).add(<span class="number">1</span>).sub(x).toString();
-
-<span class="built_in">console</span>.log(result);
-</code></pre>
-<p>It would log <code>1</code>, as we would&nbsp;suspect.</p>
 
           </section>
         </article>
@@ -326,7 +148,7 @@ The library was optimized for exponents relatively close to zero, so the locatio
         <section class="about">
         </section>
         <section class="copy">
-          <p>&copy; 2015 Ramon Gebben &mdash; powered by&nbsp;<a href="https://github.com/jnordberg/wintersmith">Wintersmith</a>
+          <p>&copy; 2016 Ramon Gebben &mdash; powered by&nbsp;<a href="https://github.com/jnordberg/wintersmith">Wintersmith</a>
           </p>
         </section>
       </div>

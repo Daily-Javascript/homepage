@@ -36,169 +36,424 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
-            <p class="date"><span>09. November 2015</span></p>
-            <h2><a href="/articles/squiggle/">Squiggle</a></h2>
+            <p class="date"><span>25. November 2015</span></p>
+            <h2><a href="/articles/vuejs/">Vue.js</a></h2>
           </header>
-          <section class="content"><p>Squiggle (GitHub: <a href="https://github.com/wavebeem/squiggle">wavebeem/squiggle</a>, License: <span class="caps">MIT</span>, npm:&nbsp;squiggle-lang)</p>
-<p>Squiggle is a strict, expression-oriented, compile-to-<span class="caps">JS</span> programming language. Yes, yet another compile-to-JS language.
-At the beginning I was sceptic about it, but once I started reading <a href="http://squiggle-lang.org/tutorial">the tutorial</a> posted on the site I adjusted my opinion.
-Not everything is there yet, but I need to say that I like the way it looks and might even consider picking it&nbsp;up.</p>
-<p>So some of the features that drew my attention&nbsp;are:</p>
-<ul>
-<li>Arity checked functions<ul>
-<li>When calling a function created in Squiggle with not enough arguments, it throws an&nbsp;exception.</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>Frozen literals<ul>
-<li>Array and object literals are frozen with <code>Object.freeze</code> by default, so you can’t accidentally mutate&nbsp;them.</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>Easy updates<ul>
-<li>Operators <code>++</code> to concatenate two arrays or two strings, and ~ to merge two objects into a new frozen object with the prototype of the first&nbsp;object.</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>Destructuring assignment<ul>
-<li>Grab object properties or array elements when you assign variables, like: <code>let [x, y] = [1, 2] or let {x, y} = {x: 1, y: 2}.</code></li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>Pattern matching<ul>
-<li>Is similar to the Javascript <code>switch</code> but with destructuring power built-in and no dangerous&nbsp;fall-through.</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>No type coercion<ul>
-<li>Standard operators like <code>+</code>, <code>-</code>, <code>*</code>, and more, have been replaced with strict version that do not perform any type coercions, throwing exceptions on bad&nbsp;inputs.</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>Deep equality<ul>
-<li>The operator == performs a deep equality&nbsp;check.</li>
-</ul>
-</li>
-</ul>
-<p>There are a lot more features which just make it work a bit nicer. If you want a good overview of what this language can do I would recommend you reading <a href="http://squiggle-lang.org/tutorial">the tutorial</a> section of the website and then <a href="http://squiggle-lang.org/try">give it a shot in the browser</a>.</p>
-<p>Here is a small example provided by the developer in which you can see how it would work together met Node’s <span class="caps">HTTP</span>&nbsp;package.</p>
-<pre><code class="lang-javascript"><span class="keyword">let</span> http = <span class="built_in">require</span> <span class="string">"http"</span>
-
-<span class="keyword">let</span> port = <span class="number">1337</span>
-<span class="keyword">let</span> host = <span class="string">"127.0.0.1"</span>
-
-def handler(res, res) =
-    <span class="keyword">let</span> headers = {<span class="string">"Content-Type"</span>: <span class="string">"text/plain"</span>}
-    <span class="keyword">let</span> _ = res.writeHead(<span class="number">200</span>, headers)
-    <span class="keyword">let</span> _ = res.end(<span class="string">"Hello world\n"</span>)
-    <span class="keyword">in</span> <span class="literal">undefined</span>
-
-<span class="keyword">let</span> server = http.createServer(handler)
-<span class="keyword">let</span> _ = server.listen(port, host)
-<span class="keyword">let</span> _ = <span class="built_in">console</span>.log(<span class="string">"Server running at http://"</span> ++ host + <span class="string">":"</span> ++ port ++ <span class="string">"/"</span>)
-<span class="keyword">in</span> <span class="literal">undefined</span>
+          <section class="content"><p>Vue.js (GitHub: <a href="https://github.com/vuejs/vue">vuejs/vue</a>, License: <span class="caps">MIT</span>, npm:&nbsp;vue</p>
+<p>Vue.js is a library for building web interfaces. Because it works together with some other tools, you can also call it a “framework”. Now, if you’ve never heard of or used Vue before, you are probably thinking: great, yet another JavaScript framework! I get it. That was my first thought as well, that is why I never looked at it with a serious eye. Vue isn’t particularly new, it has being in the making for almost two years now, and the first public release was in February 2014. Over time it has evolving into a great engine to build beautiful production ready app&nbsp;with.</p>
+<p>What makes it so awesome? Well, it supports all the features we are used to from libraries such as React, Ember and Angular but it’s size and api are a lot simpler.
+A thing I love in libraries,&nbsp;simplicity.</p>
+<p>So let’s take a look at a few small examples and let’s start with data&nbsp;binding.</p>
+<p>This is how we define the <code>template</code> which we are gonna&nbsp;use:</p>
+<pre><code class="lang-html"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"binding"</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">p</span>&gt;</span>{{message}}<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">input</span> <span class="attribute">v-model</span>=<span class="value">"message"</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
 </code></pre>
-<p>Since there is a comment section present after the latest update, I would love to here what you guys think of this and the blog in&nbsp;general.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>06. November 2015</span></p>
-            <h2><a href="/articles/es6-quiz/">ES6 Quiz</a></h2>
-          </header>
-          <section class="content"><p>Today I will not be checking any new library. It is time to invest in some more in depth knowledge of how <span class="caps">ES6</span>/ES2015/ESnext works. This week I was checking my reddit feed looking for something awesome to show you all, when I stumbled across <a href="http://perfectionkills.com/javascript-quiz-es6/?utm_source=javascriptweekly&amp;utm_medium=email">this quiz</a> from Perfect&nbsp;Skills.</p>
-<p>I shared this quiz at my job and noticed that a lot of people were “familiar” with <span class="caps">ES6</span>. However nobody got a perfect score, Ok, the quiz is actually really hard, but still as frontend/javascript developer we should know the language we are working with or going to work with in the very near future. That is the reason why I would recommend everybody taking this quiz, because it will enlighten you on how much you do not know or fully understand about the new standard in&nbsp;Javascript.</p>
-<p>The answers and explanation can be found <a href="https://gist.github.com/DmitrySoshnikov/3928607cb8fdba42e712">here</a>, but I recommend that you do not look at them before taking the&nbsp;test.</p>
-<p>I will be redoing this website over the weekend so I might not be able to provide you with a new post on Monday. The reason why I need to redo it, is because the static site generator I’m using to supply you with new posts each day broke on me this week. I spend several hours debugging without any luck so I will be switching to <a href="https://github.com/jnordberg/wintersmith">Wintersmith</a> with which I only had good experiences so hopefully I do not need to redo it any time soon. I will also be looking into including a comment section so I can here more back from you&nbsp;guys.</p>
-<p>Thanks for all your loyal support and have a nice&nbsp;weekend.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>05. November 2015</span></p>
-            <h2><a href="/articles/inherito/">inHerito</a></h2>
-          </header>
-          <section class="content"><p>inHerito (GitHub: <a href="/articles/inherito/Ositoozy/inherito">Ositoozy/inherito</a>, License: <span class="caps">BSD</span>, bower:&nbsp;rot.js)</p>
-<p>inHerito is a compostable factory that allows you create objects you want ease and “correct” inheritance. It allows you to use properties and function methods from other objects without overusing and over inheriting. Every object that is created gets it’s own logging information if option is set to true and allows you to keep a mindful eye on your objects. This is my take on solving the original <span class="caps">OOP</span> problem of over inheriting. Now you have “Objects Linked to Other Objects” and inherit only if you say&nbsp;so.</p>
-<p>Then the first question that popped into my head was do we need yet another design pattern, well no ofcourse not but it could be useful for bootstrapping a new application to set the tone and get the correct&nbsp;mindset.</p>
-<p>As the developer&nbsp;claims:</p>
-<blockquote>
-<p>Never be affraid again to have more than one level deep of inherited object inheritance tree. In <span class="caps">OOP</span> we usually create newer objects for the sake of inheritance and not for the sake of semantical&nbsp;correctness.</p>
-<ul>
-<li>Ex: Let’s consider a dog. A good and sane <span class="caps">OOP</span> developer would most likely create an abstract tree that resides the dog animal this way<pre><code class="lang-javascript">Animal <span class="comment">// And Followed by animal properties (ex blood, heart, etc.)</span>
-Animal.k9.dog <span class="comment">// And Followed by dog properties (bark, bite, age, how many legs, etc.)</span>
+<p>And here we give it some&nbsp;data:</p>
+<pre><code class="lang-javascript">
+<span class="keyword">let</span> binding = <span class="keyword">new</span> Vue({
+  el: <span class="string">'#binding'</span>,
+  data: {
+    message: <span class="string">'Daily Javascript'</span>
+  }
+});
 </code></pre>
-</li>
-</ul>
-</blockquote>
-<p>But let’s say in that same program we want to make the robot dog, which semantically inherits a of the dog’s properties to begin with. But we know semantically that robot dog belongs basically from two classes. It’s not an Animal anymore but shares a lot with&nbsp;dog.</p>
-<pre><code class="lang-javascript"><span class="keyword">let</span> robotDog = dog.create({
-    inherit: [bite, bark],
-    material: metal
+<p>This would give is a <code>div</code> with an <code>input</code> field and a preview of the value it holds. When you start typing, Vue will take over from there.
+That’s cool right? Ok I get it data binding does not impress you anymore. Do you like working with components?
+Vue takes an approach that is very similar to React: it’s components all the way&nbsp;down.</p>
+<pre><code class="lang-javascript"><span class="keyword">const</span> Example = Vue.extend({
+    template: <span class="string">'&lt;div&gt;{{ message }}&lt;/div&gt;'</span>,
+    data () {
+        <span class="keyword">return</span> {
+            message: <span class="string">'Daily Javascript!'</span>
+        }
+    }
 });
 
-Is it a dog? <span class="literal">true</span>
-Is it a robot? <span class="literal">true</span>
+<span class="comment">// register it with the tag &lt;example&gt;</span>
+Vue.component(<span class="string">'example'</span>, Example);
 </code></pre>
-<p>This project currently is very young but I like the direction where it is going. Momentairley it can be used as a base template by just cloning the repo. Sadly there are no other ways to generate a project holding this methodologies but as the developer tells me there will be in the&nbsp;future.</p>
+<p>Now we can use it like&nbsp;this:</p>
+<pre><code class="lang-html"><span class="tag">&lt;<span class="title">example</span>&gt;</span><span class="tag">&lt;/<span class="title">example</span>&gt;</span>
+</code></pre>
+<p>Because modularity is key nowadays it comes with the opportunity to <code>scope</code> styles to a component.
+That would look something like&nbsp;this:</p>
+<pre><code class="lang-html"><span class="tag">&lt;<span class="title">style</span> <span class="attribute">scoped</span> &gt;</span><span class="css">
+<span class="class">.message</span> <span class="rules">{
+  <span class="rule"><span class="attribute">color</span>:<span class="value"> red</span></span>;
+}</span>
+</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
+</code></pre>
+<p>Here is a full example component of how it would look when you would have it setup with a combination of <a href="https://github.com/webpack/webpack">Webpack</a> and <a href="https://github.com/vuejs/vue-loader">vue-loader</a>.</p>
+<p><img src="http://blog.evanyou.me/images/vue-hot.gif" alt="demo"></p>
+<p>It comes with a lot of more features that I will not go into such as routing and a build-in transition&nbsp;system.</p>
+<p>There is a demo for the transition system which demonstrates state-based tweening with&nbsp;Vue:</p>
+<p><p data-height="268" data-theme-id="0" data-slug-hash="XmZNOG" data-default-tab="result" data-user="yyx990803" class='codepen'>See the Pen <a href='http://codepen.io/yyx990803/pen/XmZNOG/'>Vue.js elastic header component</a> by Evan You (<a href='http://codepen.io/yyx990803'>@yyx990803</a>) on <a href='http://codepen.io'>CodePen</a>.</p></p>
+<script async src="//assets.codepen.io/assets/embed/ei.js"></script>
 
           </section>
         </article>
         <article class="article intro">
           <header>
-            <p class="date"><span>04. November 2015</span></p>
-            <h2><a href="/articles/rotjs/">Rot.js</a></h2>
+            <p class="date"><span>24. November 2015</span></p>
+            <h2><a href="/articles/vectorious/">Vectorious</a></h2>
           </header>
-          <section class="content"><p>Rot.js (GitHub: <a href="https://github.com/ondras/rot.js">ondras/rot.js</a>, License: <span class="caps">BSD</span>, bower:&nbsp;rot.js)</p>
-<p>Rot.js is a <a href="https://en.wikipedia.org/wiki/Roguelike">Roguelike</a> Toolkit in JavaScript.
-In a nutshell it is a set of JavaScript libraries, designed to help with a roguelike development in browser environment.
-It is modeled after <a href="http://doryen.eptalys.net/libtcod/">libtcod</a> and offers the following&nbsp;features:</p>
-<ul>
-<li><span class="caps">JS</span> prototype&nbsp;enhancements</li>
-<li><span class="caps">RNG</span>, Map generation, FOV,&nbsp;Lighting</li>
-<li>Pathfinding, turn&nbsp;scheduling  </li>
-<li>Canvas-based <span class="caps">ASCII</span>&nbsp;display</li>
-</ul>
-<p>It comes with some very <a href="http://ondras.github.io/rot.js/doc/">extensive documentation</a> and has a <a href="http://www.roguebasin.com/index.php?title=Rot.js_tutorial">tutorial</a>.</p>
+          <section class="content"><p>Vectorious (GitHub: <a href="https://github.com/mateogianolio/vectorious">mateogianolio/vectorious</a>, License: <span class="caps">MIT</span>, npm:&nbsp;vectorious)</p>
+<p>Vectorious is a high performance linear algebra library written in Javascript.
+It is available via npm or just as a script so you can include it on your&nbsp;page.</p>
+<p>Since I’m not a mathematician and did not do a lot of linear algebra, you will have to bare with me.
+I will try to give you a good description of what this library can&nbsp;do.</p>
+<p>It has two mayor <span class="caps">API</span> endpoints to work with: <code>Matrix</code> and <code>Vector</code>.
+The constructor functions for both these functions can be called with a range of different arguments.
+Since 2.1.0 Vector implements <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Typed_arrays">JavaScript typed arrays</a> for increased performance. The default Vector type is Float64Array, but this can be specified upon&nbsp;creation.</p>
+<p>We would work with it like&nbsp;so:</p>
+<pre><code class="lang-javascript"><span class="keyword">import</span> { Vector, Matrix } <span class="keyword">from</span> <span class="string">'vectorious'</span>;
+
+<span class="keyword">let</span> vector, matrix;
+
+<span class="comment">// Create an empty vector of default type Float64Array</span>
+vector = <span class="keyword">new</span> Vector();
+<span class="comment">/* Vector { type: [Function: Float64Array], length: 0 } */</span>
+
+<span class="comment">// Create an empty vector of type Uint8Array</span>
+vector = <span class="keyword">new</span> Vector(<span class="built_in">Uint8Array</span>);
+<span class="comment">/* Vector { type: [Function: Uint8Array], length: 0 } */</span>
+
+matrix = <span class="keyword">new</span> Matrix();
+<span class="comment">/* Matrix { type: [Function: Float64Array], shape: [] } */</span>
+
+vector = Vector.zeros(<span class="number">5</span>);
+<span class="comment">/* Vector {
+  type: [Function: Float64Array],
+  length: 5,
+  buffer: ArrayBuffer {},
+  values: Float64Array { '0': 0, '1': 0, '2': 0, '3': 0, '4': 0 } } */</span>
+
+vector = <span class="keyword">new</span> Vector(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>);
+<span class="comment">/* Vector {
+  type: [Function: Float64Array],
+  length: 5,
+  buffer: ArrayBuffer {},
+  values: Float64Array { '0': 1, '1': 2, '2': 3, '3': 4, '4': 5 } } */</span>
+
+matrix = <span class="keyword">new</span> Matrix(vector);
+<span class="comment">/* Matrix {
+  type: [Function: Float64Array],
+  shape: [ 5, 1 ],
+  data: Float64Array { '0': 1, '1': 2, '2': 3, '3': 4, '4': 5 } } */</span>
+
+matrix = Matrix.zeros(<span class="number">2</span>, <span class="number">2</span>);
+<span class="comment">/* Matrix {
+  shape: [ 2, 2 ],
+  data: Float64Array { '0': 0, '1': 0, '2': 0, '3': 0 },
+  type: [Function: Float64Array] } */</span>
+</code></pre>
+<p>The developer posted an example of how you would map a time range over a&nbsp;sinus.</p>
+<pre><code class="lang-javascript"><span class="keyword">var</span> time = Vector.range(<span class="number">0</span>, <span class="built_in">Math</span>.<span class="caps">PI</span> / <span class="number">12</span>, <span class="built_in">Math</span>.<span class="caps">PI</span>);
+<span class="comment">// Which will return</span>
+<span class="comment">/* Vector {
+  type: [Function: Float64Array],
+  length: 12,
+  buffer: ArrayBuffer {},
+  values:
+   Float64Array {
+     '0': 0,
+     '1': 0.2617993877991494,
+     '2': 0.5235987755982988,
+     '3': 0.7853981633974483,
+     '4': 1.0471975511965976,
+     '5': 1.308996938995747,
+     '6': 1.5707963267948963,
+     '7': 1.8325957145940457,
+     '8': 2.0943951023931953,
+     '9': 2.356194490192345,
+     '10': 2.6179938779914944,
+     '11': 2.879793265790644 } } */</span>
+
+<span class="keyword">var</span> sine = time.map(<span class="built_in">Math</span>.sin);
+<span class="comment">// Which will return</span>
+<span class="comment">/* Vector {
+  type: [Function: Float64Array],
+  length: 12,
+  buffer: ArrayBuffer {},
+  values:
+   Float64Array {
+     '0': 0,
+     '1': 0.25881904510252074,
+     '2': 0.49999999999999994,
+     '3': 0.7071067811865475,
+     '4': 0.8660254037844386,
+     '5': 0.9659258262890682,
+     '6': 1,
+     '7': 0.9659258262890684,
+     '8': 0.8660254037844387,
+     '9': 0.7071067811865476,
+     '10': 0.49999999999999994,
+     '11': 0.2588190451025206 } } */</span>
+</code></pre>
+<p>Besides the very extensive <span class="caps">API</span> it also accommodates extentions such as <a href="https://github.com/mateogianolio/vectorious-solve">Solve</a> and <a href="https://github.com/mateogianolio/vectorious-plot">Plot</a>.
+Plot for instance can be used to a two-dimensional <span class="caps">SVG</span> plot from two input&nbsp;vectors.</p>
 
           </section>
         </article>
         <article class="article intro">
           <header>
-            <p class="date"><span>03. November 2015</span></p>
-            <h2><a href="/articles/keo/">Keo</a></h2>
+            <p class="date"><span>23. November 2015</span></p>
+            <h2><a href="/articles/psdjs/">PSD.js</a></h2>
           </header>
-          <section class="content"><p>Keo (GitHub: <a href="https://github.com/Wildhoney/Keo">Wildhoney/Keo</a>, License: <span class="caps">MIT</span>, npm:&nbsp;keo)</p>
-<p><img src="https://github.com/Wildhoney/Keo/raw/master/media/screenshot.png" alt="https://github.com/Wildhoney/Keo/raw/master/media/screenshot.png"></p>
-<p>If you are like me and don’t like the ESnext syntactic sugar which gets used in most React examples nowadays, then you will like Keo.
-Keo gives you a more functional approach to creating React&nbsp;components.</p>
-<p>The advantages gained by using Keo&nbsp;are:</p>
+          <section class="content"><p><span class="caps">PSD</span>.js (GitHub: <a href="https://github.com/meltingice/psd.js">meltingice/psd.js</a>, License: <span class="caps">MIT</span>, npm:&nbsp;psd)</p>
+<p><span class="caps">PSD</span>.js is a general purpose PSD parser written in Coffeescript. I was inspired by PSD.rb which allows you to work with a Photoshop document in a manageable tree structure and find out data such&nbsp;as:</p>
 <ul>
-<li>Steer away from <code>class</code></li>
-<li>Create referentially transparent, pure functions without&nbsp;this</li>
-<li>Use <code>export</code> to export plain functions for simpler&nbsp;unit-testing</li>
-<li>Simple composing of functions for mixin&nbsp;support</li>
-<li>Avoid functions being littered with React specific method&nbsp;calls</li>
+<li>Document&nbsp;structure</li>
+<li>Document&nbsp;size</li>
+<li>Layer/folder size +&nbsp;positioning</li>
+<li>Layer/folder&nbsp;names</li>
+<li>Layer/folder visibility and&nbsp;opacity</li>
+<li>Font data (via psd-enginedata)<ul>
+<li>Text area&nbsp;contents</li>
+<li>Font names, sizes, and&nbsp;colors</li>
 </ul>
-<p>Keo’s philosophy is that you should not have to worry about the <code>this</code> keyword (even though scoping has became a lot better since <span class="caps">ES2015</span>). As such, Keo takes a more <a href="https://github.com/dekujs/deku">Deku</a> approach in that items such as props, state, setState, et cetera are passed in to some <a href="https://facebook.github.io/react/docs/component-specs.html">React lifecycle functions</a>.</p>
-<p>The React lifecycle functions such as: <code>componentWillMount</code>, <code>componentDidMount</code>, <code>componentWillUnmount</code>, <code>render</code> will receive props, state, setState and dispatch as an object which can be&nbsp;destructured.</p>
-<p>When you have created your component, Keo encourages you to <code>export</code> all functions so that you can test each one individually, but <strong>demands</strong> that you export the lifecycle functions by invoking keo.stitch like&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="keyword">import</span> {stitch} <span class="keyword">from</span> <span class="string">'keo'</span>;
-<span class="comment">// ...</span>
-<span class="keyword">export</span> <span class="keyword">default</span> stitch({ componentDidMount, render });
+</li>
+<li>Color mode and&nbsp;bit-depth</li>
+<li>Vector mask&nbsp;data</li>
+<li>Flattened image&nbsp;data</li>
+<li>Layer&nbsp;comps</li>
+</ul>
+<p>Although there are still some pieces missing that are present in <span class="caps">PSD</span>.rb, the eventual goal is to have all the features PSD.rb offers.
+So let’s look at an example for converting <code>.psd</code> as a <code>.png</code>.</p>
+<pre><code class="lang-javascript"><span class="keyword">import</span> <span class="caps">PSD</span> <span class="keyword">from</span> <span class="string">'psd'</span>;
+
+<span class="keyword">const</span> psd = <span class="caps">PSD</span>.fromFile(<span class="string">'my/awesome/file.psd'</span>);
+
+psd.parse();
+
+<span class="comment">// Log the tree structure of the .psd</span>
+<span class="built_in">console</span>.log(psd.tree().export());
+
+<span class="comment">// You can use promises syntax for opening and parsing</span>
+<span class="caps">PSD</span>.open(<span class="string">'my/awesome/file'</span>)
+    .then(psd =&gt; psd.image.saveAsPng(<span class="string">'./output.png'</span>))
+    .then(() =&gt; <span class="built_in">console</span>.log(<span class="string">'Finished!'</span>));
 </code></pre>
-<p>You could still use Redux with Keo. Keo provides a <code>keo/redux</code> adapter for handling Redux in a more succinct fashion. Instead of importing keo you can import the keo/redux adapter and use the <code>stitch</code> function from there instead like&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="keyword">import</span> {stitch} <span class="keyword">from</span> <span class="string">'keo/redux'</span>;
-<span class="comment">// ...</span>
-<span class="keyword">export</span> <span class="keyword">default</span> stitch({ componentWillMount, render }, state =&gt; state.zombies);
+<p>There is a very extensive <span class="caps">API</span> for traversing the document. If you would know the path to a group or layer within the tree, there is a way you can search by that path.
+That would look something like&nbsp;this:</p>
+<pre><code class="lang-javascript">psd.tree().childrenAtPath(<span class="string">'Version A/Matte'</span>);
+psd.tree().childrenAtPath([<span class="string">'Version A'</span>, <span class="string">'Matte'</span>]);
+</code></pre>
+<p>Once you have the layer you are interested in you can access the data like&nbsp;so:</p>
+<pre><code class="lang-javascript"><span class="comment">// Get the first layer</span>
+<span class="keyword">const</span> node = psd.tree().descendants()[<span class="number">0</span>];
+
+<span class="comment">// Read the name</span>
+node.get(<span class="string">'name'</span>);
+<span class="comment">// Read the width</span>
+node.get(<span class="string">'width'</span>);
+</code></pre>
+<p>Here is an example of the output <code>tree().export()</code> would give&nbsp;you:</p>
+<pre><code class="lang-javascript">{
+    children: [
+        {
+            type: <span class="string">'group'</span>,
+            visible: <span class="literal">false</span>,
+            opacity: <span class="number">1</span>,
+            blendingMode: <span class="string">'normal'</span>,
+            name: <span class="string">'VersionD'</span>,
+            left: <span class="number">0</span>,
+            right: <span class="number">900</span>,
+            top: <span class="number">0</span>,
+            bottom: <span class="number">600</span>,
+            height: <span class="number">600</span>,
+            width: <span class="number">900</span>,
+            children: [
+                {
+                    type: <span class="string">'layer'</span>,
+                    visible: <span class="literal">true</span>,
+                    opacity: <span class="number">1</span>,
+                    blendingMode: <span class="string">'normal'</span>,
+                    name: <span class="string">'Makeachangeandsave.'</span>,
+                    left: <span class="number">275</span>,
+                    right: <span class="number">636</span>,
+                    top: <span class="number">435</span>,
+                    bottom: <span class="number">466</span>,
+                    height: <span class="number">31</span>,
+                    width: <span class="number">361</span>,
+                    mask: {
+
+                    },
+                    text: {
+                        value: <span class="string">'Makeachangeandsave.'</span>,
+                        font: {
+                            name: <span class="string">'HelveticaNeue-Light'</span>,
+                            sizes: [
+                                <span class="number">33</span>
+                            ],
+                            colors: [
+                                [
+                                    <span class="number">85</span>,
+                                    <span class="number">96</span>,
+                                    <span class="number">110</span>,
+                                    <span class="number">255</span>
+                                ]
+                            ],
+                            alignment: [
+                                <span class="string">'center'</span>
+                            ]
+                        },
+                        left: <span class="number">0</span>,
+                        top: <span class="number">0</span>,
+                        right: <span class="number">0</span>,
+                        bottom: <span class="number">0</span>,
+                        transform: {
+                            xx: <span class="number">1</span>,
+                            xy: <span class="number">0</span>,
+                            yx: <span class="number">0</span>,
+                            yy: <span class="number">1</span>,
+                            tx: <span class="number">456</span>,
+                            ty: <span class="number">459</span>
+                        }
+                    },
+                    image: {
+
+                    }
+                }
+            ]
+        }
+    ],
+    <span class="built_in">document</span>: {
+        width: <span class="number">900</span>,
+        height: <span class="number">600</span>,
+        resources: {
+            layerComps: [
+                {
+                    id: <span class="number">692243163</span>,
+                    name: <span class="string">'VersionA'</span>,
+                    capturedInfo: <span class="number">1</span>
+                },
+                {
+                    id: <span class="number">725235304</span>,
+                    name: <span class="string">'VersionB'</span>,
+                    capturedInfo: <span class="number">1</span>
+                },
+                {
+                    id: <span class="number">730932877</span>,
+                    name: <span class="string">'VersionC'</span>,
+                    capturedInfo: <span class="number">1</span>
+                }
+            ],
+            guides: [
+
+            ],
+            slices: [
+
+            ]
+        }
+    }
+}
+</code></pre>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
+            <p class="date"><span>19. November 2015</span></p>
+            <h2><a href="/articles/node-5-1-0/">Node v5.1.0 Stable</a></h2>
+          </header>
+          <section class="content"><p>First of all my excuse for not posting the past 2 days. I had a few days off from my day job because I went to a concert of Bullet For My Valentine(for those of you that might me interested). This also caused me to mis this new release of Node.js so here is a small roundup of the notable&nbsp;changes.</p>
+<h3 id="-buffer-3767-https-github-com-nodejs-node-pull-3767-"><code>buffer</code> (<a href="https://github.com/nodejs/node/pull/3767">#3767</a>)</h3>
+<p>The <code>noAssert</code> option for many buffer functions will now silently drop invalid write values rather than crashing This makes the behavior match what the docs&nbsp;suggest.</p>
+<h3 id="-child_process-3577-https-github-com-nodejs-node-pull-3577-"><code>child_process</code> (<a href="https://github.com/nodejs/node/pull/3577">#3577</a>)</h3>
+<p>child.send() now properly returns a boolean like the docs&nbsp;suggest.</p>
+<h3 id="-http_parser-3569-https-github-com-nodejs-node-pull-3569-"><code>http_parser</code> (<a href="https://github.com/nodejs/node/pull/3569">#3569</a>)</h3>
+<p>update http-parser to 2.6.0 from 2.5.0 (James M Snell) .
+Now supports the following <span class="caps">HTTP</span> methods: <code>LINK</code>, <code>UNLINK</code>, <code>BIND</code>, <code>REBIND</code>, <code>UNBIND</code>.
+Also added <span class="caps">ACL</span> and IPv6 Zone ID&nbsp;support.</p>
+<h3 id="-npm-3685-https-github-com-nodejs-node-pull-3685-"><code>npm</code> (<a href="https://github.com/nodejs/node/pull/3685">#3685</a>)</h3>
+<p>upgrade npm to 3.3.12 from v3.3.6.
+See the release notes for <a href="https://github.com/npm/npm/releases/tag/v3.3.7">v3.3.7</a>, <a href="https://github.com/npm/npm/releases/tag/v3.3.8">v3.3.8</a>, <a href="https://github.com/npm/npm/releases/tag/v3.3.9">v3.3.9</a>, <a href="https://github.com/npm/npm/releases/tag/v3.3.10">v3.3.10</a>, <a href="https://github.com/npm/npm/releases/tag/v3.3.11">v3.3.11</a>, and <a href="https://github.com/npm/npm/releases/tag/v3.3.12">v3.3.12</a> for more&nbsp;details.</p>
+<h3 id="repl-3630-https-github-com-nodejs-node-pull-3630-"><span class="caps">REPL</span> (<a href="https://github.com/nodejs/node/pull/3630">#3630</a>)</h3>
+<p>The <span class="caps">REPL</span> no longer crashes if the persistent history file cannot be&nbsp;opened.</p>
+<h3 id="tls-3755-https-github-com-nodejs-node-pull-3755-">tls (<a href="https://github.com/nodejs/node/pull/3755">#3755</a>)</h3>
+<p>The default sessionIdContext now uses <span class="caps">SHA1</span> in FIPS mode rather than&nbsp;MD5.</p>
+<h3 id="v8-3779-https-github-com-nodejs-node-pull-3779-">v8(<a href="https://github.com/nodejs/node/pull/3779">#3779</a>)</h3>
+<p>Added some more useful post-mortem&nbsp;data.</p>
+<h3 id="documentation-3662-https-github-com-nodejs-node-pull-3662-">Documentation (<a href="https://github.com/nodejs/node/pull/3662">#3662</a>)</h3>
+<p>All of the <span class="caps">API</span> docs have been re-ordered so as to read in alphabetical&nbsp;order.</p>
+<p>The known issues that are still in there&nbsp;are:</p>
+<ul>
+<li>Surrogate pair in <span class="caps">REPL</span> can freeze terminal. <a href="https://github.com/nodejs/node/issues/690">#690</a></li>
+<li>Calling dns.setServers() while a <span class="caps">DNS</span> query is in progress can cause the process to crash on a failed assertion. <a href="https://github.com/nodejs/node/issues/894">#894</a></li>
+<li>url.resolve may transfer the auth portion of the url when resolving between two full hosts, see <a href="https://github.com/nodejs/node/issues/1435">#1435</a>.</li>
+<li>Unicode characters in filesystem paths are not handled consistently across platforms or Node.js APIs. See <a href="https://github.com/nodejs/node/issues/2088">#2088</a>, <a href="https://github.com/nodejs/node/issues/3401">#3401</a> and <a href="https://github.com/nodejs/node/issues/3519">#3519</a>.</li>
+</ul>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
+            <p class="date"><span>16. November 2015</span></p>
+            <h2><a href="/articles/domcom/">Domcom</a></h2>
+          </header>
+          <section class="content"><p>Domcom (GitHub: <a href="https://github.com/taijiweb/domcom">taijiweb/domcom</a>, License: <span class="caps">MIT</span>, npm:&nbsp;domcom)</p>
+<p>Yesterday I got an email with the request to take a look at the Domcom.
+Domcom is a frontend framework which uses declarative components to proxy the <span class="caps">DOM</span> in order to implement better performance than <a href="https://github.com/Matt-Esch/virtual-dom">VirtualDOM</a>. It comes with “lazy” reactive functions to manage data. A few of the features included in this framework&nbsp;are:</p>
+<ul>
+<li><p>Declarative compostable components with reactive&nbsp;function</p>
+</li>
+<li><p>Only render the invalidated components and refresh the really changed <span class="caps">DOM</span> nodes with automatic update status&nbsp;checking</p>
+</li>
+<li><p>Decouple with model and&nbsp;controller</p>
+</li>
+<li><p>Simple but powerful&nbsp;route</p>
+</li>
+<li><p>Support for&nbsp;promise</p>
+</li>
+</ul>
+<p>And a whole lot more but I would refer you to the <a href="https://github.com/taijiweb/domcom">Github project</a> for&nbsp;that.</p>
+<p>Here is a code example provided by the developer to give a taste of&nbsp;Domcom:</p>
+<p>In&nbsp;javascript:</p>
+<pre><code class="lang-javascript">    <span class="keyword">const</span> {list, text, p, flow, see} = dc
+    ​
+    demoSum = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
+      <span class="keyword">let</span> a, b, comp, p1, t1, t2;
+
+      a = see(<span class="number">1</span>);
+      b = see(<span class="number">2</span>);
+
+      comp = list((t1 = text({
+        value: a,
+        onchange() { <span class="keyword">return</span> a(<span class="keyword">this</span>.value * <span class="number">1</span>); }
+
+      })), (t2 = text({
+        value: b,
+        onchange() { <span class="keyword">return</span> b(<span class="keyword">this</span>.value * <span class="number">1</span>); }
+
+      })), p1 = p(flow.add(a, b)));
+
+      dc.updateWhen([t1, t2], <span class="string">'change'</span>, p1);
+
+      <span class="keyword">return</span> comp.mount();
+    };
+    ​
+    demoSum();
+</code></pre>
+<p>Since the developer likes coffee-script is here the same example in&nbsp;coffee-script.</p>
+<pre><code class="lang-coffeescript">{list, text, p, flow, see} = dc
+<span class="function">
+<span class="title">demoSum</span> = -&gt;</span>
+
+    a = see <span class="number">1</span>; b = see <span class="number">2</span>
+
+    comp = list \
+        (t1 = text <span class="attribute">value</span>: a, <span class="attribute">onchange</span>: <span class="function">-&gt;</span> a <span class="property">@value</span>*<span class="number">1</span>),
+        (t2 = text <span class="attribute">value</span>: b, <span class="attribute">onchange</span>: <span class="function">-&gt;</span> b <span class="property">@value</span>*<span class="number">1</span>),
+        p1 = p flow.add a, b
+
+    dc.updateWhen [t1, t2], <span class="string">'change'</span>, p1
+
+    comp.mount()
+
+demoSum()
 </code></pre>
 
           </section>
@@ -213,7 +468,7 @@ Keo gives you a more functional approach to creating React&nbsp;components.</p>
         <section class="about">
         </section>
         <section class="copy">
-          <p>&copy; 2015 Ramon Gebben &mdash; powered by&nbsp;<a href="https://github.com/jnordberg/wintersmith">Wintersmith</a>
+          <p>&copy; 2016 Ramon Gebben &mdash; powered by&nbsp;<a href="https://github.com/jnordberg/wintersmith">Wintersmith</a>
           </p>
         </section>
       </div>

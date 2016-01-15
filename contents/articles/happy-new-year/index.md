@@ -1,13 +1,17 @@
 ---
-title: 'Weekly Challenge Week 52'
-date: '2015-12-25'
+title: 'Happy new year'
+date: '2016-01-06'
 author: ramon
 template: article.jade
 ---
 
-First of all let me say Merry Christmas! Last weeks challenge was a blast and I'd like to thanks everybody who submitted a solution.
-To view the submitted solutions check the [results section of the challenge](http://daily-javascript.com/challenges/pythagoras-tree/results).
+First of all let me say Happy new year! The last couple of weeks I did not do any posted due to all the celebrations and illness.
+Luckily the holiday season is over and we can get back to creating and learning to make beautiful applications.
+Something some people might be interested in is the results of the latest challenge which was ["Let it snow"](http://daily-javascript.com/challenges/let-it-snow).
 
-For this weeks challenge I wanted to something Christmas themed and came up with a lot of ideas, but since we can not spend the entire week working on the challenge I thought to go for something simple: Let it snow.
+Well sadly I only received two submissions. Which let me to believe people did not feel challenged by this assignment. I will do my best to find something more interesting.
+The results can be found on the results page of the challenge which would be [Daily-Javascript.com/challenges/let-it-snow/results](http://daily-javascript.com/challenges/let-it-snow/results)
 
-An overview of the challenges can be found at [/challenges](/challenges). For more details about this weeks challenge go to [Let it snow](http://daily-javascript.com/challenges/let-it-snow/).
+From tomorrow on Daily-Javascript will be getting daily updates again. Hope you guys keep on reading.
+
+Happy coding.
