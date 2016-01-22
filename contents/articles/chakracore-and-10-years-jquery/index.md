@@ -14,7 +14,7 @@ The ChakraCore repository provides a fully supported and open-source standalone 
 
 For more in depth information I would refer you to the [official post by Microsoft](https://blogs.windows.com/msedgedev/2016/01/13/chakracore-now-open/). When you don't feel like reading that, just watch this [announcement video](https://youtu.be/1bfDB3YPHFI).
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/1bfDB3YPHFI" frameborder="0" allowfullscreen></iframe>
+<iframe width="100%" height="480" src="https://www.youtube.com/embed/1bfDB3YPHFI" frameborder="0" allowfullscreen></iframe>
 
 Besides the great news coming from Microsoft, jQuery has a special day to celebrate. The ten year existence of the most used library on the web.
 The first release was at 14th of January 2006. Since then it has changed a lot and helped evolve the web to the great platform it is nowadays.
