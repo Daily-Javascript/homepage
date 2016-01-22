@@ -5,9 +5,82 @@
     <atom:link href="http://daily-javascript.com/feed.xml" rel="self" type="application/rss+xml"></atom:link>
     <link>http://daily-javascript.com</link>
     <description>For your daily dose of Javascript libraries.</description>
-    <pubDate>Fri, 15 Jan 2016 01:00:00 +0100</pubDate>
+    <pubDate>Fri, 22 Jan 2016 01:00:00 +0100</pubDate>
     <generator>Wintersmith - https://github.com/jnordberg/wintersmith</generator>
     <language>en</language>
+    <item>
+      <title>Weekly Challenge - Workshopper</title>
+      <link>http://daily-javascript.com/articles/weekly-challenge-2016-04/</link>
+      <pubDate>Fri, 22 Jan 2016 01:00:00 +0100</pubDate>
+      <guid isPermaLink="true">http://daily-javascript.com/articles/weekly-challenge-2016-04/</guid>
+      <author></author>
+      <description>&lt;p&gt;As first point of today here are &lt;a href=&quot;http://daily-javascript.com/challenges/tic-tac-toe/results&quot;&gt;last weeks results&lt;/a&gt;.
+Sadly still not a lot of submissions. The submissions I did receive are amazing great work guys.
+I am curious about the reason behind the low number of submissions, is this because the challenges are to hard?
+Or because they are not challenging enough? Maybe you guys don’t like the topics. I do not know.
+Please tell me if you have any ideas on how I can get you guys to work on challenging problems and you will have fun.&lt;/p&gt;
+&lt;p&gt;For this weeks challenge I had a fun idea, but sadly I did not find the time this week to prepare it.
+So that will have to wait for some other week. This week we are gonna think about how to transfer knowledge.&lt;/p&gt;
+&lt;p&gt;Pick a topic which you feel comfortable with or something you find interesting and create a workshop for that topic.
+You will be using the &lt;a href=&quot;https://github.com/workshopper/workshopper&quot;&gt;Workshopper&lt;/a&gt; framework which I mentioned &lt;a href=&quot;http://daily-javascript.com/articles/workshopper/&quot;&gt;this week&lt;/a&gt;.
+For more detail on the challenge go to the &lt;a href=&quot;http://daily-javascript.com/challenges/workshopper&quot;&gt;challenge page&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
+    <item>
+      <title>Mantra</title>
+      <link>http://daily-javascript.com/articles/mantra/</link>
+      <pubDate>Thu, 21 Jan 2016 01:00:00 +0100</pubDate>
+      <guid isPermaLink="true">http://daily-javascript.com/articles/mantra/</guid>
+      <author></author>
+      <description>&lt;p&gt;Mantra (GitHub: &lt;a href=&quot;https://github.com/kadirahq/mantra&quot;&gt;kadirahq/mantra&lt;/a&gt;, License: MIT)&lt;/p&gt;
+&lt;p&gt;Mantra is an application architecture for &lt;a href=&quot;https://www.meteor.com/&quot;&gt;Meteor&lt;/a&gt;.
+If you are not familair with Meteor I would strongly advice you take a look at it.
+The developers of Mantra try to achieve two main goals: High Maintainability and Future Proof.&lt;/p&gt;
+&lt;p&gt;Maintainability is a key factor for success when working within large teams.
+Mantra achieves this by unit testing every part of the app, while following standards for &lt;strong&gt;everything&lt;/strong&gt;. This makes it easy to add new users and work with teams.&lt;/p&gt;
+&lt;p&gt;There is a very extensive spec of how a Mantra application would work which can be found &lt;a href=&quot;https://kadirahq.github.io/mantra/&quot;&gt;here&lt;/a&gt;.
+I really like this approach, ‘cause it combines the best parts of all the new and shiny stuff out there.&lt;/p&gt;
+&lt;p&gt;Today is the last day you can submit your solution for the &lt;a href=&quot;http://daily-javascript.com/challenges/tic-tac-toe/&quot;&gt;weekly challenge&lt;/a&gt;. Next weeks challenge will be up tomorrow so make sure you check back then to see what I have in store for you next.&lt;/p&gt;
+</description>
+    </item>
+    <item>
+      <title>Workshopper</title>
+      <link>http://daily-javascript.com/articles/workshopper/</link>
+      <pubDate>Wed, 20 Jan 2016 01:00:00 +0100</pubDate>
+      <guid isPermaLink="true">http://daily-javascript.com/articles/workshopper/</guid>
+      <author></author>
+      <description>&lt;p&gt;Workshopper (GitHub: &lt;a href=&quot;https://github.com/workshopper/workshopper&quot;&gt;workshopper/workshopper&lt;/a&gt;, License: MIT, npm: workshopper)&lt;/p&gt;
+&lt;p&gt;Workshopper is a terminal workshop runner framework. It gives you the tools to create workshops and exercises which can be run from any terminal.
+Which is a great thing if you are teaching people how are still scared of the terminal. This way they will practice their programming skills and develop a sense of comfort on the command line.&lt;/p&gt;
+&lt;p&gt;Workshopper is being used by code schools like “&lt;a href=&quot;https://github.com/workshopper/learnyounode&quot;&gt;Learn You Node&lt;/a&gt;“ and &lt;a href=&quot;http://nodeschool.io/&quot;&gt;Nodeschool.io&lt;/a&gt;. I came across a Hapi.js exercise as well, which made me think why not have an interactive introduction to your framework.&lt;/p&gt;
+&lt;p&gt;The framework is essentially a test-runner with a very fancy terminal UI.
+The &lt;code&gt;workshopper&lt;/code&gt; package is largely concerned with the menu system and some basic command-line parsing but much of the work for executing the exercise validation is handled by &lt;a href=&quot;http://github.com/rvagg/workshopper-exercise&quot;&gt;workshopper-exercise&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;I really like this project because it’s a nice and quick way to really get into how something works. For instance &lt;a href=&quot;https://github.com/timoxley/functional-javascript-workshop&quot;&gt;this workshop on functional Javascript&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;If you did not submit you solution to this weeks challenge, creating Tic Tac Toe, I’d advice you to get a move on it because there is only day remaining. If you need to refresh you memory on the challenge head over to &lt;a href=&quot;http://daily-javascript.com/challenges/tic-tac-toe/&quot;&gt;the challenge page&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
+    <item>
+      <title>Nodal</title>
+      <link>http://daily-javascript.com/articles/nodal/</link>
+      <pubDate>Mon, 18 Jan 2016 01:00:00 +0100</pubDate>
+      <guid isPermaLink="true">http://daily-javascript.com/articles/nodal/</guid>
+      <author></author>
+      <description>&lt;p&gt;Nodal (GitHub: &lt;a href=&quot;https://github.com/keithwhor/nodal&quot;&gt;keithwhor/nodal&lt;/a&gt;, License: MIT, npm: nodal)&lt;/p&gt;
+&lt;p&gt;Nodal is a web server and API framework for Node.js. It is built upon an ideology of a robust, scalable microservice architecture.
+It borrows a lot from &lt;a href=&quot;http://rubyonrails.org/&quot;&gt;Rails&lt;/a&gt; and &lt;a href=&quot;https://www.djangoproject.com/&quot;&gt;Django&lt;/a&gt; so working with the framework made me feel right at home since I used to do a lot of Rails.
+With familiar commands such as: &lt;code&gt;nodal db:migrate&lt;/code&gt;, &lt;code&gt;nodal g:controller&lt;/code&gt; et cetra.&lt;/p&gt;
+&lt;p&gt;One of the features that really blew me away was how a scaffold CRUD handles query parameters.
+It uses the &lt;code&gt;.where(this.params.query)&lt;/code&gt; where the query params will be applied as a filter.
+Which uses a very similar syntax as the &lt;a href=&quot;https://docs.djangoproject.com/en/1.9/topics/db/queries/#retrieving-specific-objects-with-filters&quot;&gt;filter methods in Django’s ORM&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The framework is configured to use &lt;a href=&quot;http://www.postgresql.org/&quot;&gt;Postgresql&lt;/a&gt; as a database, which is a great idea in my opinion.
+Especially since the framework tries to aim at developer who want a little more guidance in their development process to get familiar with Node.js and the Javascript eco system in general.&lt;/p&gt;
+&lt;p&gt;The developer &lt;a href=&quot;https://youtu.be/IxBXkFbUqtk&quot;&gt;posted a screencast&lt;/a&gt; of him setting up a very simple twitter clone which I recommend you watch.&lt;/p&gt;
+&lt;iframe width=&quot;100%&quot; height=&quot;480&quot; src=&quot;https://www.youtube.com/embed/IxBXkFbUqtk&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;
+
+&lt;p&gt;And there will be more screencast’s in the future. This will definitely be part of the next API I’m gonna build.&lt;/p&gt;
+&lt;p&gt;Don’t forget to challenge your self this week. There is still a challenge running which is &lt;a href=&quot;http://daily-javascript.com/challenges/tic-tac-toe/&quot;&gt;Make Tic Tac Toe in Javascript&lt;/a&gt; but make sure you submit it before Friday is you want it to be shown in the weekly results.&lt;/p&gt;
+</description>
+    </item>
     <item>
       <title>Weekly Challenge - Tic tac toe</title>
       <link>http://daily-javascript.com/articles/weekly-challenge-2016-03/</link>
@@ -37,7 +110,7 @@ Please submit your solution to this &lt;a href=&quot;http://goo.gl/forms/vM1b4oU
 ChakraCore is the Javascript engine that powers Microsoft Edge.&lt;/p&gt;
 &lt;p&gt;The ChakraCore repository provides a fully supported and open-source standalone JavaScript engine, with the same  as the Microsoft Edge’s Chakra engine, to embed within your projects.&lt;/p&gt;
 &lt;p&gt;For more in depth information I would refer you to the &lt;a href=&quot;https://blogs.windows.com/msedgedev/2016/01/13/chakracore-now-open/&quot;&gt;official post by Microsoft&lt;/a&gt;. When you don’t feel like reading that, just watch this &lt;a href=&quot;https://youtu.be/1bfDB3YPHFI&quot;&gt;announcement video&lt;/a&gt;.&lt;/p&gt;
-&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/1bfDB3YPHFI&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;iframe width=&quot;100%&quot; height=&quot;480&quot; src=&quot;https://www.youtube.com/embed/1bfDB3YPHFI&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;
 
 &lt;p&gt;Besides the great news coming from Microsoft, jQuery has a special day to celebrate. The ten year existence of the most used library on the web.
 The first release was at 14th of January 2006. Since then it has changed a lot and helped evolve the web to the great platform it is nowadays.&lt;/p&gt;

@@ -36,6 +36,188 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
+            <p class="date"><span>11. November 2015</span></p>
+            <h2><a href="/articles/notie/">Notie.js</a></h2>
+          </header>
+          <section class="content"><p>Notie.js (GitHub: <a href="https://github.com/jaredreich/notie.js">jaredreich/notie.js</a>, License:&nbsp;<span class="caps">MIT</span>)</p>
+<p>Notie.js is a simple notification plugin. It does not have any dependencies, which makes it very light and easy to work with.
+Throughout time I’ve seen multiple libraries and <span class="caps">UI</span> frameworks implement something similar,
+but what I like about this little library is that when you have a very small project, it can save you some time on implementing feedback to the&nbsp;user.</p>
+<p>Sadly it’s not available via npm or bower, but I think that is kind of the point this library is trying to make.
+Everything nowadays is bundled and transpiled, which I like very much, but it is nice to see that some people still take this&nbsp;approach.</p>
+<p>So let’s include it in our markup like&nbsp;this:</p>
+<pre><code class="lang-html"><span class="tag">&lt;<span class="title">body</span>&gt;</span>
+  ...
+  <span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"/path/to/notie.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">body</span>&gt;</span>
+</code></pre>
+<p>Now when you want to send a notification or confirm something with your user you can use it like&nbsp;this:</p>
+<pre><code class="lang-javascript">
+notie.alert(style, <span class="string">'message'</span>, time_in_seconds);
+
+notie.confirm(<span class="string">'Title text'</span>, <span class="string">'Yes button text'</span>, <span class="string">'No/cancel button text'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+    <span class="comment">// User choose Yes.</span>
+});
+</code></pre>
+<p>The style in this example would be the “theme” of the alert. By default these would&nbsp;be:</p>
+<ol>
+<li><span class="caps">OK</span> ( Green&nbsp;)</li>
+<li>Warning ( Yellowish&nbsp;)</li>
+<li>Error ( Red&nbsp;)</li>
+<li>Notice ( Blue&nbsp;)</li>
+</ol>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
+            <p class="date"><span>10. November 2015</span></p>
+            <h2><a href="/articles/babel-typecheck/">Babel Typecheck</a></h2>
+          </header>
+          <section class="content"><p>Babel Typecheck (GitHub: <a href="https://github.com/codemix/babel-plugin-typecheck">codemix/babel-plugin-typecheck</a>, License: <span class="caps">MIT</span>, npm:&nbsp;babel-plugin-typecheck)</p>
+<p>Babel Typecheck is a <a href="https://babeljs.io/">Babel</a> plugin for static and runtime type checking. It does so using <a href="http://flowtype.org/">Flow type</a>.
+What it does is turn a code block like&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="function"><span class="keyword">function</span> <span class="title">sendMessage</span> (<span class="params">to: User, message: string</span>): <span class="title">boolean</span> </span>{
+  <span class="keyword">return</span> socket.send(to, message);
+}
+</code></pre>
+<p>Into&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="function"><span class="keyword">function</span> <span class="title">sendMessage</span>(<span class="params">to, message</span>) </span>{
+  <span class="keyword">var</span> _socket$send;
+
+  <span class="keyword">if</span> (!(to <span class="keyword">instanceof</span> User)) <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">TypeError</span>(<span class="string">"Value of argument 'to' violates contract."</span>);
+  <span class="keyword">if</span> (<span class="keyword">typeof</span> message !== <span class="string">"string"</span>) <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">TypeError</span>(<span class="string">"Value of argument 'message' violates contract."</span>);
+  _socket$send = socket.send(to, message);
+  <span class="keyword">if</span> (<span class="keyword">typeof</span> _socket$send !== <span class="string">"boolean"</span>) <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">TypeError</span>(<span class="string">"Function 'sendMessage' return value violates contract."</span>);
+  <span class="keyword">return</span> _socket$send;
+}
+</code></pre>
+<p>What this does is it executes the same as when you would write your function like&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="function"><span class="keyword">function</span> <span class="title">sendMessage</span> (<span class="params">to, message</span>) </span>{
+  <span class="keyword">return</span> socket.send(to, message);
+}
+</code></pre>
+<p>But with one big difference, when you call this function with the wrong arguments your application just breaks.
+When using Babel Typecheck it would present you with a type error on transpiling so you will not make silly mistakes again. Well not the type error kind at&nbsp;least.</p>
+<p>In the example above we see a few new things, mostly attached to the function&nbsp;call:</p>
+<pre><code class="lang-javascript">    (to: User, message: string): boolean
+</code></pre>
+<p>Which means that the <code>to</code> parameter expects to be an instance of User.
+The <code>message</code> parameter expects to be a String.
+The <code>:</code> at the and of the function call is to indicate what the function will return which is a Boolean in this&nbsp;example.</p>
+<p>This function demonstrates which kinds of annotations are&nbsp;supported:</p>
+<pre><code class="lang-javascript"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">
+    aNum: number,
+    anOptionalString: ?string, <span class="comment">// will allow null/undefined</span>
+    anObject: Object,
+    aDate: Date,
+    anError: Error,
+    aUnionType: Object|string,
+    aClass: User,
+    aShape: {foo: number, bar: ?string},
+    anArray: Array,
+    arrayOf: string[] | Array&lt;string&gt;,
+    {x, y}: {x: string, y: number}, <span class="comment">// destructuring works</span>
+    es6Defaults: number = 42
+</span>) : <span class="title">number</span> </span>{
+  <span class="keyword">return</span> aNum;
+}
+</code></pre>
+<p>When I saw the syntax of this plugin the first thing that jumped into my mind was why not just use Typescript then.
+Since Typescript had it’s own upstream this might not be inline with the ESnext(<span class="caps">ES6</span>/ES7) feature we have grown to love.
+By including this plugin in your <code>.babelrc</code> to can have the power and security of strongly typed Javascript and all the new features provided by&nbsp;Babel.</p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
+            <p class="date"><span>09. November 2015</span></p>
+            <h2><a href="/articles/squiggle/">Squiggle</a></h2>
+          </header>
+          <section class="content"><p>Squiggle (GitHub: <a href="https://github.com/wavebeem/squiggle">wavebeem/squiggle</a>, License: <span class="caps">MIT</span>, npm:&nbsp;squiggle-lang)</p>
+<p>Squiggle is a strict, expression-oriented, compile-to-<span class="caps">JS</span> programming language. Yes, yet another compile-to-JS language.
+At the beginning I was sceptic about it, but once I started reading <a href="http://squiggle-lang.org/tutorial">the tutorial</a> posted on the site I adjusted my opinion.
+Not everything is there yet, but I need to say that I like the way it looks and might even consider picking it&nbsp;up.</p>
+<p>So some of the features that drew my attention&nbsp;are:</p>
+<ul>
+<li>Arity checked functions<ul>
+<li>When calling a function created in Squiggle with not enough arguments, it throws an&nbsp;exception.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Frozen literals<ul>
+<li>Array and object literals are frozen with <code>Object.freeze</code> by default, so you can’t accidentally mutate&nbsp;them.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Easy updates<ul>
+<li>Operators <code>++</code> to concatenate two arrays or two strings, and ~ to merge two objects into a new frozen object with the prototype of the first&nbsp;object.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Destructuring assignment<ul>
+<li>Grab object properties or array elements when you assign variables, like: <code>let [x, y] = [1, 2] or let {x, y} = {x: 1, y: 2}.</code></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Pattern matching<ul>
+<li>Is similar to the Javascript <code>switch</code> but with destructuring power built-in and no dangerous&nbsp;fall-through.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>No type coercion<ul>
+<li>Standard operators like <code>+</code>, <code>-</code>, <code>*</code>, and more, have been replaced with strict version that do not perform any type coercions, throwing exceptions on bad&nbsp;inputs.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Deep equality<ul>
+<li>The operator == performs a deep equality&nbsp;check.</li>
+</ul>
+</li>
+</ul>
+<p>There are a lot more features which just make it work a bit nicer. If you want a good overview of what this language can do I would recommend you reading <a href="http://squiggle-lang.org/tutorial">the tutorial</a> section of the website and then <a href="http://squiggle-lang.org/try">give it a shot in the browser</a>.</p>
+<p>Here is a small example provided by the developer in which you can see how it would work together met Node’s <span class="caps">HTTP</span>&nbsp;package.</p>
+<pre><code class="lang-javascript"><span class="keyword">let</span> http = <span class="built_in">require</span> <span class="string">"http"</span>
+
+<span class="keyword">let</span> port = <span class="number">1337</span>
+<span class="keyword">let</span> host = <span class="string">"127.0.0.1"</span>
+
+def handler(res, res) =
+    <span class="keyword">let</span> headers = {<span class="string">"Content-Type"</span>: <span class="string">"text/plain"</span>}
+    <span class="keyword">let</span> _ = res.writeHead(<span class="number">200</span>, headers)
+    <span class="keyword">let</span> _ = res.end(<span class="string">"Hello world\n"</span>)
+    <span class="keyword">in</span> <span class="literal">undefined</span>
+
+<span class="keyword">let</span> server = http.createServer(handler)
+<span class="keyword">let</span> _ = server.listen(port, host)
+<span class="keyword">let</span> _ = <span class="built_in">console</span>.log(<span class="string">"Server running at http://"</span> ++ host + <span class="string">":"</span> ++ port ++ <span class="string">"/"</span>)
+<span class="keyword">in</span> <span class="literal">undefined</span>
+</code></pre>
+<p>Since there is a comment section present after the latest update, I would love to here what you guys think of this and the blog in&nbsp;general.</p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
+            <p class="date"><span>06. November 2015</span></p>
+            <h2><a href="/articles/es6-quiz/">ES6 Quiz</a></h2>
+          </header>
+          <section class="content"><p>Today I will not be checking any new library. It is time to invest in some more in depth knowledge of how <span class="caps">ES6</span>/ES2015/ESnext works. This week I was checking my reddit feed looking for something awesome to show you all, when I stumbled across <a href="http://perfectionkills.com/javascript-quiz-es6/?utm_source=javascriptweekly&amp;utm_medium=email">this quiz</a> from Perfect&nbsp;Skills.</p>
+<p>I shared this quiz at my job and noticed that a lot of people were “familiar” with <span class="caps">ES6</span>. However nobody got a perfect score, Ok, the quiz is actually really hard, but still as frontend/javascript developer we should know the language we are working with or going to work with in the very near future. That is the reason why I would recommend everybody taking this quiz, because it will enlighten you on how much you do not know or fully understand about the new standard in&nbsp;Javascript.</p>
+<p>The answers and explanation can be found <a href="https://gist.github.com/DmitrySoshnikov/3928607cb8fdba42e712">here</a>, but I recommend that you do not look at them before taking the&nbsp;test.</p>
+<p>I will be redoing this website over the weekend so I might not be able to provide you with a new post on Monday. The reason why I need to redo it, is because the static site generator I’m using to supply you with new posts each day broke on me this week. I spend several hours debugging without any luck so I will be switching to <a href="https://github.com/jnordberg/wintersmith">Wintersmith</a> with which I only had good experiences so hopefully I do not need to redo it any time soon. I will also be looking into including a comment section so I can here more back from you&nbsp;guys.</p>
+<p>Thanks for all your loyal support and have a nice&nbsp;weekend.</p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
             <p class="date"><span>05. November 2015</span></p>
             <h2><a href="/articles/inherito/">inHerito</a></h2>
           </header>
@@ -62,125 +244,6 @@ Is it a dog? <span class="literal">true</span>
 Is it a robot? <span class="literal">true</span>
 </code></pre>
 <p>This project currently is very young but I like the direction where it is going. Momentairley it can be used as a base template by just cloning the repo. Sadly there are no other ways to generate a project holding this methodologies but as the developer tells me there will be in the&nbsp;future.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>04. November 2015</span></p>
-            <h2><a href="/articles/rotjs/">Rot.js</a></h2>
-          </header>
-          <section class="content"><p>Rot.js (GitHub: <a href="https://github.com/ondras/rot.js">ondras/rot.js</a>, License: <span class="caps">BSD</span>, bower:&nbsp;rot.js)</p>
-<p>Rot.js is a <a href="https://en.wikipedia.org/wiki/Roguelike">Roguelike</a> Toolkit in JavaScript.
-In a nutshell it is a set of JavaScript libraries, designed to help with a roguelike development in browser environment.
-It is modeled after <a href="http://doryen.eptalys.net/libtcod/">libtcod</a> and offers the following&nbsp;features:</p>
-<ul>
-<li><span class="caps">JS</span> prototype&nbsp;enhancements</li>
-<li><span class="caps">RNG</span>, Map generation, FOV,&nbsp;Lighting</li>
-<li>Pathfinding, turn&nbsp;scheduling  </li>
-<li>Canvas-based <span class="caps">ASCII</span>&nbsp;display</li>
-</ul>
-<p>It comes with some very <a href="http://ondras.github.io/rot.js/doc/">extensive documentation</a> and has a <a href="http://www.roguebasin.com/index.php?title=Rot.js_tutorial">tutorial</a>.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>03. November 2015</span></p>
-            <h2><a href="/articles/keo/">Keo</a></h2>
-          </header>
-          <section class="content"><p>Keo (GitHub: <a href="https://github.com/Wildhoney/Keo">Wildhoney/Keo</a>, License: <span class="caps">MIT</span>, npm:&nbsp;keo)</p>
-<p><img src="https://github.com/Wildhoney/Keo/raw/master/media/screenshot.png" alt="https://github.com/Wildhoney/Keo/raw/master/media/screenshot.png"></p>
-<p>If you are like me and don’t like the ESnext syntactic sugar which gets used in most React examples nowadays, then you will like Keo.
-Keo gives you a more functional approach to creating React&nbsp;components.</p>
-<p>The advantages gained by using Keo&nbsp;are:</p>
-<ul>
-<li>Steer away from <code>class</code></li>
-<li>Create referentially transparent, pure functions without&nbsp;this</li>
-<li>Use <code>export</code> to export plain functions for simpler&nbsp;unit-testing</li>
-<li>Simple composing of functions for mixin&nbsp;support</li>
-<li>Avoid functions being littered with React specific method&nbsp;calls</li>
-</ul>
-<p>Keo’s philosophy is that you should not have to worry about the <code>this</code> keyword (even though scoping has became a lot better since <span class="caps">ES2015</span>). As such, Keo takes a more <a href="https://github.com/dekujs/deku">Deku</a> approach in that items such as props, state, setState, et cetera are passed in to some <a href="https://facebook.github.io/react/docs/component-specs.html">React lifecycle functions</a>.</p>
-<p>The React lifecycle functions such as: <code>componentWillMount</code>, <code>componentDidMount</code>, <code>componentWillUnmount</code>, <code>render</code> will receive props, state, setState and dispatch as an object which can be&nbsp;destructured.</p>
-<p>When you have created your component, Keo encourages you to <code>export</code> all functions so that you can test each one individually, but <strong>demands</strong> that you export the lifecycle functions by invoking keo.stitch like&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="keyword">import</span> {stitch} <span class="keyword">from</span> <span class="string">'keo'</span>;
-<span class="comment">// ...</span>
-<span class="keyword">export</span> <span class="keyword">default</span> stitch({ componentDidMount, render });
-</code></pre>
-<p>You could still use Redux with Keo. Keo provides a <code>keo/redux</code> adapter for handling Redux in a more succinct fashion. Instead of importing keo you can import the keo/redux adapter and use the <code>stitch</code> function from there instead like&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="keyword">import</span> {stitch} <span class="keyword">from</span> <span class="string">'keo/redux'</span>;
-<span class="comment">// ...</span>
-<span class="keyword">export</span> <span class="keyword">default</span> stitch({ componentWillMount, render }, state =&gt; state.zombies);
-</code></pre>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>02. November 2015</span></p>
-            <h2><a href="/articles/streamjs/">Stream.js</a></h2>
-          </header>
-          <section class="content"><p>Stream.js (GitHub: <a href="https://github.com/winterbe/streamjs">winterbe/streamjs</a>, License: <span class="caps">MIT</span>, npm: streamjs, bower:&nbsp;streamjs)</p>
-<p>Stream.js is a lightweight functional library for operating on in memory collections. It requires <span class="caps">ES</span> 5+, but has built-in support for ES6 features it works in all current browsers, Node.js and Java 8 <a href="http://openjdk.java.net/projects/nashorn/">Nashorn</a>.</p>
-<p>This library is built around a lazily evaluated operation pipeline. Which means that instead of consecutively performing each operation on the input collection, objects are passed vertically and one by one into the chain.
-Interim results will not be stored in internal collections. Instead objects are piped into the result&nbsp;object.</p>
-<p>Stream’s operations are lazily evaluated to avoid examining all of the input data when it’s not necessary.
-For instance with a filter - map - findFirst stream you don’t have to filter and map the whole data. Instead map and findFirst are executed just one time before returning the single result. This results in way better performance when operation upon large amount of&nbsp;input.</p>
-<p>Like&nbsp;this:</p>
-<pre><code class="lang-javascript">Stream([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>])
-   .filter((num) =&gt; {   <span class="comment">// called twice</span>
-      <span class="keyword">return</span> num % <span class="number">2</span> === <span class="number">0</span>;
-   })
-   .map((even) =&gt; {     <span class="comment">// called once</span>
-      <span class="keyword">return</span> <span class="string">"even"</span> + even;
-   })
-   .findFirst();        <span class="comment">// called once</span>
-</code></pre>
-<p>Because this library has a very extensive <span class="caps">API</span>, I will not be discussing that today and I will just refer you to the <a href="https://github.com/winterbe/streamjs/blob/master/APIDOC.md"><span class="caps">API</span> Docs</a> provided by the&nbsp;developer</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>29. October 2015</span></p>
-            <h2><a href="/articles/redux-generator/">generator-redux</a></h2>
-          </header>
-          <section class="content"><p>generator-redux (GitHub: <a href="https://github.com/banderson/generator-redux">banderson/generator-redux</a>, License: <span class="caps">MIT</span>, npm:&nbsp;generator-redux)</p>
-<p>Today I like to mention a Yeoman generator which I’ve being using a lot lately: generator-redux.
-When you are not familiar with Yeoman please check it out, it will save you a lot of&nbsp;time.</p>
-<p>You have probably heard about <a href="/articles/redux-generator/facebook.github.io/flux/">Facebook’s Flux architecture</a>. Since a few months there is a new kid in town called Redux.
-<a href="https://github.com/rackt/redux">Redux</a> is <a href="http://youtube.com/watch?v=xsSnOQynTHs">“Atomic Flux with hot reloading”</a>. A next-generation take on the Flux pattern with some core design differences such&nbsp;as:</p>
-<blockquote>
-<ul>
-<li>Preserves the benefits of Flux, but adds other nice properties thanks to its functional&nbsp;nature.</li>
-<li>Prevents some of the anti-patterns common in Flux&nbsp;code.</li>
-<li>Works great in universal (aka “isomorphic”) apps because it doesn’t use singletons and the data can be rehydrated.&nbsp;…</li>
-</ul>
-</blockquote>
-<p>The features included in this generator&nbsp;are:</p>
-<ul>
-<li>Redux functional application&nbsp;architecture</li>
-<li>Redux-DevTools configured and enabled when in dev&nbsp;mode</li>
-<li>WebPack for build pipeline and dev server&nbsp;awesomeness</li>
-<li>Babel transpiler so you can use bleeding edge language&nbsp;features</li>
-<li>PostCSS preprocessor with autoprefixer&nbsp;support</li>
-</ul>
-<p>Offcourse this generator depends on <code>yo</code> being installed globally. Once you have that you can acquire it&nbsp;via:</p>
-<pre><code class="lang-bash">npm install -g generator-redux
-</code></pre>
-<p>Now that the generator is installed you can access it&nbsp;via:</p>
-<pre><code class="lang-bash">yo redux
-</code></pre>
-<p>This will give you a prompt asking you for an application name, description and a port.
-Description is used in package.json and the generated <span class="caps">README</span>.md.
-Port is to run your development server on (defaults to&nbsp;3000).</p>
-<p>To start the scaffold app&nbsp;use:</p>
-<pre><code class="lang-bash">npm run
-</code></pre>
-<p>When you wanna run it with the Redux-DevTools enabled&nbsp;use:</p>
-<pre><code class="lang-bash">DEBUG=<span class="literal">true</span> npm start
-</code></pre>
 
           </section>
         </article>
