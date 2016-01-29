@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="Daily updates about Javascript News, libraries and Weekly challenges">
+    <meta name="keywords" content="Javascript News, React, ES2015, Daily, Updates, Weekly Challenges">
+    <meta name="theme-color" content="#39424D">
+    <title>Preact - Daily Javascript
+    </title>
+    <link rel="alternate" href="http://daily-javascript.com/feed.xml" type="application/rss+xml" title="For your daily dose of Javascript libraries.">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic|Anonymous+Pro:400,700,400italic,700italic|Merriweather:400,700,300">
+    <link rel="stylesheet" href="/css/main.css">
+  </head>
+  <body class="article-detail">
+    <div class="social"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A//Daily-Javascript.com" target="_blank" class="social-btn facebook"></a><a href="https://twitter.com/home?status=Follow%20%40DailyJavascript%20for%20update%20of%20new%20Javascript%20libraries%20and%20challanges%0A%23Javascript" target="_blank" class="social-btn twitter"></a><a href="https://www.reddit.com/submit?url=http%3A//Daily-Javascript.com" target="_blank" class="social-btn reddit"></a><a href="https://plus.google.com/share?url=http%3A//Daily-Javascript.com" target="_blank" class="social-btn google"></a></div>
+    <header class="header">
+      <div class="content-wrap">
+        <h1>Preact</h1>
+        <p class="author">Written by <span class="author"><a href="mailto:ramon@ra-ge.net">Ramon Gebben</a></span>
+        </p>
+      </div>
+    </header>
+    <div id="content">
+      <div class="content-wrap">
+        <article class="article">
+          <section class="content"><p>Preact (GitHub: <a href="https://github.com/developit/preact">developit/preact</a>, License: <span class="caps">MIT</span>, npm:&nbsp;preact)</p>
+<p>Preact is an attempt to recreate the core value proposition of React using as little code as possible.
+It is far to say that the developers succeeded in this, since it’s only around 3kb when minified and&nbsp;gzipped.</p>
+<p>The library retains a large amount of compatibility with React. Note that only the <a href="https://facebook.github.io/react/blog/2015/10/07/react-v0.14.html#stateless-functional-components">stateless functional components</a> and <a href="https://facebook.github.io/react/docs/reusable-components.html#es6-classes"><span class="caps">ES6</span> Classes interface</a> are available for&nbsp;use.</p>
+<p>It already has a few add-ons such as <a href="http://git.io/preact-router">a router</a>, <a href="http://git.io/preact-render-to-string">an universal renderer</a> and <a href="https://github.com/developit/preact-compat">a compatibility layer for other React modules</a>.</p>
+<p>A full list of demo’s, add-ons and libraries can be found on the <a href="http://developit.github.io/preact/">Github Page</a>.</p>
+<p>Let’s take a look on how we work with&nbsp;it.</p>
+<pre><code class="lang-javascript"><span class="comment">// import the stuff we want to use</span>
+<span class="keyword">import</span> { h, render, Component } <span class="keyword">from</span> <span class="string">'preact'</span>;
+
+<span class="comment">// Tell Babel to transform <span class="caps">JSX</span> into h() calls:</span>
+<span class="comment">/** @jsx h */</span>
+
+<span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>{
+    render() {
+        <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="title">h1</span>&gt;</span>My Super Awesome App<span class="tag">&lt;/<span class="title">h1</span>&gt;</span>;</span>
+    }
+}
+
+<span class="comment">// render an instance of App into &lt;body&gt;:</span>
+render(<span class="xml"><span class="tag">&lt;<span class="title">App</span> /&gt;</span>, document.body);</span>
+</code></pre>
+<p>As you can see it’s very similar to React but only 3kb.
+It comes with the same set of lifecycle&nbsp;events:</p>
+<ul>
+<li>componentWillMount</li>
+<li>componentDidMount</li>
+<li>componentWillUnmount</li>
+<li>componentDidUnmount</li>
+<li>componentWillReceiveProps</li>
+<li>shouldComponentUpdate</li>
+<li>componentWillUpdate</li>
+<li>componentDidUpdate</li>
+</ul>
+<p>For more examples check the <a href="https://github.com/developit/preact-compat"><span class="caps">README</span></a> or the <a href="http://developit.github.io/preact/">Github Page</a> where you can find some amazing examples posted by the&nbsp;developer.</p>
+</section>
+          <div id="disqus_thread"></div>
+          <script>
+            (function() { var d = document, s = d.createElement('script'); s.src = '//daily-javascript.disqus.com/embed.js'; s.setAttribute('data-timestamp', +new Date()); (d.head || d.body).appendChild(s); })();
+            
+          </script>
+        </article>
+      </div>
+    </div>
+    <footer>
+      <script type="text/javascript">(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-68072930-1', 'auto');ga('send', 'pageview');</script>
+      <div class="content-wrap">
+        <div class="nav"><a href="/">« Full blog</a></div>
+        <section class="about">
+        </section>
+        <section class="copy">
+          <p>&copy; 2016 Ramon Gebben &mdash; powered by&nbsp;<a href="https://github.com/jnordberg/wintersmith">Wintersmith</a>
+          </p>
+        </section>
+      </div>
+    </footer>
+  </body>
+</html>

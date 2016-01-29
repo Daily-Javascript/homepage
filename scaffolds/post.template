@@ -1,0 +1,8 @@
+---
+title: '{{ properCase name }}'
+date: '{{ new Date() }}'
+author: ramon
+template: article.jade
+---
+
+{{ properCase name }} (GitHub: [{{ name }}](https://github.com/codemix/babel-plugin-typecheck), License: MIT, npm: babel-plugin-typecheck)

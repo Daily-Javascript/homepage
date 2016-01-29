@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="Daily updates about Javascript News, libraries and Weekly challenges">
+    <meta name="keywords" content="Javascript News, React, ES2015, Daily, Updates, Weekly Challenges">
+    <meta name="theme-color" content="#39424D">
+    <title>Pressure - Daily Javascript
+    </title>
+    <link rel="alternate" href="http://daily-javascript.com/feed.xml" type="application/rss+xml" title="For your daily dose of Javascript libraries.">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic|Anonymous+Pro:400,700,400italic,700italic|Merriweather:400,700,300">
+    <link rel="stylesheet" href="/css/main.css">
+  </head>
+  <body class="article-detail">
+    <div class="social"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A//Daily-Javascript.com" target="_blank" class="social-btn facebook"></a><a href="https://twitter.com/home?status=Follow%20%40DailyJavascript%20for%20update%20of%20new%20Javascript%20libraries%20and%20challanges%0A%23Javascript" target="_blank" class="social-btn twitter"></a><a href="https://www.reddit.com/submit?url=http%3A//Daily-Javascript.com" target="_blank" class="social-btn reddit"></a><a href="https://plus.google.com/share?url=http%3A//Daily-Javascript.com" target="_blank" class="social-btn google"></a></div>
+    <header class="header">
+      <div class="content-wrap">
+        <h1>Pressure</h1>
+        <p class="author">Written by <span class="author"><a href="mailto:ramon@ra-ge.net">Ramon Gebben</a></span>
+        </p>
+      </div>
+    </header>
+    <div id="content">
+      <div class="content-wrap">
+        <article class="article">
+          <section class="content"><p>Pressure (GitHub: <a href="https://github.com/yamartino/pressure">yamartino/pressure</a>, License: <span class="caps">MIT</span>, npm:&nbsp;pressure)</p>
+<p><img src="https://camo.githubusercontent.com/ff9a4c42ce2565fd1ef4e2b55ebcd0e9028d6961/687474703a2f2f79616d617274696e6f2e6769746875622e696f2f70726573737572652f70726573737572652e676966" style=" width: 100%;" /></p>
+<p>Pressure is a library which makes dealing with Apple’s “Force Touch” and “3D Touch” simpler.
+At the time of writing this update the support for Force Touch&nbsp;was:</p>
+<ul>
+<li>iPhone&nbsp;6s</li>
+<li>iPhone 6s&nbsp;Plus</li>
+<li>MacBook 2015<ul>
+<li>13” MacBook Pro&nbsp;2015</li>
+<li>15” MacBook Pro&nbsp;2015</li>
+</ul>
+</li>
+<li>Magic Trackpad&nbsp;2</li>
+</ul>
+<p>And sadly it only works inside Safari.
+The developer has let us know that when there are more devices or browsers to support, that it will also be supported by&nbsp;Pressure.</p>
+<blockquote>
+<p>Future devices and browser that support force will be added when they come&nbsp;out</p>
+</blockquote>
+<p>The library is constructed in a way that Force Touch for new Macs and 3D Touch for the new iPhone 6s and 6s Plus are all bundled under one roof with a simple <span class="caps">API</span>. By&nbsp;example:</p>
+<pre><code class="lang-javascript"><span class="keyword">var</span> Pressure = <span class="built_in">require</span>(<span class="string">'pressure'</span>);
+
+Pressure.set(<span class="string">'#myAwesomeElement'</span>, {
+    change: (force) =&gt; {
+        <span class="keyword">this</span>.innerHTML = force;
+    }
+});
+</code></pre>
+<p>What this will do is render the “amount” of pressure put on <code>#myAwesomeElement</code>.
+The rest of the <span class="caps">API</span> is just as straight forward.
+Use <code>end</code> to know when the user has stopped putting pressure on your awesome element.
+<code>startDeepPress</code> to know if the user is applying deep pressure and <code>endDeepPress</code> to know when it stopped.
+And as a curtesy there is <code>unsupported</code> which tell’s you if Force Touch is&nbsp;available.</p>
+<p>If you want to know more head over to the <a href="http://yamartino.github.io/pressure/">Github Page</a> and check the <a href="http://yamartino.github.io/pressure/">documentation</a>. The developer also implemented a very nice demo on that same&nbsp;page.</p>
+<p>Since it’s the first day of the week I would like to remind you to challenge yourself this week.
+This weeks challenge is to create a workshop about a topic you care about or want to research.
+The only way you can be sure of knowing something is when you can teach it to somebody&nbsp;else.</p>
+<p>Head over to the <a href="http://daily-javascript.com/challenges/workshopper/">Workshopper Challenge</a> section for more&nbsp;details.</p>
+</section>
+          <div id="disqus_thread"></div>
+          <script>
+            (function() { var d = document, s = d.createElement('script'); s.src = '//daily-javascript.disqus.com/embed.js'; s.setAttribute('data-timestamp', +new Date()); (d.head || d.body).appendChild(s); })();
+            
+          </script>
+        </article>
+      </div>
+    </div>
+    <footer>
+      <script type="text/javascript">(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-68072930-1', 'auto');ga('send', 'pageview');</script>
+      <div class="content-wrap">
+        <div class="nav"><a href="/">« Full blog</a></div>
+        <section class="about">
+        </section>
+        <section class="copy">
+          <p>&copy; 2016 Ramon Gebben &mdash; powered by&nbsp;<a href="https://github.com/jnordberg/wintersmith">Wintersmith</a>
+          </p>
+        </section>
+      </div>
+    </footer>
+  </body>
+</html>

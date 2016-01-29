@@ -36,6 +36,198 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
+            <p class="date"><span>17. December 2015</span></p>
+            <h2><a href="/articles/isomorphine/">isomorphine</a></h2>
+          </header>
+          <section class="content"><p>isomorphine (GitHub: <a href="https://github.com/d-oliveros/isomorphine">d-oliveros/isomorphine</a>, License: <span class="caps">MIT</span>, npm:&nbsp;isomorphine)</p>
+<p>Earlier this week I came across <a href="https://medium.com/@MarcFly1103/a-painkiller-for-isomorphic-data-fetching-c829ecc84274#.hqabvytiu">a post</a> by <a href="https://medium.com/@MarcFly1103">Marco Romero</a>. It was a highlight of isomorphine, which is a Webpack loader that lets you require and use server-side entities from the browser, as if you were in the server.
+The browser accesses a proxy of the server’s methods that are being required. The proxy is a mirror of the server-side entity and creates an <span class="caps">HTTP</span> request to Isomorphine’s endpoint within the&nbsp;server.</p>
+<p>Marco describes it as “A Painkiller for Isomorphic Data Fetching”. With which I totally agree. When developing Isomorphic/Universal apps data retrieval can be a real hassle and this little marble will take way a lot of that&nbsp;pain.</p>
+<p>Of course there are established libraries and techniques for solving this issue such as: <a href="https://facebook.github.io/relay/">Relay</a> and <a href="https://github.com/RickWong/react-transmit">React-Transmit</a>. The downside of these approaches is that you are doing a commitment to a framework which could collide with your business philosophy or you just do not like React. Don’t get me wrong I love React, but I can understand if some developer do not or need something more agnostic and now you&nbsp;can.</p>
+<p>I could go into the details of how you would use it but I doubt that it will be more complete than the great post Marco did. So I won’t and instead refer you to the <a href="https://medium.com/@MarcFly1103/a-painkiller-for-isomorphic-data-fetching-c829ecc84274#.hqabvytiu">post on medium</a> and for more extensive documentation check the <a href="https://github.com/d-oliveros/isomorphine"><span class="caps">README</span></a>.</p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
+            <p class="date"><span>15. December 2015</span></p>
+            <h2><a href="/articles/runjs/">Runjs</a></h2>
+          </header>
+          <section class="content"><p>Runjs (GitHub: <a href="https://github.com/pawelgalazka/runjs">pawelgalazka/runjs</a>, License: <span class="caps">MIT</span>, npm:&nbsp;runjs)</p>
+<p>Back in the days we used to do everything with Makefile’s now we have Gulpfile’s, Gruntfile’s and probably too much to put in a list.
+Now there is a new friend in the build family, Runjs, which is a minimalistic framework for executing build&nbsp;tasks.</p>
+<p>It’s <span class="caps">API</span> consists of just a few functions run, watch, generate and call. With these functions you would create a runfile.js.
+A simple runfile would look something like&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="keyword">import</span> {run} <span class="keyword">from</span> <span class="string">'runjs'</span>;
+
+<span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">showFiles</span>(<span class="params"></span>)</span>{
+    run(<span class="string">'ls'</span>);
+}
+
+<span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">mkdir</span>(<span class="params">name</span>)</span>{
+    run(<span class="string">`mkdir <span class="subst">${name}</span>`</span>);
+}
+</code></pre>
+<p>These tasks can be executed via the Runjs cli like&nbsp;so:</p>
+<pre><code class="lang-bash">run showFiles
+run mkdir someDirName
+</code></pre>
+<p>It can do everything from watching files to generating new files based on configured templates etc.
+What I like about this little framework is that it does not require plugins but just Node packages for extra functionality. This in contrast to Gulp where most plugins are wrapped as a gulp-plugin and using libraries that do not have this is as&nbsp;hassle.</p>
+<p>To help you get started this is what full runfile would look&nbsp;like:</p>
+<pre><code class="lang-javascript"><span class="keyword">import</span> {run, generate, watch} <span class="keyword">from</span> <span class="string">'runjs'</span>;
+<span class="keyword">import</span> fs <span class="keyword">from</span> <span class="string">'fs'</span>;
+<span class="keyword">import</span> crypto <span class="keyword">from</span> <span class="string">'crypto'</span>;
+<span class="keyword">import</span> {sleep} <span class="keyword">from</span> <span class="string">'sleep'</span>;
+<span class="keyword">import</span> express <span class="keyword">from</span> <span class="string">'express'</span>;
+
+<span class="keyword">let</span> task = {};
+
+<span class="function"><span class="keyword">function</span> <span class="title">timeHash</span>(<span class="params"></span>)</span>{
+    <span class="keyword">let</span> time = <span class="built_in">Date</span>.now();
+    <span class="keyword">return</span> crypto.createHash(<span class="string">'sha1'</span>).update(time.toString()).digest(<span class="string">'hex'</span>);
+}
+
+<span class="function"><span class="keyword">function</span> <span class="title">exist</span>(<span class="params">path</span>)</span>{
+    <span class="keyword">try</span> {
+        fs.accessSync(path, fs.F_OK);
+        <span class="keyword">return</span> <span class="literal">true</span>;
+    } <span class="keyword">catch</span>(e){
+        <span class="keyword">return</span> <span class="literal">false</span>;
+    }
+}
+
+task.echo = () =&gt; {
+    <span class="built_in">console</span>.log(<span class="string">'echo'</span>);
+};
+
+task.install = () =&gt; {
+    run(<span class="string">'npm install'</span>);
+    run(<span class="string">'jspm install'</span>);
+    task[<span class="string">'build:dev:configure'</span>](<span class="literal">true</span>);
+};
+
+task.uninstall = () =&gt; {
+    task[<span class="string">'clean:dist'</span>]();
+    task[<span class="string">'clean:cache'</span>]();
+    run(<span class="string">'rm -rf node_modules'</span>);
+};
+
+task.test = () =&gt; {
+    run(<span class="string">'mocha'</span>);
+};
+
+task[<span class="string">'clean:dist'</span>] = () =&gt; {
+    run(<span class="string">'rm -rf dist/*'</span>);
+};
+
+task.cmd = (...args) =&gt; {
+    run(args.join(<span class="string">' '</span>));
+};
+
+task[<span class="string">'build:dev:configure'</span>] = (force) =&gt; {
+    <span class="keyword">if</span>(!exist(<span class="string">'dist/react.bundle.js'</span>) || force){
+        run(<span class="string">'jspm bundle react + react-dom dist/react.bundle.js --inject'</span>);
+    }
+};
+
+task.watch = () =&gt; {
+    watch(<span class="string">'src/app.less'</span>, () =&gt; {
+        run(<span class="string">'lessc src/app.less dist/app.css --source-map'</span>);
+    });
+
+    watch(<span class="string">'src/*.jsx'</span>, (path) =&gt; {
+        <span class="keyword">let</span> outPath = path.split(<span class="string">'/'</span>);
+        outPath.shift();
+        outPath.unshift(<span class="string">'dist'</span>);
+        outPath = outPath.join(<span class="string">'/'</span>);
+        outPath = outPath.split(<span class="string">'.'</span>);
+        outPath.pop();
+        outPath.push(<span class="string">'js'</span>);
+        outPath = outPath.join(<span class="string">'.'</span>);
+        run(<span class="string">`babel <span class="subst">${path}</span> --out-file <span class="subst">${outPath}</span> --source-maps inline`</span>);
+    });
+};
+
+task[<span class="string">'build:template'</span>] = (src, dst, context) =&gt; {
+    generate(src, dst, context);
+};
+
+task[<span class="string">'build:dev'</span>] = () =&gt; {
+    run(<span class="string">'lessc src/app.less dist/app.css --source-map-map-inline'</span>);
+    run(<span class="string">'babel src --out-dir dist --source-maps inline'</span>);
+    run(<span class="string">'rm dist/config.js'</span>);
+    task[<span class="string">'build:template'</span>](<span class="string">'src/index.tpl.html'</span>, <span class="string">'dist/index.html'</span>, {compiled: <span class="literal">false</span>});
+    task[<span class="string">'build:dev:configure'</span>]();
+};
+
+task[<span class="string">'build:dist'</span>] = () =&gt; {
+    task[<span class="string">'clean:dist'</span>]();
+    <span class="keyword">let</span> fingerprint = timeHash();
+    task[<span class="string">'build:template'</span>](<span class="string">'src/index.tpl.html'</span>, <span class="string">'dist/index.html'</span>, {compiled: <span class="literal">true</span>, fingerprint: fingerprint});
+    run(<span class="string">`jspm bundle-sfx app dist/app.<span class="subst">${fingerprint}</span>.js --minify`</span>);
+    run(<span class="string">`cleancss src/app.css -o dist/app.<span class="subst">${fingerprint}</span>.css`</span>);
+};
+
+task[<span class="string">'serve:express'</span>] = (prod) =&gt; {
+    <span class="keyword">let</span> port = <span class="number">9090</span>;
+    <span class="keyword">let</span> app = express();
+    app.use(express.static(<span class="string">'dist'</span>, {etag: <span class="literal">true</span>}));
+    <span class="keyword">if</span>(!prod){
+        app.use(express.static(<span class="string">'src'</span>, {etag: <span class="literal">true</span>}));
+    }
+    <span class="keyword">let</span> server = app.listen(port);
+    <span class="built_in">console</span>.log(<span class="string">'Express static server listening at http://localhost:%s'</span>, port);
+};
+
+task[<span class="string">'serve:dev'</span>] = () =&gt; {
+    task[<span class="string">'build:dev'</span>]();
+    task[<span class="string">'serve:express'</span>]();
+    run(<span class="string">'live-reload --port 9091 dist'</span>, {<span class="keyword">async</span>: <span class="literal">true</span>});
+    sleep(<span class="number">1</span>);
+    run(<span class="string">'open -a "Google Chrome" http://localhost:9090'</span>);
+    task.watch();
+};
+
+task[<span class="string">'serve:dist'</span>] = () =&gt; {
+    task[<span class="string">'build:dist'</span>]();
+    task[<span class="string">'serve:express'</span>](<span class="literal">true</span>);
+    sleep(<span class="number">1</span>);
+    run(<span class="string">'open -a "Google Chrome" http://localhost:9090'</span>);
+};
+
+
+<span class="keyword">export</span> <span class="keyword">default</span> task;
+</code></pre>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
+            <p class="date"><span>14. December 2015</span></p>
+            <h2><a href="/articles/shem/">Shem</a></h2>
+          </header>
+          <section class="content"><p>Shem (GitHub: <a href="https://github.com/xixixao/Shem">xixixao/Shem</a>, License:&nbsp;<span class="caps">MIT</span>)</p>
+<p><img src="https://camo.githubusercontent.com/5bc68d66ae5953c7097414ac8a978271b11d7e2a/687474703a2f2f7368656d2e696f2f696d672f73637265656e2d73686f742d62696e6172797365617263682e706e67" alt="demo"></p>
+<p>Shem is a new “compiled-to-<span class="caps">JS</span>”, functional programming language which is statically typed.
+The semantics are based on <a href="/articles/shem/">Haskell</a> but the language evaluates strictly in a similar way to <a href="/articles/shem/">PureScript</a>. The syntax is S-expressions-based.
+This for allowing for a <a href="/articles/shem/"><span class="caps">LISP</span></a>-like macro system. Shem’s prelude includes a full-featured, highly-polymorphic collections library backed by <a href="/articles/shem/">ImmutableJS</a>.</p>
+<p>It comes with an amazing <span class="caps">IDE</span> called “<a href="https://github.com/xixixao/Golem">Golem</a>“. This <span class="caps">IDE</span> was designed with the language to make the integration seamlessly.
+The IDE is available at <a href="http://shem.io/">shem.io</a> to work with in the browser. There are plan’s to make it also accessible as a local <span class="caps">IDE</span> for developing applications native platform such as&nbsp;desktop.</p>
+<p>There is a video available of what I believe is one of the first presentations check it out to see Shem and Golem in&nbsp;action</p>
+<iframe width="100%" height="480" src="https://www.youtube.com/embed/HnZipJOan54" frameborder="0" allowfullscreen></iframe>
+
+<p>When this language interests you, you can go over to <span class="caps">IDE</span> and follow a small tutorial to give you a quick overview of how the language works.
+If you are familiar with languages such as LISP and Haskell you will feel right at&nbsp;home.</p>
+<p>The owner of the project <a href="https://github.com/xixixao">Michal Srb</a> also want you to know the&nbsp;following:</p>
+<blockquote>
+<p>I am providing code in this repository to you under an open source license. Because this is my personal repository, the license you receive to my code is from me and not from my employer&nbsp;(Facebook).</p>
+</blockquote>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
             <p class="date"><span>10. December 2015</span></p>
             <h2><a href="/articles/splitjs/">Split.js</a></h2>
           </header>
@@ -121,159 +313,6 @@ The library was optimized for exponents relatively close to zero, so the locatio
 <span class="built_in">console</span>.log(result);
 </code></pre>
 <p>It would log <code>1</code>, as we would&nbsp;suspect.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>08. December 2015</span></p>
-            <h2><a href="/articles/embedjs/">embed.js</a></h2>
-          </header>
-          <section class="content"><p>embed.js (GitHub: <a href="https://github.com/ritz078/embed.js/">ritz078/embed.js</a>, License: <span class="caps">MIT</span>, npm:&nbsp;embed-js)</p>
-<p>embed.js is plugin which analyses a string and automatically transform is to embeds emojis, media, maps, tweets, code and services.
-No more hassle on finding out how different services work, no more putting off features, because the intergration would be complicated. Just transform it using&nbsp;embed.js.</p>
-<p>So how do we use it? Imagine having a blog and the content of a post would look like&nbsp;this:</p>
-<pre><code>This is the blog we al know and :heart:. Url will become clickable like this http://daily-javascript.com.
-youtube videos. https://www.youtube.com/watch?v=bQRLVxZHKPs
-and embed codepen&#39;s like so: http://codepen.io/ThePizzaMan/pen/YwPOVd
-</code></pre><p>This would get transformed into a pretty post with all the services embedded. The only thing needed is a Google Auth key which you can get <a href="https://console.developers.google.com/">here</a></p>
-<p>Then if we want to transform a specific element we would do something like&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="function"><span class="keyword">function</span> <span class="title">embed</span>(<span class="params"></span>) </span>{
-    <span class="keyword">var</span> x = <span class="keyword">new</span> EmbedJS({
-        element: <span class="built_in">document</span>.getElementById(<span class="string">'rawText'</span>),
-        googleAuthKey: <span class="string">'&lt;googleAuthKey&gt;'</span>,
-        videoWidth: <span class="number">800</span>,
-        tweetOptions: {
-            hideMedia: <span class="literal">true</span>
-        },
-        codeEmbedHeight:<span class="number">600</span>
-    });
-    x.render();
-};
-</code></pre>
-<p>It supports emoji’s, Twitter, Gists, Codepen’s, photo’s, Spotify, Google Maps, Markdown and many more.
-For more options and list of supported services check the <a href="http://riteshkr.com/embed.js/">project page</a>.</p>
-<p>Here is a small CodePen demo of what it can do with the example code for you to try&nbsp;out.</p>
-<iframe height='268' scrolling='no' src='//codepen.io/ThePizzaMan/embed/YwPOVd/?height=268&theme-id=0&default-tab=result' frameborder='no' allowtransparency='true' allowfullscreen='true' style='width: 100%;'>See the Pen <a href='http://codepen.io/ThePizzaMan/pen/YwPOVd'>embed.js</a> by Ritesh Kumar (<a href='http://codepen.io/ritz078'>@ritz078</a>) on <a href='http://codepen.io'>CodePen</a>.
-</iframe>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>07. December 2015</span></p>
-            <h2><a href="/articles/iframe-resizer/">iFrame Resizer</a></h2>
-          </header>
-          <section class="content"><p>iFrame Resizer (GitHub: <a href="https://github.com/davidjbradshaw/iFrame-resizer">davidjbradshaw/iFrame-resizer</a>, License: <span class="caps">MIT</span>, npm:&nbsp;iframe-resizer)</p>
-<p><a href="https://github.com/davidjbradshaw">David Bradshaw</a> sent in iFrame-resizer. Which is a library to make working with the <code>&lt;iframe&gt;</code> tag a lot easier.
-It hides a lot of the stuff you need to change sizes, authorize domains or messaging. I suspect that this project started out as a simple library to help with resizing of an iframe which grew to a full fletched iframe utility&nbsp;belt.</p>
-<p>So let’s take a look how it works. The package consists of two files. The first one needs to be included on the <em>parent</em> page and the second one need to be within all the <em>child</em> frames. The child-script does not do anything unless when called by the parent. So a typical setup would look something like&nbsp;this:</p>
-<pre><code class="lang-html"><span class="doctype">&lt;!<span class="caps">DOCTYPE</span> html&gt;</span>
-<span class="tag">&lt;<span class="title">html</span>&gt;</span>
-<span class="tag">&lt;<span class="title">head</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">title</span>&gt;</span>Parent page<span class="tag">&lt;/<span class="title">title</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">head</span>&gt;</span>
-<span class="tag">&lt;<span class="title">body</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">h1</span>&gt;</span>This is the parent page<span class="tag">&lt;/<span class="title">h1</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">iframe</span> <span class="attribute">src</span>=<span class="value">"http://example.com/child-page"</span> <span class="attribute">id</span>=<span class="value">"my-frame"</span> <span class="attribute">scrolling</span>=<span class="value">"no"</span>&gt;</span><span class="tag">&lt;/<span class="title">iframe</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">body</span>&gt;</span>
-
-<span class="tag">&lt;<span class="title">script</span> <span class="attribute">scr</span>=<span class="value">"/path/to/iframeResizer.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
-
-<span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"/path/to/your/script.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">html</span>&gt;</span>
-</code></pre>
-<pre><code class="lang-html"><span class="doctype">&lt;!<span class="caps">DOCTYPE</span> html&gt;</span>
-<span class="tag">&lt;<span class="title">html</span>&gt;</span>
-<span class="tag">&lt;<span class="title">head</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">title</span>&gt;</span>Child page<span class="tag">&lt;/<span class="title">title</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">head</span>&gt;</span>
-<span class="tag">&lt;<span class="title">body</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">h1</span>&gt;</span>This is the child page<span class="tag">&lt;/<span class="title">h1</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">body</span>&gt;</span>
-
-<span class="tag">&lt;<span class="title">script</span> <span class="attribute">scr</span>=<span class="value">"/path/to/iframeResizer.contentWindow.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">html</span>&gt;</span>
-</code></pre>
-<p>Then to active auto-resize for instance, we can work with it from our script like&nbsp;so:</p>
-<pre><code class="lang-javascript"><span class="keyword">var</span> options = {
-    log: <span class="literal">true</span>,
-    autoResize: <span class="literal">true</span>
-}
-iFrameResize( options, <span class="string">'#my-frame'</span> );
-</code></pre>
-<p>As said before this is only the basic usage for more extensive usage you should check the <a href="http://davidjbradshaw.github.io/iframe-resizer">project page</a>.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>03. December 2015</span></p>
-            <h2><a href="/articles/matreshka/">Matreshka</a></h2>
-          </header>
-          <section class="content"><p>Matreshka (GitHub: <a href="https://github.com/matreshkajs/matreshka">matreshkajs/matreshka</a>, License: <span class="caps">MIT</span>, npm: matreshka, bower:&nbsp;matreshka)</p>
-<p><img src="https://camo.githubusercontent.com/27ecdbde13a34ee2555f36ba3e3ee9363413d6f0/687474703a2f2f6d6174726573686b612e696f2f696d672f6d6b352d6c6f676f5f66756c6c2d766572742e737667" alt="http://matreshka.io/"></p>
-<p>Matreshka is small but powerful client-side framework that allows you to build single page applications.
-It describes it self as a event driven framework, which means that you put listeners on objects and elements to which you can react with configured handler functions.
-Besides it’s event system it comes with features such as: two-way data-binding, custom objects and custom&nbsp;arrays.</p>
-<p>Let’s say we would be making a simple <span class="caps">SPA</span> then this would be our markup would look something like&nbsp;this</p>
-<pre><code class="lang-html"><span class="doctype">&lt;!<span class="caps">DOCTYPE</span> html&gt;</span>
-<span class="tag">&lt;<span class="title">html</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">head</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">title</span>&gt;</span>My first Matreshka application<span class="tag">&lt;/<span class="title">title</span>&gt;</span>
-    <span class="tag">&lt;/<span class="title">head</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">body</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"text"</span> <span class="attribute">class</span>=<span class="value">"my-input"</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"my-output"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"http://cdn.jsdelivr.net/matreshka/latest/matreshka.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">script</span>&gt;</span><span class="undefined">
-
-        </span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
-    <span class="tag">&lt;/<span class="title">body</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">html</span>&gt;</span>
-</code></pre>
-<p>As you can see we import the Matreshka via a script tag but it’s also possible to install via npm.
-Nothing new here right? So let’s put some code in our <code>script</code> tag. Let’s make an “class” called&nbsp;Application:</p>
-<pre><code class="lang-javascript"><span class="keyword">var</span> Application = Class({
-    <span class="string">'extends'</span>: Matreshka,
-    constructor: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
-
-        <span class="comment">// bind the property x and the text field</span>
-        <span class="keyword">this</span>.bindNode(<span class="string">'x'</span>, <span class="string">'.my-input'</span>);
-
-        <span class="comment">// bind the property x and the ".my-output" block</span>
-        <span class="keyword">this</span>.bindNode(<span class="string">'x'</span>, <span class="string">'.my-output'</span>, {
-            setValue: <span class="function"><span class="keyword">function</span>(<span class="params">v</span>) </span>{
-                <span class="keyword">this</span>.innerHTML = v;
-            }
-        });
-        <span class="keyword">this</span>.on(<span class="string">'change:x'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
-            <span class="built_in">console</span>.log(<span class="string">'x changed to '</span> + <span class="keyword">this</span>.x);
-        });
-    }
-});
-
-<span class="keyword">var</span> app = <span class="keyword">new</span> Application();
-</code></pre>
-<p>Or the same code in&nbsp;<span class="caps">ES2015</span>:</p>
-<pre><code class="lang-javascript"><span class="class"><span class="keyword">class</span> <span class="title">Application</span> <span class="keyword">extends</span> <span class="title">Matreshka</span> </span>{
-    constructor() {
-        <span class="keyword">this</span>.bindNode(<span class="string">'x'</span>, <span class="string">'.my-input'</span>);
-        <span class="keyword">this</span>.bindNode(<span class="string">'x'</span>, <span class="string">'.my-output'</span>, {
-            setValue(v) {
-                <span class="keyword">this</span>.innerHTML = v;
-            }
-        });
-        <span class="keyword">this</span>.on(<span class="string">'change:x'</span>, () =&gt;
-            <span class="built_in">console</span>.log(<span class="string">'x changed to '</span> + <span class="keyword">this</span>.x));
-    }
-}
-</code></pre>
-<p>Now when something happens we can change the value <code>x</code> like&nbsp;this:</p>
-<pre><code class="lang-javascript">app.x = <span class="string">'Hello Daily Javascript'</span>;
-</code></pre>
-<p>This will fill the <code>input</code> and the <code>#output</code> elements with the string <code>&#39;Hello Daily Javascript&#39;</code>.</p>
-<p>Nowadays we are not impressed by data-binding any more. It comes with a lot more, but for that I would refer you to the <a href="http://matreshka.io/">full documentation</a>. The <span class="caps">API</span> is very small and easy to reason about, so if you have a new POC project coming up I would suggest you give it a&nbsp;try.</p>
 
           </section>
         </article>
