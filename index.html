@@ -36,6 +36,157 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
+            <p class="date"><span>27. January 2016</span></p>
+            <h2><a href="/articles/marsdb/">MarsDB</a></h2>
+          </header>
+          <section class="content"><p>MarsDB (GitHub: <a href="https://github.com/c58/marsdb">c58/marsdb</a>, License: <span class="caps">MIT</span>, npm:&nbsp;mardb)</p>
+<p>MarsDB is a very lightweight client-side database.
+It is inspired by a Meteor’s <a href="https://atmospherejs.com/meteor/minimongo">minimongo</a> matching/modifying implementation.
+The library has a Promise based interface and can be backed with any storage implementation such&nbsp;as:</p>
+<ul>
+<li>In-memory storage (built-in&nbsp;default)</li>
+<li><a href="https://github.com/c58/marsdb-localforage">LocalForage storage</a> – fastest in-browser storage (InexedDB, WebSQL and fallback to&nbsp;localStorage)</li>
+<li><a href="https://github.com/c58/marsdb-localstorage">LocalStorage storage</a> – not recommended, better prefer&nbsp;LocalForage</li>
+<li><a href="https://github.com/c58/marsdb-levelup">LevelUP storage</a> – lightweight server-less Node.js&nbsp;storage</li>
+<li><a href="https://github.com/c58/marsdb-mongo">MongoDB wrapper</a> – use MarsDB for comfortable work with&nbsp;MongoDB</li>
+</ul>
+<p>Besides all of this MarsDB supports observable cursors which is very nice addition to the toolbelt.
+The database supports any kind of find/update/remove operations that Meteor’s minimongo would also support.
+When you need a reference on how theses queries work go to the Meteor docs for supported <a href="https://atmospherejs.com/meteor/minimongo">query/modifier operations</a>.</p>
+<p>Let’s first create a collection of <code>posts</code>.</p>
+<pre><code class="lang-javascript"><span class="keyword">import</span> Collection <span class="keyword">from</span> <span class="string">'marsdb'</span>;
+<span class="keyword">import</span> LocalStorageManager <span class="keyword">from</span> <span class="string">'marsdb-localstorage'</span>;
+
+<span class="comment">// Setup different id generator and storage managers</span>
+<span class="comment">// Default storage is in-memory</span>
+Collection.defaultStorageManager(LocalStorageManager);
+Collection.defaultIdGenerator(() =&gt; {
+  <span class="keyword">return</span> {
+    value: <span class="built_in">Math</span>.random(),
+    seed: <span class="number">0</span>,
+  };
+});
+
+<span class="keyword">const</span> posts = <span class="keyword">new</span> Collection(<span class="string">'posts'</span>);
+</code></pre>
+<p>Now we can populate it with some&nbsp;data:</p>
+<pre><code class="lang-javascript"><span class="comment">// To insert one</span>
+posts.insert({text: <span class="string">'MarsDB is awesome'</span>}).then(docId =&gt; {
+  <span class="comment">// Invoked after persisting document</span>
+});
+
+<span class="comment">// To insert a bulk</span>
+posts.insertAll(
+  {text: <span class="string">'MarsDB'</span>},
+  {text: <span class="string">'is'</span>},
+  {text: <span class="string">'awesome'</span>}
+).then(docsIds =&gt; {
+    <span class="built_in">console</span>.log(<span class="string">'---&gt;&gt;'</span>, docsIds);
+});
+</code></pre>
+<p>And we can retrieve one of the saved item like&nbsp;so:</p>
+<pre><code class="lang-javascript">posts.find({text: <span class="string">'MarsDB'</span>})
+  .sort([<span class="string">'createdAt'</span>])
+  .then(docs =&gt; {
+      <span class="built_in">console</span>.log(<span class="string">'--&gt;&gt;'</span>, docs);
+  });
+</code></pre>
+<p>For more in depth examples and documentation check the <a href="https://github.com/c58/marsdb"><span class="caps">README</span> file</a>.</p>
+<p>A small reminder to challenge yourself. This week we will be focusing on transferring knowledge using the <a href="http://daily-javascript.com/articles/workshopper">workshopper framework</a> head over to the <a href="http://daily-javascript.com/challenges/workshopper">challenge page</a> for more&nbsp;details.</p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
+            <p class="date"><span>26. January 2016</span></p>
+            <h2><a href="/articles/preact/">Preact</a></h2>
+          </header>
+          <section class="content"><p>Preact (GitHub: <a href="https://github.com/developit/preact">developit/preact</a>, License: <span class="caps">MIT</span>, npm:&nbsp;preact)</p>
+<p>Preact is an attempt to recreate the core value proposition of React using as little code as possible.
+It is far to say that the developers succeeded in this, since it’s only around 3kb when minified and&nbsp;gzipped.</p>
+<p>The library retains a large amount of compatibility with React. Note that only the <a href="https://facebook.github.io/react/blog/2015/10/07/react-v0.14.html#stateless-functional-components">stateless functional components</a> and <a href="https://facebook.github.io/react/docs/reusable-components.html#es6-classes"><span class="caps">ES6</span> Classes interface</a> are available for&nbsp;use.</p>
+<p>It already has a few add-ons such as <a href="http://git.io/preact-router">a router</a>, <a href="http://git.io/preact-render-to-string">an universal renderer</a> and <a href="https://github.com/developit/preact-compat">a compatibility layer for other React modules</a>.</p>
+<p>A full list of demo’s, add-ons and libraries can be found on the <a href="http://developit.github.io/preact/">Github Page</a>.</p>
+<p>Let’s take a look on how we work with&nbsp;it.</p>
+<pre><code class="lang-javascript"><span class="comment">// import the stuff we want to use</span>
+<span class="keyword">import</span> { h, render, Component } <span class="keyword">from</span> <span class="string">'preact'</span>;
+
+<span class="comment">// Tell Babel to transform <span class="caps">JSX</span> into h() calls:</span>
+<span class="comment">/** @jsx h */</span>
+
+<span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>{
+    render() {
+        <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="title">h1</span>&gt;</span>My Super Awesome App<span class="tag">&lt;/<span class="title">h1</span>&gt;</span>;</span>
+    }
+}
+
+<span class="comment">// render an instance of App into &lt;body&gt;:</span>
+render(<span class="xml"><span class="tag">&lt;<span class="title">App</span> /&gt;</span>, document.body);</span>
+</code></pre>
+<p>As you can see it’s very similar to React but only 3kb.
+It comes with the same set of lifecycle&nbsp;events:</p>
+<ul>
+<li>componentWillMount</li>
+<li>componentDidMount</li>
+<li>componentWillUnmount</li>
+<li>componentDidUnmount</li>
+<li>componentWillReceiveProps</li>
+<li>shouldComponentUpdate</li>
+<li>componentWillUpdate</li>
+<li>componentDidUpdate</li>
+</ul>
+<p>For more examples check the <a href="https://github.com/developit/preact-compat"><span class="caps">README</span></a> or the <a href="http://developit.github.io/preact/">Github Page</a> where you can find some amazing examples posted by the&nbsp;developer.</p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
+            <p class="date"><span>25. January 2016</span></p>
+            <h2><a href="/articles/pressure/">Pressure</a></h2>
+          </header>
+          <section class="content"><p>Pressure (GitHub: <a href="https://github.com/yamartino/pressure">yamartino/pressure</a>, License: <span class="caps">MIT</span>, npm:&nbsp;pressure)</p>
+<p><img src="https://camo.githubusercontent.com/ff9a4c42ce2565fd1ef4e2b55ebcd0e9028d6961/687474703a2f2f79616d617274696e6f2e6769746875622e696f2f70726573737572652f70726573737572652e676966" style=" width: 100%;" /></p>
+<p>Pressure is a library which makes dealing with Apple’s “Force Touch” and “3D Touch” simpler.
+At the time of writing this update the support for Force Touch&nbsp;was:</p>
+<ul>
+<li>iPhone&nbsp;6s</li>
+<li>iPhone 6s&nbsp;Plus</li>
+<li>MacBook 2015<ul>
+<li>13” MacBook Pro&nbsp;2015</li>
+<li>15” MacBook Pro&nbsp;2015</li>
+</ul>
+</li>
+<li>Magic Trackpad&nbsp;2</li>
+</ul>
+<p>And sadly it only works inside Safari.
+The developer has let us know that when there are more devices or browsers to support, that it will also be supported by&nbsp;Pressure.</p>
+<blockquote>
+<p>Future devices and browser that support force will be added when they come&nbsp;out</p>
+</blockquote>
+<p>The library is constructed in a way that Force Touch for new Macs and 3D Touch for the new iPhone 6s and 6s Plus are all bundled under one roof with a simple <span class="caps">API</span>. By&nbsp;example:</p>
+<pre><code class="lang-javascript"><span class="keyword">var</span> Pressure = <span class="built_in">require</span>(<span class="string">'pressure'</span>);
+
+Pressure.set(<span class="string">'#myAwesomeElement'</span>, {
+    change: (force) =&gt; {
+        <span class="keyword">this</span>.innerHTML = force;
+    }
+});
+</code></pre>
+<p>What this will do is render the “amount” of pressure put on <code>#myAwesomeElement</code>.
+The rest of the <span class="caps">API</span> is just as straight forward.
+Use <code>end</code> to know when the user has stopped putting pressure on your awesome element.
+<code>startDeepPress</code> to know if the user is applying deep pressure and <code>endDeepPress</code> to know when it stopped.
+And as a curtesy there is <code>unsupported</code> which tell’s you if Force Touch is&nbsp;available.</p>
+<p>If you want to know more head over to the <a href="http://yamartino.github.io/pressure/">Github Page</a> and check the <a href="http://yamartino.github.io/pressure/">documentation</a>. The developer also implemented a very nice demo on that same&nbsp;page.</p>
+<p>Since it’s the first day of the week I would like to remind you to challenge yourself this week.
+This weeks challenge is to create a workshop about a topic you care about or want to research.
+The only way you can be sure of knowing something is when you can teach it to somebody&nbsp;else.</p>
+<p>Head over to the <a href="http://daily-javascript.com/challenges/workshopper/">Workshopper Challenge</a> section for more&nbsp;details.</p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
             <p class="date"><span>22. January 2016</span></p>
             <h2><a href="/articles/weekly-challenge-2016-04/">Weekly Challenge - Workshopper</a></h2>
           </header>
@@ -66,62 +217,6 @@ Mantra achieves this by unit testing every part of the app, while following stan
 <p>There is a very extensive spec of how a Mantra application would work which can be found <a href="https://kadirahq.github.io/mantra/">here</a>.
 I really like this approach, ‘cause it combines the best parts of all the new and shiny stuff out&nbsp;there.</p>
 <p>Today is the last day you can submit your solution for the <a href="http://daily-javascript.com/challenges/tic-tac-toe/">weekly challenge</a>. Next weeks challenge will be up tomorrow so make sure you check back then to see what I have in store for you&nbsp;next.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>20. January 2016</span></p>
-            <h2><a href="/articles/workshopper/">Workshopper</a></h2>
-          </header>
-          <section class="content"><p>Workshopper (GitHub: <a href="https://github.com/workshopper/workshopper">workshopper/workshopper</a>, License: <span class="caps">MIT</span>, npm:&nbsp;workshopper)</p>
-<p>Workshopper is a terminal workshop runner framework. It gives you the tools to create workshops and exercises which can be run from any terminal.
-Which is a great thing if you are teaching people how are still scared of the terminal. This way they will practice their programming skills and develop a sense of comfort on the command&nbsp;line.</p>
-<p>Workshopper is being used by code schools like “<a href="https://github.com/workshopper/learnyounode">Learn You Node</a>“ and <a href="http://nodeschool.io/">Nodeschool.io</a>. I came across a Hapi.js exercise as well, which made me think why not have an interactive introduction to your&nbsp;framework.</p>
-<p>The framework is essentially a test-runner with a very fancy terminal <span class="caps">UI</span>.
-The <code>workshopper</code> package is largely concerned with the menu system and some basic command-line parsing but much of the work for executing the exercise validation is handled by <a href="http://github.com/rvagg/workshopper-exercise">workshopper-exercise</a>.</p>
-<p>I really like this project because it’s a nice and quick way to really get into how something works. For instance <a href="https://github.com/timoxley/functional-javascript-workshop">this workshop on functional Javascript</a>.</p>
-<p>If you did not submit you solution to this weeks challenge, creating Tic Tac Toe, I’d advice you to get a move on it because there is only day remaining. If you need to refresh you memory on the challenge head over to <a href="http://daily-javascript.com/challenges/tic-tac-toe/">the challenge page</a>.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>18. January 2016</span></p>
-            <h2><a href="/articles/nodal/">Nodal</a></h2>
-          </header>
-          <section class="content"><p>Nodal (GitHub: <a href="https://github.com/keithwhor/nodal">keithwhor/nodal</a>, License: <span class="caps">MIT</span>, npm:&nbsp;nodal)</p>
-<p>Nodal is a web server and <span class="caps">API</span> framework for Node.js. It is built upon an ideology of a robust, scalable microservice architecture.
-It borrows a lot from <a href="http://rubyonrails.org/">Rails</a> and <a href="https://www.djangoproject.com/">Django</a> so working with the framework made me feel right at home since I used to do a lot of Rails.
-With familiar commands such as: <code>nodal db:migrate</code>, <code>nodal g:controller</code> et&nbsp;cetra.</p>
-<p>One of the features that really blew me away was how a scaffold <span class="caps">CRUD</span> handles query parameters.
-It uses the <code>.where(this.params.query)</code> where the query params will be applied as a filter.
-Which uses a very similar syntax as the <a href="https://docs.djangoproject.com/en/1.9/topics/db/queries/#retrieving-specific-objects-with-filters">filter methods in Django’s <span class="caps">ORM</span></a>.</p>
-<p>The framework is configured to use <a href="http://www.postgresql.org/">Postgresql</a> as a database, which is a great idea in my opinion.
-Especially since the framework tries to aim at developer who want a little more guidance in their development process to get familiar with Node.js and the Javascript eco system in&nbsp;general.</p>
-<p>The developer <a href="https://youtu.be/IxBXkFbUqtk">posted a screencast</a> of him setting up a very simple twitter clone which I recommend you&nbsp;watch.</p>
-<iframe width="100%" height="480" src="https://www.youtube.com/embed/IxBXkFbUqtk" frameborder="0" allowfullscreen></iframe>
-
-<p>And there will be more screencast’s in the future. This will definitely be part of the next <span class="caps">API</span> I’m gonna&nbsp;build.</p>
-<p>Don’t forget to challenge your self this week. There is still a challenge running which is <a href="http://daily-javascript.com/challenges/tic-tac-toe/">Make Tic Tac Toe in Javascript</a> but make sure you submit it before Friday is you want it to be shown in the weekly&nbsp;results.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>15. January 2016</span></p>
-            <h2><a href="/articles/weekly-challenge-2016-03/">Weekly Challenge - Tic tac toe</a></h2>
-          </header>
-          <section class="content"><p><img style="width: 100%; display:block;" src="http://i.imgur.com/AMfBBzl.png" ></p>
-<p>First of all here is a link to <a href="http://daily-javascript.com/challenges/mandelbrot/results">last weeks results</a> sadly the challenge was a bit to hard, so I heard in some direct feedback. So I will switch it up this week.
-No more fractals this time. This weeks challenge is create a Tic Tac Toe game using&nbsp;Javascript.</p>
-<p>You can go two ways for this&nbsp;implementation.</p>
-<p>The first one would be very naive. Simply switch between 2 users, the first user would be X the other would be O.
-The program should be able to detect when one of the players has won or if it is a&nbsp;tie.</p>
-<p>If you are feeling very confident implement <span class="caps">AI</span> for player O. Same rules would apply.
-Be mindful in your implementation because next week there will come some additional&nbsp;requirements.</p>
-<p>Again I’ve created <a href="http://codepen.io/DailyJavascript/pen/ZQXBaK">a Codepen for you to start with</a>.
-Please submit your solution to this <a href="http://goo.gl/forms/vM1b4oUXC6">Google Form</a> and happy&nbsp;coding.</p>
 
           </section>
         </article>

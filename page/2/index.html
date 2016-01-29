@@ -36,6 +36,62 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
+            <p class="date"><span>20. January 2016</span></p>
+            <h2><a href="/articles/workshopper/">Workshopper</a></h2>
+          </header>
+          <section class="content"><p>Workshopper (GitHub: <a href="https://github.com/workshopper/workshopper">workshopper/workshopper</a>, License: <span class="caps">MIT</span>, npm:&nbsp;workshopper)</p>
+<p>Workshopper is a terminal workshop runner framework. It gives you the tools to create workshops and exercises which can be run from any terminal.
+Which is a great thing if you are teaching people how are still scared of the terminal. This way they will practice their programming skills and develop a sense of comfort on the command&nbsp;line.</p>
+<p>Workshopper is being used by code schools like “<a href="https://github.com/workshopper/learnyounode">Learn You Node</a>“ and <a href="http://nodeschool.io/">Nodeschool.io</a>. I came across a Hapi.js exercise as well, which made me think why not have an interactive introduction to your&nbsp;framework.</p>
+<p>The framework is essentially a test-runner with a very fancy terminal <span class="caps">UI</span>.
+The <code>workshopper</code> package is largely concerned with the menu system and some basic command-line parsing but much of the work for executing the exercise validation is handled by <a href="http://github.com/rvagg/workshopper-exercise">workshopper-exercise</a>.</p>
+<p>I really like this project because it’s a nice and quick way to really get into how something works. For instance <a href="https://github.com/timoxley/functional-javascript-workshop">this workshop on functional Javascript</a>.</p>
+<p>If you did not submit you solution to this weeks challenge, creating Tic Tac Toe, I’d advice you to get a move on it because there is only day remaining. If you need to refresh you memory on the challenge head over to <a href="http://daily-javascript.com/challenges/tic-tac-toe/">the challenge page</a>.</p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
+            <p class="date"><span>18. January 2016</span></p>
+            <h2><a href="/articles/nodal/">Nodal</a></h2>
+          </header>
+          <section class="content"><p>Nodal (GitHub: <a href="https://github.com/keithwhor/nodal">keithwhor/nodal</a>, License: <span class="caps">MIT</span>, npm:&nbsp;nodal)</p>
+<p>Nodal is a web server and <span class="caps">API</span> framework for Node.js. It is built upon an ideology of a robust, scalable microservice architecture.
+It borrows a lot from <a href="http://rubyonrails.org/">Rails</a> and <a href="https://www.djangoproject.com/">Django</a> so working with the framework made me feel right at home since I used to do a lot of Rails.
+With familiar commands such as: <code>nodal db:migrate</code>, <code>nodal g:controller</code> et&nbsp;cetra.</p>
+<p>One of the features that really blew me away was how a scaffold <span class="caps">CRUD</span> handles query parameters.
+It uses the <code>.where(this.params.query)</code> where the query params will be applied as a filter.
+Which uses a very similar syntax as the <a href="https://docs.djangoproject.com/en/1.9/topics/db/queries/#retrieving-specific-objects-with-filters">filter methods in Django’s <span class="caps">ORM</span></a>.</p>
+<p>The framework is configured to use <a href="http://www.postgresql.org/">Postgresql</a> as a database, which is a great idea in my opinion.
+Especially since the framework tries to aim at developer who want a little more guidance in their development process to get familiar with Node.js and the Javascript eco system in&nbsp;general.</p>
+<p>The developer <a href="https://youtu.be/IxBXkFbUqtk">posted a screencast</a> of him setting up a very simple twitter clone which I recommend you&nbsp;watch.</p>
+<iframe width="100%" height="480" src="https://www.youtube.com/embed/IxBXkFbUqtk" frameborder="0" allowfullscreen></iframe>
+
+<p>And there will be more screencast’s in the future. This will definitely be part of the next <span class="caps">API</span> I’m gonna&nbsp;build.</p>
+<p>Don’t forget to challenge your self this week. There is still a challenge running which is <a href="http://daily-javascript.com/challenges/tic-tac-toe/">Make Tic Tac Toe in Javascript</a> but make sure you submit it before Friday is you want it to be shown in the weekly&nbsp;results.</p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
+            <p class="date"><span>15. January 2016</span></p>
+            <h2><a href="/articles/weekly-challenge-2016-03/">Weekly Challenge - Tic tac toe</a></h2>
+          </header>
+          <section class="content"><p><img style="width: 100%; display:block;" src="http://i.imgur.com/AMfBBzl.png" ></p>
+<p>First of all here is a link to <a href="http://daily-javascript.com/challenges/mandelbrot/results">last weeks results</a> sadly the challenge was a bit to hard, so I heard in some direct feedback. So I will switch it up this week.
+No more fractals this time. This weeks challenge is create a Tic Tac Toe game using&nbsp;Javascript.</p>
+<p>You can go two ways for this&nbsp;implementation.</p>
+<p>The first one would be very naive. Simply switch between 2 users, the first user would be X the other would be O.
+The program should be able to detect when one of the players has won or if it is a&nbsp;tie.</p>
+<p>If you are feeling very confident implement <span class="caps">AI</span> for player O. Same rules would apply.
+Be mindful in your implementation because next week there will come some additional&nbsp;requirements.</p>
+<p>Again I’ve created <a href="http://codepen.io/DailyJavascript/pen/ZQXBaK">a Codepen for you to start with</a>.
+Please submit your solution to this <a href="http://goo.gl/forms/vM1b4oUXC6">Google Form</a> and happy&nbsp;coding.</p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
             <p class="date"><span>14. January 2016</span></p>
             <h2><a href="/articles/chakracore-and-10-years-jquery/">ChakraCore and 10 years of jQuery</a></h2>
           </header>
@@ -99,111 +155,6 @@ There are several features you can test with this library, here is a list of&nbs
 }
 </code></pre>
 <p>If you want to see it in action head over to the <a href="http://featurejs.com/">project page</a> where the developer has implemented a nice&nbsp;demo.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>12. January 2016</span></p>
-            <h2><a href="/articles/catbee/">Catbee</a></h2>
-          </header>
-          <section class="content"><p>Catbee (GitHub: <a href="https://github.com/markuplab/catbee">markuplab/catbee</a>, License: <span class="caps">MIT</span>, npm:&nbsp;little-loader)</p>
-<p><p style="text-align: center; display: block;">
-<img src="https://raw.githubusercontent.com/markuplab/catbee-todomvc/master/logo.png" style="max-width: 300px; width: 100%;">
-</p>
-Catbee is an high level isomorphic framework inspired and based on best practices from <a href="https://github.com/catberry/catberry">Catberry</a>, <a href="https://github.com/Yomguithereal/baobab">Baobab</a> and <a href="https://github.com/cerebral/cerebral">Cerebral</a>.</p>
-<p>Catbee is Catberry little brother. Unlike Catberry, Catbee use “Single State Tree” conception.
-All state mutations run in signals, and powered by the <a href="https://github.com/markuplab/appstate">AppState</a>&nbsp;module.</p>
-<p>All data focused in Baobab tree, instead of distributed flux stores. The tree contains the full application state, and it has 2 interfaces: modify <span class="caps">API</span> also known as “Signals”, and read API also known as&nbsp;“Watchers”.</p>
-<p>Signal is the only way to modify state tree. It looks like middleware, but it is way more flexible and adopted for sync/async operations.
-If you want to learn more about signals, checkout <a href="http://cerebraljs.com/">this</a> and <a href="https://github.com/markuplab/appstate">this</a>.
-The developers recommend running signal on each user action, when you need change application state, and also signal automatically run on every url&nbsp;change.</p>
-<p>Signals use composition conception, and contains an array of independent functions. It’s very simple way to maintain big codebase. Here is an example of a&nbsp;Signal:</p>
-<pre><code class="lang-javascript"><span class="keyword">let</span> signal = [
-  setLoading, <span class="comment">// Sync function</span>
-  [ <span class="comment">// Here we run parallel functions</span>
-    getUser, { <span class="comment">// Async function with 2 outputs success and error</span>
-      success: [setUser], <span class="comment">// Run if we call output.success in getUser</span>
-      error: [setUserError] <span class="comment">// Run if we call output.error in getUser</span>
-    },
-    getNews, { <span class="comment">// It's function will run parallel with getUser, like Promise.all</span>
-      loaded: [setNews],
-      error: [setNewsError]
-    }
-  ],
-  unsetLoading
-];
-</code></pre>
-<p>Components can access data by <a href="https://github.com/Yomguithereal/baobab#specialized-getters">watchers</a>. There are two main reasons you should use watchers. You’ll need data context for template rendering, and you’ll also need state update events to rerender your component.
-You do not need bind watchers manually, it’s inside of&nbsp;Catbee.</p>
-<pre><code class="lang-javascript"><span class="comment">// Here we use simple Baobab.watch <span class="caps">API</span></span>
-<span class="built_in">module</span>.exports = {
-  news: [<span class="string">'news'</span>, <span class="string">'data'</span>],
-  isVisible: [<span class="string">'news'</span>, <span class="string">'UIState'</span>, <span class="string">'isVisible'</span>]
-};
-
-<span class="comment">// You can also use Baobab.watch dynamicly</span>
-<span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span> (<span class="params">attributes</span>) </span>{
-  <span class="comment">// Here attributes is &lt;cat-component id="unique" cat-id="1" watcher= "dynamic"&gt;&lt;/cat-component&gt;</span>
-  <span class="keyword">var</span> id = attributes[<span class="string">'cat-id'</span>];
-
-  <span class="keyword">return</span> {
-    title: [<span class="string">'news'</span>, <span class="string">'data'</span>, { id: id }, <span class="string">'title'</span>]
-  };
-}
-</code></pre>
-<p>I really like this library because of my associations with Baobab. My first encounter with it was via the post <a href="http://christianalfoni.github.io/javascript/2015/02/06/plant-a-baobab-tree-in-your-flux-application.html">“Plant a Baobab tree in your flux application”</a> which was written by <a href="https://twitter.com/christianalfoni">Christian Alfoni</a>. It lead me to think differently about flux and redux, I recommend you read&nbsp;it.</p>
-<p>Don’t forget to challenge yourself this week. I prepared another weekly challenge which is: <a href="http://daily-javascript.com/challenges/mandelbrot/">“Implement the Mandelbrot set using Javascript”</a>.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>11. January 2016</span></p>
-            <h2><a href="/articles/little-loader/">Little Loader</a></h2>
-          </header>
-          <section class="content"><p>Little Loader (GitHub: <a href="https://github.com/walmartlabs/little-loader">walmartlabs/little-loader</a>, License: <span class="caps">MIT</span>, npm:&nbsp;little-loader)</p>
-<p>Little Loader is a lightweight JavaScript loader which is advertised as “The Only Correct Script Loader Ever Made”.
-It was developed by <a href="http://formidable.com">Formidable</a> for a project they did for&nbsp;Mallmart.</p>
-<p>The need for this library grew from the lack of browser support for the which the team needed.
-To give an example look at the overview made by the&nbsp;team.</p>
-<p><img src="https://cdn-images-1.medium.com/max/600/1*NUr1sQqkxQ8mdAcrWWLvjg.png" alt="https://cdn-images-1.medium.com/max/600/1*NUr1sQqkxQ8mdAcrWWLvjg.png"></p>
-<p>I’m already using it in one of my projects because after watching the introduction video I was convinced this is the best library for dynamically loading remote JavaScript&nbsp;files.</p>
-<iframe width="100%" height="480" src="https://www.youtube.com/embed/F080X3Tp6_8" frameborder="0" allowfullscreen></iframe>
-
-<p>So how do we work with it?
-First of all make use it is installed by&nbsp;running:</p>
-<pre><code class="lang-bash">npm i little-loader -S
-</code></pre>
-<p>Now we can require it within our app like&nbsp;so:</p>
-<pre><code class="lang-javascript"><span class="keyword">const</span> load = <span class="built_in">require</span>(<span class="string">"little-loader"</span>);
-
-load(<span class="string">"http://example.com/foo.js"</span>, <span class="function"><span class="keyword">function</span> (<span class="params">err</span>) </span>{
-  <span class="comment">// .. This is where you continue with your app.</span>
-});
-</code></pre>
-<p>That’s all actually. There are multiple ways to include Little Loader. You can get it from a <span class="caps">CDN</span>, from npm and it is compatible with AMD loaders such as&nbsp;RequireJS.</p>
-<p>When including Little Loader via a normal script tag, it will attach it self to the <code>window</code> Object and can be accessed via <code>window._lload</code> like&nbsp;so:</p>
-<pre><code class="lang-html"><span class="tag">&lt;<span class="title">script</span>&gt;</span><span class="javascript">
-  <span class="built_in">window</span>._lload(<span class="string">"http://example.com/foo.js"</span>, <span class="function"><span class="keyword">function</span> (<span class="params">err</span>) </span>{
-    <span class="comment">// .. Your code....</span>
-  });
-</span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
-</code></pre>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>08. January 2016</span></p>
-            <h2><a href="/articles/weekly-challenge-2016-02/">Weekly Challenge Week 2</a></h2>
-          </header>
-          <section class="content"><p>It’s Friday again, which means no new library today, but to make up for it I think I chose a really nice challenge. The Mandelbrot set.
-Some of you guys are probably familiar with it already from school or as a performance&nbsp;test.</p>
-<p>I came across this problem just recently when I was looking at the <a href="http://daily-javascript.com/articles/bigfloat/">bigfloat</a> library.
-The developer included it as a performance demo and it got my interest because of <a href="http://benchmarksgame.alioth.debian.org/u64q/performance.php?test=mandelbrot">“The Computer Language Benchmarks Game”</a>. Where it is listed as one of the benchmarks&nbsp;challenges.</p>
-<p>For details on the challenge go to the <a href="http://daily-javascript.com/challenges/mandelbrot">challenge page</a>.</p>
-<p>The results will be up next Friday so make sure you have submitted your implementation before&nbsp;then.</p>
 
           </section>
         </article>
