@@ -36,6 +36,56 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
+            <p class="date"><span>08. January 2016</span></p>
+            <h2><a href="/articles/weekly-challenge-2016-02/">Weekly Challenge Week 2</a></h2>
+          </header>
+          <section class="content"><p>It’s Friday again, which means no new library today, but to make up for it I think I chose a really nice challenge. The Mandelbrot set.
+Some of you guys are probably familiar with it already from school or as a performance&nbsp;test.</p>
+<p>I came across this problem just recently when I was looking at the <a href="http://daily-javascript.com/articles/bigfloat/">bigfloat</a> library.
+The developer included it as a performance demo and it got my interest because of <a href="http://benchmarksgame.alioth.debian.org/u64q/performance.php?test=mandelbrot">“The Computer Language Benchmarks Game”</a>. Where it is listed as one of the benchmarks&nbsp;challenges.</p>
+<p>For details on the challenge go to the <a href="http://daily-javascript.com/challenges/mandelbrot">challenge page</a>.</p>
+<p>The results will be up next Friday so make sure you have submitted your implementation before&nbsp;then.</p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
+            <p class="date"><span>07. January 2016</span></p>
+            <h2><a href="/articles/nuclear-js/">NuclearJS</a></h2>
+          </header>
+          <section class="content"><p>NuclearJS (GitHub: <a href="https://github.com/optimizely/nuclear-js">optimizely/nuclear-js</a>, License: <span class="caps">MIT</span>, npm:&nbsp;nuclear-js)</p>
+<p>NuclearJS is a reactive flux implementation build with <a href="https://facebook.github.io/immutable-js/">ImmutableJS</a> data structures.
+It has been developed by <a href="https://www.optimizely.com/">Optimizely</a>, which is a company that provides A/B testing suite and more as a&nbsp;service.</p>
+<p>NuclearJS was designed first for large scale production apps. For a much more lightweight Flux implementation that shares many of the same ideas and design principles, as check out <a href="https://github.com/vigetlabs/microcosm">Microcosm</a>.</p>
+<p>As we have seen many Flux implementations already we have grown skeptical about new implementations.
+So that bears the question: “How NuclearJS differs from other Flux&nbsp;implementations?”.</p>
+<p>Well all app state is in a singular immutable map. In development you can see your entire application state at every point in time thanks to awesome debugging tools built into&nbsp;NuclearJS.</p>
+<p>State is not spread out through stores, instead stores are a declarative way of describing some top-level domain of your app state. For each key in the app state map a store declares the initial state of that key and how that piece of the app state reacts over time to actions dispatched on the flux&nbsp;system.</p>
+<p>Stores are not reference-able nor have any getX methods on them. Instead NuclearJS uses a functional lens concept called getters. In fact, the use of getters obviates the need for any store to know about another store, eliminating the confusing store.waitsFor method found in other flux&nbsp;implementations.</p>
+<p>NuclearJS is insanely efficient - change detection granularity is infinitesimal, you can even observe computed state where several pieces of the state map are combined together and run through a transform function. NuclearJS is smart enough to know when the value of any computed changes and only call its observer if and only if its value changed in a way that is orders of magnitude more efficient than traditional dirty checking. It does this by leveraging ImmutableJS data structure and using a state1 !== state2 reference comparison which runs in constant&nbsp;time.</p>
+<p>Automatic data observation / rendering – automatic re-rendering is built in for React in the form of a very lightweight mixin. It is also easily possible to build the same functionality for any <span class="caps">UI</span> framework such as VueJS, AngularJS and even&nbsp;Backbone.</p>
+<p>NuclearJS is not a side-project, it’s used as the default Flux implementation that powers all of Optimizely. It is well tested and will continue to be maintained for the foreseeable future. Our current codebase has over dozens of stores, actions and getters, we even share our prescribed method of large scale code organization and testing&nbsp;strategies.</p>
+<p>For examples I would refer you to <a href="https://optimizely.github.io/nuclear-js/">project homepage</a> because there you can find better explaintions than I can give it in my daily&nbsp;posts.</p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
+            <p class="date"><span>06. January 2016</span></p>
+            <h2><a href="/articles/happy-new-year/">Happy new year</a></h2>
+          </header>
+          <section class="content"><p>First of all let me say Happy new year! The last couple of weeks I did not do any posted due to all the celebrations and illness.
+Luckily the holiday season is over and we can get back to creating and learning to make beautiful applications.
+Something some people might be interested in is the results of the latest challenge which was <a href="http://daily-javascript.com/challenges/let-it-snow">“Let it snow”</a>.</p>
+<p>Well sadly I only received two submissions. Which let me to believe people did not feel challenged by this assignment. I will do my best to find something more interesting.
+The results can be found on the results page of the challenge which would be <a href="http://daily-javascript.com/challenges/let-it-snow/results">Daily-Javascript.com/challenges/let-it-snow/results</a></p>
+<p>From tomorrow on Daily-Javascript will be getting daily updates again. Hope you guys keep on&nbsp;reading.</p>
+<p>Happy&nbsp;coding.</p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
             <p class="date"><span>25. December 2015</span></p>
             <h2><a href="/articles/weekly-challenge-2015-52/">Weekly Challenge Week 52</a></h2>
           </header>
@@ -85,77 +135,6 @@ With which you can deploy tag, branch or commit. Add additional behavior using h
 So with a <code>shipitfile.js</code> like&nbsp;this:</p>
 <pre><code class="lang-bash">shipit staging deploy
 </code></pre>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>22. December 2015</span></p>
-            <h2><a href="/articles/siphon/">Siphon</a></h2>
-          </header>
-          <section class="content"><p>Usually I only mention stuff that is on Github, but I came across a tool which makes my personal development process a lot better.
-Sadly it’s not open source or at least not that I can tell. For now it’s still free, but eventually it will have a pricing. Do not think this is sponsored content, <strong>it is not</strong>.</p>
-<p>So now you are probably curious what it’s all about. The tools is called <a href="https://getsiphon.com/">Siphon</a> and what it does is make you not use Xcode for developing and deployment of React Native&nbsp;apps.</p>
-<p>The sandbox environment lets you create and test React Native apps without installing Xcode or Android Studio, which really amazed me.
-This would mean that you do not need to be on an Apple system to develop for iOS and Android, but if you prefer working on <a href="http://www.slackware.com/">Slackware</a> for instance, you can.
-There is no Windows support <em>yet</em>. If you were wondering, but the team is working on&nbsp;this.</p>
-<p>Because the project is still in alpha it is missing support for a lot of things, such as the entire Android platform, but they will be rolling out plenty more features over coming&nbsp;weeks.</p>
-<p>On the Siphon website are some wonderful tutorials on how to use their cli and sandbox. If I peaked your interest take a look at the <a href="https://getsiphon.com/docs/quickstart/">Getting Started</a>&nbsp;guide.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>21. December 2015</span></p>
-            <h2><a href="/articles/inspire-tree/">Inspire Tree</a></h2>
-          </header>
-          <section class="content"><p>Inspire Tree (GitHub: <a href="https://github.com/helion3/inspire-tree">helion3/inspire-tree</a>, License: <span class="caps">MIT</span>, npm:&nbsp;inspire-tree)</p>
-<p>First of all I would like to thank everybody that took the time to look at the <a href="http://daily-javascript.com/challenges">Weekly Challenges</a> over the weekend. If you have not looked at the challenge of last week you can still submit until Thursday&nbsp;night.</p>
-<p>Now to business, <a href="https://github.com/viveleroi">Mike Botsko</a> sent in Inspire Tree which is a un-opinionated collapsable tree <span class="caps">UI</span> library.
-The need for the library grew with the developers because the alternatives already out there where not extensive enough or just took to much hacking to make it listen to what they&nbsp;wanted.</p>
-<p>Some of the features that jumped out to me&nbsp;are:</p>
-<ul>
-<li>Events&nbsp;everywhere</li>
-<li>~40k minified,&nbsp;uncompressed</li>
-<li>No external&nbsp;dependencies</li>
-<li>Load data directly, via promises, callbacks,&nbsp;etc</li>
-<li>Load child nodes upfront or dynamically (or a mix of&nbsp;both)</li>
-<li>Tri-state checkboxes&nbsp;(optional)</li>
-<li>Multiselect&nbsp;(optional)</li>
-<li>Search by plain string, RegExp, custom matcher, or external resources&nbsp;(optional)</li>
-</ul>
-<p>The renderer used by the library can be replaced with a custom renderer for framework support.
-Sadly there is only one example listed within the docs but it will be easy it would be to include it within React or Riot due to the Virtual&nbsp;<span class="caps">DOM</span>.</p>
-<p>To work with this library you need to have an element on the page to&nbsp;target:</p>
-<pre><code class="lang-html"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"myTree"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-</code></pre>
-<p>Now we can init tree functionality and fetch the data at the same time like&nbsp;so:</p>
-<pre><code class="lang-javascript"><span class="keyword">const</span> tree = <span class="keyword">new</span> InspireTree({
-    target: <span class="string">'.tree'</span>,
-    data: $.getJSON(<span class="string">'http://example.com/some-data.json'</span>)
-});
-</code></pre>
-<p>When custom behavior is needed you can attach this to be fired when curtain events are emitted. There is a list of events present on the Github page for reference. This is an example of how a click handler would look&nbsp;like:</p>
-<pre><code class="lang-javascript">tree.on(<span class="string">'node.click'</span>, (evt, node) =&gt; {
-    <span class="comment">// node clicked!</span>
-    <span class="built_in">console</span>.log([<span class="string">'node clicked'</span>, evt, node]);
-});
-</code></pre>
-<p>The rest of the <span class="caps">API</span> is very well documented so I would suggest you browse through it if you need more convincing that this is one of the most extensive UI tree library out&nbsp;there.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>18. December 2015</span></p>
-            <h2><a href="/articles/weekly-challenge-2015-51/">Weekly Challenges</a></h2>
-          </header>
-          <section class="content"><p>Since I started missing a lot of Friday posts, I came up with a new section for which I can prepare during the&nbsp;week.</p>
-<p>I’m introducing Weekly Challenges. Every Friday I will post an assignment related to programming. These challenges can be math problems, mathematical phenomenons or building something using a previously mentioned&nbsp;library.</p>
-<p>These assignments are to challenges yourself. This is not a competition. I will do my best to design/pick challenges that will be interesting for developers of all skill levels.
-But do not feel limited to the challenge description, if you can create something more complex than the challenge describes, do&nbsp;it!</p>
-<p>If you have great idea’s for futures challenges please submit it via <a href="http://goo.gl/forms/8FaZJSBxjO">this Google Form</a>.</p>
-<p>An overview of the challenges can be found at <a href="/challenges">/challenges</a>. This weeks challenge is the <a href="/challenges/pythagoras-tree/">Pythagoras Tree</a>.</p>
 
           </section>
         </article>

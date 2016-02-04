@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="Daily updates about Javascript News, libraries and Weekly challenges">
+    <meta name="keywords" content="Javascript News, React, ES2015, Daily, Updates, Weekly Challenges">
+    <meta name="theme-color" content="#39424D">
+    <title>Conflux - Daily Javascript
+    </title>
+    <link rel="alternate" href="http://daily-javascript.com/feed.xml" type="application/rss+xml" title="For your daily dose of Javascript libraries.">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic|Anonymous+Pro:400,700,400italic,700italic|Merriweather:400,700,300">
+    <link rel="stylesheet" href="/css/main.css">
+  </head>
+  <body class="article-detail">
+    <div class="social"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A//Daily-Javascript.com" target="_blank" class="social-btn facebook"></a><a href="https://twitter.com/home?status=Follow%20%40DailyJavascript%20for%20update%20of%20new%20Javascript%20libraries%20and%20challanges%0A%23Javascript" target="_blank" class="social-btn twitter"></a><a href="https://www.reddit.com/submit?url=http%3A//Daily-Javascript.com" target="_blank" class="social-btn reddit"></a><a href="https://plus.google.com/share?url=http%3A//Daily-Javascript.com" target="_blank" class="social-btn google"></a></div>
+    <header class="header">
+      <div class="content-wrap">
+        <h1>Conflux</h1>
+        <p class="author">Written by <span class="author"><a href="mailto:ramon@ra-ge.net">Ramon Gebben</a></span>
+        </p>
+      </div>
+    </header>
+    <div id="content">
+      <div class="content-wrap">
+        <article class="article">
+          <section class="content"><p>Conflux (GitHub: <a href="https://github.com/ben-ng/conflux">ben-ng/conflux</a>, License: <span class="caps">MIT</span>, npm:&nbsp;conflux)</p>
+<p>Conflux is Redux implantation for distributed systems.
+As the developer says: Distributed systems are hard. Conflux tries to make distributed systems more understandable.
+It aims to do what <a href="http://redux.js.org/">Redux</a> did for <a href="https://facebook.github.io/flux">Flux</a>, and what <a href="http://raft.github.io/">Raft</a> did for <a href="http://www.wikiwand.com/en/Paxos_%28computer_science%29">Paxos</a>.
+Natrually, it does this by composing the two&nbsp;ideas.</p>
+<h3 id="so-what-does-it-really-do-">So what does it really&nbsp;do?</h3>
+<p>You can build serverless applications. Which does not mean <a href="https://github.com/serverless/serverless">“serverless”</a> as in it uses <span class="caps">AWS</span> <a href="https://github.com/serverless/serverless">Lambda</a>.
+Serverless as in there is no central server, like how BitTorrent works just a cluster of nodes that coordinate with each other.
+The developer let’s know that he is working an a few example applications to help you get&nbsp;going.</p>
+<p>A quick example provided by the&nbsp;developer:</p>
+<pre><code class="lang-javascript"><span class="keyword">var</span> node = conflux({
+    id: uuid.v4(),
+    <span class="comment">// how many nodes are in the cluster?</span>
+    clusterSize: <span class="number">5</span>,
+    <span class="comment">// how should nodes communicate?</span>
+    channel: {
+        name: <span class="string">'redis'</span>
+    },
+    <span class="comment">// define your action creators</span>
+    methods: {
+        append(thing){
+            <span class="keyword">return</span> thing;
+        }
+    },
+    <span class="comment">// define your reducer</span>
+    reduce(state, action) {
+        state = state == <span class="literal">null</span> ? [] : state;
+        <span class="keyword">return</span> state.concat(action);
+    },
+});
+
+<span class="comment">// subscribe to changes</span>
+node.subscribe(() =&gt; {
+    <span class="built_in">console</span>.log(nodeB.getState().log.join(<span class="string">' '</span>));
+});
+
+<span class="comment">// perform an action</span>
+node.perform(<span class="string">'append'</span>, [<span class="string">'foo'</span>]);
+</code></pre>
+<p>When you have worked with Redux before Conflux should feel very familiar.
+You <code>subscribe()</code> to a Conflux instance, and call <code>getState()</code> inside to get the current state.
+Instead of dispatching actions directly, you <code>perform()</code> methods that <code>dispatch()</code> them.
+The methods are declared when you construct a Conflux instance which is the equivalent to how Action Creators work in&nbsp;Redux.</p>
+</section>
+          <div id="disqus_thread"></div>
+          <script>
+            (function() { var d = document, s = d.createElement('script'); s.src = '//daily-javascript.disqus.com/embed.js'; s.setAttribute('data-timestamp', +new Date()); (d.head || d.body).appendChild(s); })();
+            
+          </script>
+        </article>
+      </div>
+    </div>
+    <footer>
+      <script type="text/javascript">(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-68072930-1', 'auto');ga('send', 'pageview');</script>
+      <div class="content-wrap">
+        <div class="nav"><a href="/">« Full blog</a></div>
+        <section class="about">
+        </section>
+        <section class="copy">
+          <p>&copy; 2016 Ramon Gebben &mdash; powered by&nbsp;<a href="https://github.com/jnordberg/wintersmith">Wintersmith</a>
+          </p>
+        </section>
+      </div>
+    </footer>
+  </body>
+</html>

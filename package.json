@@ -1,6 +1,8 @@
 {
   "scripts": {
-    "weekly": "/usr/local/bin/node tools/results.js"
+    "weekly": "/usr/local/bin/node tools/results.js",
+    "build": "wintersmith build",
+    "deploy": "npm run build; cp -r build/* ../ramongebben.github.io/.; cd ../ramongebben.github.io/; git add .; git commit -m \"Update via npm\"; git push origin master;"
   },
   "dependencies": {
     "moment": "2.3.x",

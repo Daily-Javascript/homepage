@@ -36,6 +36,131 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
+            <p class="date"><span>12. October 2015</span></p>
+            <h2><a href="/articles/react-image-crop/">React Image Crop</a></h2>
+          </header>
+          <section class="content"><p>react-image-crop (GitHub: <a href="https://github.com/DominicTobias/react-image-crop">DominicTobias/react-image-crop</a>, License: <span class="caps">ISC</span>, npm:&nbsp;react-image-crop)</p>
+<p><img src="https://raw.githubusercontent.com/DominicTobias/react-image-crop/master/crop-demo.gif" style="max-width: 400px;width: 100%;left: 0;"></p>
+<p>React-image-crop is a React component for client side cropping of images. This mainly got my interest because I had several moments where I needed to implement something similar.
+This will take away that work in the future. I used to do the cropping server side which was a hassle. Upload the image, Getting the dimensions, crop with imagemagick then communicate that back to the&nbsp;browser.</p>
+<p>In hindsight I now know that there are a lot of different ways to approach this&nbsp;problem.</p>
+<p>What I like about react-image-crop is that it’s the basics of what you need to crop images.
+It gives you an object which can be used to render the cropped image in canvas to get a base64 encoded image. Another way to display this would be via clipping it with&nbsp;<span class="caps">CSS</span>.</p>
+<p>And you guys can probably come up with a few more ways.
+Let’s take a look at the setup for this&nbsp;component.</p>
+<pre><code class="lang-javascript"><span class="keyword">import</span> ReactCrop <span class="keyword">from</span> <span class="string">'react-image-crop'</span>;
+
+&lt;ReactCrop src=<span class="string">'path/to/image.jpg'</span> /&gt;
+</code></pre>
+<p>When you already want to add a crop, you just pass it as a prop like&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="keyword">var</span> crop = {
+    x: <span class="number">20</span>,
+    y: <span class="number">10</span>,
+    width: <span class="number">30</span>,
+    height: <span class="number">10</span>
+}
+
+&lt;ReactCrop src=<span class="string">'path/to/image.jpg'</span> crop={crop} /&gt;
+</code></pre>
+<p>The <code>crop</code> object also has a property called <code>aspect</code>. With that you can lock the aspect if the cropped&nbsp;area.</p>
+<p>If you want to get the dimensions to where to crop you use the <code>onChange</code> or <code>onComplete</code> props.</p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
+            <p class="date"><span>09. October 2015</span></p>
+            <h2><a href="/articles/gulp-load-subtasks/">Gulp load subtasks</a></h2>
+          </header>
+          <section class="content"><p>gulp-load-subtasks (GitHub: <a href="https://github.com/skorlir/gulp-load-subtasks">skorlir/gulp-load-subtasks</a>, License: <span class="caps">ISC</span>, npm:&nbsp;gulp-load-subtasks)</p>
+<p>gulp-load-subtasks is a gulp “extention” which was long overdue in my opinion. The problem that it solves is that it is reducing the amount of clutter the forms inside a Gulpfile when working on big&nbsp;projects.</p>
+<p>This does require a bit of a shift in contrast of how we are used to writing our Gulpfile.
+Normally you would do something like&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="comment">// gulpfile.js</span>
+<span class="keyword">var</span> gulp = <span class="built_in">require</span>(<span class="string">'gulp'</span>);
+
+gulp.task(<span class="string">'some-task'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+    <span class="comment">// Your stuff here</span>
+});
+</code></pre>
+<p>After a while you would get stuck with one big spaggetti of tasks.
+Now you can split that up into different files with their own&nbsp;dependencies.</p>
+<p>The file structure would look something like&nbsp;this:</p>
+<pre><code>+ gulpfile.js
+|
++ tasks/
+  + a.tasks.js
+  + b.tasks.js
+</code></pre><p>Task A would look like&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span> (<span class="params">gulp</span>) </span>{
+  gulp.task(<span class="string">'subtaskA1'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{
+    <span class="comment">// do things... A1</span>
+  })
+  gulp.task(<span class="string">'subtaskA2'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{
+    <span class="comment">// do things... A2</span>
+  })
+}
+</code></pre>
+<p>And task B like&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span> (<span class="params">gulp, plugins</span>) </span>{
+  gulp.task(<span class="string">'subtaskB'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{
+    <span class="comment">// do things... B</span>
+    <span class="comment">// You can use plugins!</span>
+  })
+}
+</code></pre>
+<p>Then when we get back to the Gulpfile we can do&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="keyword">var</span> gulp    = <span class="built_in">require</span>(<span class="string">'gulp'</span>),
+    plugins = <span class="built_in">require</span>(<span class="string">'gulp-load-plugins'</span>)()
+
+$.loadSubtasks(<span class="string">'tasks/**/*.js'</span>, gulp, plugins);
+
+<span class="comment">// refer tasks in a.tasks.js and b.tasks.js</span>
+gulp.task(<span class="string">'default'</span>, [ <span class="string">'subtaskA'</span>, <span class="string">'subtaskB'</span> ])
+</code></pre>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
+            <p class="date"><span>08. October 2015</span></p>
+            <h2><a href="/articles/generator-nom/">Generator Nom</a></h2>
+          </header>
+          <section class="content"><p>generator-nom (GitHub: <a href="https://github.com/inikulin/read-file-relative">ironSource/node-generator-nom</a>, License: <span class="caps">MIT</span>, npm:&nbsp;generator-nom)</p>
+<p>We all strive to write <span class="caps">DRY</span> code, but still while setting up projects and maintaining depenencies we are constantly repeating ourselves.
+I find myself going through the same flow time and time again. <code>git init</code>, <code>npm init</code>, <code>touch README.md</code>, going to Github getting an origin to push to et cetra. This process is a pain every time. What if you could just generate all this stuff with one&nbsp;command.</p>
+<p>That is where the <code>yo nom</code> come in.
+Nom is a <a href="http://yeoman.io">Yeoman</a> generator which is a collection of several sub-generators. It includes the following&nbsp;generators;</p>
+<h4 id="npm">npm</h4>
+<p>Create package.json and prompt to keep dependencies of a previous package.json if any. Create .gitignore, cli.js (optional), install test framework (tape, tap, mocha, grunt, cake, or ava), add <span class="caps">LICENSE</span> file (MIT, BSD2 or&nbsp;BSD3).</p>
+<h4 id="git">git</h4>
+<p>Initialize local git repository, unless .git directory&nbsp;exists</p>
+<h4 id="github">github</h4>
+<p>Create public or private GitHub project, named “module-name” or “node-module-name”, unless local git already has configured remotes. Asks for access token and repository owner (which defaults to the owner of the token), skips creation if the repository already exists, adds URLs to package.json and adds remote&nbsp;origin.</p>
+<h4 id="travis">travis</h4>
+<p>Add .travis.yml for node 0.10 and iojs, setup GitHub hook. The travis tool asks for username and&nbsp;password.</p>
+<h4 id="appveyor">appveyor</h4>
+<p>Add appveyor.yml for node 0.10 and iojs, setup GitHub hook. Asks for access&nbsp;token.</p>
+<h4 id="gulp">gulp</h4>
+<p>Create an <span class="caps">ES6</span> gulpfile and tasks&nbsp;directory.</p>
+<h4 id="style-still-to-come-">style (still to&nbsp;come)</h4>
+<p>Add standard or xo as a pretest&nbsp;script</p>
+<h4 id="readme">readme</h4>
+<p>Add readme.md with common sections and shield.io badges for npm and david. If you did the travis and/or appveyor setup, badges for those services will be added as&nbsp;well.</p>
+<p><img src="https://github.com/ironSource/node-generator-nom/raw/master/demo.gif" style="max-width: 400px; width: 100%; position:static;"></p>
+<p>To use a specific generator you can select it like&nbsp;this:</p>
+<pre><code class="lang-bash">yo nom:&lt;generator&gt;
+</code></pre>
+<p>To run them all&nbsp;use:</p>
+<pre><code class="lang-bash">yo nom:*
+</code></pre>
+<p>That’s&nbsp;it.</p>
+<p>I’ve tried this out and will probably be using this to make my workflow a bit more <span class="caps">DRY</span> and hope that other people will also consider to optimize their workflow with modules like <code>nom</code>.</p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
             <p class="date"><span>07. October 2015</span></p>
             <h2><a href="/articles/read-file-relative/">Read file relative</a></h2>
           </header>
@@ -123,162 +248,6 @@ Besides relying on all the tools already provided, such as <code>gulp</code> and
 </code></pre>
 <p>We will start using this in my company from now on, because it makes it a lot easier to integrate testing in a long running project that has never being tested just by walking through the files.
 I hope to see other people pick this up&nbsp;aswel.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>05. October 2015</span></p>
-            <h2><a href="/articles/velocity-react/">Velocity React</a></h2>
-          </header>
-          <section class="content"><p>velocity-react (GitHub: <a href="https://github.com/twitter-fabric/velocity-react">twitter-fabric/velocity-react</a>, License: <span class="caps">MIT</span>, npm:&nbsp;velocity-react)</p>
-<p>Today I had some trouble finding something to write about. Then I remembered the awesome work done by the guys at Twitter Fabric. They made a React component for interacting with amazing <a href="http://julian.com/research/velocity/">Velocity</a> animation library.
-Offical introduction can be found <a href="https://fabric.io/blog/introducing-the-velocityreact-library">here.</a></p>
-<p>If you are not familiar with <a href="http://julian.com/research/velocity/">Velocity</a> I suggest you take a look at this&nbsp;first.</p>
-<p>The package contains two components; <code>&lt;VelocityComponent /&gt;</code> and <code>&lt;VelocityTransitionGroup /&gt;</code></p>
-<p>Velocity React integration follow this simple&nbsp;algorithm:</p>
-<ul>
-<li>Initially, an animated component will appear as it would at the end of its given&nbsp;animation.</li>
-<li>If that given animation ever changes, it runs it to get to the new end state. If there’s an animation currently in progress, we stop it first, and then proceed smoothly from whatever intermediate state it left us&nbsp;in.</li>
-</ul>
-<p>Here is a small example that was given in the introduction from&nbsp;Fabric.</p>
-<pre><code class="lang-javascript">render: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{
-  <span class="keyword">var</span> animationProps;
-  <span class="keyword">if</span> (<span class="keyword">this</span>.state.hovering) {
-    animationProps = {
-      duration: <span class="number">200</span>,
-      animation: {
-        rotateX: <span class="number">160</span>
-      }
-    };
-  } <span class="keyword">else</span> {
-    animationProps = {
-      duration: <span class="number">1100</span>, <span class="comment">// longer due to swinging</span>
-      animation: {
-        rotateX: [<span class="number">0</span>, <span class="string">'spring'</span>]
-      }
-    };
-  }
-
-  <span class="keyword">return</span> (
-    <span class="xml"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">onMouseEnter</span>=<span class="value">{function</span> () { <span class="attribute">this.setState</span>({<span class="attribute">hovering:</span> <span class="attribute">true</span>}); }}
-         <span class="attribute">onMouseLeave</span>=<span class="value">{function</span> () { <span class="attribute">this.setState</span>({<span class="attribute">hovering:</span> <span class="attribute">false</span>}); }}&gt;</span>
-      <span class="tag">&lt;<span class="title">VelocityComponent</span> {<span class="attribute">...animationProps</span>}&gt;</span>
-        {this.renderTopState()}
-      <span class="tag">&lt;/<span class="title">VelocityComponent</span>&gt;</span>
-      {this.renderUnderneathStats()}
-    <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-  )</span>;
-}
-</code></pre>
-<p>Which will result in:
-<img src="https://static1.squarespace.com/static/54ac6f9ae4b0cf1d82a4b59e/t/560a9a19e4b08fcd39795d27/1443535397904/release_summary.gif?format=300w" tyle="max-width: 320px; width: 100%; position:static;"></p>
-<p>As the name implies <code>&lt;VelocityTransitionGroup /&gt;</code> can be used to animate a group of element at the same time. In the example on the Fabric blog we can use it being used to animate an input slider, but that’s not all. When you pay close attention you will the the toggle switch animating and a “jawbone” collapse. Al these animation are done at&nbsp;once.</p>
-<p><img src="https://static1.squarespace.com/static/54ac6f9ae4b0cf1d82a4b59e/t/560a9a69e4b0a427e3b70022/1443535503361/?format=750w" tyle="max-width: 320px; width: 100%; position:static;"></p>
-<p>I was very impressed with the work and I’m trying to push this as the new standard for animating React components at the company where I work. And will be the default for all my pet&nbsp;projects.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>02. October 2015</span></p>
-            <h2><a href="/articles/scroller-friday/">Scroller Friday</a></h2>
-          </header>
-          <section class="content"><p>fartscroll.js (GitHub: <a href="https://github.com/theonion/fartscroll.js">theonion/fartscroll.js</a>, License:&nbsp;<span class="caps">MIT</span>)</p>
-<p>Since it is Friday today my colleages and me are in a humorous mood. So when I started looking what to write about today I got some real fun suggestions.
-The first one is&nbsp;fartscroll.js.</p>
-<p>The name already saids it all, it’s a library that makes your page fart when the user is scrolling.
-Because everybody farts and likes farting, why not give your application the same privilege? Here is&nbsp;how:</p>
-<p>First we need to include the script within our&nbsp;markup.</p>
-<pre><code class="lang-html"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"http://code.onion.com/fartscroll.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
-</code></pre>
-<p>Then we call it like&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="comment">// Fart every 400 pixels scrolled in the window</span>
-fartscroll();
-</code></pre>
-<p>When you think you pages farts to often you can increase the amount of pixels that need to be scrolled before farting like&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="comment">// Fart every 800 pixels scrolled in the window</span>
-fartscroll(<span class="number">800</span>);
-</code></pre>
-<p>If you just want to have some fun on other webpages, you can use <a href="javascript:%20(function%20()%20{%20%20%20%20%20var%20fs%20=%20document.createElement('script');%20%20%20%20%20fs.setAttribute('src',%20'http://code.onion.com/fartscroll.js');%20%20%20%20%20document.head.appendChild(fs);%20%20%20%20%20window.setTimeout(function(){%20%20%20%20%20%20%20%20%20fartscroll(800);%20%20%20%20%20%20%20%20%20},%20500);%20}());">this bookmarklet</a>. Here is the code for&nbsp;it.</p>
-<pre><code class="lang-javascript">javascript:%20(function%20()%20{%20%20%20%20%20var%20fs%20=%20document.createElement(&#39;script&#39;);%20%20%20%20%20fs.setAttribute(&#39;src&#39;,%20&#39;http://code.onion.com/fartscroll.js&#39;);%20%20%20%20%20document.head.appendChild(fs);%20%20%20%20%20window.setTimeout(function(){%20%20%20%20%20%20%20%20%20fartscroll(800);%20%20%20%20%20%20%20%20%20},%20500);%20}());
-</code></pre>
-<h3 id="elevator-js">Elevator.js</h3>
-<p>elevator.js (GitHub: <a href="https://github.com/tholman/elevator.js">tholman/elevator.js</a>, License:&nbsp;<span class="caps">MIT</span>)</p>
-<p>While we are in the theme of scrolling libraries, here is another fun one. I cannot say that this one is very new, but it’s still gold in my opinion. So what does it do?
-Elevator.js is provides you with a “back to top” button that behaves like a real elevator. Now your users don’t have to be bored during the awkward time they spend waiting for your page to scroll back to the top. How do we use&nbsp;this?</p>
-<p>First we need to include the script within our&nbsp;markup.</p>
-<pre><code class="lang-html"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"https://cdn.rawgit.com/tholman/elevator.js/master/elevator.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
-</code></pre>
-<p>Now we need to instantiate it with some mp3 files and a trigger target like&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
-  <span class="keyword">var</span> elevator = <span class="keyword">new</span> Elevator({
-    element: <span class="built_in">document</span>.querySelector(<span class="string">'.elevator-button'</span>),
-    mainAudio: <span class="string">'/src/to/audio.mp3'</span>,
-    endAudio: <span class="string">'/src/to/end-audio.mp3'</span>
-  });
-}
-</code></pre>
-<p>If you do not have any inspiration for sounds you can just use the defaults like&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
-  <span class="keyword">var</span> elevator = <span class="keyword">new</span> Elevator({
-    element: <span class="built_in">document</span>.querySelector(<span class="string">'.elevator-button'</span>),
-    duration: <span class="number">1000</span> <span class="comment">// milliseconds</span>
-  });
-}
-</code></pre>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>01. October 2015</span></p>
-            <h2><a href="/articles/tonic/">Tonic</a></h2>
-          </header>
-          <section class="content"><p>During my browse session at work this morning I came across <a href="https://tonicdev.com/docs/embed">this post</a>.
-If I understand correctly the easiest way to describe Tonic is as a plugin that let’s you run Node.js in a&nbsp;browser.</p>
-<p>The reason why I write about this today is because of the newley released feature of embedding it on your page.
-This feature can be accessed in two ways. Via <span class="caps">HTML</span> markup or by initializing it programatically.
-Lets take a look at some&nbsp;examples.</p>
-<p>When you have access to the document markup we would make it work like&nbsp;this:</p>
-<pre><code class="lang-html"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"https://embed.tonicdev.com"</span> <span class="attribute">data-element-id</span>=<span class="value">"daily-element"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
-
-<span class="comment">&lt;!-- anywhere else on your page --&gt;</span>
-<span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"daily-element"</span>&gt;</span>
-var request = require('request');
-request('http://www.google.com', function (error, response, body) {
-    console.log(body) // Show the <span class="caps">HTML</span> for the Google homepage.
-});
-<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-</code></pre>
-<p>If this code runs Tonic it will dropdown an element showing the log&nbsp;output.</p>
-<p>If you do not have access to the document markup you can trigger it from Javascript like&nbsp;this:</p>
-<pre><code class="lang-javascript">
-<span class="keyword">var</span> scriptTag = <span class="built_in">document</span>.createElement(<span class="string">"script"</span>),
-    head = <span class="built_in">document</span>.querySelector(<span class="string">"head"</span>),
-    dailyElement = <span class="built_in">document</span>.createElement(<span class="string">'div'</span>);
-scriptTag.src = <span class="string">"https://embed.tonicdev.com"</span>;
-dailyElement.id = <span class="string">"daily-element"</span>;
-head.appendChild( scriptTag );
-
-<span class="built_in">document</span>.body.appendChild( dailyElement );
-
-<span class="keyword">var</span> notebook = Tonic.createNotebook({
-    <span class="comment">// the parent element for the new notebook</span>
-    element: <span class="built_in">document</span>.querySelector(<span class="string">"#daily-element"</span>),
-
-    <span class="comment">// specify the source of the notebook</span>
-    source: <span class="string">"\"hello world\""</span>,
-
-    <span class="comment">// optionally, set the notebook to be read-only</span>
-    readOnly: <span class="literal">false</span>,
-
-    <span class="comment">// optionally, provide a callback to be called when the notebook has finished loading</span>
-    onLoad: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{}
-});
-</code></pre>
-<p>On of the things I’m still missing is the ability to run <span class="caps">ES2015</span>. I hope that the support for that will come very soon.
-This weekend I will be trying to include this within this website so you will be able to run the examples that I post right there in the&nbsp;browser.</p>
 
           </section>
         </article>
