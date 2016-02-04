@@ -36,6 +36,105 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
+            <p class="date"><span>03. February 2016</span></p>
+            <h2><a href="/articles/microwork/">Microwork.js</a></h2>
+          </header>
+          <section class="content"><p>Microwork.js (GitHub: <a href="https://github.com/yamalight/microwork">yamalight/microwork</a>, License: <span class="caps">MIT</span>, npm:&nbsp;microwork)</p>
+<p>Microwork.js is a library for simple creation of distributed micro services using <a href="https://www.rabbitmq.com">RabbitMQ</a>.
+If you are not familiar with RabbitMQ, it is a messaging server.
+Messaging enables applications to connect and scale.
+Applications can connect to each other, as components of a larger&nbsp;application.</p>
+<p>An example service that subscribe to messages from <code>do.stuff</code> topic and uses incoming&nbsp;data:</p>
+<pre><code class="lang-javascript"><span class="keyword">import</span> Microwork <span class="keyword">from</span> <span class="string">'microwork'</span>;
+
+<span class="comment">// create task runner</span>
+<span class="keyword">const</span> runner = <span class="keyword">new</span> Microwork({host: <span class="string">'my.rabbit.host'</span>, exchange: <span class="string">'my.exchange'</span>});
+
+<span class="comment">// add worker to specific topic</span>
+<span class="keyword">await</span> runner.subscribe(<span class="string">'do.stuff'</span>, (msg, reply) =&gt; {
+    <span class="comment">// Capitalize first letter of the message</span>
+    reply(msg.charAt(<span class="number">0</span>).toUpperCase() + msg.slice(<span class="number">1</span>));
+});
+
+<span class="comment">// after work is done - cleanup</span>
+<span class="keyword">await</span> runner.stop();
+</code></pre>
+<p>There are a few useful plugin already available such as: a hardware stats plugin which provides basic hardware stats about Node, a health plugin which provides basic keep-alive signal and a subscribers info plugin which provides basic information about&nbsp;subscribers.</p>
+<p>For more examples and documentation check out the <a href="http://yamalight.github.io/microwork/">Github Page</a>.</p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
+            <p class="date"><span>02. February 2016</span></p>
+            <h2><a href="/articles/houdini/">Houdini</a></h2>
+          </header>
+          <section class="content"><p>During my daily browse I came across <a href="https://surma.link/things/houdini-intro/">“New ways to make your web app jank with Houdini – An introduction”</a>. Which made me curious. After the first paragraph I was hooked.
+The author Surma make the point that as developers we can only observe what the magic <span class="caps">CSS</span> does.
+Even when we are animating using Javascript we are still animating the CSS properties of the animated&nbsp;element.</p>
+<p>This way of thinking is actually backward. What if there was a way you could access the magic <span class="caps">CSS</span> does?
+Define your own properties for doing layout, scroll behavior or position. The possibilities are endless.
+No longer will we be limited to what is implemented in the spec. That is where Houdini comes&nbsp;in.</p>
+<p>The Houdini task force is a collection of engineers from Mozilla, Apple, Microsoft, <span class="caps">HP</span>, Intel and Google working together to expose certain parts of the CSS engine. This task force is working on a <a href="https://drafts.css-houdini.org/">collection of drafts</a> with the goal to get them accepted by the <span class="caps">W3C</span> and become part of the actual web&nbsp;standards.</p>
+<p>I would strongly recommend you take a look at <a href="https://surma.link/things/houdini-intro/">Surma’s post</a> and check out <a href="https://drafts.css-houdini.org/">the drafts already created</a>.</p>
+<p>Surma also posted a small demo of what Compositor Worklet can do in a very early implementation he got to play&nbsp;with.</p>
+<iframe width="100%" height="480" src="https://www.youtube.com/embed/EUlIxr8mk7s" frameborder="0" allowfullscreen></iframe>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
+            <p class="date"><span>01. February 2016</span></p>
+            <h2><a href="/articles/conflux/">Conflux</a></h2>
+          </header>
+          <section class="content"><p>Conflux (GitHub: <a href="https://github.com/ben-ng/conflux">ben-ng/conflux</a>, License: <span class="caps">MIT</span>, npm:&nbsp;conflux)</p>
+<p>Conflux is Redux implantation for distributed systems.
+As the developer says: Distributed systems are hard. Conflux tries to make distributed systems more understandable.
+It aims to do what <a href="http://redux.js.org/">Redux</a> did for <a href="https://facebook.github.io/flux">Flux</a>, and what <a href="http://raft.github.io/">Raft</a> did for <a href="http://www.wikiwand.com/en/Paxos_%28computer_science%29">Paxos</a>.
+Natrually, it does this by composing the two&nbsp;ideas.</p>
+<h3 id="so-what-does-it-really-do-">So what does it really&nbsp;do?</h3>
+<p>You can build serverless applications. Which does not mean <a href="https://github.com/serverless/serverless">“serverless”</a> as in it uses <span class="caps">AWS</span> <a href="https://github.com/serverless/serverless">Lambda</a>.
+Serverless as in there is no central server, like how BitTorrent works just a cluster of nodes that coordinate with each other.
+The developer let’s know that he is working an a few example applications to help you get&nbsp;going.</p>
+<p>A quick example provided by the&nbsp;developer:</p>
+<pre><code class="lang-javascript"><span class="keyword">var</span> node = conflux({
+    id: uuid.v4(),
+    <span class="comment">// how many nodes are in the cluster?</span>
+    clusterSize: <span class="number">5</span>,
+    <span class="comment">// how should nodes communicate?</span>
+    channel: {
+        name: <span class="string">'redis'</span>
+    },
+    <span class="comment">// define your action creators</span>
+    methods: {
+        append(thing){
+            <span class="keyword">return</span> thing;
+        }
+    },
+    <span class="comment">// define your reducer</span>
+    reduce(state, action) {
+        state = state == <span class="literal">null</span> ? [] : state;
+        <span class="keyword">return</span> state.concat(action);
+    },
+});
+
+<span class="comment">// subscribe to changes</span>
+node.subscribe(() =&gt; {
+    <span class="built_in">console</span>.log(nodeB.getState().log.join(<span class="string">' '</span>));
+});
+
+<span class="comment">// perform an action</span>
+node.perform(<span class="string">'append'</span>, [<span class="string">'foo'</span>]);
+</code></pre>
+<p>When you have worked with Redux before Conflux should feel very familiar.
+You <code>subscribe()</code> to a Conflux instance, and call <code>getState()</code> inside to get the current state.
+Instead of dispatching actions directly, you <code>perform()</code> methods that <code>dispatch()</code> them.
+The methods are declared when you construct a Conflux instance which is the equivalent to how Action Creators work in&nbsp;Redux.</p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
             <p class="date"><span>27. January 2016</span></p>
             <h2><a href="/articles/marsdb/">MarsDB</a></h2>
           </header>
@@ -136,87 +235,6 @@ It comes with the same set of lifecycle&nbsp;events:</p>
 <li>componentDidUpdate</li>
 </ul>
 <p>For more examples check the <a href="https://github.com/developit/preact-compat"><span class="caps">README</span></a> or the <a href="http://developit.github.io/preact/">Github Page</a> where you can find some amazing examples posted by the&nbsp;developer.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>25. January 2016</span></p>
-            <h2><a href="/articles/pressure/">Pressure</a></h2>
-          </header>
-          <section class="content"><p>Pressure (GitHub: <a href="https://github.com/yamartino/pressure">yamartino/pressure</a>, License: <span class="caps">MIT</span>, npm:&nbsp;pressure)</p>
-<p><img src="https://camo.githubusercontent.com/ff9a4c42ce2565fd1ef4e2b55ebcd0e9028d6961/687474703a2f2f79616d617274696e6f2e6769746875622e696f2f70726573737572652f70726573737572652e676966" style=" width: 100%;" /></p>
-<p>Pressure is a library which makes dealing with Apple’s “Force Touch” and “3D Touch” simpler.
-At the time of writing this update the support for Force Touch&nbsp;was:</p>
-<ul>
-<li>iPhone&nbsp;6s</li>
-<li>iPhone 6s&nbsp;Plus</li>
-<li>MacBook 2015<ul>
-<li>13” MacBook Pro&nbsp;2015</li>
-<li>15” MacBook Pro&nbsp;2015</li>
-</ul>
-</li>
-<li>Magic Trackpad&nbsp;2</li>
-</ul>
-<p>And sadly it only works inside Safari.
-The developer has let us know that when there are more devices or browsers to support, that it will also be supported by&nbsp;Pressure.</p>
-<blockquote>
-<p>Future devices and browser that support force will be added when they come&nbsp;out</p>
-</blockquote>
-<p>The library is constructed in a way that Force Touch for new Macs and 3D Touch for the new iPhone 6s and 6s Plus are all bundled under one roof with a simple <span class="caps">API</span>. By&nbsp;example:</p>
-<pre><code class="lang-javascript"><span class="keyword">var</span> Pressure = <span class="built_in">require</span>(<span class="string">'pressure'</span>);
-
-Pressure.set(<span class="string">'#myAwesomeElement'</span>, {
-    change: (force) =&gt; {
-        <span class="keyword">this</span>.innerHTML = force;
-    }
-});
-</code></pre>
-<p>What this will do is render the “amount” of pressure put on <code>#myAwesomeElement</code>.
-The rest of the <span class="caps">API</span> is just as straight forward.
-Use <code>end</code> to know when the user has stopped putting pressure on your awesome element.
-<code>startDeepPress</code> to know if the user is applying deep pressure and <code>endDeepPress</code> to know when it stopped.
-And as a curtesy there is <code>unsupported</code> which tell’s you if Force Touch is&nbsp;available.</p>
-<p>If you want to know more head over to the <a href="http://yamartino.github.io/pressure/">Github Page</a> and check the <a href="http://yamartino.github.io/pressure/">documentation</a>. The developer also implemented a very nice demo on that same&nbsp;page.</p>
-<p>Since it’s the first day of the week I would like to remind you to challenge yourself this week.
-This weeks challenge is to create a workshop about a topic you care about or want to research.
-The only way you can be sure of knowing something is when you can teach it to somebody&nbsp;else.</p>
-<p>Head over to the <a href="http://daily-javascript.com/challenges/workshopper/">Workshopper Challenge</a> section for more&nbsp;details.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>22. January 2016</span></p>
-            <h2><a href="/articles/weekly-challenge-2016-04/">Weekly Challenge - Workshopper</a></h2>
-          </header>
-          <section class="content"><p>As first point of today here are <a href="http://daily-javascript.com/challenges/tic-tac-toe/results">last weeks results</a>.
-Sadly still not a lot of submissions. The submissions I did receive are amazing great work guys.
-I am curious about the reason behind the low number of submissions, is this because the challenges are to hard?
-Or because they are not challenging enough? Maybe you guys don’t like the topics. I do not know.
-Please tell me if you have any ideas on how I can get you guys to work on challenging problems and you will have&nbsp;fun.</p>
-<p>For this weeks challenge I had a fun idea, but sadly I did not find the time this week to prepare it.
-So that will have to wait for some other week. This week we are gonna think about how to transfer&nbsp;knowledge.</p>
-<p>Pick a topic which you feel comfortable with or something you find interesting and create a workshop for that topic.
-You will be using the <a href="https://github.com/workshopper/workshopper">Workshopper</a> framework which I mentioned <a href="http://daily-javascript.com/articles/workshopper/">this week</a>.
-For more detail on the challenge go to the <a href="http://daily-javascript.com/challenges/workshopper">challenge page</a>.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>21. January 2016</span></p>
-            <h2><a href="/articles/mantra/">Mantra</a></h2>
-          </header>
-          <section class="content"><p>Mantra (GitHub: <a href="https://github.com/kadirahq/mantra">kadirahq/mantra</a>, License:&nbsp;<span class="caps">MIT</span>)</p>
-<p>Mantra is an application architecture for <a href="https://www.meteor.com/">Meteor</a>.
-If you are not familair with Meteor I would strongly advice you take a look at it.
-The developers of Mantra try to achieve two main goals: High Maintainability and Future&nbsp;Proof.</p>
-<p>Maintainability is a key factor for success when working within large teams.
-Mantra achieves this by unit testing every part of the app, while following standards for <strong>everything</strong>. This makes it easy to add new users and work with&nbsp;teams.</p>
-<p>There is a very extensive spec of how a Mantra application would work which can be found <a href="https://kadirahq.github.io/mantra/">here</a>.
-I really like this approach, ‘cause it combines the best parts of all the new and shiny stuff out&nbsp;there.</p>
-<p>Today is the last day you can submit your solution for the <a href="http://daily-javascript.com/challenges/tic-tac-toe/">weekly challenge</a>. Next weeks challenge will be up tomorrow so make sure you check back then to see what I have in store for you&nbsp;next.</p>
 
           </section>
         </article>

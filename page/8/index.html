@@ -36,6 +36,326 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
+            <p class="date"><span>25. November 2015</span></p>
+            <h2><a href="/articles/vuejs/">Vue.js</a></h2>
+          </header>
+          <section class="content"><p>Vue.js (GitHub: <a href="https://github.com/vuejs/vue">vuejs/vue</a>, License: <span class="caps">MIT</span>, npm:&nbsp;vue</p>
+<p>Vue.js is a library for building web interfaces. Because it works together with some other tools, you can also call it a “framework”. Now, if you’ve never heard of or used Vue before, you are probably thinking: great, yet another JavaScript framework! I get it. That was my first thought as well, that is why I never looked at it with a serious eye. Vue isn’t particularly new, it has being in the making for almost two years now, and the first public release was in February 2014. Over time it has evolving into a great engine to build beautiful production ready app&nbsp;with.</p>
+<p>What makes it so awesome? Well, it supports all the features we are used to from libraries such as React, Ember and Angular but it’s size and api are a lot simpler.
+A thing I love in libraries,&nbsp;simplicity.</p>
+<p>So let’s take a look at a few small examples and let’s start with data&nbsp;binding.</p>
+<p>This is how we define the <code>template</code> which we are gonna&nbsp;use:</p>
+<pre><code class="lang-html"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"binding"</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">p</span>&gt;</span>{{message}}<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">input</span> <span class="attribute">v-model</span>=<span class="value">"message"</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+</code></pre>
+<p>And here we give it some&nbsp;data:</p>
+<pre><code class="lang-javascript">
+<span class="keyword">let</span> binding = <span class="keyword">new</span> Vue({
+  el: <span class="string">'#binding'</span>,
+  data: {
+    message: <span class="string">'Daily Javascript'</span>
+  }
+});
+</code></pre>
+<p>This would give is a <code>div</code> with an <code>input</code> field and a preview of the value it holds. When you start typing, Vue will take over from there.
+That’s cool right? Ok I get it data binding does not impress you anymore. Do you like working with components?
+Vue takes an approach that is very similar to React: it’s components all the way&nbsp;down.</p>
+<pre><code class="lang-javascript"><span class="keyword">const</span> Example = Vue.extend({
+    template: <span class="string">'&lt;div&gt;{{ message }}&lt;/div&gt;'</span>,
+    data () {
+        <span class="keyword">return</span> {
+            message: <span class="string">'Daily Javascript!'</span>
+        }
+    }
+});
+
+<span class="comment">// register it with the tag &lt;example&gt;</span>
+Vue.component(<span class="string">'example'</span>, Example);
+</code></pre>
+<p>Now we can use it like&nbsp;this:</p>
+<pre><code class="lang-html"><span class="tag">&lt;<span class="title">example</span>&gt;</span><span class="tag">&lt;/<span class="title">example</span>&gt;</span>
+</code></pre>
+<p>Because modularity is key nowadays it comes with the opportunity to <code>scope</code> styles to a component.
+That would look something like&nbsp;this:</p>
+<pre><code class="lang-html"><span class="tag">&lt;<span class="title">style</span> <span class="attribute">scoped</span> &gt;</span><span class="css">
+<span class="class">.message</span> <span class="rules">{
+  <span class="rule"><span class="attribute">color</span>:<span class="value"> red</span></span>;
+}</span>
+</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
+</code></pre>
+<p>Here is a full example component of how it would look when you would have it setup with a combination of <a href="https://github.com/webpack/webpack">Webpack</a> and <a href="https://github.com/vuejs/vue-loader">vue-loader</a>.</p>
+<p><img src="http://blog.evanyou.me/images/vue-hot.gif" alt="demo"></p>
+<p>It comes with a lot of more features that I will not go into such as routing and a build-in transition&nbsp;system.</p>
+<p>There is a demo for the transition system which demonstrates state-based tweening with&nbsp;Vue:</p>
+<p><p data-height="268" data-theme-id="0" data-slug-hash="XmZNOG" data-default-tab="result" data-user="yyx990803" class='codepen'>See the Pen <a href='http://codepen.io/yyx990803/pen/XmZNOG/'>Vue.js elastic header component</a> by Evan You (<a href='http://codepen.io/yyx990803'>@yyx990803</a>) on <a href='http://codepen.io'>CodePen</a>.</p></p>
+<script async src="//assets.codepen.io/assets/embed/ei.js"></script>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
+            <p class="date"><span>24. November 2015</span></p>
+            <h2><a href="/articles/vectorious/">Vectorious</a></h2>
+          </header>
+          <section class="content"><p>Vectorious (GitHub: <a href="https://github.com/mateogianolio/vectorious">mateogianolio/vectorious</a>, License: <span class="caps">MIT</span>, npm:&nbsp;vectorious)</p>
+<p>Vectorious is a high performance linear algebra library written in Javascript.
+It is available via npm or just as a script so you can include it on your&nbsp;page.</p>
+<p>Since I’m not a mathematician and did not do a lot of linear algebra, you will have to bare with me.
+I will try to give you a good description of what this library can&nbsp;do.</p>
+<p>It has two mayor <span class="caps">API</span> endpoints to work with: <code>Matrix</code> and <code>Vector</code>.
+The constructor functions for both these functions can be called with a range of different arguments.
+Since 2.1.0 Vector implements <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Typed_arrays">JavaScript typed arrays</a> for increased performance. The default Vector type is Float64Array, but this can be specified upon&nbsp;creation.</p>
+<p>We would work with it like&nbsp;so:</p>
+<pre><code class="lang-javascript"><span class="keyword">import</span> { Vector, Matrix } <span class="keyword">from</span> <span class="string">'vectorious'</span>;
+
+<span class="keyword">let</span> vector, matrix;
+
+<span class="comment">// Create an empty vector of default type Float64Array</span>
+vector = <span class="keyword">new</span> Vector();
+<span class="comment">/* Vector { type: [Function: Float64Array], length: 0 } */</span>
+
+<span class="comment">// Create an empty vector of type Uint8Array</span>
+vector = <span class="keyword">new</span> Vector(<span class="built_in">Uint8Array</span>);
+<span class="comment">/* Vector { type: [Function: Uint8Array], length: 0 } */</span>
+
+matrix = <span class="keyword">new</span> Matrix();
+<span class="comment">/* Matrix { type: [Function: Float64Array], shape: [] } */</span>
+
+vector = Vector.zeros(<span class="number">5</span>);
+<span class="comment">/* Vector {
+  type: [Function: Float64Array],
+  length: 5,
+  buffer: ArrayBuffer {},
+  values: Float64Array { '0': 0, '1': 0, '2': 0, '3': 0, '4': 0 } } */</span>
+
+vector = <span class="keyword">new</span> Vector(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>);
+<span class="comment">/* Vector {
+  type: [Function: Float64Array],
+  length: 5,
+  buffer: ArrayBuffer {},
+  values: Float64Array { '0': 1, '1': 2, '2': 3, '3': 4, '4': 5 } } */</span>
+
+matrix = <span class="keyword">new</span> Matrix(vector);
+<span class="comment">/* Matrix {
+  type: [Function: Float64Array],
+  shape: [ 5, 1 ],
+  data: Float64Array { '0': 1, '1': 2, '2': 3, '3': 4, '4': 5 } } */</span>
+
+matrix = Matrix.zeros(<span class="number">2</span>, <span class="number">2</span>);
+<span class="comment">/* Matrix {
+  shape: [ 2, 2 ],
+  data: Float64Array { '0': 0, '1': 0, '2': 0, '3': 0 },
+  type: [Function: Float64Array] } */</span>
+</code></pre>
+<p>The developer posted an example of how you would map a time range over a&nbsp;sinus.</p>
+<pre><code class="lang-javascript"><span class="keyword">var</span> time = Vector.range(<span class="number">0</span>, <span class="built_in">Math</span>.<span class="caps">PI</span> / <span class="number">12</span>, <span class="built_in">Math</span>.<span class="caps">PI</span>);
+<span class="comment">// Which will return</span>
+<span class="comment">/* Vector {
+  type: [Function: Float64Array],
+  length: 12,
+  buffer: ArrayBuffer {},
+  values:
+   Float64Array {
+     '0': 0,
+     '1': 0.2617993877991494,
+     '2': 0.5235987755982988,
+     '3': 0.7853981633974483,
+     '4': 1.0471975511965976,
+     '5': 1.308996938995747,
+     '6': 1.5707963267948963,
+     '7': 1.8325957145940457,
+     '8': 2.0943951023931953,
+     '9': 2.356194490192345,
+     '10': 2.6179938779914944,
+     '11': 2.879793265790644 } } */</span>
+
+<span class="keyword">var</span> sine = time.map(<span class="built_in">Math</span>.sin);
+<span class="comment">// Which will return</span>
+<span class="comment">/* Vector {
+  type: [Function: Float64Array],
+  length: 12,
+  buffer: ArrayBuffer {},
+  values:
+   Float64Array {
+     '0': 0,
+     '1': 0.25881904510252074,
+     '2': 0.49999999999999994,
+     '3': 0.7071067811865475,
+     '4': 0.8660254037844386,
+     '5': 0.9659258262890682,
+     '6': 1,
+     '7': 0.9659258262890684,
+     '8': 0.8660254037844387,
+     '9': 0.7071067811865476,
+     '10': 0.49999999999999994,
+     '11': 0.2588190451025206 } } */</span>
+</code></pre>
+<p>Besides the very extensive <span class="caps">API</span> it also accommodates extentions such as <a href="https://github.com/mateogianolio/vectorious-solve">Solve</a> and <a href="https://github.com/mateogianolio/vectorious-plot">Plot</a>.
+Plot for instance can be used to a two-dimensional <span class="caps">SVG</span> plot from two input&nbsp;vectors.</p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
+            <p class="date"><span>23. November 2015</span></p>
+            <h2><a href="/articles/psdjs/">PSD.js</a></h2>
+          </header>
+          <section class="content"><p><span class="caps">PSD</span>.js (GitHub: <a href="https://github.com/meltingice/psd.js">meltingice/psd.js</a>, License: <span class="caps">MIT</span>, npm:&nbsp;psd)</p>
+<p><span class="caps">PSD</span>.js is a general purpose PSD parser written in Coffeescript. I was inspired by PSD.rb which allows you to work with a Photoshop document in a manageable tree structure and find out data such&nbsp;as:</p>
+<ul>
+<li>Document&nbsp;structure</li>
+<li>Document&nbsp;size</li>
+<li>Layer/folder size +&nbsp;positioning</li>
+<li>Layer/folder&nbsp;names</li>
+<li>Layer/folder visibility and&nbsp;opacity</li>
+<li>Font data (via psd-enginedata)<ul>
+<li>Text area&nbsp;contents</li>
+<li>Font names, sizes, and&nbsp;colors</li>
+</ul>
+</li>
+<li>Color mode and&nbsp;bit-depth</li>
+<li>Vector mask&nbsp;data</li>
+<li>Flattened image&nbsp;data</li>
+<li>Layer&nbsp;comps</li>
+</ul>
+<p>Although there are still some pieces missing that are present in <span class="caps">PSD</span>.rb, the eventual goal is to have all the features PSD.rb offers.
+So let’s look at an example for converting <code>.psd</code> as a <code>.png</code>.</p>
+<pre><code class="lang-javascript"><span class="keyword">import</span> <span class="caps">PSD</span> <span class="keyword">from</span> <span class="string">'psd'</span>;
+
+<span class="keyword">const</span> psd = <span class="caps">PSD</span>.fromFile(<span class="string">'my/awesome/file.psd'</span>);
+
+psd.parse();
+
+<span class="comment">// Log the tree structure of the .psd</span>
+<span class="built_in">console</span>.log(psd.tree().export());
+
+<span class="comment">// You can use promises syntax for opening and parsing</span>
+<span class="caps">PSD</span>.open(<span class="string">'my/awesome/file'</span>)
+    .then(psd =&gt; psd.image.saveAsPng(<span class="string">'./output.png'</span>))
+    .then(() =&gt; <span class="built_in">console</span>.log(<span class="string">'Finished!'</span>));
+</code></pre>
+<p>There is a very extensive <span class="caps">API</span> for traversing the document. If you would know the path to a group or layer within the tree, there is a way you can search by that path.
+That would look something like&nbsp;this:</p>
+<pre><code class="lang-javascript">psd.tree().childrenAtPath(<span class="string">'Version A/Matte'</span>);
+psd.tree().childrenAtPath([<span class="string">'Version A'</span>, <span class="string">'Matte'</span>]);
+</code></pre>
+<p>Once you have the layer you are interested in you can access the data like&nbsp;so:</p>
+<pre><code class="lang-javascript"><span class="comment">// Get the first layer</span>
+<span class="keyword">const</span> node = psd.tree().descendants()[<span class="number">0</span>];
+
+<span class="comment">// Read the name</span>
+node.get(<span class="string">'name'</span>);
+<span class="comment">// Read the width</span>
+node.get(<span class="string">'width'</span>);
+</code></pre>
+<p>Here is an example of the output <code>tree().export()</code> would give&nbsp;you:</p>
+<pre><code class="lang-javascript">{
+    children: [
+        {
+            type: <span class="string">'group'</span>,
+            visible: <span class="literal">false</span>,
+            opacity: <span class="number">1</span>,
+            blendingMode: <span class="string">'normal'</span>,
+            name: <span class="string">'VersionD'</span>,
+            left: <span class="number">0</span>,
+            right: <span class="number">900</span>,
+            top: <span class="number">0</span>,
+            bottom: <span class="number">600</span>,
+            height: <span class="number">600</span>,
+            width: <span class="number">900</span>,
+            children: [
+                {
+                    type: <span class="string">'layer'</span>,
+                    visible: <span class="literal">true</span>,
+                    opacity: <span class="number">1</span>,
+                    blendingMode: <span class="string">'normal'</span>,
+                    name: <span class="string">'Makeachangeandsave.'</span>,
+                    left: <span class="number">275</span>,
+                    right: <span class="number">636</span>,
+                    top: <span class="number">435</span>,
+                    bottom: <span class="number">466</span>,
+                    height: <span class="number">31</span>,
+                    width: <span class="number">361</span>,
+                    mask: {
+
+                    },
+                    text: {
+                        value: <span class="string">'Makeachangeandsave.'</span>,
+                        font: {
+                            name: <span class="string">'HelveticaNeue-Light'</span>,
+                            sizes: [
+                                <span class="number">33</span>
+                            ],
+                            colors: [
+                                [
+                                    <span class="number">85</span>,
+                                    <span class="number">96</span>,
+                                    <span class="number">110</span>,
+                                    <span class="number">255</span>
+                                ]
+                            ],
+                            alignment: [
+                                <span class="string">'center'</span>
+                            ]
+                        },
+                        left: <span class="number">0</span>,
+                        top: <span class="number">0</span>,
+                        right: <span class="number">0</span>,
+                        bottom: <span class="number">0</span>,
+                        transform: {
+                            xx: <span class="number">1</span>,
+                            xy: <span class="number">0</span>,
+                            yx: <span class="number">0</span>,
+                            yy: <span class="number">1</span>,
+                            tx: <span class="number">456</span>,
+                            ty: <span class="number">459</span>
+                        }
+                    },
+                    image: {
+
+                    }
+                }
+            ]
+        }
+    ],
+    <span class="built_in">document</span>: {
+        width: <span class="number">900</span>,
+        height: <span class="number">600</span>,
+        resources: {
+            layerComps: [
+                {
+                    id: <span class="number">692243163</span>,
+                    name: <span class="string">'VersionA'</span>,
+                    capturedInfo: <span class="number">1</span>
+                },
+                {
+                    id: <span class="number">725235304</span>,
+                    name: <span class="string">'VersionB'</span>,
+                    capturedInfo: <span class="number">1</span>
+                },
+                {
+                    id: <span class="number">730932877</span>,
+                    name: <span class="string">'VersionC'</span>,
+                    capturedInfo: <span class="number">1</span>
+                }
+            ],
+            guides: [
+
+            ],
+            slices: [
+
+            ]
+        }
+    }
+}
+</code></pre>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
             <p class="date"><span>19. November 2015</span></p>
             <h2><a href="/articles/node-5-1-0/">Node v5.1.0 Stable</a></h2>
           </header>
@@ -135,195 +455,6 @@ Domcom is a frontend framework which uses declarative components to proxy the <s
 
 demoSum()
 </code></pre>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>12. November 2015</span></p>
-            <h2><a href="/articles/react-treebeard/">React Treebeard</a></h2>
-          </header>
-          <section class="content"><p>React Treebeard (GitHub: <a href="https://github.com/alexcurtis/react-treebeard">alexcurtis/react-treebeard</a>, License: <span class="caps">MIT</span>, npm:&nbsp;react-treebeard)</p>
-<p>Ever come a cross a task where you needed to quickly make a bunch of data explorable or where you needed to visualize a massive object?
-Now there is React Treebeard which gives you a tree with collapsed&nbsp;leafs.</p>
-<p>So let’s say we have a batch of data like&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="keyword">const</span> myData = {
-    name: <span class="string">'root'</span>,
-    toggled: <span class="literal">true</span>,
-    children: [
-        {
-            name: <span class="string">'parent'</span>,
-            children: [
-                {
-                    name: <span class="string">'child'</span>,
-                    terminal: <span class="literal">true</span>
-                }
-            ]
-        },
-        {
-            name: <span class="string">'loading parent'</span>,
-            loading: <span class="literal">true</span>
-        },
-        {
-            name: <span class="string">'parent'</span>,
-            children: [
-                {
-                    name: <span class="string">'nested parent'</span>,
-                    children: [
-                        {
-                            name: <span class="string">'nested child'</span>,
-                            terminal: <span class="literal">true</span>
-                        }
-                    ]
-                }
-            ]
-        }
-    ]
-};
-</code></pre>
-<p>Then our component would look something like&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="function"><span class="keyword">function</span> <span class="title">TreeExample</span>(<span class="params">props</span>)</span>{
-    <span class="keyword">return</span> (
-        <span class="xml"><span class="tag">&lt;<span class="title">Treebeard</span>
-            <span class="attribute">data</span>=<span class="value">{props.data}</span>
-            <span class="attribute">onToggle</span>=<span class="value">{onToggle}</span>
-        /&gt;</span>
-    )</span>;
-}
-
-<span class="keyword">const</span> onToggle = () =&gt; {
-    <span class="comment">// Implement custom behavior</span>
-};
-
-<span class="keyword">const</span> shell = <span class="built_in">document</span>.querySelector(<span class="string">'#shell'</span>);
-ReactDOM.render(<span class="xml"><span class="tag">&lt;<span class="title">TreeExample</span> <span class="attribute">data</span>=<span class="value">{</span> <span class="attribute">myData</span> }/&gt;</span>, shell);</span>
-</code></pre>
-<p>With the decorators it’s very easy for you to use your own Node Header, Toggle and Loading components.
-This would look something like&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="keyword">let</span> decorators = {
-    Loading: (props) =&gt; {
-        <span class="keyword">return</span> (
-            <span class="xml"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">style</span>=<span class="value">{props.style}</span>&gt;</span>
-                loading...
-            <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-        )</span>;
-    },
-    Toggle: (props) =&gt; {
-        <span class="keyword">return</span> (
-            <span class="xml"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">style</span>=<span class="value">{props.style}</span>&gt;</span>
-                <span class="tag">&lt;<span class="title">svg</span> <span class="attribute">height</span>=<span class="value">{props.height}</span> <span class="attribute">width</span>=<span class="value">{props.width}</span>&gt;</span>
-                    // Vector Toggle Here
-                <span class="tag">&lt;/<span class="title">svg</span>&gt;</span>
-            <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-        )</span>;
-    },
-    Header: (props) =&gt; {
-        <span class="keyword">return</span> (
-            <span class="xml"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">style</span>=<span class="value">{props.style}</span>&gt;</span>
-                {props.node.name}
-            <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-        )</span>;
-    }
-};
-
-<span class="xml"><span class="tag">&lt;<span class="title">Treebeard</span> <span class="attribute">data</span>=<span class="value">{...}</span> <span class="attribute">decorators</span>=<span class="value">{decorators}</span>/&gt;</span></span>
-</code></pre>
-<p>If you wanna see what this all looks like while running in the browser, check out the <a href="http://alexcurtis.github.io/react-treebeard/#">demo page</a> provided by the&nbsp;developer.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>11. November 2015</span></p>
-            <h2><a href="/articles/notie/">Notie.js</a></h2>
-          </header>
-          <section class="content"><p>Notie.js (GitHub: <a href="https://github.com/jaredreich/notie.js">jaredreich/notie.js</a>, License:&nbsp;<span class="caps">MIT</span>)</p>
-<p>Notie.js is a simple notification plugin. It does not have any dependencies, which makes it very light and easy to work with.
-Throughout time I’ve seen multiple libraries and <span class="caps">UI</span> frameworks implement something similar,
-but what I like about this little library is that when you have a very small project, it can save you some time on implementing feedback to the&nbsp;user.</p>
-<p>Sadly it’s not available via npm or bower, but I think that is kind of the point this library is trying to make.
-Everything nowadays is bundled and transpiled, which I like very much, but it is nice to see that some people still take this&nbsp;approach.</p>
-<p>So let’s include it in our markup like&nbsp;this:</p>
-<pre><code class="lang-html"><span class="tag">&lt;<span class="title">body</span>&gt;</span>
-  ...
-  <span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"/path/to/notie.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">body</span>&gt;</span>
-</code></pre>
-<p>Now when you want to send a notification or confirm something with your user you can use it like&nbsp;this:</p>
-<pre><code class="lang-javascript">
-notie.alert(style, <span class="string">'message'</span>, time_in_seconds);
-
-notie.confirm(<span class="string">'Title text'</span>, <span class="string">'Yes button text'</span>, <span class="string">'No/cancel button text'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
-    <span class="comment">// User choose Yes.</span>
-});
-</code></pre>
-<p>The style in this example would be the “theme” of the alert. By default these would&nbsp;be:</p>
-<ol>
-<li><span class="caps">OK</span> ( Green&nbsp;)</li>
-<li>Warning ( Yellowish&nbsp;)</li>
-<li>Error ( Red&nbsp;)</li>
-<li>Notice ( Blue&nbsp;)</li>
-</ol>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>10. November 2015</span></p>
-            <h2><a href="/articles/babel-typecheck/">Babel Typecheck</a></h2>
-          </header>
-          <section class="content"><p>Babel Typecheck (GitHub: <a href="https://github.com/codemix/babel-plugin-typecheck">codemix/babel-plugin-typecheck</a>, License: <span class="caps">MIT</span>, npm:&nbsp;babel-plugin-typecheck)</p>
-<p>Babel Typecheck is a <a href="https://babeljs.io/">Babel</a> plugin for static and runtime type checking. It does so using <a href="http://flowtype.org/">Flow type</a>.
-What it does is turn a code block like&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="function"><span class="keyword">function</span> <span class="title">sendMessage</span> (<span class="params">to: User, message: string</span>): <span class="title">boolean</span> </span>{
-  <span class="keyword">return</span> socket.send(to, message);
-}
-</code></pre>
-<p>Into&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="function"><span class="keyword">function</span> <span class="title">sendMessage</span>(<span class="params">to, message</span>) </span>{
-  <span class="keyword">var</span> _socket$send;
-
-  <span class="keyword">if</span> (!(to <span class="keyword">instanceof</span> User)) <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">TypeError</span>(<span class="string">"Value of argument 'to' violates contract."</span>);
-  <span class="keyword">if</span> (<span class="keyword">typeof</span> message !== <span class="string">"string"</span>) <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">TypeError</span>(<span class="string">"Value of argument 'message' violates contract."</span>);
-  _socket$send = socket.send(to, message);
-  <span class="keyword">if</span> (<span class="keyword">typeof</span> _socket$send !== <span class="string">"boolean"</span>) <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">TypeError</span>(<span class="string">"Function 'sendMessage' return value violates contract."</span>);
-  <span class="keyword">return</span> _socket$send;
-}
-</code></pre>
-<p>What this does is it executes the same as when you would write your function like&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="function"><span class="keyword">function</span> <span class="title">sendMessage</span> (<span class="params">to, message</span>) </span>{
-  <span class="keyword">return</span> socket.send(to, message);
-}
-</code></pre>
-<p>But with one big difference, when you call this function with the wrong arguments your application just breaks.
-When using Babel Typecheck it would present you with a type error on transpiling so you will not make silly mistakes again. Well not the type error kind at&nbsp;least.</p>
-<p>In the example above we see a few new things, mostly attached to the function&nbsp;call:</p>
-<pre><code class="lang-javascript">    (to: User, message: string): boolean
-</code></pre>
-<p>Which means that the <code>to</code> parameter expects to be an instance of User.
-The <code>message</code> parameter expects to be a String.
-The <code>:</code> at the and of the function call is to indicate what the function will return which is a Boolean in this&nbsp;example.</p>
-<p>This function demonstrates which kinds of annotations are&nbsp;supported:</p>
-<pre><code class="lang-javascript"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">
-    aNum: number,
-    anOptionalString: ?string, <span class="comment">// will allow null/undefined</span>
-    anObject: Object,
-    aDate: Date,
-    anError: Error,
-    aUnionType: Object|string,
-    aClass: User,
-    aShape: {foo: number, bar: ?string},
-    anArray: Array,
-    arrayOf: string[] | Array&lt;string&gt;,
-    {x, y}: {x: string, y: number}, <span class="comment">// destructuring works</span>
-    es6Defaults: number = 42
-</span>) : <span class="title">number</span> </span>{
-  <span class="keyword">return</span> aNum;
-}
-</code></pre>
-<p>When I saw the syntax of this plugin the first thing that jumped into my mind was why not just use Typescript then.
-Since Typescript had it’s own upstream this might not be inline with the ESnext(<span class="caps">ES6</span>/ES7) feature we have grown to love.
-By including this plugin in your <code>.babelrc</code> to can have the power and security of strongly typed Javascript and all the new features provided by&nbsp;Babel.</p>
 
           </section>
         </article>

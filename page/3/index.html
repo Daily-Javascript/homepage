@@ -36,6 +36,92 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
+            <p class="date"><span>15. January 2016</span></p>
+            <h2><a href="/articles/weekly-challenge-2016-03/">Weekly Challenge - Tic tac toe</a></h2>
+          </header>
+          <section class="content"><p><img style="width: 100%; display:block;" src="http://i.imgur.com/AMfBBzl.png" ></p>
+<p>First of all here is a link to <a href="http://daily-javascript.com/challenges/mandelbrot/results">last weeks results</a> sadly the challenge was a bit to hard, so I heard in some direct feedback. So I will switch it up this week.
+No more fractals this time. This weeks challenge is create a Tic Tac Toe game using&nbsp;Javascript.</p>
+<p>You can go two ways for this&nbsp;implementation.</p>
+<p>The first one would be very naive. Simply switch between 2 users, the first user would be X the other would be O.
+The program should be able to detect when one of the players has won or if it is a&nbsp;tie.</p>
+<p>If you are feeling very confident implement <span class="caps">AI</span> for player O. Same rules would apply.
+Be mindful in your implementation because next week there will come some additional&nbsp;requirements.</p>
+<p>Again I’ve created <a href="http://codepen.io/DailyJavascript/pen/ZQXBaK">a Codepen for you to start with</a>.
+Please submit your solution to this <a href="http://goo.gl/forms/vM1b4oUXC6">Google Form</a> and happy&nbsp;coding.</p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
+            <p class="date"><span>14. January 2016</span></p>
+            <h2><a href="/articles/chakracore-and-10-years-jquery/">ChakraCore and 10 years of jQuery</a></h2>
+          </header>
+          <section class="content"><p>ChakraCore (GitHub: <a href="https://github.com/Microsoft/ChakraCore">Microsoft/ChakraCore</a>, License:&nbsp;<span class="caps">MIT</span>)</p>
+<p>In case you did not see or hear it yet, Microsoft has open sourced the ChakraCore.
+ChakraCore is the Javascript engine that powers Microsoft&nbsp;Edge.</p>
+<p>The ChakraCore repository provides a fully supported and open-source standalone JavaScript engine, with the same  as the Microsoft Edge’s Chakra engine, to embed within your&nbsp;projects.</p>
+<p>For more in depth information I would refer you to the <a href="https://blogs.windows.com/msedgedev/2016/01/13/chakracore-now-open/">official post by Microsoft</a>. When you don’t feel like reading that, just watch this <a href="https://youtu.be/1bfDB3YPHFI">announcement video</a>.</p>
+<iframe width="100%" height="480" src="https://www.youtube.com/embed/1bfDB3YPHFI" frameborder="0" allowfullscreen></iframe>
+
+<p>Besides the great news coming from Microsoft, jQuery has a special day to celebrate. The ten year existence of the most used library on the web.
+The first release was at 14<span class="ord">th</span> of January 2006. Since then it has changed a lot and helped evolve the web to the great platform it is&nbsp;nowadays.</p>
+<p>Go over to the <a href="http://blog.jquery.com/2016/01/14/ten-years-of-jquery-and-beyond/">jQuery blog</a> to read a little bit about the journey to&nbsp;today.</p>
+<p>Don’t forget to submit your implementation of this weeks challenge. If you need a refresher on what the assignment was head over the <a href="http://daily-javascript.com/challenges/mandelbrot/">challenge&nbsp;page</a></p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
+            <p class="date"><span>13. January 2016</span></p>
+            <h2><a href="/articles/featurejs/">Feature.js</a></h2>
+          </header>
+          <section class="content"><p>Feature.js (GitHub: <a href="https://github.com/viljamis/feature.js/">viljamis/feature.js</a>, License:&nbsp;<span class="caps">MIT</span>)</p>
+<p>Feature.js is a very fast, simple and lightweight browser feature detection library. I received this from a ex-colleage of mine and I was amazed I did not stumble upon this before, since it has more than 1200 stars on Github.
+There are several features you can test with this library, here is a list of&nbsp;them:</p>
+<ul>
+<li>AddEventListener</li>
+<li>Async&nbsp;attribute</li>
+<li>Canvas</li>
+<li>ClassList&nbsp;<span class="caps">API</span></li>
+<li><span class="caps">CORS</span>&nbsp;API</li>
+<li>Context&nbsp;Menu</li>
+<li><span class="caps">CSS</span> 3D&nbsp;transform</li>
+<li><span class="caps">CSS</span>&nbsp;transform</li>
+<li><span class="caps">CSS</span>&nbsp;transition</li>
+<li>Defer&nbsp;attribute</li>
+<li>DeviceOrientation</li>
+<li>DeviceMotion</li>
+<li>Geolocation</li>
+<li>History&nbsp;<span class="caps">API</span></li>
+<li>Input&nbsp;Placeholder</li>
+<li>LocalStorage</li>
+<li>MatchMedia</li>
+<li>Picture&nbsp;element</li>
+<li>QuerySelectorAll</li>
+<li><span class="caps">REM</span>&nbsp;Units</li>
+<li>Service&nbsp;Worker</li>
+<li>Sizes&nbsp;attribute</li>
+<li>Srcset&nbsp;attribute</li>
+<li><span class="caps">SVG</span></li>
+<li>Touch</li>
+<li>Viewport&nbsp;Units</li>
+<li>WebGL</li>
+</ul>
+<p>Since the tests it uses are pretty straight forward I will not go into this al to much. The most used test is done by simply checking if the requested feature is within the object in needs to be&nbsp;in.</p>
+<p>You use it with simple <code>if</code> statements like&nbsp;so:</p>
+<pre><code class="lang-javascript"><span class="keyword">if</span> (feature.webGL) {
+    <span class="built_in">console</span>.log(<span class="string">'WebGL supported'</span>);
+} <span class="keyword">else</span> {
+    <span class="built_in">console</span>.log(<span class="string">'WebGL not supported'</span>);
+}
+</code></pre>
+<p>If you want to see it in action head over to the <a href="http://featurejs.com/">project page</a> where the developer has implemented a nice&nbsp;demo.</p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
             <p class="date"><span>12. January 2016</span></p>
             <h2><a href="/articles/catbee/">Catbee</a></h2>
           </header>
@@ -122,56 +208,6 @@ load(<span class="string">"http://example.com/foo.js"</span>, <span class="funct
   });
 </span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
 </code></pre>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>08. January 2016</span></p>
-            <h2><a href="/articles/weekly-challenge-2016-02/">Weekly Challenge Week 2</a></h2>
-          </header>
-          <section class="content"><p>It’s Friday again, which means no new library today, but to make up for it I think I chose a really nice challenge. The Mandelbrot set.
-Some of you guys are probably familiar with it already from school or as a performance&nbsp;test.</p>
-<p>I came across this problem just recently when I was looking at the <a href="http://daily-javascript.com/articles/bigfloat/">bigfloat</a> library.
-The developer included it as a performance demo and it got my interest because of <a href="http://benchmarksgame.alioth.debian.org/u64q/performance.php?test=mandelbrot">“The Computer Language Benchmarks Game”</a>. Where it is listed as one of the benchmarks&nbsp;challenges.</p>
-<p>For details on the challenge go to the <a href="http://daily-javascript.com/challenges/mandelbrot">challenge page</a>.</p>
-<p>The results will be up next Friday so make sure you have submitted your implementation before&nbsp;then.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>07. January 2016</span></p>
-            <h2><a href="/articles/nuclear-js/">NuclearJS</a></h2>
-          </header>
-          <section class="content"><p>NuclearJS (GitHub: <a href="https://github.com/optimizely/nuclear-js">optimizely/nuclear-js</a>, License: <span class="caps">MIT</span>, npm:&nbsp;nuclear-js)</p>
-<p>NuclearJS is a reactive flux implementation build with <a href="https://facebook.github.io/immutable-js/">ImmutableJS</a> data structures.
-It has been developed by <a href="https://www.optimizely.com/">Optimizely</a>, which is a company that provides A/B testing suite and more as a&nbsp;service.</p>
-<p>NuclearJS was designed first for large scale production apps. For a much more lightweight Flux implementation that shares many of the same ideas and design principles, as check out <a href="https://github.com/vigetlabs/microcosm">Microcosm</a>.</p>
-<p>As we have seen many Flux implementations already we have grown skeptical about new implementations.
-So that bears the question: “How NuclearJS differs from other Flux&nbsp;implementations?”.</p>
-<p>Well all app state is in a singular immutable map. In development you can see your entire application state at every point in time thanks to awesome debugging tools built into&nbsp;NuclearJS.</p>
-<p>State is not spread out through stores, instead stores are a declarative way of describing some top-level domain of your app state. For each key in the app state map a store declares the initial state of that key and how that piece of the app state reacts over time to actions dispatched on the flux&nbsp;system.</p>
-<p>Stores are not reference-able nor have any getX methods on them. Instead NuclearJS uses a functional lens concept called getters. In fact, the use of getters obviates the need for any store to know about another store, eliminating the confusing store.waitsFor method found in other flux&nbsp;implementations.</p>
-<p>NuclearJS is insanely efficient - change detection granularity is infinitesimal, you can even observe computed state where several pieces of the state map are combined together and run through a transform function. NuclearJS is smart enough to know when the value of any computed changes and only call its observer if and only if its value changed in a way that is orders of magnitude more efficient than traditional dirty checking. It does this by leveraging ImmutableJS data structure and using a state1 !== state2 reference comparison which runs in constant&nbsp;time.</p>
-<p>Automatic data observation / rendering – automatic re-rendering is built in for React in the form of a very lightweight mixin. It is also easily possible to build the same functionality for any <span class="caps">UI</span> framework such as VueJS, AngularJS and even&nbsp;Backbone.</p>
-<p>NuclearJS is not a side-project, it’s used as the default Flux implementation that powers all of Optimizely. It is well tested and will continue to be maintained for the foreseeable future. Our current codebase has over dozens of stores, actions and getters, we even share our prescribed method of large scale code organization and testing&nbsp;strategies.</p>
-<p>For examples I would refer you to <a href="https://optimizely.github.io/nuclear-js/">project homepage</a> because there you can find better explaintions than I can give it in my daily&nbsp;posts.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>06. January 2016</span></p>
-            <h2><a href="/articles/happy-new-year/">Happy new year</a></h2>
-          </header>
-          <section class="content"><p>First of all let me say Happy new year! The last couple of weeks I did not do any posted due to all the celebrations and illness.
-Luckily the holiday season is over and we can get back to creating and learning to make beautiful applications.
-Something some people might be interested in is the results of the latest challenge which was <a href="http://daily-javascript.com/challenges/let-it-snow">“Let it snow”</a>.</p>
-<p>Well sadly I only received two submissions. Which let me to believe people did not feel challenged by this assignment. I will do my best to find something more interesting.
-The results can be found on the results page of the challenge which would be <a href="http://daily-javascript.com/challenges/let-it-snow/results">Daily-Javascript.com/challenges/let-it-snow/results</a></p>
-<p>From tomorrow on Daily-Javascript will be getting daily updates again. Hope you guys keep on&nbsp;reading.</p>
-<p>Happy&nbsp;coding.</p>
 
           </section>
         </article>
