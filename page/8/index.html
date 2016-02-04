@@ -36,6 +36,40 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
+            <p class="date"><span>26. November 2015</span></p>
+            <h2><a href="/articles/react-pull-to-refresh/">react-pull-to-refresh</a></h2>
+          </header>
+          <section class="content"><p>react-pull-to-refresh (GitHub: <a href="https://github.com/bryaneaton13/react-pull-to-refresh">bryaneaton13/react-pull-to-refresh</a>, License: <span class="caps">MIT</span>, npm:&nbsp;react-pull-to-refresh)</p>
+<p>react-pull-to-refresh is a library that does exactly what the name implies. It gives the pull to refresh behavior.
+<img src="https://github.com/bryaneaton13/react-pull-to-refresh/raw/master/docs/demo.gif" alt="demo"></p>
+<p>It is based on the <a href="https://github.com/apeatling/web-pull-to-refresh">library</a> that Andy Peatling made and wrote a post about. You can find that <a href="https://github.com/apeatling/web-pull-to-refresh">here</a>.
+So let’s take a look at how it works, your refresh handler takes in <code>resolve</code> and <code>reject</code> to tell the component when it’s finished. That would look something like&nbsp;this:</p>
+<pre><code class="lang-javascript">handleRefresh(resolve, reject) {
+    <span class="comment">// do some async code here</span>
+    <span class="keyword">let</span> success = <span class="literal">false</span>;
+    <span class="keyword">if</span> (success) {
+        resolve();
+    } <span class="keyword">else</span> {
+        reject();
+    }
+}
+</code></pre>
+<p>And this is what the component would look&nbsp;like:</p>
+<pre><code class="lang-html"><span class="tag">&lt;<span class="title">ReactPullToRefresh</span>
+    <span class="attribute">onRefresh</span>=<span class="value">{this.handleRefresh}</span>
+    <span class="attribute">className</span>=<span class="value">"your-own-class-if-you-want"</span>
+    <span class="attribute">style</span>=<span class="value">{{</span> <span class="attribute">textAlign:</span> '<span class="attribute">center</span>' }}&gt;</span>
+        <span class="tag">&lt;<span class="title">h3</span>&gt;</span>Pull down to refresh<span class="tag">&lt;/<span class="title">h3</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">div</span>&gt;</span>{items}<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">div</span>&gt;</span>etc.<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">ReactPullToRefresh</span>&gt;</span>
+</code></pre>
+<p>Basically that is all that there is to it. For the American readers I hope you have a nice&nbsp;Thanksgiving.</p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
             <p class="date"><span>25. November 2015</span></p>
             <h2><a href="/articles/vuejs/">Vue.js</a></h2>
           </header>
@@ -386,75 +420,6 @@ See the release notes for <a href="https://github.com/npm/npm/releases/tag/v3.3.
 <li>url.resolve may transfer the auth portion of the url when resolving between two full hosts, see <a href="https://github.com/nodejs/node/issues/1435">#1435</a>.</li>
 <li>Unicode characters in filesystem paths are not handled consistently across platforms or Node.js APIs. See <a href="https://github.com/nodejs/node/issues/2088">#2088</a>, <a href="https://github.com/nodejs/node/issues/3401">#3401</a> and <a href="https://github.com/nodejs/node/issues/3519">#3519</a>.</li>
 </ul>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>16. November 2015</span></p>
-            <h2><a href="/articles/domcom/">Domcom</a></h2>
-          </header>
-          <section class="content"><p>Domcom (GitHub: <a href="https://github.com/taijiweb/domcom">taijiweb/domcom</a>, License: <span class="caps">MIT</span>, npm:&nbsp;domcom)</p>
-<p>Yesterday I got an email with the request to take a look at the Domcom.
-Domcom is a frontend framework which uses declarative components to proxy the <span class="caps">DOM</span> in order to implement better performance than <a href="https://github.com/Matt-Esch/virtual-dom">VirtualDOM</a>. It comes with “lazy” reactive functions to manage data. A few of the features included in this framework&nbsp;are:</p>
-<ul>
-<li><p>Declarative compostable components with reactive&nbsp;function</p>
-</li>
-<li><p>Only render the invalidated components and refresh the really changed <span class="caps">DOM</span> nodes with automatic update status&nbsp;checking</p>
-</li>
-<li><p>Decouple with model and&nbsp;controller</p>
-</li>
-<li><p>Simple but powerful&nbsp;route</p>
-</li>
-<li><p>Support for&nbsp;promise</p>
-</li>
-</ul>
-<p>And a whole lot more but I would refer you to the <a href="https://github.com/taijiweb/domcom">Github project</a> for&nbsp;that.</p>
-<p>Here is a code example provided by the developer to give a taste of&nbsp;Domcom:</p>
-<p>In&nbsp;javascript:</p>
-<pre><code class="lang-javascript">    <span class="keyword">const</span> {list, text, p, flow, see} = dc
-    ​
-    demoSum = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
-      <span class="keyword">let</span> a, b, comp, p1, t1, t2;
-
-      a = see(<span class="number">1</span>);
-      b = see(<span class="number">2</span>);
-
-      comp = list((t1 = text({
-        value: a,
-        onchange() { <span class="keyword">return</span> a(<span class="keyword">this</span>.value * <span class="number">1</span>); }
-
-      })), (t2 = text({
-        value: b,
-        onchange() { <span class="keyword">return</span> b(<span class="keyword">this</span>.value * <span class="number">1</span>); }
-
-      })), p1 = p(flow.add(a, b)));
-
-      dc.updateWhen([t1, t2], <span class="string">'change'</span>, p1);
-
-      <span class="keyword">return</span> comp.mount();
-    };
-    ​
-    demoSum();
-</code></pre>
-<p>Since the developer likes coffee-script is here the same example in&nbsp;coffee-script.</p>
-<pre><code class="lang-coffeescript">{list, text, p, flow, see} = dc
-<span class="function">
-<span class="title">demoSum</span> = -&gt;</span>
-
-    a = see <span class="number">1</span>; b = see <span class="number">2</span>
-
-    comp = list \
-        (t1 = text <span class="attribute">value</span>: a, <span class="attribute">onchange</span>: <span class="function">-&gt;</span> a <span class="property">@value</span>*<span class="number">1</span>),
-        (t2 = text <span class="attribute">value</span>: b, <span class="attribute">onchange</span>: <span class="function">-&gt;</span> b <span class="property">@value</span>*<span class="number">1</span>),
-        p1 = p flow.add a, b
-
-    dc.updateWhen [t1, t2], <span class="string">'change'</span>, p1
-
-    comp.mount()
-
-demoSum()
-</code></pre>
 
           </section>
         </article>
