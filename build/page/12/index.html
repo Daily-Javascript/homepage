@@ -36,170 +36,219 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
-            <p class="date"><span>21. October 2015</span></p>
-            <h2><a href="/articles/roll-up/">Rollup.js</a></h2>
+            <p class="date"><span>03. November 2015</span></p>
+            <h2><a href="/articles/keo/">Keo</a></h2>
           </header>
-          <section class="content"><p>Rollup.js (GitHub: <a href="https://github.com/rollup/rollup">rollup/rollup</a>, License: <span class="caps">MIT</span>, npm:&nbsp;rollup)</p>
-<p>Rollup is a next-generation Javascript module bundler. Build your app or library using <span class="caps">ES2015</span> modules, then efficiently bundle them up into a single file for use in browsers and Node.js.
-This is not an unfamiliar concept to the most of us. What makes Rollup stand out is that fact that it’s using only the functionality that you&nbsp;import.</p>
-<p>Normally you would do something like&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="keyword">var</span> util = <span class="built_in">require</span>(<span class="string">'util'</span>);
-util.ajax(<span class="string">'http://some-api.com/?q=DailyJavascript'</span>).then( handleData );
-</code></pre>
-<p>What this does is include the entire module <code>util</code> but we only use the <code>ajax</code> method. This will increase the total size of our app.
-Now there is <span class="caps">ES2015</span> module loading which allows us to include only the functions we need like&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="keyword">import</span> { ajax } <span class="keyword">from</span> <span class="string">'util'</span>;
-ajax(<span class="string">'http://some-api.com/?q=DailyJavascript'</span>).then( handleData );
-</code></pre>
-<p>When we build the second example, with for instance Browserify, what would happen is that the entire module would still get loaded. Kinda beats the point of using <code>import</code> right?
-Luckily there is Rollup to the rescue which will only build that what you&nbsp;need.</p>
-<p>For the moment it only provides a command line interface which you can acquire&nbsp;via:</p>
-<pre><code class="lang-bash">npm i rollup -g
-</code></pre>
-<p>The usage is pretty straight&nbsp;forward.</p>
-<pre><code class="lang-bash"><span class="comment"># create a self-executing bundle...</span>
-rollup --format iife -- src/app.js &gt; build/app.js
-
-<span class="comment"># ...with inline sourcemaps:</span>
-rollup <span class="operator">-f</span> iife --sourcemap inline -- src/app.js &gt; build/app.js
-
-<span class="comment"># create a bundle with dependencies on jQuery and Angular,</span>
-<span class="comment"># with a sourcemap in a separate file</span>
-rollup <span class="operator">-f</span> iife --globals jquery:jQuery,angular:ng \
-  -i src/app.js -o build/app.js -m build/app.js.map
-</code></pre>
-<p>For more commands check out the <code>--help</code>.</p>
-<p>Alternatively, you could use rollup command from an npm run script cntext, you can install it as a devDependency&nbsp;using:</p>
-<pre><code class="lang-bash">npm i rollup -D
-</code></pre>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>20. October 2015</span></p>
-            <h2><a href="/articles/ljson/">λJSON</a></h2>
-          </header>
-          <section class="content"><p>λ<span class="caps">JSON</span> (GitHub: <a href="https://github.com/MaiaVictor/LJSON">MaiaVictor/<span class="caps">LJSON</span></a>, License: <span class="caps">MIT</span>, npm:&nbsp;ljson)</p>
-<p>λ<span class="caps">JSON</span> is a drop-in replacement for JSON which also allows you to parse and stringify pure functions and their contents. There are good security reasons for functions to be out of the JSON specs, but most of those are only significant when you allow arbitrary, side-effective programs.
-With pure functions, one is able to interchange code while still being as safe as with regular&nbsp;JSON.</p>
-<pre><code class="lang-javascript"><span class="keyword">var</span> <span class="caps">LJSON</span> = <span class="built_in">require</span>(<span class="string">"<span class="caps">LJSON</span>"</span>);
-
-<span class="comment">// `newPlayer` is a function and couldn't be serialized with <span class="caps">JSON</span>.</span>
-<span class="function"><span class="keyword">function</span> <span class="title">newPlayer</span>(<span class="params">name</span>)</span>{
-    <span class="keyword">return</span> {
-        name      : name,
-        hp        : <span class="number">12</span>,
-        atk       : <span class="number">5</span>,
-        def       : <span class="number">5</span>,
-        inventory : []}
-};
-
-<span class="comment">// <span class="caps">LJSON</span> has no trouble doing it because `newPlayer` is pure.</span>
-<span class="keyword">var</span> newPlayerSource = <span class="caps">LJSON</span>.stringify(newPlayer);
-<span class="keyword">var</span> John            = <span class="caps">LJSON</span>.parse(newPlayerSource)(<span class="string">"John"</span>);
-
-<span class="built_in">console</span>.log(<span class="string">"Serialized λ<span class="caps">JSON</span>: "</span> + newPlayerSource);
-<span class="built_in">console</span>.log(<span class="string">"Parsed and applied: "</span> + John);
-</code></pre>
-<p>Outputs:</p>
-<pre><code class="lang-javascript">
-<span class="comment">//Serialized λ<span class="caps">JSON</span>: (function(v0){return {name:v0,hp:12,atk:5,def:5,inventory:[]}})</span>
-<span class="comment">//Parsed and applied: { name: 'John', hp: 12, atk: 5, def: 5, inventory: [] }</span>
-</code></pre>
-<p>The fact you have to explicitly provide primitives to <span class="caps">LJSON</span> functions is what gives you confidence they won’t do any nasty thing such as stealing your password, mining bitcoins or launching missiles. LJSON functions can only do what you give them power to. You are still able to serialize side-effective functions, but the side effects will happen on the act of the serialization and get stripped from the serialized&nbsp;output.</p>
-<pre><code class="lang-javascript"><span class="function"><span class="keyword">function</span> <span class="title">nastyPair</span>(<span class="params">a,b</span>)</span>{
-    <span class="built_in">console</span>.log(<span class="string">"booom"</span>);
-    <span class="keyword">return</span> {
-        fst : a,
-        snd : (<span class="function"><span class="keyword">function</span> <span class="title">nastyId</span>(<span class="params">x</span>)</span>{
-            <span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;<span class="number">3</span>; ++i)
-                <span class="built_in">console</span>.log(<span class="string">"mwahahhahha"</span>);
-            <span class="keyword">return</span> x;
-        })(b)};
-};
-
-<span class="comment">// output:</span>
-<span class="comment">// booom</span>
-<span class="comment">// mwahahhahha</span>
-<span class="comment">// mwahahhahha</span>
-<span class="comment">// mwahahhahha</span>
-<span class="comment">// (function(v0,v1){return {fst:v0,snd:v1})</span>
-</code></pre>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>19. October 2015</span></p>
-            <h2><a href="/articles/vorpal/">Vorpal.js</a></h2>
-          </header>
-          <section class="content"><p>Vorpal (GitHub: <a href="https://github.com/dthree/vorpal">dthree/vorpal</a>, License: <span class="caps">MIT</span>, npm:&nbsp;vorpal)</p>
-<p>Vorpal is a framework for building interactive <span class="caps">CLI</span> applications. Inspired and based on <a href="https://www.npmjs.com/package/commander">commander.js</a> which is a port from the wonderful work done on this <a href="https://github.com/commander-rb/commander">Ruby Gem</a>.
-It provides you with an interactive prompt provided by <a href="https://www.npmjs.com/package/inquirer">inquirer</a> and also provides a very extensive <span class="caps">API</span> with features such as: piped commands, command history, built-in help menu, tab autocompletion and the list goes&nbsp;on.</p>
-<p>For full documentation of the <span class="caps">API</span> you should take a look at the <a href="https://github.com/dthree/vorpal/wiki">Wiki</a>.</p>
-<p>Getting started with&nbsp;Vorpal.</p>
-<pre><code class="lang-javascript"><span class="keyword">import</span> vorpal <span class="keyword">from</span> <span class="string">'vorpal'</span>
-
-const program = vorpal();
-
-program
-  .command(<span class="string">'foo'</span>, <span class="string">'Outputs "bar"'</span>)
-  .action((args, callback) =&gt; {
-    <span class="keyword">this</span>.log(<span class="string">'bar'</span>);
-    callback();
-  });
-
-program
-  .delimiter(<span class="string">'app $'</span>)
-  .show();
-</code></pre>
-<p>This creates an instance of Vorpal, adds a command which logs “bar”, sets the prompt delimiter to say “app $”, and shows the&nbsp;prompt.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>14. October 2015</span></p>
-            <h2><a href="/articles/chiffon/">Chiffon</a></h2>
-          </header>
-          <section class="content"><p>Chiffon (GitHub: <a href="https://github.com/trueadm/Chiffon">polygonplanet/Chiffon</a>, License: <span class="caps">MIT</span>, npm: chiffon, bower:&nbsp;chiffon)</p>
-<p>Chiffon is a very small ECMAScript parser, tokenizer and minifier.
-Sometimes we come across an idea where you will need to parse or tokenize Javascript files for, for instance to do analysis on the&nbsp;code.</p>
-<p>When using Chiffon for tokenizing you will get an Array of each “element” of the input code like&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="keyword">let</span> tokens = Chiffon.tokenize(<span class="string">'var a = 1'</span>);
-</code></pre>
-<p>Which would then&nbsp;return:</p>
-<pre><code class="lang-javascript">[ { type: <span class="string">'Keyword'</span>,    value: <span class="string">'var'</span> },
-  { type: <span class="string">'Identifier'</span>, value: <span class="string">'a'</span> },
-  { type: <span class="string">'Punctuator'</span>, value: <span class="string">'='</span> },
-  { type: <span class="string">'Numeric'</span>,    value: <span class="string">'1'</span> } ]
-</code></pre>
-<p>Here is a list of all possible&nbsp;tokens:</p>
+          <section class="content"><p>Keo (GitHub: <a href="https://github.com/Wildhoney/Keo">Wildhoney/Keo</a>, License: <span class="caps">MIT</span>, npm:&nbsp;keo)</p>
+<p><img src="https://github.com/Wildhoney/Keo/raw/master/media/screenshot.png" alt="https://github.com/Wildhoney/Keo/raw/master/media/screenshot.png"></p>
+<p>If you are like me and don’t like the ESnext syntactic sugar which gets used in most React examples nowadays, then you will like Keo.
+Keo gives you a more functional approach to creating React&nbsp;components.</p>
+<p>The advantages gained by using Keo&nbsp;are:</p>
 <ul>
-<li>Comment</li>
-<li>LineTerminator</li>
-<li>Template</li>
-<li>String</li>
-<li>Punctuator</li>
-<li>RegularExpression</li>
-<li>Numeric</li>
-<li>UnicodeEscapeSequence</li>
-<li>Identifier</li>
-<li>Null</li>
-<li>Boolean</li>
-<li>Keyword</li>
+<li>Steer away from <code>class</code></li>
+<li>Create referentially transparent, pure functions without&nbsp;this</li>
+<li>Use <code>export</code> to export plain functions for simpler&nbsp;unit-testing</li>
+<li>Simple composing of functions for mixin&nbsp;support</li>
+<li>Avoid functions being littered with React specific method&nbsp;calls</li>
 </ul>
-<p>Sadly JavaScript <span class="caps">AST</span> is not currently&nbsp;supported.</p>
-<p>When you wish to “untokenize” the Array, you can pass it into the <code>untokenize</code> method like&nbsp;this:</p>
-<pre><code class="lang-javascript">Chiffon.untokenize
+<p>Keo’s philosophy is that you should not have to worry about the <code>this</code> keyword (even though scoping has became a lot better since <span class="caps">ES2015</span>). As such, Keo takes a more <a href="https://github.com/dekujs/deku">Deku</a> approach in that items such as props, state, setState, et cetera are passed in to some <a href="https://facebook.github.io/react/docs/component-specs.html">React lifecycle functions</a>.</p>
+<p>The React lifecycle functions such as: <code>componentWillMount</code>, <code>componentDidMount</code>, <code>componentWillUnmount</code>, <code>render</code> will receive props, state, setState and dispatch as an object which can be&nbsp;destructured.</p>
+<p>When you have created your component, Keo encourages you to <code>export</code> all functions so that you can test each one individually, but <strong>demands</strong> that you export the lifecycle functions by invoking keo.stitch like&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="keyword">import</span> {stitch} <span class="keyword">from</span> <span class="string">'keo'</span>;
+<span class="comment">// ...</span>
+<span class="keyword">export</span> <span class="keyword">default</span> stitch({ componentDidMount, render });
 </code></pre>
-<p>When you want to use the minification, you would do something like&nbsp;this:</p>
-<pre><code class="lang-javascript">Chiffon.minify(<span class="string">'var a = 1 + 1; // comment'</span>);
+<p>You could still use Redux with Keo. Keo provides a <code>keo/redux</code> adapter for handling Redux in a more succinct fashion. Instead of importing keo you can import the keo/redux adapter and use the <code>stitch</code> function from there instead like&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="keyword">import</span> {stitch} <span class="keyword">from</span> <span class="string">'keo/redux'</span>;
+<span class="comment">// ...</span>
+<span class="keyword">export</span> <span class="keyword">default</span> stitch({ componentWillMount, render }, state =&gt; state.zombies);
 </code></pre>
-<p>Which is a simple implementation of <code>untokenize</code> and <code>tokenize</code> together like&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="function"><span class="keyword">function</span> <span class="title">minify</span>(<span class="params">code</span>) </span>{
-    <span class="keyword">return</span> untokenize(tokenize(code, { lineTerminator: <span class="literal">true</span> }));
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
+            <p class="date"><span>02. November 2015</span></p>
+            <h2><a href="/articles/streamjs/">Stream.js</a></h2>
+          </header>
+          <section class="content"><p>Stream.js (GitHub: <a href="https://github.com/winterbe/streamjs">winterbe/streamjs</a>, License: <span class="caps">MIT</span>, npm: streamjs, bower:&nbsp;streamjs)</p>
+<p>Stream.js is a lightweight functional library for operating on in memory collections. It requires <span class="caps">ES</span> 5+, but has built-in support for ES6 features it works in all current browsers, Node.js and Java 8 <a href="http://openjdk.java.net/projects/nashorn/">Nashorn</a>.</p>
+<p>This library is built around a lazily evaluated operation pipeline. Which means that instead of consecutively performing each operation on the input collection, objects are passed vertically and one by one into the chain.
+Interim results will not be stored in internal collections. Instead objects are piped into the result&nbsp;object.</p>
+<p>Stream’s operations are lazily evaluated to avoid examining all of the input data when it’s not necessary.
+For instance with a filter - map - findFirst stream you don’t have to filter and map the whole data. Instead map and findFirst are executed just one time before returning the single result. This results in way better performance when operation upon large amount of&nbsp;input.</p>
+<p>Like&nbsp;this:</p>
+<pre><code class="lang-javascript">Stream([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>])
+   .filter((num) =&gt; {   <span class="comment">// called twice</span>
+      <span class="keyword">return</span> num % <span class="number">2</span> === <span class="number">0</span>;
+   })
+   .map((even) =&gt; {     <span class="comment">// called once</span>
+      <span class="keyword">return</span> <span class="string">"even"</span> + even;
+   })
+   .findFirst();        <span class="comment">// called once</span>
+</code></pre>
+<p>Because this library has a very extensive <span class="caps">API</span>, I will not be discussing that today and I will just refer you to the <a href="https://github.com/winterbe/streamjs/blob/master/APIDOC.md"><span class="caps">API</span> Docs</a> provided by the&nbsp;developer</p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
+            <p class="date"><span>29. October 2015</span></p>
+            <h2><a href="/articles/redux-generator/">generator-redux</a></h2>
+          </header>
+          <section class="content"><p>generator-redux (GitHub: <a href="https://github.com/banderson/generator-redux">banderson/generator-redux</a>, License: <span class="caps">MIT</span>, npm:&nbsp;generator-redux)</p>
+<p>Today I like to mention a Yeoman generator which I’ve being using a lot lately: generator-redux.
+When you are not familiar with Yeoman please check it out, it will save you a lot of&nbsp;time.</p>
+<p>You have probably heard about <a href="/articles/redux-generator/facebook.github.io/flux/">Facebook’s Flux architecture</a>. Since a few months there is a new kid in town called Redux.
+<a href="https://github.com/rackt/redux">Redux</a> is <a href="http://youtube.com/watch?v=xsSnOQynTHs">“Atomic Flux with hot reloading”</a>. A next-generation take on the Flux pattern with some core design differences such&nbsp;as:</p>
+<blockquote>
+<ul>
+<li>Preserves the benefits of Flux, but adds other nice properties thanks to its functional&nbsp;nature.</li>
+<li>Prevents some of the anti-patterns common in Flux&nbsp;code.</li>
+<li>Works great in universal (aka “isomorphic”) apps because it doesn’t use singletons and the data can be rehydrated.&nbsp;…</li>
+</ul>
+</blockquote>
+<p>The features included in this generator&nbsp;are:</p>
+<ul>
+<li>Redux functional application&nbsp;architecture</li>
+<li>Redux-DevTools configured and enabled when in dev&nbsp;mode</li>
+<li>WebPack for build pipeline and dev server&nbsp;awesomeness</li>
+<li>Babel transpiler so you can use bleeding edge language&nbsp;features</li>
+<li>PostCSS preprocessor with autoprefixer&nbsp;support</li>
+</ul>
+<p>Offcourse this generator depends on <code>yo</code> being installed globally. Once you have that you can acquire it&nbsp;via:</p>
+<pre><code class="lang-bash">npm install -g generator-redux
+</code></pre>
+<p>Now that the generator is installed you can access it&nbsp;via:</p>
+<pre><code class="lang-bash">yo redux
+</code></pre>
+<p>This will give you a prompt asking you for an application name, description and a port.
+Description is used in package.json and the generated <span class="caps">README</span>.md.
+Port is to run your development server on (defaults to&nbsp;3000).</p>
+<p>To start the scaffold app&nbsp;use:</p>
+<pre><code class="lang-bash">npm run
+</code></pre>
+<p>When you wanna run it with the Redux-DevTools enabled&nbsp;use:</p>
+<pre><code class="lang-bash">DEBUG=<span class="literal">true</span> npm start
+</code></pre>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
+            <p class="date"><span>28. October 2015</span></p>
+            <h2><a href="/articles/vstack-validator/">vstack-validator</a></h2>
+          </header>
+          <section class="content"><p>Vstack-validator (GitHub: <a href="https://github.com/vslinko/vstack-validator">vslinko/vstack-validator</a>, License: <span class="caps">MIT</span>, npm:&nbsp;vstack-validator)</p>
+<p>When you are working with very complex and deeply nested data structures, validation can become a real pain.
+Vstack-validator tries to solve this problem by providing you with a declarative <span class="caps">API</span> which consists of 3 methods: a validator, a constraint and a schema.
+The Validator is a function that receives a value and returns boolean result of validation.
+Constraint is a function that receives a value and returns validation metadata.
+With a Schema we create declarations of the constraints in a tree, which in turn can be used to validate an object, which would look like&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="keyword">import</span> {schema} <span class="keyword">from</span> <span class="string">'vstack-validator'</span>;
+
+<span class="keyword">const</span> userSchema = schema.type(<span class="string">'user'</span>, {
+    email: {
+        notEmpty: schema.constraint(schema.validators.isNotEmpty, <span class="string">'Email is empty'</span>),
+        email: schema.constraint(schema.validators.isEmail, <span class="string">'Email is not valid'</span>),
+    },
+    password: schema.optional({
+        notEmpty: schema.constraint(schema.validators.isNotEmpty, <span class="string">'Password is empty'</span>),
+        minLength: schema.minLength(<span class="number">3</span>, <span class="string">'Password is less than 3'</span>),
+    }),
+});
+
+<span class="keyword">const</span> itemSchema = schema.type(<span class="string">'item'</span>, {
+    name: {
+        notEmpty: schema.constraint(schema.validators.isNotEmpty, <span class="string">'Name is empty'</span>),
+    },
+});
+
+<span class="keyword">const</span> cartSchema = schema.type(<span class="string">'cart'</span>, {
+    user: userSchema,
+    items: schema.list(itemSchema),
+});
+
+<span class="keyword">let</span> validationData = {
+    user: {
+        email: <span class="string">''</span>,
+        password: <span class="string">''</span>,
+    },
+    items: [
+        { name: <span class="string">''</span> },
+    ],
+};
+
+cartSchema.check(validationData)
+          .then((constraintResult) =&gt; <span class="built_in">console</span>.log(constraintResult));
+</code></pre>
+<p>When the <code>check</code> is executed <code>constraintResult</code> it would look something like&nbsp;this:</p>
+<pre><code class="lang-javascript">{
+    valid: <span class="literal">false</span>,
+    message: <span class="string">'Objectisnotvalid'</span>,
+    children: {
+        user: {
+            valid: <span class="literal">false</span>,
+            message: <span class="string">'Objectisnotvalid'</span>,
+            children: {
+                email: {
+                    valid: <span class="literal">false</span>,
+                    message: <span class="string">'Valueisnotvalid'</span>,
+                    children: {
+                        notEmpty: {
+                            valid: <span class="literal">false</span>,
+                            message: <span class="string">'Emailisempty'</span>,
+                            children: <span class="literal">null</span>
+                        },
+                        email: {
+                            valid: <span class="literal">false</span>,
+                            message: <span class="string">'Emailisnotvalid'</span>,
+                            children: <span class="literal">null</span>
+                        }
+                    }
+                },
+                password: {
+                    valid: <span class="literal">false</span>,
+                    message: <span class="string">'Valueisnotvalid'</span>,
+                    children: {
+                        notEmpty: {
+                            valid: <span class="literal">false</span>,
+                            message: <span class="string">'Passwordisempty'</span>,
+                            children: <span class="literal">null</span>
+                        },
+                        minLength: {
+                            valid: <span class="literal">false</span>,
+                            message: <span class="string">'Passwordislessthan3'</span>,
+                            children: <span class="literal">null</span>
+                        }
+                    }
+                }
+            }
+        },
+        items: {
+            valid: <span class="literal">false</span>,
+            message: <span class="string">'Arrayisnotvalid'</span>,
+            children: [
+                {
+                    valid: <span class="literal">false</span>,
+                    message: <span class="string">'Objectisnotvalid'</span>,
+                    children: {
+                        name: {
+                            valid: <span class="literal">false</span>,
+                            message: <span class="string">'Valueisnotvalid'</span>,
+                            children: {
+                                notEmpty: {
+                                    valid: <span class="literal">false</span>,
+                                    message: <span class="string">'Nameisempty'</span>,
+                                    children: <span class="literal">null</span>
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        }
+    }
 }
 </code></pre>
 
@@ -207,50 +256,69 @@ Sometimes we come across an idea where you will need to parse or tokenize Javasc
         </article>
         <article class="article intro">
           <header>
-            <p class="date"><span>14. October 2015</span></p>
-            <h2><a href="/articles/smart-crop/">Smartcrop.js</a></h2>
+            <p class="date"><span>27. October 2015</span></p>
+            <h2><a href="/articles/jsdoc2diagram/">jsdoc2diagram</a></h2>
           </header>
-          <section class="content"><p>Smartcrop (GitHub: <a href="https://github.com/jwagner/smartcrop.js">jwagner/smartcrop.js</a>, License: <span class="caps">MIT</span>, npm: smartcrop, bower:&nbsp;smartcrop)</p>
-<p>Smartcrop.js is not just another image cropping library. It detects the primary region of an image such as faces.
-It does this using the following&nbsp;algorithm.</p>
-<ol>
-<li>Find edges using <a href="https://en.wikipedia.org/wiki/Laplace&#39;s_method">Laplace&nbsp;method</a></li>
-<li>Find regions with a color like&nbsp;skin</li>
-<li>Find regions high in&nbsp;saturation</li>
-<li>Generate a set of candidate crops using a sliding&nbsp;window</li>
-<li>Rank them using a importance function to focus the detail in the center and avoid it in the&nbsp;edges.</li>
-<li>Output the candidate crop with the highest&nbsp;rank</li>
-</ol>
-<p>Using it in a simple&nbsp;example:</p>
-<pre><code class="lang-javascript">SmartCrop.crop(image, {width: <span class="number">100</span>, height: <span class="number">100</span>}, result =&gt; <span class="built_in">console</span>.log(result) );
-<span class="comment">// Which will return</span>
-<span class="comment">// -&gt; {topCrop: {x: 300, y: 200, height: 200, width: 200}}</span>
-</code></pre>
-<p>When you wanna use it within node.js you would have to do something like&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="keyword">import</span> fs <span class="keyword">from</span> <span class="string">'fs'</span>;
-<span class="keyword">import</span> Canvas <span class="keyword">from</span> <span class="string">'canvas'</span>;
-<span class="keyword">import</span> SmartCrop <span class="keyword">from</span> <span class="string">'smartcrop'</span>;
+          <section class="content"><p>jsdoc2diagram (GitHub: <a href="https://github.com/amcmillan01/jsdoc2diagram">amcmillan01/jsdoc2diagram</a>, License: <span class="caps">MIT</span>, npm:&nbsp;jsdoc2diagram)</p>
+<p>If your day job looks anything like mine, the problem of sharing knowledge will be a well known issue for you.
+We try our best to keep the docs up to date and inform our co-workers of any changes that would be crucial. But what if a new developer joins the team? He will be spending the next week or 2 getting the know the entire app but mostly how everything hangs&nbsp;together.</p>
+<p>Since we are probably already using <a href="http://usejsdoc.org">JSDoc</a> there is a great addition available for giving insight on how the application is put together called <code>jsdoc2diagram</code>.</p>
+<p>What jsdoc2diagram does is literally what the name implies it does. It turns JSDocs documentation into graphs using <a href="/articles/jsdoc2diagram/d3js.org">d3.js</a>.</p>
+<p>This is an example of the kind of graph it would present you&nbsp;with:</p>
+<p><img src="https://github.com/amcmillan01/jsdoc2diagram/raw/master/example/diagram.png" style="max-width: 756px; width: 100%; position:static;"></p>
+<p>The for for this diagram looks like&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="comment">/**
+ * @constructor
+ */</span>
+<span class="keyword">var</span> Garage = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
 
-SmartCrop.crop(img, options, result =&gt; {
-    <span class="built_in">console</span>.log(<span class="built_in"><span class="caps">JSON</span></span>.stringify(result, <span class="literal">null</span>, <span class="number">2</span>));
-    <span class="keyword">if</span>(output &amp;&amp; options.width &amp;&amp; options.height){
-        <span class="keyword">var</span> canvas = <span class="keyword">new</span> Canvas(options.width, options.height),
-            ctx = canvas.getContext(<span class="string">'2d'</span>),
-            crop = result.topCrop,
-            f = fs.createWriteStream(output);
-        ctx.patternQuality = <span class="string">'best'</span>;
-        ctx.filter = <span class="string">'best'</span>;
-        ctx.drawImage(img, crop.x, crop.y, crop.width, crop.height, <span class="number">0</span>, <span class="number">0</span>, canvas.width, canvas.height);
-        canvas.syncJPEGStream({quality: quality}).pipe(f);
-    }
-});
+};
+
+<span class="comment">/**
+ * @return {number}
+ */</span>
+Garage.prototype.getVehicleCount = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+
+};
+
+
+<span class="comment">/**
+ *
+ * @constructor
+ * @memberof Garage
+ */</span>
+<span class="keyword">var</span> Car = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+  <span class="comment">/**
+   *
+   * @type {string}
+   */</span>
+  <span class="keyword">this</span>.name = <span class="string">''</span>;
+  <span class="comment">/**
+   *
+   * @type {string}
+   */</span>
+  <span class="keyword">this</span>.color = <span class="string">''</span>;
+};
+
+<span class="comment">/**
+ * @return {boolean}
+ */</span>
+Car.prototype.isOn = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+
+};
+
+<span class="comment">/**
+ * @return {boolean}
+ */</span>
+Car.prototype.hasNavigation = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+
+};
 </code></pre>
-<p>Smartcrop.js also offers a command line interface under the npm package name <a href="https://github.com/jwagner/smartcrop-cli"><code>smartcrop-cli</code></a>. Which based uses&nbsp;node-canvas.</p>
-<p>That one you would use like&nbsp;this:</p>
-<pre><code class="lang-bash">npm i smartcrop-cli -g
-smartcrop-cli --width <span class="number">100</span> --height <span class="number">100</span> photo.jpg square-thumbnail.jpg
+<p>I think this is a great addition to every bit of documentation. It gives a clear overview of how objects and methods are in relation to each other, which is something I was really&nbsp;missing.</p>
+<p>To get started using this you will need to have <code>jsdoc</code> installed once you have that you only need to install <code>jsdoc2diagram</code> via npm and then you could use it like&nbsp;this:</p>
+<pre><code class="lang-bash">jsdoc -t PATH/TO/jsdoc2diagram -r JS_SOURCE_DIR/FILE <span class="operator">-d</span> OUTPUT_DIR
 </code></pre>
-<p>Smartcrop-cli does requires <a href="https://github.com/Automattic/node-canvas">node-canvas</a> which requires local libraries to be installed. Refer to the <a href="https://github.com/Automattic/node-canvas/wiki/_pages">node-canvas wiki</a> installation&nbsp;instructions.</p>
+<p>I could imagine that you would call this from an npm run script after your JSDocs are&nbsp;generated.</p>
 
           </section>
         </article>

@@ -36,390 +36,198 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
-            <p class="date"><span>26. November 2015</span></p>
-            <h2><a href="/articles/react-pull-to-refresh/">react-pull-to-refresh</a></h2>
+            <p class="date"><span>09. December 2015</span></p>
+            <h2><a href="/articles/bigfloat/">bigfloat</a></h2>
           </header>
-          <section class="content"><p>react-pull-to-refresh (GitHub: <a href="https://github.com/bryaneaton13/react-pull-to-refresh">bryaneaton13/react-pull-to-refresh</a>, License: <span class="caps">MIT</span>, npm:&nbsp;react-pull-to-refresh)</p>
-<p>react-pull-to-refresh is a library that does exactly what the name implies. It gives the pull to refresh behavior.
-<img src="https://github.com/bryaneaton13/react-pull-to-refresh/raw/master/docs/demo.gif" alt="demo"></p>
-<p>It is based on the <a href="https://github.com/apeatling/web-pull-to-refresh">library</a> that Andy Peatling made and wrote a post about. You can find that <a href="https://github.com/apeatling/web-pull-to-refresh">here</a>.
-So let’s take a look at how it works, your refresh handler takes in <code>resolve</code> and <code>reject</code> to tell the component when it’s finished. That would look something like&nbsp;this:</p>
-<pre><code class="lang-javascript">handleRefresh(resolve, reject) {
-    <span class="comment">// do some async code here</span>
-    <span class="keyword">let</span> success = <span class="literal">false</span>;
-    <span class="keyword">if</span> (success) {
-        resolve();
-    } <span class="keyword">else</span> {
-        reject();
+          <section class="content"><p>bigfloat (GitHub: <a href="https://github.com/charto/bigfloat">charto/bigfloat</a>, License: <span class="caps">MIT</span>, npm:&nbsp;bigfloat)</p>
+<p>bigfloat is an arbitrary precision math library optimized for computation on geometry and geoinformatics. It provides a base 2 floating point.
+It can covert Javascript float’s, add, subtract, multiply and convert it back to a Javascript String. It can do all this whiteout losing any significant bits. Numbers are  treaded as immutable and will return a new&nbsp;BigFloat.</p>
+<p>So how does it do this?
+Numbers are represented in 32-bit limbs (digits in base 2^32).
+The least significant limb is stored first. This because basic algorithms for arithmetic operations progress from the least to most significant digit while propagating carry. If carry causes the output to grow, adding a new limb at the end of the Array is faster than adding it in the beginning.
+The library was optimized for exponents relatively close to zero, so the location of the decimal point is always present in the limb array, even if that introduces otherwise insignificant leading or trailing zero&nbsp;digits.</p>
+<p>Let’s look at a quick example if I would run&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="keyword">const</span> x = <span class="built_in">Math</span>.pow(<span class="number">2</span>, <span class="number">53</span>),
+    result = x + <span class="number">1</span> - x;
+
+<span class="built_in">console</span>.log( result );
+</code></pre>
+<p>It will give me back <code>0</code>. But we would expect to get <code>1</code>. If we would do the same using&nbsp;bigfloat:</p>
+<pre><code class="lang-javascript"><span class="keyword">const</span> BigFloat = <span class="built_in">require</span>(<span class="string">'bigfloat'</span>).BigFloat,
+       x = <span class="built_in">Math</span>.pow(<span class="number">2</span>, <span class="number">53</span>),
+      result = <span class="keyword">new</span> BigFloat(x).add(<span class="number">1</span>).sub(x).toString();
+
+<span class="built_in">console</span>.log(result);
+</code></pre>
+<p>It would log <code>1</code>, as we would&nbsp;suspect.</p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
+            <p class="date"><span>08. December 2015</span></p>
+            <h2><a href="/articles/embedjs/">embed.js</a></h2>
+          </header>
+          <section class="content"><p>embed.js (GitHub: <a href="https://github.com/ritz078/embed.js/">ritz078/embed.js</a>, License: <span class="caps">MIT</span>, npm:&nbsp;embed-js)</p>
+<p>embed.js is plugin which analyses a string and automatically transform is to embeds emojis, media, maps, tweets, code and services.
+No more hassle on finding out how different services work, no more putting off features, because the intergration would be complicated. Just transform it using&nbsp;embed.js.</p>
+<p>So how do we use it? Imagine having a blog and the content of a post would look like&nbsp;this:</p>
+<pre><code>This is the blog we al know and :heart:. Url will become clickable like this http://daily-javascript.com.
+youtube videos. https://www.youtube.com/watch?v=bQRLVxZHKPs
+and embed codepen&#39;s like so: http://codepen.io/ThePizzaMan/pen/YwPOVd
+</code></pre><p>This would get transformed into a pretty post with all the services embedded. The only thing needed is a Google Auth key which you can get <a href="https://console.developers.google.com/">here</a></p>
+<p>Then if we want to transform a specific element we would do something like&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="function"><span class="keyword">function</span> <span class="title">embed</span>(<span class="params"></span>) </span>{
+    <span class="keyword">var</span> x = <span class="keyword">new</span> EmbedJS({
+        element: <span class="built_in">document</span>.getElementById(<span class="string">'rawText'</span>),
+        googleAuthKey: <span class="string">'&lt;googleAuthKey&gt;'</span>,
+        videoWidth: <span class="number">800</span>,
+        tweetOptions: {
+            hideMedia: <span class="literal">true</span>
+        },
+        codeEmbedHeight:<span class="number">600</span>
+    });
+    x.render();
+};
+</code></pre>
+<p>It supports emoji’s, Twitter, Gists, Codepen’s, photo’s, Spotify, Google Maps, Markdown and many more.
+For more options and list of supported services check the <a href="http://riteshkr.com/embed.js/">project page</a>.</p>
+<p>Here is a small CodePen demo of what it can do with the example code for you to try&nbsp;out.</p>
+<iframe height='268' scrolling='no' src='//codepen.io/ThePizzaMan/embed/YwPOVd/?height=268&theme-id=0&default-tab=result' frameborder='no' allowtransparency='true' allowfullscreen='true' style='width: 100%;'>See the Pen <a href='http://codepen.io/ThePizzaMan/pen/YwPOVd'>embed.js</a> by Ritesh Kumar (<a href='http://codepen.io/ritz078'>@ritz078</a>) on <a href='http://codepen.io'>CodePen</a>.
+</iframe>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
+            <p class="date"><span>07. December 2015</span></p>
+            <h2><a href="/articles/iframe-resizer/">iFrame Resizer</a></h2>
+          </header>
+          <section class="content"><p>iFrame Resizer (GitHub: <a href="https://github.com/davidjbradshaw/iFrame-resizer">davidjbradshaw/iFrame-resizer</a>, License: <span class="caps">MIT</span>, npm:&nbsp;iframe-resizer)</p>
+<p><a href="https://github.com/davidjbradshaw">David Bradshaw</a> sent in iFrame-resizer. Which is a library to make working with the <code>&lt;iframe&gt;</code> tag a lot easier.
+It hides a lot of the stuff you need to change sizes, authorize domains or messaging. I suspect that this project started out as a simple library to help with resizing of an iframe which grew to a full fletched iframe utility&nbsp;belt.</p>
+<p>So let’s take a look how it works. The package consists of two files. The first one needs to be included on the <em>parent</em> page and the second one need to be within all the <em>child</em> frames. The child-script does not do anything unless when called by the parent. So a typical setup would look something like&nbsp;this:</p>
+<pre><code class="lang-html"><span class="doctype">&lt;!<span class="caps">DOCTYPE</span> html&gt;</span>
+<span class="tag">&lt;<span class="title">html</span>&gt;</span>
+<span class="tag">&lt;<span class="title">head</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">title</span>&gt;</span>Parent page<span class="tag">&lt;/<span class="title">title</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">head</span>&gt;</span>
+<span class="tag">&lt;<span class="title">body</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">h1</span>&gt;</span>This is the parent page<span class="tag">&lt;/<span class="title">h1</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">iframe</span> <span class="attribute">src</span>=<span class="value">"http://example.com/child-page"</span> <span class="attribute">id</span>=<span class="value">"my-frame"</span> <span class="attribute">scrolling</span>=<span class="value">"no"</span>&gt;</span><span class="tag">&lt;/<span class="title">iframe</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">body</span>&gt;</span>
+
+<span class="tag">&lt;<span class="title">script</span> <span class="attribute">scr</span>=<span class="value">"/path/to/iframeResizer.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+
+<span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"/path/to/your/script.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">html</span>&gt;</span>
+</code></pre>
+<pre><code class="lang-html"><span class="doctype">&lt;!<span class="caps">DOCTYPE</span> html&gt;</span>
+<span class="tag">&lt;<span class="title">html</span>&gt;</span>
+<span class="tag">&lt;<span class="title">head</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">title</span>&gt;</span>Child page<span class="tag">&lt;/<span class="title">title</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">head</span>&gt;</span>
+<span class="tag">&lt;<span class="title">body</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">h1</span>&gt;</span>This is the child page<span class="tag">&lt;/<span class="title">h1</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">body</span>&gt;</span>
+
+<span class="tag">&lt;<span class="title">script</span> <span class="attribute">scr</span>=<span class="value">"/path/to/iframeResizer.contentWindow.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">html</span>&gt;</span>
+</code></pre>
+<p>Then to active auto-resize for instance, we can work with it from our script like&nbsp;so:</p>
+<pre><code class="lang-javascript"><span class="keyword">var</span> options = {
+    log: <span class="literal">true</span>,
+    autoResize: <span class="literal">true</span>
+}
+iFrameResize( options, <span class="string">'#my-frame'</span> );
+</code></pre>
+<p>As said before this is only the basic usage for more extensive usage you should check the <a href="http://davidjbradshaw.github.io/iframe-resizer">project page</a>.</p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
+            <p class="date"><span>03. December 2015</span></p>
+            <h2><a href="/articles/matreshka/">Matreshka</a></h2>
+          </header>
+          <section class="content"><p>Matreshka (GitHub: <a href="https://github.com/matreshkajs/matreshka">matreshkajs/matreshka</a>, License: <span class="caps">MIT</span>, npm: matreshka, bower:&nbsp;matreshka)</p>
+<p><img src="https://camo.githubusercontent.com/27ecdbde13a34ee2555f36ba3e3ee9363413d6f0/687474703a2f2f6d6174726573686b612e696f2f696d672f6d6b352d6c6f676f5f66756c6c2d766572742e737667" alt="http://matreshka.io/"></p>
+<p>Matreshka is small but powerful client-side framework that allows you to build single page applications.
+It describes it self as a event driven framework, which means that you put listeners on objects and elements to which you can react with configured handler functions.
+Besides it’s event system it comes with features such as: two-way data-binding, custom objects and custom&nbsp;arrays.</p>
+<p>Let’s say we would be making a simple <span class="caps">SPA</span> then this would be our markup would look something like&nbsp;this</p>
+<pre><code class="lang-html"><span class="doctype">&lt;!<span class="caps">DOCTYPE</span> html&gt;</span>
+<span class="tag">&lt;<span class="title">html</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">head</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">title</span>&gt;</span>My first Matreshka application<span class="tag">&lt;/<span class="title">title</span>&gt;</span>
+    <span class="tag">&lt;/<span class="title">head</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">body</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"text"</span> <span class="attribute">class</span>=<span class="value">"my-input"</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"my-output"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"http://cdn.jsdelivr.net/matreshka/latest/matreshka.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">script</span>&gt;</span><span class="undefined">
+
+        </span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+    <span class="tag">&lt;/<span class="title">body</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">html</span>&gt;</span>
+</code></pre>
+<p>As you can see we import the Matreshka via a script tag but it’s also possible to install via npm.
+Nothing new here right? So let’s put some code in our <code>script</code> tag. Let’s make an “class” called&nbsp;Application:</p>
+<pre><code class="lang-javascript"><span class="keyword">var</span> Application = Class({
+    <span class="string">'extends'</span>: Matreshka,
+    constructor: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
+
+        <span class="comment">// bind the property x and the text field</span>
+        <span class="keyword">this</span>.bindNode(<span class="string">'x'</span>, <span class="string">'.my-input'</span>);
+
+        <span class="comment">// bind the property x and the ".my-output" block</span>
+        <span class="keyword">this</span>.bindNode(<span class="string">'x'</span>, <span class="string">'.my-output'</span>, {
+            setValue: <span class="function"><span class="keyword">function</span>(<span class="params">v</span>) </span>{
+                <span class="keyword">this</span>.innerHTML = v;
+            }
+        });
+        <span class="keyword">this</span>.on(<span class="string">'change:x'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
+            <span class="built_in">console</span>.log(<span class="string">'x changed to '</span> + <span class="keyword">this</span>.x);
+        });
+    }
+});
+
+<span class="keyword">var</span> app = <span class="keyword">new</span> Application();
+</code></pre>
+<p>Or the same code in&nbsp;<span class="caps">ES2015</span>:</p>
+<pre><code class="lang-javascript"><span class="class"><span class="keyword">class</span> <span class="title">Application</span> <span class="keyword">extends</span> <span class="title">Matreshka</span> </span>{
+    constructor() {
+        <span class="keyword">this</span>.bindNode(<span class="string">'x'</span>, <span class="string">'.my-input'</span>);
+        <span class="keyword">this</span>.bindNode(<span class="string">'x'</span>, <span class="string">'.my-output'</span>, {
+            setValue(v) {
+                <span class="keyword">this</span>.innerHTML = v;
+            }
+        });
+        <span class="keyword">this</span>.on(<span class="string">'change:x'</span>, () =&gt;
+            <span class="built_in">console</span>.log(<span class="string">'x changed to '</span> + <span class="keyword">this</span>.x));
     }
 }
 </code></pre>
-<p>And this is what the component would look&nbsp;like:</p>
-<pre><code class="lang-html"><span class="tag">&lt;<span class="title">ReactPullToRefresh</span>
-    <span class="attribute">onRefresh</span>=<span class="value">{this.handleRefresh}</span>
-    <span class="attribute">className</span>=<span class="value">"your-own-class-if-you-want"</span>
-    <span class="attribute">style</span>=<span class="value">{{</span> <span class="attribute">textAlign:</span> '<span class="attribute">center</span>' }}&gt;</span>
-        <span class="tag">&lt;<span class="title">h3</span>&gt;</span>Pull down to refresh<span class="tag">&lt;/<span class="title">h3</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">div</span>&gt;</span>{items}<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">div</span>&gt;</span>etc.<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">ReactPullToRefresh</span>&gt;</span>
+<p>Now when something happens we can change the value <code>x</code> like&nbsp;this:</p>
+<pre><code class="lang-javascript">app.x = <span class="string">'Hello Daily Javascript'</span>;
 </code></pre>
-<p>Basically that is all that there is to it. For the American readers I hope you have a nice&nbsp;Thanksgiving.</p>
+<p>This will fill the <code>input</code> and the <code>#output</code> elements with the string <code>&#39;Hello Daily Javascript&#39;</code>.</p>
+<p>Nowadays we are not impressed by data-binding any more. It comes with a lot more, but for that I would refer you to the <a href="http://matreshka.io/">full documentation</a>. The <span class="caps">API</span> is very small and easy to reason about, so if you have a new POC project coming up I would suggest you give it a&nbsp;try.</p>
 
           </section>
         </article>
         <article class="article intro">
           <header>
-            <p class="date"><span>25. November 2015</span></p>
-            <h2><a href="/articles/vuejs/">Vue.js</a></h2>
+            <p class="date"><span>02. December 2015</span></p>
+            <h2><a href="/articles/allyjs/">ally.js</a></h2>
           </header>
-          <section class="content"><p>Vue.js (GitHub: <a href="https://github.com/vuejs/vue">vuejs/vue</a>, License: <span class="caps">MIT</span>, npm:&nbsp;vue</p>
-<p>Vue.js is a library for building web interfaces. Because it works together with some other tools, you can also call it a “framework”. Now, if you’ve never heard of or used Vue before, you are probably thinking: great, yet another JavaScript framework! I get it. That was my first thought as well, that is why I never looked at it with a serious eye. Vue isn’t particularly new, it has being in the making for almost two years now, and the first public release was in February 2014. Over time it has evolving into a great engine to build beautiful production ready app&nbsp;with.</p>
-<p>What makes it so awesome? Well, it supports all the features we are used to from libraries such as React, Ember and Angular but it’s size and api are a lot simpler.
-A thing I love in libraries,&nbsp;simplicity.</p>
-<p>So let’s take a look at a few small examples and let’s start with data&nbsp;binding.</p>
-<p>This is how we define the <code>template</code> which we are gonna&nbsp;use:</p>
-<pre><code class="lang-html"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"binding"</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">p</span>&gt;</span>{{message}}<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">input</span> <span class="attribute">v-model</span>=<span class="value">"message"</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-</code></pre>
-<p>And here we give it some&nbsp;data:</p>
-<pre><code class="lang-javascript">
-<span class="keyword">let</span> binding = <span class="keyword">new</span> Vue({
-  el: <span class="string">'#binding'</span>,
-  data: {
-    message: <span class="string">'Daily Javascript'</span>
-  }
-});
-</code></pre>
-<p>This would give is a <code>div</code> with an <code>input</code> field and a preview of the value it holds. When you start typing, Vue will take over from there.
-That’s cool right? Ok I get it data binding does not impress you anymore. Do you like working with components?
-Vue takes an approach that is very similar to React: it’s components all the way&nbsp;down.</p>
-<pre><code class="lang-javascript"><span class="keyword">const</span> Example = Vue.extend({
-    template: <span class="string">'&lt;div&gt;{{ message }}&lt;/div&gt;'</span>,
-    data () {
-        <span class="keyword">return</span> {
-            message: <span class="string">'Daily Javascript!'</span>
-        }
-    }
-});
-
-<span class="comment">// register it with the tag &lt;example&gt;</span>
-Vue.component(<span class="string">'example'</span>, Example);
-</code></pre>
-<p>Now we can use it like&nbsp;this:</p>
-<pre><code class="lang-html"><span class="tag">&lt;<span class="title">example</span>&gt;</span><span class="tag">&lt;/<span class="title">example</span>&gt;</span>
-</code></pre>
-<p>Because modularity is key nowadays it comes with the opportunity to <code>scope</code> styles to a component.
-That would look something like&nbsp;this:</p>
-<pre><code class="lang-html"><span class="tag">&lt;<span class="title">style</span> <span class="attribute">scoped</span> &gt;</span><span class="css">
-<span class="class">.message</span> <span class="rules">{
-  <span class="rule"><span class="attribute">color</span>:<span class="value"> red</span></span>;
-}</span>
-</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
-</code></pre>
-<p>Here is a full example component of how it would look when you would have it setup with a combination of <a href="https://github.com/webpack/webpack">Webpack</a> and <a href="https://github.com/vuejs/vue-loader">vue-loader</a>.</p>
-<p><img src="http://blog.evanyou.me/images/vue-hot.gif" alt="demo"></p>
-<p>It comes with a lot of more features that I will not go into such as routing and a build-in transition&nbsp;system.</p>
-<p>There is a demo for the transition system which demonstrates state-based tweening with&nbsp;Vue:</p>
-<p><p data-height="268" data-theme-id="0" data-slug-hash="XmZNOG" data-default-tab="result" data-user="yyx990803" class='codepen'>See the Pen <a href='http://codepen.io/yyx990803/pen/XmZNOG/'>Vue.js elastic header component</a> by Evan You (<a href='http://codepen.io/yyx990803'>@yyx990803</a>) on <a href='http://codepen.io'>CodePen</a>.</p></p>
-<script async src="//assets.codepen.io/assets/embed/ei.js"></script>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>24. November 2015</span></p>
-            <h2><a href="/articles/vectorious/">Vectorious</a></h2>
-          </header>
-          <section class="content"><p>Vectorious (GitHub: <a href="https://github.com/mateogianolio/vectorious">mateogianolio/vectorious</a>, License: <span class="caps">MIT</span>, npm:&nbsp;vectorious)</p>
-<p>Vectorious is a high performance linear algebra library written in Javascript.
-It is available via npm or just as a script so you can include it on your&nbsp;page.</p>
-<p>Since I’m not a mathematician and did not do a lot of linear algebra, you will have to bare with me.
-I will try to give you a good description of what this library can&nbsp;do.</p>
-<p>It has two mayor <span class="caps">API</span> endpoints to work with: <code>Matrix</code> and <code>Vector</code>.
-The constructor functions for both these functions can be called with a range of different arguments.
-Since 2.1.0 Vector implements <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Typed_arrays">JavaScript typed arrays</a> for increased performance. The default Vector type is Float64Array, but this can be specified upon&nbsp;creation.</p>
-<p>We would work with it like&nbsp;so:</p>
-<pre><code class="lang-javascript"><span class="keyword">import</span> { Vector, Matrix } <span class="keyword">from</span> <span class="string">'vectorious'</span>;
-
-<span class="keyword">let</span> vector, matrix;
-
-<span class="comment">// Create an empty vector of default type Float64Array</span>
-vector = <span class="keyword">new</span> Vector();
-<span class="comment">/* Vector { type: [Function: Float64Array], length: 0 } */</span>
-
-<span class="comment">// Create an empty vector of type Uint8Array</span>
-vector = <span class="keyword">new</span> Vector(<span class="built_in">Uint8Array</span>);
-<span class="comment">/* Vector { type: [Function: Uint8Array], length: 0 } */</span>
-
-matrix = <span class="keyword">new</span> Matrix();
-<span class="comment">/* Matrix { type: [Function: Float64Array], shape: [] } */</span>
-
-vector = Vector.zeros(<span class="number">5</span>);
-<span class="comment">/* Vector {
-  type: [Function: Float64Array],
-  length: 5,
-  buffer: ArrayBuffer {},
-  values: Float64Array { '0': 0, '1': 0, '2': 0, '3': 0, '4': 0 } } */</span>
-
-vector = <span class="keyword">new</span> Vector(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>);
-<span class="comment">/* Vector {
-  type: [Function: Float64Array],
-  length: 5,
-  buffer: ArrayBuffer {},
-  values: Float64Array { '0': 1, '1': 2, '2': 3, '3': 4, '4': 5 } } */</span>
-
-matrix = <span class="keyword">new</span> Matrix(vector);
-<span class="comment">/* Matrix {
-  type: [Function: Float64Array],
-  shape: [ 5, 1 ],
-  data: Float64Array { '0': 1, '1': 2, '2': 3, '3': 4, '4': 5 } } */</span>
-
-matrix = Matrix.zeros(<span class="number">2</span>, <span class="number">2</span>);
-<span class="comment">/* Matrix {
-  shape: [ 2, 2 ],
-  data: Float64Array { '0': 0, '1': 0, '2': 0, '3': 0 },
-  type: [Function: Float64Array] } */</span>
-</code></pre>
-<p>The developer posted an example of how you would map a time range over a&nbsp;sinus.</p>
-<pre><code class="lang-javascript"><span class="keyword">var</span> time = Vector.range(<span class="number">0</span>, <span class="built_in">Math</span>.<span class="caps">PI</span> / <span class="number">12</span>, <span class="built_in">Math</span>.<span class="caps">PI</span>);
-<span class="comment">// Which will return</span>
-<span class="comment">/* Vector {
-  type: [Function: Float64Array],
-  length: 12,
-  buffer: ArrayBuffer {},
-  values:
-   Float64Array {
-     '0': 0,
-     '1': 0.2617993877991494,
-     '2': 0.5235987755982988,
-     '3': 0.7853981633974483,
-     '4': 1.0471975511965976,
-     '5': 1.308996938995747,
-     '6': 1.5707963267948963,
-     '7': 1.8325957145940457,
-     '8': 2.0943951023931953,
-     '9': 2.356194490192345,
-     '10': 2.6179938779914944,
-     '11': 2.879793265790644 } } */</span>
-
-<span class="keyword">var</span> sine = time.map(<span class="built_in">Math</span>.sin);
-<span class="comment">// Which will return</span>
-<span class="comment">/* Vector {
-  type: [Function: Float64Array],
-  length: 12,
-  buffer: ArrayBuffer {},
-  values:
-   Float64Array {
-     '0': 0,
-     '1': 0.25881904510252074,
-     '2': 0.49999999999999994,
-     '3': 0.7071067811865475,
-     '4': 0.8660254037844386,
-     '5': 0.9659258262890682,
-     '6': 1,
-     '7': 0.9659258262890684,
-     '8': 0.8660254037844387,
-     '9': 0.7071067811865476,
-     '10': 0.49999999999999994,
-     '11': 0.2588190451025206 } } */</span>
-</code></pre>
-<p>Besides the very extensive <span class="caps">API</span> it also accommodates extentions such as <a href="https://github.com/mateogianolio/vectorious-solve">Solve</a> and <a href="https://github.com/mateogianolio/vectorious-plot">Plot</a>.
-Plot for instance can be used to a two-dimensional <span class="caps">SVG</span> plot from two input&nbsp;vectors.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>23. November 2015</span></p>
-            <h2><a href="/articles/psdjs/">PSD.js</a></h2>
-          </header>
-          <section class="content"><p><span class="caps">PSD</span>.js (GitHub: <a href="https://github.com/meltingice/psd.js">meltingice/psd.js</a>, License: <span class="caps">MIT</span>, npm:&nbsp;psd)</p>
-<p><span class="caps">PSD</span>.js is a general purpose PSD parser written in Coffeescript. I was inspired by PSD.rb which allows you to work with a Photoshop document in a manageable tree structure and find out data such&nbsp;as:</p>
-<ul>
-<li>Document&nbsp;structure</li>
-<li>Document&nbsp;size</li>
-<li>Layer/folder size +&nbsp;positioning</li>
-<li>Layer/folder&nbsp;names</li>
-<li>Layer/folder visibility and&nbsp;opacity</li>
-<li>Font data (via psd-enginedata)<ul>
-<li>Text area&nbsp;contents</li>
-<li>Font names, sizes, and&nbsp;colors</li>
-</ul>
-</li>
-<li>Color mode and&nbsp;bit-depth</li>
-<li>Vector mask&nbsp;data</li>
-<li>Flattened image&nbsp;data</li>
-<li>Layer&nbsp;comps</li>
-</ul>
-<p>Although there are still some pieces missing that are present in <span class="caps">PSD</span>.rb, the eventual goal is to have all the features PSD.rb offers.
-So let’s look at an example for converting <code>.psd</code> as a <code>.png</code>.</p>
-<pre><code class="lang-javascript"><span class="keyword">import</span> <span class="caps">PSD</span> <span class="keyword">from</span> <span class="string">'psd'</span>;
-
-<span class="keyword">const</span> psd = <span class="caps">PSD</span>.fromFile(<span class="string">'my/awesome/file.psd'</span>);
-
-psd.parse();
-
-<span class="comment">// Log the tree structure of the .psd</span>
-<span class="built_in">console</span>.log(psd.tree().export());
-
-<span class="comment">// You can use promises syntax for opening and parsing</span>
-<span class="caps">PSD</span>.open(<span class="string">'my/awesome/file'</span>)
-    .then(psd =&gt; psd.image.saveAsPng(<span class="string">'./output.png'</span>))
-    .then(() =&gt; <span class="built_in">console</span>.log(<span class="string">'Finished!'</span>));
-</code></pre>
-<p>There is a very extensive <span class="caps">API</span> for traversing the document. If you would know the path to a group or layer within the tree, there is a way you can search by that path.
-That would look something like&nbsp;this:</p>
-<pre><code class="lang-javascript">psd.tree().childrenAtPath(<span class="string">'Version A/Matte'</span>);
-psd.tree().childrenAtPath([<span class="string">'Version A'</span>, <span class="string">'Matte'</span>]);
-</code></pre>
-<p>Once you have the layer you are interested in you can access the data like&nbsp;so:</p>
-<pre><code class="lang-javascript"><span class="comment">// Get the first layer</span>
-<span class="keyword">const</span> node = psd.tree().descendants()[<span class="number">0</span>];
-
-<span class="comment">// Read the name</span>
-node.get(<span class="string">'name'</span>);
-<span class="comment">// Read the width</span>
-node.get(<span class="string">'width'</span>);
-</code></pre>
-<p>Here is an example of the output <code>tree().export()</code> would give&nbsp;you:</p>
-<pre><code class="lang-javascript">{
-    children: [
-        {
-            type: <span class="string">'group'</span>,
-            visible: <span class="literal">false</span>,
-            opacity: <span class="number">1</span>,
-            blendingMode: <span class="string">'normal'</span>,
-            name: <span class="string">'VersionD'</span>,
-            left: <span class="number">0</span>,
-            right: <span class="number">900</span>,
-            top: <span class="number">0</span>,
-            bottom: <span class="number">600</span>,
-            height: <span class="number">600</span>,
-            width: <span class="number">900</span>,
-            children: [
-                {
-                    type: <span class="string">'layer'</span>,
-                    visible: <span class="literal">true</span>,
-                    opacity: <span class="number">1</span>,
-                    blendingMode: <span class="string">'normal'</span>,
-                    name: <span class="string">'Makeachangeandsave.'</span>,
-                    left: <span class="number">275</span>,
-                    right: <span class="number">636</span>,
-                    top: <span class="number">435</span>,
-                    bottom: <span class="number">466</span>,
-                    height: <span class="number">31</span>,
-                    width: <span class="number">361</span>,
-                    mask: {
-
-                    },
-                    text: {
-                        value: <span class="string">'Makeachangeandsave.'</span>,
-                        font: {
-                            name: <span class="string">'HelveticaNeue-Light'</span>,
-                            sizes: [
-                                <span class="number">33</span>
-                            ],
-                            colors: [
-                                [
-                                    <span class="number">85</span>,
-                                    <span class="number">96</span>,
-                                    <span class="number">110</span>,
-                                    <span class="number">255</span>
-                                ]
-                            ],
-                            alignment: [
-                                <span class="string">'center'</span>
-                            ]
-                        },
-                        left: <span class="number">0</span>,
-                        top: <span class="number">0</span>,
-                        right: <span class="number">0</span>,
-                        bottom: <span class="number">0</span>,
-                        transform: {
-                            xx: <span class="number">1</span>,
-                            xy: <span class="number">0</span>,
-                            yx: <span class="number">0</span>,
-                            yy: <span class="number">1</span>,
-                            tx: <span class="number">456</span>,
-                            ty: <span class="number">459</span>
-                        }
-                    },
-                    image: {
-
-                    }
-                }
-            ]
-        }
-    ],
-    <span class="built_in">document</span>: {
-        width: <span class="number">900</span>,
-        height: <span class="number">600</span>,
-        resources: {
-            layerComps: [
-                {
-                    id: <span class="number">692243163</span>,
-                    name: <span class="string">'VersionA'</span>,
-                    capturedInfo: <span class="number">1</span>
-                },
-                {
-                    id: <span class="number">725235304</span>,
-                    name: <span class="string">'VersionB'</span>,
-                    capturedInfo: <span class="number">1</span>
-                },
-                {
-                    id: <span class="number">730932877</span>,
-                    name: <span class="string">'VersionC'</span>,
-                    capturedInfo: <span class="number">1</span>
-                }
-            ],
-            guides: [
-
-            ],
-            slices: [
-
-            ]
-        }
-    }
-}
-</code></pre>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>19. November 2015</span></p>
-            <h2><a href="/articles/node-5-1-0/">Node v5.1.0 Stable</a></h2>
-          </header>
-          <section class="content"><p>First of all my excuse for not posting the past 2 days. I had a few days off from my day job because I went to a concert of Bullet For My Valentine(for those of you that might me interested). This also caused me to mis this new release of Node.js so here is a small roundup of the notable&nbsp;changes.</p>
-<h3 id="-buffer-3767-https-github-com-nodejs-node-pull-3767-"><code>buffer</code> (<a href="https://github.com/nodejs/node/pull/3767">#3767</a>)</h3>
-<p>The <code>noAssert</code> option for many buffer functions will now silently drop invalid write values rather than crashing This makes the behavior match what the docs&nbsp;suggest.</p>
-<h3 id="-child_process-3577-https-github-com-nodejs-node-pull-3577-"><code>child_process</code> (<a href="https://github.com/nodejs/node/pull/3577">#3577</a>)</h3>
-<p>child.send() now properly returns a boolean like the docs&nbsp;suggest.</p>
-<h3 id="-http_parser-3569-https-github-com-nodejs-node-pull-3569-"><code>http_parser</code> (<a href="https://github.com/nodejs/node/pull/3569">#3569</a>)</h3>
-<p>update http-parser to 2.6.0 from 2.5.0 (James M Snell) .
-Now supports the following <span class="caps">HTTP</span> methods: <code>LINK</code>, <code>UNLINK</code>, <code>BIND</code>, <code>REBIND</code>, <code>UNBIND</code>.
-Also added <span class="caps">ACL</span> and IPv6 Zone ID&nbsp;support.</p>
-<h3 id="-npm-3685-https-github-com-nodejs-node-pull-3685-"><code>npm</code> (<a href="https://github.com/nodejs/node/pull/3685">#3685</a>)</h3>
-<p>upgrade npm to 3.3.12 from v3.3.6.
-See the release notes for <a href="https://github.com/npm/npm/releases/tag/v3.3.7">v3.3.7</a>, <a href="https://github.com/npm/npm/releases/tag/v3.3.8">v3.3.8</a>, <a href="https://github.com/npm/npm/releases/tag/v3.3.9">v3.3.9</a>, <a href="https://github.com/npm/npm/releases/tag/v3.3.10">v3.3.10</a>, <a href="https://github.com/npm/npm/releases/tag/v3.3.11">v3.3.11</a>, and <a href="https://github.com/npm/npm/releases/tag/v3.3.12">v3.3.12</a> for more&nbsp;details.</p>
-<h3 id="repl-3630-https-github-com-nodejs-node-pull-3630-"><span class="caps">REPL</span> (<a href="https://github.com/nodejs/node/pull/3630">#3630</a>)</h3>
-<p>The <span class="caps">REPL</span> no longer crashes if the persistent history file cannot be&nbsp;opened.</p>
-<h3 id="tls-3755-https-github-com-nodejs-node-pull-3755-">tls (<a href="https://github.com/nodejs/node/pull/3755">#3755</a>)</h3>
-<p>The default sessionIdContext now uses <span class="caps">SHA1</span> in FIPS mode rather than&nbsp;MD5.</p>
-<h3 id="v8-3779-https-github-com-nodejs-node-pull-3779-">v8(<a href="https://github.com/nodejs/node/pull/3779">#3779</a>)</h3>
-<p>Added some more useful post-mortem&nbsp;data.</p>
-<h3 id="documentation-3662-https-github-com-nodejs-node-pull-3662-">Documentation (<a href="https://github.com/nodejs/node/pull/3662">#3662</a>)</h3>
-<p>All of the <span class="caps">API</span> docs have been re-ordered so as to read in alphabetical&nbsp;order.</p>
-<p>The known issues that are still in there&nbsp;are:</p>
-<ul>
-<li>Surrogate pair in <span class="caps">REPL</span> can freeze terminal. <a href="https://github.com/nodejs/node/issues/690">#690</a></li>
-<li>Calling dns.setServers() while a <span class="caps">DNS</span> query is in progress can cause the process to crash on a failed assertion. <a href="https://github.com/nodejs/node/issues/894">#894</a></li>
-<li>url.resolve may transfer the auth portion of the url when resolving between two full hosts, see <a href="https://github.com/nodejs/node/issues/1435">#1435</a>.</li>
-<li>Unicode characters in filesystem paths are not handled consistently across platforms or Node.js APIs. See <a href="https://github.com/nodejs/node/issues/2088">#2088</a>, <a href="https://github.com/nodejs/node/issues/3401">#3401</a> and <a href="https://github.com/nodejs/node/issues/3519">#3519</a>.</li>
-</ul>
+          <section class="content"><p>ally.js (GitHub: <a href="https://github.com/medialize/ally.js">medialize/ally.js</a>, License: <span class="caps">MIT</span>, npm:&nbsp;ally.js)</p>
+<p>Ever had the problem of having to accommodate for instance blind people on your website?
+With the web app’s of nowadays accessibility sometimes goes to waste by not having the need for “semantic” <span class="caps">HTML</span> and just putting everything inside <code>div</code>‘s.
+Don’t get me wrong, I ofter find myself using a <code>div</code> to make buttons for instance. But for the blind users of the web this can be a serious problem, because their assistance software and the browser do not have the correct content they use all accessibility to your&nbsp;website.</p>
+<p>ally.js is a library simplifying certain accessibility features, functions and behaviors.
+Its goal is to help web applications with accessibility concerns provide every user with a good&nbsp;experience.</p>
+<p>It has an amazingly extensive <span class="caps">API</span> to solve most accessibility problems, way to much to even begin to describe so I will direct you to their <a href="http://allyjs.io/index.html">website</a> where everything is explained into more detail than I could do in a&nbsp;day.</p>
 
           </section>
         </article>

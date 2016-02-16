@@ -1,6 +1,6 @@
 ---
 title: 'SamsaraJS'
-date: '2016-02-03'
+date: '2016-02-04'
 author: ramon
 template: article.jade
 ---

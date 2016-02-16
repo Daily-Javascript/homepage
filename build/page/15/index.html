@@ -36,308 +36,235 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
-            <p class="date"><span>28. September 2015</span></p>
-            <h2><a href="/articles/levi/">Levi</a></h2>
+            <p class="date"><span>08. October 2015</span></p>
+            <h2><a href="/articles/generator-nom/">Generator Nom</a></h2>
           </header>
-          <section class="content"><p>Levi (GitHub: <a href="https://github.com/cshum/levi">cshum/levi</a>, License: <span class="caps">MIT</span>, npm:&nbsp;levi)</p>
-<p>Levi is a streaming full-text search for Node.js and browsers which used LevelDB for storage.
-The search implementation is done by using <a href="https://en.wikipedia.org/wiki/Tf%E2%80%93idf"><span class="caps">TF</span>-IDF</a> and <a href="https://en.wikipedia.org/wiki/Cosine_similarity">cosine similarity</a>, and it’s provided with configurable text processing pipelines: Tokenizer, Porter Stemmer and Stopwords&nbsp;filter.</p>
-<p>Levi is built on <a href="https://github.com/Level/levelup">LevelUP</a> which is a fast, asynchronous, transactional storage interface. By default it uses LevelDB on Node.js, when in running in the browser it uses <a href="https://github.com/maxogden/level.js">IndexedDB</a>. Levi supports with a variety of LevelDOWN compatible&nbsp;backends.</p>
-<p>In addition, Levi provides relevancy scoring for live changing data using <span class="caps">TF</span>-ICF - a TF-IDF approximation based on existing corpus. Such scoring matches are comparably close to TF-IDF when existing corpus is sufficiently large, with significantly better performance O(N) instead of&nbsp;O(N^2).</p>
-<p>Let’s take a look at the <span class="caps">API</span>. To get started, we need to create a new Levi instance. We do that like&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="keyword">import</span> levi <span class="keyword">from</span> <span class="string">'levi'</span>;
-
-<span class="keyword">const</span> lv = levi(<span class="string">'db'</span>)
-.use(levi.tokenizer())
-.use(levi.stemmer())
-.use(levi.stopword());
+          <section class="content"><p>generator-nom (GitHub: <a href="https://github.com/inikulin/read-file-relative">ironSource/node-generator-nom</a>, License: <span class="caps">MIT</span>, npm:&nbsp;generator-nom)</p>
+<p>We all strive to write <span class="caps">DRY</span> code, but still while setting up projects and maintaining depenencies we are constantly repeating ourselves.
+I find myself going through the same flow time and time again. <code>git init</code>, <code>npm init</code>, <code>touch README.md</code>, going to Github getting an origin to push to et cetra. This process is a pain every time. What if you could just generate all this stuff with one&nbsp;command.</p>
+<p>That is where the <code>yo nom</code> come in.
+Nom is a <a href="http://yeoman.io">Yeoman</a> generator which is a collection of several sub-generators. It includes the following&nbsp;generators;</p>
+<h4 id="npm">npm</h4>
+<p>Create package.json and prompt to keep dependencies of a previous package.json if any. Create .gitignore, cli.js (optional), install test framework (tape, tap, mocha, grunt, cake, or ava), add <span class="caps">LICENSE</span> file (MIT, BSD2 or&nbsp;BSD3).</p>
+<h4 id="git">git</h4>
+<p>Initialize local git repository, unless .git directory&nbsp;exists</p>
+<h4 id="github">github</h4>
+<p>Create public or private GitHub project, named “module-name” or “node-module-name”, unless local git already has configured remotes. Asks for access token and repository owner (which defaults to the owner of the token), skips creation if the repository already exists, adds URLs to package.json and adds remote&nbsp;origin.</p>
+<h4 id="travis">travis</h4>
+<p>Add .travis.yml for node 0.10 and iojs, setup GitHub hook. The travis tool asks for username and&nbsp;password.</p>
+<h4 id="appveyor">appveyor</h4>
+<p>Add appveyor.yml for node 0.10 and iojs, setup GitHub hook. Asks for access&nbsp;token.</p>
+<h4 id="gulp">gulp</h4>
+<p>Create an <span class="caps">ES6</span> gulpfile and tasks&nbsp;directory.</p>
+<h4 id="style-still-to-come-">style (still to&nbsp;come)</h4>
+<p>Add standard or xo as a pretest&nbsp;script</p>
+<h4 id="readme">readme</h4>
+<p>Add readme.md with common sections and shield.io badges for npm and david. If you did the travis and/or appveyor setup, badges for those services will be added as&nbsp;well.</p>
+<p><img src="https://github.com/ironSource/node-generator-nom/raw/master/demo.gif" style="max-width: 400px; width: 100%; position:static;"></p>
+<p>To use a specific generator you can select it like&nbsp;this:</p>
+<pre><code class="lang-bash">yo nom:&lt;generator&gt;
 </code></pre>
-<p>The text processing pipeline <code>levi.tokenizer()</code>, <code>levi.stemmer()</code>, <code>levi.stopword()</code> are required for indexing. These are exposed as <a href="https://github.com/cshum/ginga">ginga</a> plugins so that they can be swapped for different language&nbsp;configurations.</p>
-<p>Now that we have an instance we can use it to talk to the <span class="caps">API</span> like&nbsp;this:</p>
-<pre><code class="lang-javascript">lv.put(<span class="string">'a'</span>, <span class="string">'Lorem Ipsum is simply dummy text.'</span>, err =&gt; {
-    <span class="comment">// ...</span>
- });
-
-<span class="comment">// object fields as value</span>
-lv.put(<span class="string">'b'</span>, {
-  id: <span class="string">'b'</span>,
-  title: <span class="string">'Lorem Ipsum'</span>,
-  body: <span class="string">'Dummy text of the printing and typesetting industry.'</span>
-}, (err) =&gt; {
-    <span class="comment">//...</span>
-});
+<p>To run them all&nbsp;use:</p>
+<pre><code class="lang-bash">yo nom:*
 </code></pre>
-<p>Or retrieve it&nbsp;like:</p>
-<pre><code class="lang-javascript">lv.get(<span class="string">'b'</span>, res =&gt; {
-    <span class="comment">// res here;</span>
-});
-</code></pre>
-<p>To actually search we need to use Levi’s main interface which would be <code>searchStream</code>. We use that like&nbsp;this.</p>
-<pre><code class="lang-javascript">lv.searchStream(<span class="string">'lorem ipsum'</span>).toArray(<span class="function"><span class="keyword">function</span> (<span class="params">results</span>) </span>{ ... }) <span class="comment">// highland method</span>
-
-lv.searchStream(<span class="string">'lorem ipsum'</span>, {
-  fields: { title: <span class="number">10</span>, <span class="string">'*'</span>: <span class="number">1</span> } <span class="comment">// title field boost. '*' means any field</span>
-}).pipe(...)
-
-lv.searchStream(<span class="string">'lorem ipusm'</span>, {
-  fields: { title: <span class="number">1</span> }, <span class="comment">// title only</span>
-}).pipe(...)
-
-<span class="comment">// ltgt</span>
-lv.searchStream(<span class="string">'lorem ipusm'</span>, {
-  gt: <span class="string">'!posts!'</span>,
-  lt: <span class="string">'!posts!~'</span>
-}).pipe(...)
-
-<span class="comment">// document as query</span>
-lv.searchStream({
-  title: <span class="string">'Lorem Ipsum'</span>,
-  body: <span class="string">'Dummy text of the printing and typesetting industry.'</span>
-}).pipe(...)
-</code></pre>
-<p>Because I do not fully understand everything that is going on here, I need to refer you to the extensive documentation on the <a href="https://github.com/cshum/levi">GitHub page</a>. The reason I still mention this library is that I understand from the explanation a colleague gave me that this library will have a significant impact on the speed of your text&nbsp;search.</p>
+<p>That’s&nbsp;it.</p>
+<p>I’ve tried this out and will probably be using this to make my workflow a bit more <span class="caps">DRY</span> and hope that other people will also consider to optimize their workflow with modules like <code>nom</code>.</p>
 
           </section>
         </article>
         <article class="article intro">
           <header>
-            <p class="date"><span>28. September 2015</span></p>
-            <h2><a href="/articles/runejs-and-queryl/">Rune.js and queryl</a></h2>
+            <p class="date"><span>07. October 2015</span></p>
+            <h2><a href="/articles/read-file-relative/">Read file relative</a></h2>
           </header>
-          <section class="content"><p>Rune.js (GitHub: <a href="https://github.com/runemadsen/rune.js">runemadsen/rune.js</a>, License: <span class="caps">MIT</span>&nbsp;)</p>
-<p>Rune.js is a library for programming graphic design systems with <span class="caps">SVG</span>. It has a fluent drawing API, an unobtrusive scene graph, and a bunch of features designed specifically for graphic designers, such as: native support for color conversion, grid systems, typography, pixel iteration and an expanding set of computational geometry helpers. What peaked my interest is that it uses a <a href="https://github.com/Matt-Esch/virtual-dom">virtual-dom</a> under the&nbsp;hood.</p>
-<p>If you’re not familiar with the virtual-dom I suggest you take a break to take a look at that&nbsp;first.</p>
-<p>Unfortunately I could not find any npm or bower install instructions, so I am hoping that the developer will add that&nbsp;soon.</p>
-<p>Rune.js has all basic shapes in the&nbsp;<span class="caps">API</span>.</p>
-<pre><code class="lang-javascript">r.line(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">100</span>);
+          <section class="content"><p>read-file-relative (GitHub: <a href="https://github.com/inikulin/read-file-relative">inikulin/read-file-relative</a>, License: Unknown, npm:&nbsp;read-file-relative)</p>
+<p>A problem everybody probably encounters once in a while is relativity of file paths while reading files with Node.js.
+You would do something like&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="keyword">var</span> fs   = <span class="built_in">require</span>(<span class="string">'fs'</span>);
+<span class="keyword">var</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);
+<span class="keyword">var</span> data = fs.readFileSync(path.join(__dirname, <span class="string">'/data-file.txt'</span>)).toString();
 
-r.rect(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">50</span>);
+<span class="comment">// Or like:</span>
+<span class="keyword">var</span> fs   = <span class="built_in">require</span>(<span class="string">'fs'</span>);
+<span class="keyword">var</span> data = fs.readFileSync(__dirname + <span class="string">'/data-file.txt'</span>).toString();
 
-r.ellipse(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">50</span>);
-
-r.circle(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>);
-
-r.triangle(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">100</span>);
+<span class="comment">// Or even like this</span>
+<span class="keyword">var</span> fs   = <span class="built_in">require</span>(<span class="string">'fs'</span>);
+<span class="keyword">var</span> data = fs.readFileSync(<span class="string">'./data-file.txt'</span>).toString();
 </code></pre>
-<p>And for more complex shapes it fluent <span class="caps">API</span> makes drawing with SVG very readable and&nbsp;familiar.</p>
-<pre><code class="lang-javascript">r.polygon(<span class="number">0</span>, <span class="number">0</span>).lineTo(<span class="number">100</span>, <span class="number">0</span>).lineTo(<span class="number">100</span>, <span class="number">100</span>).lineTo(<span class="number">0</span>, <span class="number">100</span>);
-
-r.path(<span class="number">0</span>, <span class="number">0</span>).lineTo(<span class="number">100</span>, <span class="number">0</span>).curveTo(<span class="number">100</span>, <span class="number">100</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">0</span>, <span class="number">0</span>);
+<p>Now you can easily read out files without all the annoying boilerplate code.
+Imagine a world where you could do&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="keyword">var</span> data = readSync(<span class="string">'/data-file.txt'</span>);
 </code></pre>
-<p>Since this library is packed with features and concepts, I will only give you the tip of the iceberg right now. If you want to know more, consult the <a href="http://runemadsen.github.io/rune.js/">amazing documentation</a>.</p>
-<h3 id="queryl">queryl</h3>
-<p>queryl (GitHub: <a href="https://github.com/issuetrackapp/queryl">issuetrackapp/queryl</a>, License: <span class="caps">MIT</span>, npm:&nbsp;queryl)</p>
-<p>queryl is a query language to preform complex object searches. The purpose of this “language” is to allow the developer to build very complex queries to e.g. search a collection of objects, to validate objects before you dump it in a db or even to make assertions in&nbsp;tests.</p>
-<p>queryl comes with a very simple <span class="caps">API</span>. <code>queryl.match</code> is the main entry at this point this will always return a boolean and expects an object to match. For&nbsp;example:</p>
-<pre><code class="lang-javascript">queryl.match({
-  $contain: {
-    foo: <span class="number">1</span>
-  }
-}, {
-  foo: [ <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span> ]
-});
-&gt; <span class="literal">true</span>
+<p>Well you can stop imagining, because it’s here and it’s called <code>read-file-relative</code>.
+<code>Read-file-relative</code> comes with two main functions on it’s <span class="caps">API</span>: read and readSync.
+Let’s take a&nbsp;look.</p>
+<p>To read out the file synchronously this is what you would&nbsp;do.</p>
+<pre><code class="lang-javascript"><span class="keyword">var</span> readSync = <span class="built_in">require</span>(<span class="string">'read-file-relative'</span>).readSync;
+<span class="keyword">var</span> data = readSync(<span class="string">'/file.txt'</span>);
 </code></pre>
-<p>This is just a very basic example of what it can do. The full <span class="caps">API</span> docs shows the entire power of this&nbsp;“language”.</p>
-<p>I can see this working very well for matching and parsing certain objects like the ones you would receive from, for instance, the Google spreadsheet&nbsp;<span class="caps">API</span>.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>27. September 2015</span></p>
-            <h2><a href="/articles/xregexp-and-gun/">XRegExp and Gun</a></h2>
-          </header>
-          <section class="content"><p>XRegExp (GitHub: <a href="https://github.com/slevithan/xregexp">slevithan/xregexp</a>, License: <span class="caps">MIT</span>, npm:&nbsp;xregexp)</p>
-<p> XRegExp is a regex utility belt that provides augmented and extensible JavaScript regular expressions.
- It comes with a new modern syntax and flags beyond what browsers support natively. Furthermore it comes with tools to make client-side grepping and string parsing easier. This will free you from worrying about cross-browser inconsistencies and problems like manually manipulating <code>lastIndex</code> or slicing strings when&nbsp;tokenizing.</p>
-<p> Because XRegExp compiles to native <code>RegExp</code> objects it’s just as fast native regular expressions.
- The only penalty would be the compiling the pattern the first&nbsp;time.</p>
-<p> Here are two example that the developer posted on&nbsp;Github.</p>
-<pre><code class="lang-javascript"> <span class="comment">// Using named capture and flag x (free-spacing and line comments)</span>
-<span class="keyword">const</span> date = XRegExp(<span class="string">'(?&lt;year&gt;  [0-9]{4} ) -?  # year  \n\
-                    (?&lt;month&gt; [0-9]{2} ) -?  # month \n\
-                    (?&lt;day&gt;   [0-9]{2} )     # day   '</span>, <span class="string">'x'</span>);
-
-<span class="comment">// XRegExp.exec gives you named backreferences on the match result</span>
-<span class="keyword">let</span> match = XRegExp.exec(<span class="string">'2015-02-22'</span>, date);
-match.year; <span class="comment">// -&gt; '2015'</span>
-
-<span class="comment">// You can also pass forward and return specific backreferences</span>
-<span class="keyword">const</span> html = <span class="string">'&lt;a href="http://daily-javascript.com/"&gt;Daily Javascript&lt;/a&gt;'</span> +
-           <span class="string">'&lt;a href="http://www.google.com/"&gt;Google&lt;/a&gt;'</span>;
-XRegExp.matchChain(html, [
-    {regex: <span class="regexp">/&lt;a href="([^"]+)"&gt;/i</span>, backref: <span class="number">1</span>},
-    {regex: XRegExp(<span class="string">'(?i)^https?://(?&lt;domain&gt;[^/?#]+)'</span>), backref: <span class="string">'domain'</span>}
-]); <span class="comment">// -&gt; ['daily-javascript.com', 'www.google.com']</span>
-
-<span class="comment">// Merge strings and regexes into a single pattern, safely rewriting backreferences</span>
-XRegExp.union([<span class="string">'a+b*c'</span>, <span class="regexp">/(dog)\1/</span>, <span class="regexp">/(cat)\1/</span>], <span class="string">'i'</span>);
-<span class="comment">// -&gt; /a\+b\*c|(dog)\1|(cat)\2/i</span>
-</code></pre>
-<p>You can also enabled some add-ons such as unicode support and then you can do&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="comment">// Test the Unicode category L (Letter)</span>
-<span class="keyword">const</span> unicodeWord = XRegExp(<span class="string">'^\\pL+$'</span>);
-unicodeWord.test(<span class="string">'Русский'</span>); <span class="comment">// -&gt; true</span>
-unicodeWord.test(<span class="string">'日本語'</span>); <span class="comment">// -&gt; true</span>
-unicodeWord.test(<span class="string">'العربية'</span>); <span class="comment">// -&gt; true</span>
-
-<span class="comment">// Test some Unicode scripts</span>
-XRegExp(<span class="string">'^\\p{Hiragana}+$'</span>).test(<span class="string">'ひらがな'</span>); <span class="comment">// -&gt; true</span>
-XRegExp(<span class="string">'^[\\p{Latin}\\p{Common}]+$'</span>).test(<span class="string">'Über Café.'</span>); <span class="comment">// -&gt; true</span>
-</code></pre>
-<p>When installed via npm all add-ons are always available to use this in the browser. You must include to addons like&nbsp;this:</p>
-<pre><code class="lang-html"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"src/xregexp.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
-<span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"src/addons/unicode-base.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span> <span class="comment">&lt;!-- This must be include before the other addons --&gt;</span>
-<span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"src/addons/unicode-categories.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
-<span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"src/addons/unicode-scripts.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
-</code></pre>
-<h3 id="gun"><span class="caps">GUN</span></h3>
-<p><span class="caps">GUN</span> (GitHub: <a href="https://github.com/amark/gun">amark/gun</a>, License: Apache 2.0, npm:&nbsp;gun)</p>
-<p>Mark Nadal sent in <span class="caps">GUN</span> which is an open source alternative to Firebase.
-Mark tells me that he got tired of dealing with DevOps/SysAdmin work to keep MongoDB running in production. It was making him very unhappy.
-So he took it upon him self to start a DBaaS like Firebase, but one that he could run on his own&nbsp;servers.</p>
-<p>It looks very promising and very easy to setup. Right now it doesn’t have an efficient storage engine yet so it stores all the data in <span class="caps">JSON</span>.
-Let’s look at some&nbsp;examples.</p>
-<p>To make a connection we must require it and make a reference to&nbsp;it.</p>
-<pre><code class="lang-javascript"><span class="keyword">var</span> Gun = <span class="built_in">require</span>(<span class="string">'gun'</span>);
-<span class="keyword">var</span> ref = Gun(<span class="string">'http://gunjs.herokuapp.com/gun'</span>).get(<span class="string">'daily/javascript'</span>);
-</code></pre>
-<p>Now we are able to put and get data this&nbsp;way.</p>
-<pre><code class="lang-javascript">
-<span class="comment">// Putting data</span>
-gun.put({
-  username: <span class="string">"RamonGebben"</span>,
-  name: <span class="string">"Ramon Gebben"</span>,
-  email: <span class="string">"daily-javascript@ra-ge.net"</span>
-}).key(<span class="string">'usernames/RamonGebben'</span>);
-
-<span class="comment">// Getting data</span>
-gun.get(<span class="string">'usernames/RamonGebben'</span>).val((user) =&gt; <span class="built_in">console</span>.log(user.name));
-</code></pre>
-<p>You can also extend <span class="caps">GUN</span> by reacting on events like&nbsp;this:</p>
-<pre><code class="lang-javascript">Gun.on(<span class="string">'opt'</span>).event((gun, opt) =&gt; {
-    <span class="comment">/* Your module here! */</span>
+<p>When you prefer asynchronously reading you just provide a callback like&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="keyword">var</span> read = <span class="built_in">require</span>(<span class="string">'read-file-relative'</span>).read;
+read(<span class="string">'/file.txt'</span>, <span class="string">'utf8'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">err, content</span>) </span>{
+   <span class="comment">// ...</span>
 });
 </code></pre>
-<p>If you take a look at what the developers have planned to introduce, you will notice this is something to keep your eye&nbsp;on.</p>
-<p>I would not recommend using this in production just yet, because it feels very young, but for small prototype for which you don’t want to bother setting up an entire infrastructure to load and save this could be a good&nbsp;choice.</p>
+<p>Note that for the <code>read</code> we need to provide the encoding else it will return a&nbsp;buffer.</p>
+<p>Besides reading files you can also just convert a path to an absolute path like&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="keyword">var</span> toAbsPath = <span class="built_in">require</span>(<span class="string">'read-file-relative'</span>).toAbsPath;
+<span class="keyword">var</span> absPath = toAbsPath(<span class="string">'/file.txt'</span>);
+</code></pre>
+<p>This is a nice addition to everybody’s toolbox. It doesn’t do much, but what it does, it does very&nbsp;well.</p>
 
           </section>
         </article>
         <article class="article intro">
           <header>
-            <p class="date"><span>26. September 2015</span></p>
-            <h2><a href="/articles/jetsjs-and-replem/">Jets.js and repl'em</a></h2>
+            <p class="date"><span>06. October 2015</span></p>
+            <h2><a href="/articles/speckjs/">Speck JS</a></h2>
           </header>
-          <section class="content"><p>Jets.js (GitHub: <a href="https://github.com/NeXTs/Jets.js">NeXTs/Jets.js</a>, License: <span class="caps">MIT</span>, npm: jets, bower:&nbsp;jets)</p>
-<p>Jets.js is a search engine which utilizes <span class="caps">CSS</span> to present the results.
-The main idea is not to affect attributes of each tag in the list while filtering.
-Instead apply dynamic CSS rule in only <code>&lt;style&gt;</code> tag and browser will decide which item of list to show or hide. Since it’s just <span class="caps">CSS</span> - Jets.js may be applied to any tag, whether it’s a table or UL, OL,&nbsp;DIV…</p>
-<p><img src="http://nexts.github.io/Jets.js/img/demo_hover.gif" style="max-width: 400px;width: 100%;left: 0;"></p>
-<p>On the developers <a href="http://nexts.github.io/Jets.js/">page</a> there is a speed&nbsp;test.</p>
-<p><img src="http://i.imgur.com/SToKoIY.png" style="left:0; width: 100%;"></p>
-<p>Because I was so amazed by how easy it was to setup I started a small <a href="http://codepen.io/Dailjs-Javascript/pen/vNyXOr">codepen</a> and had some fun with&nbsp;it.</p>
-<h3 id="repl-em">repl’em</h3>
-<p>repl’em (GitHub: <a href="https://github.com/raine/replem">raine/replem</a>, License: Unknown, npm:&nbsp;replem)</p>
-<p>If you are a developer like me you shall recognize the pain of trying a lot of different modules to find which one suits your task.
-repl’em let’s you run a list of modules that use specify in a repl&nbsp;context.</p>
-<p><img src="https://raw.githubusercontent.com/raine/replem/media/term.png" style="left:0; width: 100%; min-height:200px;"></p>
-<p>It also supports custom repl’s such as coffee-script. To use these you must give them as an&nbsp;argument.</p>
-<pre><code class="lang-bash">$ npm install --prefix ~/.replem coffee-script
-$ replem --repl coffee-script/repl lodash
-</code></pre>
-<p>You can also get all module properties in the direct context. You do this by providing each module with a bang (!)&nbsp;argument.</p>
-<pre><code class="lang-bash">$ replem ramda!
-Installed into REPL context:
- - ramda@<span class="number">0.17</span>.<span class="number">1</span> as ramda
-&gt; reduce === ramda.reduce
-<span class="literal">true</span>
-</code></pre>
-<p>This tool will certainly make it easier to try out new modules for providing you with new posts&nbsp;everyday.</p>
+          <section class="content"><p>SpeckJS (GitHub: <a href="https://github.com/speckjs/speckjs">speckjs/speckjs</a>, License: <span class="caps">MIT</span>, npm:&nbsp;speckjs)</p>
+<p>SpeckJS is a library that parses JavaScript comments and outputs unit-tests. SpeckJS currently supports <a href="https://github.com/substack/tape">Tape</a>, <a href="https://github.com/jasmine/jasmine">Jasmine</a>, and <a href="https://github.com/mochajs/mocha">Mocha</a>/<a href="https://github.com/chaijs/chai">Chai</a>.</p>
+<p>SpeckJS comes with plugins for <a href="https://github.com/speckjs/grunt-speckjs">Grunt</a>, <a href="https://github.com/speckjs/gulp-speckjs">Gulp</a> and <a href="https://github.com/speckjs/atom-speckjs">Atom</a>.</p>
+<p>The goal of SpeckJS is to make it as easy as possible to get started using Test-Driven Development on a new project or to quickly add unit-tests to your existing&nbsp;project.</p>
+<p>Let’s make a&nbsp;test.</p>
+<pre><code class="lang-javascript"><span class="comment">/*
+test &gt; sum function
+# sum(1, 2) == 3 (returns the sum of both params)
+# sum(3, 4) == 7 (returns the sum of both params)
+*/</span>
 
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>25. September 2015</span></p>
-            <h2><a href="/articles/plop-and-selectize/">Plop and Selectize</a></h2>
-          </header>
-          <section class="content"><p>Plop (GitHub: <a href="https://github.com/amwmedia/plop">amwmedia/plop</a>, License: <span class="caps">MIT</span>, npm:&nbsp;plop)</p>
-<p>Plop is a command line tool that helps you introduce uniformity to your team by generating new modules, files or even documentation pages.
-The problem it tries to solve is one that we all must have. You have a project which is nicely structured. Lets say this is our pages&nbsp;folder;</p>
-<pre><code>|-- Pages
-    |-- HomePage
-        |-- HomePage.jsx
-        |-- config.json
-        |-- styles.css
-</code></pre><p>What we need to do is add a new page. Normally we would do is copy the <code>HomePage</code> folder and walk through the files and what is needed. This will cost you some time and slow you&nbsp;down.</p>
-<h4 id="plop-to-the-rescue">Plop to the&nbsp;rescue</h4>
-<p>By defining how modules, pages or components should look before hand you could write a template for it.
-By using <a href="http://handlebarsjs.com/">handlebars</a> it lets you set the values you would normally change by&nbsp;hand.</p>
-<p>Here is an example template&nbsp;file</p>
-<pre><code>class {{ properCase name }} extends React.Component {
-  render(){
-    return &lt;div className=&#39;{{ name }}&#39;&gt;Newly generated Component {{ name }}&lt;/div&gt;
-  }
-}
-</code></pre><p>To fill up this template I will need a <code>plopfile</code> which would look like&nbsp;this</p>
-<pre><code class="lang-javascript"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span> (<span class="params">plop</span>) </span>{
-    plop.setGenerator(<span class="string">'component'</span>, {
-        description: <span class="string">'Generate a React Component'</span>,
-        prompts: [{
-            type: <span class="string">'input'</span>,
-            name: <span class="string">'name'</span>,
-            message: <span class="string">'What should it be called?'</span>,
-            validate: <span class="function"><span class="keyword">function</span> (<span class="params">value</span>) </span>{
-                <span class="keyword">if</span> ((<span class="regexp">/.+/</span>).test(value)) { <span class="keyword">return</span> <span class="literal">true</span>; }
-                <span class="keyword">return</span> <span class="string">'name is required'</span>;
-            }
-        }],
-        actions: [{
-            type: <span class="string">'add'</span>,
-            path: <span class="string">'src/Components/{{properCase name}}.jsx'</span>,
-            templateFile: <span class="string">'component.txt'</span>
-        }]
-    });
+<span class="function"><span class="keyword">function</span> <span class="title">sum</span>(<span class="params">a, b</span>)</span>{
+    <span class="keyword">return</span> a + b;
 }
 </code></pre>
-<p>Now you could call <code>plop</code> to select it from a list of generators or <code>plop &lt;generator&gt;</code> to call it&nbsp;directly.</p>
-<p>What I love about this tool is the size of it. In contrast with Yeoman which is great for initialization of a codebase but after that you are still copying files, Plop is designed to work in throughout the life entire cycle of a&nbsp;project.</p>
-<h3 id="react-selectize">React&nbsp;Selectize</h3>
-<p>React Selectize (GitHub: <a href="https://github.com/furqanZafar/react-selectize">furqanZafar/react-selectize</a>, License: Apache 2.0, npm:&nbsp;react-selectize)</p>
-<p>React Selectize is a stateless Select component for ReactJS, which provides a platform for a more developer friendly SimpleSelect <span class="amp">&amp;</span> MultiSelect component.
-<img src="https://camo.githubusercontent.com/251a1a6254a1a1c46074c79d7c68ec4108e0fbbe/687474703a2f2f692e696d6775722e636f6d2f72526d7566786d2e676966" style="max-width: 320px; width: 100%; position:static;"></p>
-<p>Getting it to work was surprisingly simple. Here is my&nbsp;example</p>
-<pre><code class="lang-javascript"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;
-<span class="keyword">import</span> ReactSelectize <span class="keyword">from</span> <span class="string">'react-selectize'</span>
-const SimpleSelect = React.createFactory(ReactSelectize.SimpleSelect);
-<span class="keyword">const</span> MultiSelect = React.createFactory(ReactSelectize.MultiSelect);
+<p>SpeckJS supports some basic assertion like: equal, strict equal, not equal.
+Besides relying on all the tools already provided, such as <code>gulp</code> and atom plugins, you could also script yourself with the <span class="caps">API</span> like&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="keyword">var</span> speck = <span class="built_in">require</span>(<span class="string">'speckjs'</span>);
 
-<span class="xml"><span class="tag">&lt;<span class="title">SimpleSelect</span>
-    <span class="attribute">placeholder</span> = "<span class="attribute">Select</span> <span class="attribute">a</span> <span class="attribute">food</span>"
-    <span class="attribute">onValueChange</span> = {(<span class="attribute">value</span>, <span class="attribute">callback</span>) =&gt;</span> {
-        alert(value);
-        callback();
-    }}
-    &gt;
-    <span class="tag">&lt;<span class="title">option</span> <span class="attribute">value</span> = "<span class="attribute">pizza</span>"&gt;</span>pizza<span class="tag">&lt;/<span class="title">option</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">option</span> <span class="attribute">value</span> = "<span class="attribute">kebab</span>"&gt;</span>kebab<span class="tag">&lt;/<span class="title">option</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">option</span> <span class="attribute">value</span> = "<span class="attribute">donut</span>"&gt;</span>donut<span class="tag">&lt;/<span class="title">option</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">SimpleSelect</span>&gt;</span>
+<span class="comment">// file object to be passed as an argument</span>
+<span class="keyword">var</span> file = {
+  name: <span class="string">'demo.js'</span>,
+  content: scriptContent
+};
 
-<span class="tag">&lt;<span class="title">MultiSelect</span>
-    <span class="attribute">placeholder</span> = "<span class="attribute">Select</span> <span class="attribute">foods</span>"
-    <span class="attribute">options</span> = ["<span class="attribute">pizza</span>", "<span class="attribute">kebab</span>", "<span class="attribute">donut</span>"]<span class="attribute">.map</span>(<span class="attribute">function</span>(<span class="attribute">food</span>){
-        <span class="attribute">return</span> {<span class="attribute">label:</span> <span class="attribute">food</span>, <span class="attribute">value:</span> <span class="attribute">food</span>};
-    });
-    <span class="attribute">onValuesChange</span> = {<span class="attribute">function</span>(<span class="attribute">values</span>, <span class="attribute">callback</span>){
-        <span class="attribute">alert</span>(<span class="attribute">values</span>);
-        <span class="attribute">callback</span>();
-    }}
-/&gt;</span></span>
+<span class="comment">// options hash selecting Jasmine and specifying a callback</span>
+<span class="keyword">var</span> option = {
+  testFW: <span class="string">'jasmine'</span>,
+  onBuild: <span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>{
+    <span class="built_in">console</span>.log(data);
+  }
+}
+
+<span class="comment">// Returns Jasmine test file</span>
+<span class="keyword">var</span> result = speck.build(file, option);
 </code></pre>
-<p>What I love about this component is the ease of the setup and the flexibility and compactness of the&nbsp;<span class="caps">API</span>.</p>
+<p>We will start using this in my company from now on, because it makes it a lot easier to integrate testing in a long running project that has never being tested just by walking through the files.
+I hope to see other people pick this up&nbsp;aswel.</p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
+            <p class="date"><span>05. October 2015</span></p>
+            <h2><a href="/articles/velocity-react/">Velocity React</a></h2>
+          </header>
+          <section class="content"><p>velocity-react (GitHub: <a href="https://github.com/twitter-fabric/velocity-react">twitter-fabric/velocity-react</a>, License: <span class="caps">MIT</span>, npm:&nbsp;velocity-react)</p>
+<p>Today I had some trouble finding something to write about. Then I remembered the awesome work done by the guys at Twitter Fabric. They made a React component for interacting with amazing <a href="http://julian.com/research/velocity/">Velocity</a> animation library.
+Offical introduction can be found <a href="https://fabric.io/blog/introducing-the-velocityreact-library">here.</a></p>
+<p>If you are not familiar with <a href="http://julian.com/research/velocity/">Velocity</a> I suggest you take a look at this&nbsp;first.</p>
+<p>The package contains two components; <code>&lt;VelocityComponent /&gt;</code> and <code>&lt;VelocityTransitionGroup /&gt;</code></p>
+<p>Velocity React integration follow this simple&nbsp;algorithm:</p>
+<ul>
+<li>Initially, an animated component will appear as it would at the end of its given&nbsp;animation.</li>
+<li>If that given animation ever changes, it runs it to get to the new end state. If there’s an animation currently in progress, we stop it first, and then proceed smoothly from whatever intermediate state it left us&nbsp;in.</li>
+</ul>
+<p>Here is a small example that was given in the introduction from&nbsp;Fabric.</p>
+<pre><code class="lang-javascript">render: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{
+  <span class="keyword">var</span> animationProps;
+  <span class="keyword">if</span> (<span class="keyword">this</span>.state.hovering) {
+    animationProps = {
+      duration: <span class="number">200</span>,
+      animation: {
+        rotateX: <span class="number">160</span>
+      }
+    };
+  } <span class="keyword">else</span> {
+    animationProps = {
+      duration: <span class="number">1100</span>, <span class="comment">// longer due to swinging</span>
+      animation: {
+        rotateX: [<span class="number">0</span>, <span class="string">'spring'</span>]
+      }
+    };
+  }
+
+  <span class="keyword">return</span> (
+    <span class="xml"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">onMouseEnter</span>=<span class="value">{function</span> () { <span class="attribute">this.setState</span>({<span class="attribute">hovering:</span> <span class="attribute">true</span>}); }}
+         <span class="attribute">onMouseLeave</span>=<span class="value">{function</span> () { <span class="attribute">this.setState</span>({<span class="attribute">hovering:</span> <span class="attribute">false</span>}); }}&gt;</span>
+      <span class="tag">&lt;<span class="title">VelocityComponent</span> {<span class="attribute">...animationProps</span>}&gt;</span>
+        {this.renderTopState()}
+      <span class="tag">&lt;/<span class="title">VelocityComponent</span>&gt;</span>
+      {this.renderUnderneathStats()}
+    <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+  )</span>;
+}
+</code></pre>
+<p>Which will result in:
+<img src="https://static1.squarespace.com/static/54ac6f9ae4b0cf1d82a4b59e/t/560a9a19e4b08fcd39795d27/1443535397904/release_summary.gif?format=300w" tyle="max-width: 320px; width: 100%; position:static;"></p>
+<p>As the name implies <code>&lt;VelocityTransitionGroup /&gt;</code> can be used to animate a group of element at the same time. In the example on the Fabric blog we can use it being used to animate an input slider, but that’s not all. When you pay close attention you will the the toggle switch animating and a “jawbone” collapse. Al these animation are done at&nbsp;once.</p>
+<p><img src="https://static1.squarespace.com/static/54ac6f9ae4b0cf1d82a4b59e/t/560a9a69e4b0a427e3b70022/1443535503361/?format=750w" tyle="max-width: 320px; width: 100%; position:static;"></p>
+<p>I was very impressed with the work and I’m trying to push this as the new standard for animating React components at the company where I work. And will be the default for all my pet&nbsp;projects.</p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
+            <p class="date"><span>02. October 2015</span></p>
+            <h2><a href="/articles/scroller-friday/">Scroller Friday</a></h2>
+          </header>
+          <section class="content"><p>fartscroll.js (GitHub: <a href="https://github.com/theonion/fartscroll.js">theonion/fartscroll.js</a>, License:&nbsp;<span class="caps">MIT</span>)</p>
+<p>Since it is Friday today my colleages and me are in a humorous mood. So when I started looking what to write about today I got some real fun suggestions.
+The first one is&nbsp;fartscroll.js.</p>
+<p>The name already saids it all, it’s a library that makes your page fart when the user is scrolling.
+Because everybody farts and likes farting, why not give your application the same privilege? Here is&nbsp;how:</p>
+<p>First we need to include the script within our&nbsp;markup.</p>
+<pre><code class="lang-html"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"http://code.onion.com/fartscroll.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+</code></pre>
+<p>Then we call it like&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="comment">// Fart every 400 pixels scrolled in the window</span>
+fartscroll();
+</code></pre>
+<p>When you think you pages farts to often you can increase the amount of pixels that need to be scrolled before farting like&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="comment">// Fart every 800 pixels scrolled in the window</span>
+fartscroll(<span class="number">800</span>);
+</code></pre>
+<p>If you just want to have some fun on other webpages, you can use <a href="javascript:%20(function%20()%20{%20%20%20%20%20var%20fs%20=%20document.createElement('script');%20%20%20%20%20fs.setAttribute('src',%20'http://code.onion.com/fartscroll.js');%20%20%20%20%20document.head.appendChild(fs);%20%20%20%20%20window.setTimeout(function(){%20%20%20%20%20%20%20%20%20fartscroll(800);%20%20%20%20%20%20%20%20%20},%20500);%20}());">this bookmarklet</a>. Here is the code for&nbsp;it.</p>
+<pre><code class="lang-javascript">javascript:%20(function%20()%20{%20%20%20%20%20var%20fs%20=%20document.createElement(&#39;script&#39;);%20%20%20%20%20fs.setAttribute(&#39;src&#39;,%20&#39;http://code.onion.com/fartscroll.js&#39;);%20%20%20%20%20document.head.appendChild(fs);%20%20%20%20%20window.setTimeout(function(){%20%20%20%20%20%20%20%20%20fartscroll(800);%20%20%20%20%20%20%20%20%20},%20500);%20}());
+</code></pre>
+<h3 id="elevator-js">Elevator.js</h3>
+<p>elevator.js (GitHub: <a href="https://github.com/tholman/elevator.js">tholman/elevator.js</a>, License:&nbsp;<span class="caps">MIT</span>)</p>
+<p>While we are in the theme of scrolling libraries, here is another fun one. I cannot say that this one is very new, but it’s still gold in my opinion. So what does it do?
+Elevator.js is provides you with a “back to top” button that behaves like a real elevator. Now your users don’t have to be bored during the awkward time they spend waiting for your page to scroll back to the top. How do we use&nbsp;this?</p>
+<p>First we need to include the script within our&nbsp;markup.</p>
+<pre><code class="lang-html"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"https://cdn.rawgit.com/tholman/elevator.js/master/elevator.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+</code></pre>
+<p>Now we need to instantiate it with some mp3 files and a trigger target like&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
+  <span class="keyword">var</span> elevator = <span class="keyword">new</span> Elevator({
+    element: <span class="built_in">document</span>.querySelector(<span class="string">'.elevator-button'</span>),
+    mainAudio: <span class="string">'/src/to/audio.mp3'</span>,
+    endAudio: <span class="string">'/src/to/end-audio.mp3'</span>
+  });
+}
+</code></pre>
+<p>If you do not have any inspiration for sounds you can just use the defaults like&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
+  <span class="keyword">var</span> elevator = <span class="keyword">new</span> Elevator({
+    element: <span class="built_in">document</span>.querySelector(<span class="string">'.elevator-button'</span>),
+    duration: <span class="number">1000</span> <span class="comment">// milliseconds</span>
+  });
+}
+</code></pre>
 
           </section>
         </article>

@@ -36,333 +36,276 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
-            <p class="date"><span>16. November 2015</span></p>
-            <h2><a href="/articles/domcom/">Domcom</a></h2>
+            <p class="date"><span>01. December 2015</span></p>
+            <h2><a href="/articles/dotconf/">dotconf</a></h2>
           </header>
-          <section class="content"><p>Domcom (GitHub: <a href="https://github.com/taijiweb/domcom">taijiweb/domcom</a>, License: <span class="caps">MIT</span>, npm:&nbsp;domcom)</p>
-<p>Yesterday I got an email with the request to take a look at the Domcom.
-Domcom is a frontend framework which uses declarative components to proxy the <span class="caps">DOM</span> in order to implement better performance than <a href="https://github.com/Matt-Esch/virtual-dom">VirtualDOM</a>. It comes with “lazy” reactive functions to manage data. A few of the features included in this framework&nbsp;are:</p>
+          <section class="content"><p>dotconf (GitHub: <a href="https://github.com/yoannmoinet/dotconf">yoannmoinet/dotconf</a>, License: <span class="caps">MIT</span>, npm:&nbsp;dotconf)</p>
+<p><img src="https://github.com/yoannmoinet/dotconf/raw/master/media/demo.gif" alt="demo"></p>
+<p>Are you also tired of all the <code>.something</code> config files for all the tooling we need which is cluttering up your tree? Well <a href="https://github.com/yoannmoinet">Yoann Moinet</a> made a solution for this problem,&nbsp;dotconf.</p>
+<p>What is does is bundle all your existing <code>.something</code> files and directories into one <code>.conf</code>.
+Yoann uses the term “One config to rule them all”. Since I’m a big Lord of the Rings fan, this slogan catch my attention. After trying it our in some projects I really enjoyed how it cleans up all the config files in my tree&nbsp;view.</p>
+<p>The <span class="caps">CLI</span> is very easy, use <code>-a</code> to ‘archive’ all the <code>.something</code> files and <code>-e</code> to extract them again.
+Besides that it comes with a bunch more options to specify that way it should behave such as: destination, pattern, safe mode and what to&nbsp;ignore.</p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
+            <p class="date"><span>30. November 2015</span></p>
+            <h2><a href="/articles/microm/">Microm</a></h2>
+          </header>
+          <section class="content"><p>Microm (GitHub: <a href="https://github.com/zzarcon/microm">zzarcon/microm</a>, License: <span class="caps">MIT</span>, npm: microm, bower:&nbsp;microm)</p>
+<p>Microm is a wrapper of few audio converting libraries to expose a Promise and Event oriented <span class="caps">API</span>.
+The goal of the library is to make it more trivial to play and convert audio in the browser. Besides that I would say this work in some <a href="http://electron.atom.io/">Electron</a>&nbsp;application.</p>
+<p>Microm uses the following&nbsp;libs:</p>
 <ul>
-<li><p>Declarative compostable components with reactive&nbsp;function</p>
-</li>
-<li><p>Only render the invalidated components and refresh the really changed <span class="caps">DOM</span> nodes with automatic update status&nbsp;checking</p>
-</li>
-<li><p>Decouple with model and&nbsp;controller</p>
-</li>
-<li><p>Simple but powerful&nbsp;route</p>
-</li>
-<li><p>Support for&nbsp;promise</p>
-</li>
+<li><a href="https://github.com/zhuker/lamejs">lamejs</a> mp3 encoder in&nbsp;javascript</li>
+<li><a href="https://github.com/webrtc/adapter">webrtc-adapter</a> Shim to insulate apps from spec changes and prefix&nbsp;differences</li>
+<li><a href="https://github.com/muaz-khan/RecordRTC">RecordRTC</a> record WebRTC audio/video media&nbsp;streams</li>
+<li><a href="https://github.com/tildeio/rsvp.js/"><span class="caps">RSVP</span></a> Provides tools for organizing asynchronous&nbsp;code</li>
 </ul>
-<p>And a whole lot more but I would refer you to the <a href="https://github.com/taijiweb/domcom">Github project</a> for&nbsp;that.</p>
-<p>Here is a code example provided by the developer to give a taste of&nbsp;Domcom:</p>
-<p>In&nbsp;javascript:</p>
-<pre><code class="lang-javascript">    <span class="keyword">const</span> {list, text, p, flow, see} = dc
-    ​
-    demoSum = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
-      <span class="keyword">let</span> a, b, comp, p1, t1, t2;
+<p>In order to get the user recorded data, it use webrtc-adapter and RecordRTC to provide some shims and tools to make it easy to work with multiple browsers.
+Next they use lamejs to convert Wav to Mp3 and finally to provide a Promise based <span class="caps">API</span>, it uses RSVP to support the <a href="https://promisesaplus.com/">Promises/A+</a>.</p>
+<p>Let’s look at some example code. When you want to record the browsers microphone you can use the <code>startRecording</code> like&nbsp;so:</p>
+<pre><code class="lang-javascript"><span class="keyword">const</span> microm = <span class="keyword">new</span> Microm();
 
-      a = see(<span class="number">1</span>);
-      b = see(<span class="number">2</span>);
-
-      comp = list((t1 = text({
-        value: a,
-        onchange() { <span class="keyword">return</span> a(<span class="keyword">this</span>.value * <span class="number">1</span>); }
-
-      })), (t2 = text({
-        value: b,
-        onchange() { <span class="keyword">return</span> b(<span class="keyword">this</span>.value * <span class="number">1</span>); }
-
-      })), p1 = p(flow.add(a, b)));
-
-      dc.updateWhen([t1, t2], <span class="string">'change'</span>, p1);
-
-      <span class="keyword">return</span> comp.mount();
-    };
-    ​
-    demoSum();
+microm.startRecording()
+      .then(() =&gt; { <span class="built_in">console</span>.log(<span class="string">'recording...'</span>)})
+      .catch(() =&gt; { <span class="built_in">console</span>.log(<span class="string">'error recording'</span>)});
 </code></pre>
-<p>Since the developer likes coffee-script is here the same example in&nbsp;coffee-script.</p>
-<pre><code class="lang-coffeescript">{list, text, p, flow, see} = dc
-<span class="function">
-<span class="title">demoSum</span> = -&gt;</span>
-
-    a = see <span class="number">1</span>; b = see <span class="number">2</span>
-
-    comp = list \
-        (t1 = text <span class="attribute">value</span>: a, <span class="attribute">onchange</span>: <span class="function">-&gt;</span> a <span class="property">@value</span>*<span class="number">1</span>),
-        (t2 = text <span class="attribute">value</span>: b, <span class="attribute">onchange</span>: <span class="function">-&gt;</span> b <span class="property">@value</span>*<span class="number">1</span>),
-        p1 = p flow.add a, b
-
-    dc.updateWhen [t1, t2], <span class="string">'change'</span>, p1
-
-    comp.mount()
-
-demoSum()
+<p>Because we want to do a bit more then just record, let’s play it back to the user. To do that we need to do this:
+We do this like&nbsp;so:</p>
+<pre><code class="lang-javascript">microm.stop()
+      .then((result) =&gt; { microm.play() });
 </code></pre>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>12. November 2015</span></p>
-            <h2><a href="/articles/react-treebeard/">React Treebeard</a></h2>
-          </header>
-          <section class="content"><p>React Treebeard (GitHub: <a href="https://github.com/alexcurtis/react-treebeard">alexcurtis/react-treebeard</a>, License: <span class="caps">MIT</span>, npm:&nbsp;react-treebeard)</p>
-<p>Ever come a cross a task where you needed to quickly make a bunch of data explorable or where you needed to visualize a massive object?
-Now there is React Treebeard which gives you a tree with collapsed&nbsp;leafs.</p>
-<p>So let’s say we have a batch of data like&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="keyword">const</span> myData = {
-    name: <span class="string">'root'</span>,
-    toggled: <span class="literal">true</span>,
-    children: [
-        {
-            name: <span class="string">'parent'</span>,
-            children: [
-                {
-                    name: <span class="string">'child'</span>,
-                    terminal: <span class="literal">true</span>
-                }
-            ]
-        },
-        {
-            name: <span class="string">'loading parent'</span>,
-            loading: <span class="literal">true</span>
-        },
-        {
-            name: <span class="string">'parent'</span>,
-            children: [
-                {
-                    name: <span class="string">'nested parent'</span>,
-                    children: [
-                        {
-                            name: <span class="string">'nested child'</span>,
-                            terminal: <span class="literal">true</span>
-                        }
-                    ]
-                }
-            ]
-        }
-    ]
-};
+<p>If you want to provide you user with a download of the recording can use the <code>download</code> method like&nbsp;so:</p>
+<pre><code class="lang-javascript">microm.stop()
+      .then((result) =&gt; { microm.download(<span class="string">'my-voice'</span>) });
 </code></pre>
-<p>Then our component would look something like&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="function"><span class="keyword">function</span> <span class="title">TreeExample</span>(<span class="params">props</span>)</span>{
-    <span class="keyword">return</span> (
-        <span class="xml"><span class="tag">&lt;<span class="title">Treebeard</span>
-            <span class="attribute">data</span>=<span class="value">{props.data}</span>
-            <span class="attribute">onToggle</span>=<span class="value">{onToggle}</span>
-        /&gt;</span>
-    )</span>;
-}
-
-<span class="keyword">const</span> onToggle = () =&gt; {
-    <span class="comment">// Implement custom behavior</span>
-};
-
-<span class="keyword">const</span> shell = <span class="built_in">document</span>.querySelector(<span class="string">'#shell'</span>);
-ReactDOM.render(<span class="xml"><span class="tag">&lt;<span class="title">TreeExample</span> <span class="attribute">data</span>=<span class="value">{</span> <span class="attribute">myData</span> }/&gt;</span>, shell);</span>
-</code></pre>
-<p>With the decorators it’s very easy for you to use your own Node Header, Toggle and Loading components.
-This would look something like&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="keyword">let</span> decorators = {
-    Loading: (props) =&gt; {
-        <span class="keyword">return</span> (
-            <span class="xml"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">style</span>=<span class="value">{props.style}</span>&gt;</span>
-                loading...
-            <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-        )</span>;
-    },
-    Toggle: (props) =&gt; {
-        <span class="keyword">return</span> (
-            <span class="xml"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">style</span>=<span class="value">{props.style}</span>&gt;</span>
-                <span class="tag">&lt;<span class="title">svg</span> <span class="attribute">height</span>=<span class="value">{props.height}</span> <span class="attribute">width</span>=<span class="value">{props.width}</span>&gt;</span>
-                    // Vector Toggle Here
-                <span class="tag">&lt;/<span class="title">svg</span>&gt;</span>
-            <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-        )</span>;
-    },
-    Header: (props) =&gt; {
-        <span class="keyword">return</span> (
-            <span class="xml"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">style</span>=<span class="value">{props.style}</span>&gt;</span>
-                {props.node.name}
-            <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-        )</span>;
-    }
-};
-
-<span class="xml"><span class="tag">&lt;<span class="title">Treebeard</span> <span class="attribute">data</span>=<span class="value">{...}</span> <span class="attribute">decorators</span>=<span class="value">{decorators}</span>/&gt;</span></span>
-</code></pre>
-<p>If you wanna see what this all looks like while running in the browser, check out the <a href="http://alexcurtis.github.io/react-treebeard/#">demo page</a> provided by the&nbsp;developer.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>11. November 2015</span></p>
-            <h2><a href="/articles/notie/">Notie.js</a></h2>
-          </header>
-          <section class="content"><p>Notie.js (GitHub: <a href="https://github.com/jaredreich/notie.js">jaredreich/notie.js</a>, License:&nbsp;<span class="caps">MIT</span>)</p>
-<p>Notie.js is a simple notification plugin. It does not have any dependencies, which makes it very light and easy to work with.
-Throughout time I’ve seen multiple libraries and <span class="caps">UI</span> frameworks implement something similar,
-but what I like about this little library is that when you have a very small project, it can save you some time on implementing feedback to the&nbsp;user.</p>
-<p>Sadly it’s not available via npm or bower, but I think that is kind of the point this library is trying to make.
-Everything nowadays is bundled and transpiled, which I like very much, but it is nice to see that some people still take this&nbsp;approach.</p>
-<p>So let’s include it in our markup like&nbsp;this:</p>
-<pre><code class="lang-html"><span class="tag">&lt;<span class="title">body</span>&gt;</span>
-  ...
-  <span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"/path/to/notie.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">body</span>&gt;</span>
-</code></pre>
-<p>Now when you want to send a notification or confirm something with your user you can use it like&nbsp;this:</p>
-<pre><code class="lang-javascript">
-notie.alert(style, <span class="string">'message'</span>, time_in_seconds);
-
-notie.confirm(<span class="string">'Title text'</span>, <span class="string">'Yes button text'</span>, <span class="string">'No/cancel button text'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
-    <span class="comment">// User choose Yes.</span>
+<p>Alternatively you could save the recording to a server by posting a base64 encoding of&nbsp;it.</p>
+<pre><code class="lang-javascript">microm.getBase64().then((base64<span class="ord">st</span>ring) =&gt; {
+    $.ajax({
+        type: <span class="string">'<span class="caps">POST</span>'</span>,
+        contentType: <span class="string">'application/octet-stream'</span>,
+        mimeType: <span class="string">'audio/mpeg'</span>,
+        processData: <span class="literal">false</span>,
+        url: <span class="string">'http://some.serv.er/upload-audio'</span>,
+        data: base64<span class="ord">st</span>ring,
+        success: someSuccessCallBack
+    });
 });
 </code></pre>
-<p>The style in this example would be the “theme” of the alert. By default these would&nbsp;be:</p>
-<ol>
-<li><span class="caps">OK</span> ( Green&nbsp;)</li>
-<li>Warning ( Yellowish&nbsp;)</li>
-<li>Error ( Red&nbsp;)</li>
-<li>Notice ( Blue&nbsp;)</li>
-</ol>
+<p>Besides recording, playing and downloading you want to give the user some feedback.
+We can use the events emitted by the library to present the user with&nbsp;feedback.</p>
+<p>By attaching the <code>on</code> listener we can listen for this list of&nbsp;events:</p>
+<ul>
+<li><code>timeupdate</code></li>
+<li><code>loadedmetadata</code></li>
+<li><code>play</code></li>
+<li><code>pause</code></li>
+<li><code>ended</code></li>
+</ul>
+<p>By&nbsp;example:</p>
+<pre><code class="lang-javascript">microm.on(<span class="string">'timeupdate'</span>, updateCurrentTime);
+<span class="function"><span class="keyword">function</span> <span class="title">updateCurrentTime</span>(<span class="params">time</span>) </span>{ <span class="built_in">console</span>.log(time); }
+</code></pre>
 
           </section>
         </article>
         <article class="article intro">
           <header>
-            <p class="date"><span>10. November 2015</span></p>
-            <h2><a href="/articles/babel-typecheck/">Babel Typecheck</a></h2>
+            <p class="date"><span>26. November 2015</span></p>
+            <h2><a href="/articles/react-pull-to-refresh/">react-pull-to-refresh</a></h2>
           </header>
-          <section class="content"><p>Babel Typecheck (GitHub: <a href="https://github.com/codemix/babel-plugin-typecheck">codemix/babel-plugin-typecheck</a>, License: <span class="caps">MIT</span>, npm:&nbsp;babel-plugin-typecheck)</p>
-<p>Babel Typecheck is a <a href="https://babeljs.io/">Babel</a> plugin for static and runtime type checking. It does so using <a href="http://flowtype.org/">Flow type</a>.
-What it does is turn a code block like&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="function"><span class="keyword">function</span> <span class="title">sendMessage</span> (<span class="params">to: User, message: string</span>): <span class="title">boolean</span> </span>{
-  <span class="keyword">return</span> socket.send(to, message);
+          <section class="content"><p>react-pull-to-refresh (GitHub: <a href="https://github.com/bryaneaton13/react-pull-to-refresh">bryaneaton13/react-pull-to-refresh</a>, License: <span class="caps">MIT</span>, npm:&nbsp;react-pull-to-refresh)</p>
+<p>react-pull-to-refresh is a library that does exactly what the name implies. It gives the pull to refresh behavior.
+<img src="https://github.com/bryaneaton13/react-pull-to-refresh/raw/master/docs/demo.gif" alt="demo"></p>
+<p>It is based on the <a href="https://github.com/apeatling/web-pull-to-refresh">library</a> that Andy Peatling made and wrote a post about. You can find that <a href="https://github.com/apeatling/web-pull-to-refresh">here</a>.
+So let’s take a look at how it works, your refresh handler takes in <code>resolve</code> and <code>reject</code> to tell the component when it’s finished. That would look something like&nbsp;this:</p>
+<pre><code class="lang-javascript">handleRefresh(resolve, reject) {
+    <span class="comment">// do some async code here</span>
+    <span class="keyword">let</span> success = <span class="literal">false</span>;
+    <span class="keyword">if</span> (success) {
+        resolve();
+    } <span class="keyword">else</span> {
+        reject();
+    }
 }
 </code></pre>
-<p>Into&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="function"><span class="keyword">function</span> <span class="title">sendMessage</span>(<span class="params">to, message</span>) </span>{
-  <span class="keyword">var</span> _socket$send;
-
-  <span class="keyword">if</span> (!(to <span class="keyword">instanceof</span> User)) <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">TypeError</span>(<span class="string">"Value of argument 'to' violates contract."</span>);
-  <span class="keyword">if</span> (<span class="keyword">typeof</span> message !== <span class="string">"string"</span>) <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">TypeError</span>(<span class="string">"Value of argument 'message' violates contract."</span>);
-  _socket$send = socket.send(to, message);
-  <span class="keyword">if</span> (<span class="keyword">typeof</span> _socket$send !== <span class="string">"boolean"</span>) <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">TypeError</span>(<span class="string">"Function 'sendMessage' return value violates contract."</span>);
-  <span class="keyword">return</span> _socket$send;
-}
+<p>And this is what the component would look&nbsp;like:</p>
+<pre><code class="lang-html"><span class="tag">&lt;<span class="title">ReactPullToRefresh</span>
+    <span class="attribute">onRefresh</span>=<span class="value">{this.handleRefresh}</span>
+    <span class="attribute">className</span>=<span class="value">"your-own-class-if-you-want"</span>
+    <span class="attribute">style</span>=<span class="value">{{</span> <span class="attribute">textAlign:</span> '<span class="attribute">center</span>' }}&gt;</span>
+        <span class="tag">&lt;<span class="title">h3</span>&gt;</span>Pull down to refresh<span class="tag">&lt;/<span class="title">h3</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">div</span>&gt;</span>{items}<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">div</span>&gt;</span>etc.<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">ReactPullToRefresh</span>&gt;</span>
 </code></pre>
-<p>What this does is it executes the same as when you would write your function like&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="function"><span class="keyword">function</span> <span class="title">sendMessage</span> (<span class="params">to, message</span>) </span>{
-  <span class="keyword">return</span> socket.send(to, message);
-}
-</code></pre>
-<p>But with one big difference, when you call this function with the wrong arguments your application just breaks.
-When using Babel Typecheck it would present you with a type error on transpiling so you will not make silly mistakes again. Well not the type error kind at&nbsp;least.</p>
-<p>In the example above we see a few new things, mostly attached to the function&nbsp;call:</p>
-<pre><code class="lang-javascript">    (to: User, message: string): boolean
-</code></pre>
-<p>Which means that the <code>to</code> parameter expects to be an instance of User.
-The <code>message</code> parameter expects to be a String.
-The <code>:</code> at the and of the function call is to indicate what the function will return which is a Boolean in this&nbsp;example.</p>
-<p>This function demonstrates which kinds of annotations are&nbsp;supported:</p>
-<pre><code class="lang-javascript"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">
-    aNum: number,
-    anOptionalString: ?string, <span class="comment">// will allow null/undefined</span>
-    anObject: Object,
-    aDate: Date,
-    anError: Error,
-    aUnionType: Object|string,
-    aClass: User,
-    aShape: {foo: number, bar: ?string},
-    anArray: Array,
-    arrayOf: string[] | Array&lt;string&gt;,
-    {x, y}: {x: string, y: number}, <span class="comment">// destructuring works</span>
-    es6Defaults: number = 42
-</span>) : <span class="title">number</span> </span>{
-  <span class="keyword">return</span> aNum;
-}
-</code></pre>
-<p>When I saw the syntax of this plugin the first thing that jumped into my mind was why not just use Typescript then.
-Since Typescript had it’s own upstream this might not be inline with the ESnext(<span class="caps">ES6</span>/ES7) feature we have grown to love.
-By including this plugin in your <code>.babelrc</code> to can have the power and security of strongly typed Javascript and all the new features provided by&nbsp;Babel.</p>
+<p>Basically that is all that there is to it. For the American readers I hope you have a nice&nbsp;Thanksgiving.</p>
 
           </section>
         </article>
         <article class="article intro">
           <header>
-            <p class="date"><span>09. November 2015</span></p>
-            <h2><a href="/articles/squiggle/">Squiggle</a></h2>
+            <p class="date"><span>25. November 2015</span></p>
+            <h2><a href="/articles/vuejs/">Vue.js</a></h2>
           </header>
-          <section class="content"><p>Squiggle (GitHub: <a href="https://github.com/wavebeem/squiggle">wavebeem/squiggle</a>, License: <span class="caps">MIT</span>, npm:&nbsp;squiggle-lang)</p>
-<p>Squiggle is a strict, expression-oriented, compile-to-<span class="caps">JS</span> programming language. Yes, yet another compile-to-JS language.
-At the beginning I was sceptic about it, but once I started reading <a href="http://squiggle-lang.org/tutorial">the tutorial</a> posted on the site I adjusted my opinion.
-Not everything is there yet, but I need to say that I like the way it looks and might even consider picking it&nbsp;up.</p>
-<p>So some of the features that drew my attention&nbsp;are:</p>
-<ul>
-<li>Arity checked functions<ul>
-<li>When calling a function created in Squiggle with not enough arguments, it throws an&nbsp;exception.</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>Frozen literals<ul>
-<li>Array and object literals are frozen with <code>Object.freeze</code> by default, so you can’t accidentally mutate&nbsp;them.</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>Easy updates<ul>
-<li>Operators <code>++</code> to concatenate two arrays or two strings, and ~ to merge two objects into a new frozen object with the prototype of the first&nbsp;object.</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>Destructuring assignment<ul>
-<li>Grab object properties or array elements when you assign variables, like: <code>let [x, y] = [1, 2] or let {x, y} = {x: 1, y: 2}.</code></li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>Pattern matching<ul>
-<li>Is similar to the Javascript <code>switch</code> but with destructuring power built-in and no dangerous&nbsp;fall-through.</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>No type coercion<ul>
-<li>Standard operators like <code>+</code>, <code>-</code>, <code>*</code>, and more, have been replaced with strict version that do not perform any type coercions, throwing exceptions on bad&nbsp;inputs.</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>Deep equality<ul>
-<li>The operator == performs a deep equality&nbsp;check.</li>
-</ul>
-</li>
-</ul>
-<p>There are a lot more features which just make it work a bit nicer. If you want a good overview of what this language can do I would recommend you reading <a href="http://squiggle-lang.org/tutorial">the tutorial</a> section of the website and then <a href="http://squiggle-lang.org/try">give it a shot in the browser</a>.</p>
-<p>Here is a small example provided by the developer in which you can see how it would work together met Node’s <span class="caps">HTTP</span>&nbsp;package.</p>
-<pre><code class="lang-javascript"><span class="keyword">let</span> http = <span class="built_in">require</span> <span class="string">"http"</span>
-
-<span class="keyword">let</span> port = <span class="number">1337</span>
-<span class="keyword">let</span> host = <span class="string">"127.0.0.1"</span>
-
-def handler(res, res) =
-    <span class="keyword">let</span> headers = {<span class="string">"Content-Type"</span>: <span class="string">"text/plain"</span>}
-    <span class="keyword">let</span> _ = res.writeHead(<span class="number">200</span>, headers)
-    <span class="keyword">let</span> _ = res.end(<span class="string">"Hello world\n"</span>)
-    <span class="keyword">in</span> <span class="literal">undefined</span>
-
-<span class="keyword">let</span> server = http.createServer(handler)
-<span class="keyword">let</span> _ = server.listen(port, host)
-<span class="keyword">let</span> _ = <span class="built_in">console</span>.log(<span class="string">"Server running at http://"</span> ++ host + <span class="string">":"</span> ++ port ++ <span class="string">"/"</span>)
-<span class="keyword">in</span> <span class="literal">undefined</span>
+          <section class="content"><p>Vue.js (GitHub: <a href="https://github.com/vuejs/vue">vuejs/vue</a>, License: <span class="caps">MIT</span>, npm:&nbsp;vue</p>
+<p>Vue.js is a library for building web interfaces. Because it works together with some other tools, you can also call it a “framework”. Now, if you’ve never heard of or used Vue before, you are probably thinking: great, yet another JavaScript framework! I get it. That was my first thought as well, that is why I never looked at it with a serious eye. Vue isn’t particularly new, it has being in the making for almost two years now, and the first public release was in February 2014. Over time it has evolving into a great engine to build beautiful production ready app&nbsp;with.</p>
+<p>What makes it so awesome? Well, it supports all the features we are used to from libraries such as React, Ember and Angular but it’s size and api are a lot simpler.
+A thing I love in libraries,&nbsp;simplicity.</p>
+<p>So let’s take a look at a few small examples and let’s start with data&nbsp;binding.</p>
+<p>This is how we define the <code>template</code> which we are gonna&nbsp;use:</p>
+<pre><code class="lang-html"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"binding"</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">p</span>&gt;</span>{{message}}<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">input</span> <span class="attribute">v-model</span>=<span class="value">"message"</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
 </code></pre>
-<p>Since there is a comment section present after the latest update, I would love to here what you guys think of this and the blog in&nbsp;general.</p>
+<p>And here we give it some&nbsp;data:</p>
+<pre><code class="lang-javascript">
+<span class="keyword">let</span> binding = <span class="keyword">new</span> Vue({
+  el: <span class="string">'#binding'</span>,
+  data: {
+    message: <span class="string">'Daily Javascript'</span>
+  }
+});
+</code></pre>
+<p>This would give is a <code>div</code> with an <code>input</code> field and a preview of the value it holds. When you start typing, Vue will take over from there.
+That’s cool right? Ok I get it data binding does not impress you anymore. Do you like working with components?
+Vue takes an approach that is very similar to React: it’s components all the way&nbsp;down.</p>
+<pre><code class="lang-javascript"><span class="keyword">const</span> Example = Vue.extend({
+    template: <span class="string">'&lt;div&gt;{{ message }}&lt;/div&gt;'</span>,
+    data () {
+        <span class="keyword">return</span> {
+            message: <span class="string">'Daily Javascript!'</span>
+        }
+    }
+});
+
+<span class="comment">// register it with the tag &lt;example&gt;</span>
+Vue.component(<span class="string">'example'</span>, Example);
+</code></pre>
+<p>Now we can use it like&nbsp;this:</p>
+<pre><code class="lang-html"><span class="tag">&lt;<span class="title">example</span>&gt;</span><span class="tag">&lt;/<span class="title">example</span>&gt;</span>
+</code></pre>
+<p>Because modularity is key nowadays it comes with the opportunity to <code>scope</code> styles to a component.
+That would look something like&nbsp;this:</p>
+<pre><code class="lang-html"><span class="tag">&lt;<span class="title">style</span> <span class="attribute">scoped</span> &gt;</span><span class="css">
+<span class="class">.message</span> <span class="rules">{
+  <span class="rule"><span class="attribute">color</span>:<span class="value"> red</span></span>;
+}</span>
+</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
+</code></pre>
+<p>Here is a full example component of how it would look when you would have it setup with a combination of <a href="https://github.com/webpack/webpack">Webpack</a> and <a href="https://github.com/vuejs/vue-loader">vue-loader</a>.</p>
+<p><img src="http://blog.evanyou.me/images/vue-hot.gif" alt="demo"></p>
+<p>It comes with a lot of more features that I will not go into such as routing and a build-in transition&nbsp;system.</p>
+<p>There is a demo for the transition system which demonstrates state-based tweening with&nbsp;Vue:</p>
+<p><p data-height="268" data-theme-id="0" data-slug-hash="XmZNOG" data-default-tab="result" data-user="yyx990803" class='codepen'>See the Pen <a href='http://codepen.io/yyx990803/pen/XmZNOG/'>Vue.js elastic header component</a> by Evan You (<a href='http://codepen.io/yyx990803'>@yyx990803</a>) on <a href='http://codepen.io'>CodePen</a>.</p></p>
+<script async src="//assets.codepen.io/assets/embed/ei.js"></script>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
+            <p class="date"><span>24. November 2015</span></p>
+            <h2><a href="/articles/vectorious/">Vectorious</a></h2>
+          </header>
+          <section class="content"><p>Vectorious (GitHub: <a href="https://github.com/mateogianolio/vectorious">mateogianolio/vectorious</a>, License: <span class="caps">MIT</span>, npm:&nbsp;vectorious)</p>
+<p>Vectorious is a high performance linear algebra library written in Javascript.
+It is available via npm or just as a script so you can include it on your&nbsp;page.</p>
+<p>Since I’m not a mathematician and did not do a lot of linear algebra, you will have to bare with me.
+I will try to give you a good description of what this library can&nbsp;do.</p>
+<p>It has two mayor <span class="caps">API</span> endpoints to work with: <code>Matrix</code> and <code>Vector</code>.
+The constructor functions for both these functions can be called with a range of different arguments.
+Since 2.1.0 Vector implements <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Typed_arrays">JavaScript typed arrays</a> for increased performance. The default Vector type is Float64Array, but this can be specified upon&nbsp;creation.</p>
+<p>We would work with it like&nbsp;so:</p>
+<pre><code class="lang-javascript"><span class="keyword">import</span> { Vector, Matrix } <span class="keyword">from</span> <span class="string">'vectorious'</span>;
+
+<span class="keyword">let</span> vector, matrix;
+
+<span class="comment">// Create an empty vector of default type Float64Array</span>
+vector = <span class="keyword">new</span> Vector();
+<span class="comment">/* Vector { type: [Function: Float64Array], length: 0 } */</span>
+
+<span class="comment">// Create an empty vector of type Uint8Array</span>
+vector = <span class="keyword">new</span> Vector(<span class="built_in">Uint8Array</span>);
+<span class="comment">/* Vector { type: [Function: Uint8Array], length: 0 } */</span>
+
+matrix = <span class="keyword">new</span> Matrix();
+<span class="comment">/* Matrix { type: [Function: Float64Array], shape: [] } */</span>
+
+vector = Vector.zeros(<span class="number">5</span>);
+<span class="comment">/* Vector {
+  type: [Function: Float64Array],
+  length: 5,
+  buffer: ArrayBuffer {},
+  values: Float64Array { '0': 0, '1': 0, '2': 0, '3': 0, '4': 0 } } */</span>
+
+vector = <span class="keyword">new</span> Vector(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>);
+<span class="comment">/* Vector {
+  type: [Function: Float64Array],
+  length: 5,
+  buffer: ArrayBuffer {},
+  values: Float64Array { '0': 1, '1': 2, '2': 3, '3': 4, '4': 5 } } */</span>
+
+matrix = <span class="keyword">new</span> Matrix(vector);
+<span class="comment">/* Matrix {
+  type: [Function: Float64Array],
+  shape: [ 5, 1 ],
+  data: Float64Array { '0': 1, '1': 2, '2': 3, '3': 4, '4': 5 } } */</span>
+
+matrix = Matrix.zeros(<span class="number">2</span>, <span class="number">2</span>);
+<span class="comment">/* Matrix {
+  shape: [ 2, 2 ],
+  data: Float64Array { '0': 0, '1': 0, '2': 0, '3': 0 },
+  type: [Function: Float64Array] } */</span>
+</code></pre>
+<p>The developer posted an example of how you would map a time range over a&nbsp;sinus.</p>
+<pre><code class="lang-javascript"><span class="keyword">var</span> time = Vector.range(<span class="number">0</span>, <span class="built_in">Math</span>.<span class="caps">PI</span> / <span class="number">12</span>, <span class="built_in">Math</span>.<span class="caps">PI</span>);
+<span class="comment">// Which will return</span>
+<span class="comment">/* Vector {
+  type: [Function: Float64Array],
+  length: 12,
+  buffer: ArrayBuffer {},
+  values:
+   Float64Array {
+     '0': 0,
+     '1': 0.2617993877991494,
+     '2': 0.5235987755982988,
+     '3': 0.7853981633974483,
+     '4': 1.0471975511965976,
+     '5': 1.308996938995747,
+     '6': 1.5707963267948963,
+     '7': 1.8325957145940457,
+     '8': 2.0943951023931953,
+     '9': 2.356194490192345,
+     '10': 2.6179938779914944,
+     '11': 2.879793265790644 } } */</span>
+
+<span class="keyword">var</span> sine = time.map(<span class="built_in">Math</span>.sin);
+<span class="comment">// Which will return</span>
+<span class="comment">/* Vector {
+  type: [Function: Float64Array],
+  length: 12,
+  buffer: ArrayBuffer {},
+  values:
+   Float64Array {
+     '0': 0,
+     '1': 0.25881904510252074,
+     '2': 0.49999999999999994,
+     '3': 0.7071067811865475,
+     '4': 0.8660254037844386,
+     '5': 0.9659258262890682,
+     '6': 1,
+     '7': 0.9659258262890684,
+     '8': 0.8660254037844387,
+     '9': 0.7071067811865476,
+     '10': 0.49999999999999994,
+     '11': 0.2588190451025206 } } */</span>
+</code></pre>
+<p>Besides the very extensive <span class="caps">API</span> it also accommodates extentions such as <a href="https://github.com/mateogianolio/vectorious-solve">Solve</a> and <a href="https://github.com/mateogianolio/vectorious-plot">Plot</a>.
+Plot for instance can be used to a two-dimensional <span class="caps">SVG</span> plot from two input&nbsp;vectors.</p>
 
           </section>
         </article>

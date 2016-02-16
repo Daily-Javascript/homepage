@@ -36,208 +36,305 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
-            <p class="date"><span>03. February 2016</span></p>
-            <h2><a href="/articles/microwork/">Microwork.js</a></h2>
+            <p class="date"><span>16. February 2016</span></p>
+            <h2><a href="/articles/pollinate/">Pollinate</a></h2>
           </header>
-          <section class="content"><p>Microwork.js (GitHub: <a href="https://github.com/yamalight/microwork">yamalight/microwork</a>, License: <span class="caps">MIT</span>, npm:&nbsp;microwork)</p>
-<p>Microwork.js is a library for simple creation of distributed micro services using <a href="https://www.rabbitmq.com">RabbitMQ</a>.
-If you are not familiar with RabbitMQ, it is a messaging server.
-Messaging enables applications to connect and scale.
-Applications can connect to each other, as components of a larger&nbsp;application.</p>
-<p>An example service that subscribe to messages from <code>do.stuff</code> topic and uses incoming&nbsp;data:</p>
-<pre><code class="lang-javascript"><span class="keyword">import</span> Microwork <span class="keyword">from</span> <span class="string">'microwork'</span>;
-
-<span class="comment">// create task runner</span>
-<span class="keyword">const</span> runner = <span class="keyword">new</span> Microwork({host: <span class="string">'my.rabbit.host'</span>, exchange: <span class="string">'my.exchange'</span>});
-
-<span class="comment">// add worker to specific topic</span>
-<span class="keyword">await</span> runner.subscribe(<span class="string">'do.stuff'</span>, (msg, reply) =&gt; {
-    <span class="comment">// Capitalize first letter of the message</span>
-    reply(msg.charAt(<span class="number">0</span>).toUpperCase() + msg.slice(<span class="number">1</span>));
-});
-
-<span class="comment">// after work is done - cleanup</span>
-<span class="keyword">await</span> runner.stop();
-</code></pre>
-<p>There are a few useful plugin already available such as: a hardware stats plugin which provides basic hardware stats about Node, a health plugin which provides basic keep-alive signal and a subscribers info plugin which provides basic information about&nbsp;subscribers.</p>
-<p>For more examples and documentation check out the <a href="http://yamalight.github.io/microwork/">Github Page</a>.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>03. February 2016</span></p>
-            <h2><a href="/articles/samsarajs/">SamsaraJS</a></h2>
-          </header>
-          <section class="content"><p>SamsaraJS (GitHub: <a href="https://github.com/dmvaldman/samsara">dmvaldman/samsara</a>, License: <span class="caps">MIT</span>, npm:&nbsp;samsarajs)</p>
-<p>SamsaraJS is a functional reactive library for animating layout.
-It tries to provides a language for positioning, orienting and sizing <span class="caps">DOM</span> elements, and animating those properties over time.
-Everything within Samsara is based on streams. This means that can subscribe to for instance the user input and preform curtain actions when the input occurs. By&nbsp;example:</p>
-<pre><code class="lang-javascript"><span class="keyword">const</span> Surface = Samsara.<span class="caps">DOM</span>.Surface;
-<span class="keyword">const</span> Context = Samsara.<span class="caps">DOM</span>.Context;
-<span class="keyword">const</span> Transform = Samsara.Core.Transform;
-<span class="keyword">const</span> MouseInput = Samsara.Inputs.MouseInput;
-
-<span class="keyword">const</span> surface = <span class="keyword">new</span> Surface({
-    content: <span class="string">'drag me'</span>,
-    size: [<span class="number">100</span>,<span class="number">100</span>],
-    properties : {
-        background : <span class="string">'#<span class="caps">FF0000</span>'</span>
-    }
-});
-
-<span class="keyword">const</span> mouse = <span class="keyword">new</span> MouseInput();
-
-<span class="comment">// The mouse now listens to the <span class="caps">DOM</span> events originating from the surface</span>
-mouse.subscribe(surface);
-
-<span class="comment">// Map the mouse data to a translation</span>
-<span class="keyword">const</span> transform = mouse.map(data =&gt; Transform.translate(data.cumulate));
-
-<span class="keyword">const</span> context = <span class="keyword">new</span> Context();
-context.add({transform : transform}).add(surface);
-context.mount(<span class="built_in">document</span>.querySelector(<span class="string">'#myAwesomeApp'</span>));
-</code></pre>
-<p>A great thing about SamsaraJS is that it does not have any opinion about content. It’s only responsibility is&nbsp;presentation.</p>
+          <section class="content"><p>Pollinate (GitHub: <a href="https://github.com/everysquare/pollinate">everysquare/pollinate</a>, License: <span class="caps">MIT</span>, npm:&nbsp;pollinate)</p>
+<p>Pollinate is for the best I can describe a scaffolding engine. It takes a template project and uses <a href="http://mozilla.github.io/nunjucks/">Nunjucks</a> to generate the files with the names. The name comes from visualization a tree as a&nbsp;“Flower”.</p>
 <blockquote>
-<p>It moves rectangles around the screen — what you do inside those rectangles is up to&nbsp;you.</p>
+<p>Think of a tree of files as a <code>Flower</code> and a source data as <code>Pollen</code>; combined together they create a fertilized project seed. Pollinate will allow you to template a set of files and store them on GitHub. When you decide to use them later you can <code>pollinate</code> them using an object of data. Each time you pollinate you can specify which files to <code>discard</code>, <code>parse</code>, or <code>move</code>.</p>
 </blockquote>
-<p>A sad thing about this library is that it does require a <span class="caps">CSS</span> sheet to be loaded, which can be found <code>node_modules/samsarajs/dist/samsara.css</code>.</p>
-<p>The developer has posted some really amazing examples on <a href="http://www.samsarajs.org/">samsarajs.org</a> which you should definitely check out.
-Besides the amazing demo’s you can also find very expensive documentation about the <span class="caps">API</span> and some real helpful&nbsp;guides.</p>
-<p>This is by far <a href="http://samsarajs.org/demos/ParallaxCats/index.html">my favorite&nbsp;demo</a></p>
-<iframe src="http://samsarajs.org/demos/ParallaxCats/index.html" width="100%" height="480px"></iframe>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>02. February 2016</span></p>
-            <h2><a href="/articles/houdini/">Houdini</a></h2>
-          </header>
-          <section class="content"><p>During my daily browse I came across <a href="https://surma.link/things/houdini-intro/">“New ways to make your web app jank with Houdini – An introduction”</a>. Which made me curious. After the first paragraph I was hooked.
-The author Surma make the point that as developers we can only observe what the magic <span class="caps">CSS</span> does.
-Even when we are animating using Javascript we are still animating the CSS properties of the animated&nbsp;element.</p>
-<p>This way of thinking is actually backward. What if there was a way you could access the magic <span class="caps">CSS</span> does?
-Define your own properties for doing layout, scroll behavior or position. The possibilities are endless.
-No longer will we be limited to what is implemented in the spec. That is where Houdini comes&nbsp;in.</p>
-<p>The Houdini task force is a collection of engineers from Mozilla, Apple, Microsoft, <span class="caps">HP</span>, Intel and Google working together to expose certain parts of the CSS engine. This task force is working on a <a href="https://drafts.css-houdini.org/">collection of drafts</a> with the goal to get them accepted by the <span class="caps">W3C</span> and become part of the actual web&nbsp;standards.</p>
-<p>I would strongly recommend you take a look at <a href="https://surma.link/things/houdini-intro/">Surma’s post</a> and check out <a href="https://drafts.css-houdini.org/">the drafts already created</a>.</p>
-<p>Surma also posted a small demo of what Compositor Worklet can do in a very early implementation he got to play&nbsp;with.</p>
-<iframe width="100%" height="480" src="https://www.youtube.com/embed/EUlIxr8mk7s" frameborder="0" allowfullscreen></iframe>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>01. February 2016</span></p>
-            <h2><a href="/articles/conflux/">Conflux</a></h2>
-          </header>
-          <section class="content"><p>Conflux (GitHub: <a href="https://github.com/ben-ng/conflux">ben-ng/conflux</a>, License: <span class="caps">MIT</span>, npm:&nbsp;conflux)</p>
-<p>Conflux is Redux implantation for distributed systems.
-As the developer says: Distributed systems are hard. Conflux tries to make distributed systems more understandable.
-It aims to do what <a href="http://redux.js.org/">Redux</a> did for <a href="https://facebook.github.io/flux">Flux</a>, and what <a href="http://raft.github.io/">Raft</a> did for <a href="http://www.wikiwand.com/en/Paxos_%28computer_science%29">Paxos</a>.
-Natrually, it does this by composing the two&nbsp;ideas.</p>
-<h3 id="so-what-does-it-really-do-">So what does it really&nbsp;do?</h3>
-<p>You can build serverless applications. Which does not mean <a href="https://github.com/serverless/serverless">“serverless”</a> as in it uses <span class="caps">AWS</span> <a href="https://github.com/serverless/serverless">Lambda</a>.
-Serverless as in there is no central server, like how BitTorrent works just a cluster of nodes that coordinate with each other.
-The developer let’s know that he is working an a few example applications to help you get&nbsp;going.</p>
-<p>A quick example provided by the&nbsp;developer:</p>
-<pre><code class="lang-javascript"><span class="keyword">var</span> node = conflux({
-    id: uuid.v4(),
-    <span class="comment">// how many nodes are in the cluster?</span>
-    clusterSize: <span class="number">5</span>,
-    <span class="comment">// how should nodes communicate?</span>
-    channel: {
-        name: <span class="string">'redis'</span>
-    },
-    <span class="comment">// define your action creators</span>
-    methods: {
-        append(thing){
-            <span class="keyword">return</span> thing;
-        }
-    },
-    <span class="comment">// define your reducer</span>
-    reduce(state, action) {
-        state = state == <span class="literal">null</span> ? [] : state;
-        <span class="keyword">return</span> state.concat(action);
-    },
-});
-
-<span class="comment">// subscribe to changes</span>
-node.subscribe(() =&gt; {
-    <span class="built_in">console</span>.log(nodeB.getState().log.join(<span class="string">' '</span>));
-});
-
-<span class="comment">// perform an action</span>
-node.perform(<span class="string">'append'</span>, [<span class="string">'foo'</span>]);
-</code></pre>
-<p>When you have worked with Redux before Conflux should feel very familiar.
-You <code>subscribe()</code> to a Conflux instance, and call <code>getState()</code> inside to get the current state.
-Instead of dispatching actions directly, you <code>perform()</code> methods that <code>dispatch()</code> them.
-The methods are declared when you construct a Conflux instance which is the equivalent to how Action Creators work in&nbsp;Redux.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>27. January 2016</span></p>
-            <h2><a href="/articles/marsdb/">MarsDB</a></h2>
-          </header>
-          <section class="content"><p>MarsDB (GitHub: <a href="https://github.com/c58/marsdb">c58/marsdb</a>, License: <span class="caps">MIT</span>, npm:&nbsp;mardb)</p>
-<p>MarsDB is a very lightweight client-side database.
-It is inspired by a Meteor’s <a href="https://atmospherejs.com/meteor/minimongo">minimongo</a> matching/modifying implementation.
-The library has a Promise based interface and can be backed with any storage implementation such&nbsp;as:</p>
+<p>There are three components to a Pollinate&nbsp;boilerplate.</p>
 <ul>
-<li>In-memory storage (built-in&nbsp;default)</li>
-<li><a href="https://github.com/c58/marsdb-localforage">LocalForage storage</a> – fastest in-browser storage (InexedDB, WebSQL and fallback to&nbsp;localStorage)</li>
-<li><a href="https://github.com/c58/marsdb-localstorage">LocalStorage storage</a> – not recommended, better prefer&nbsp;LocalForage</li>
-<li><a href="https://github.com/c58/marsdb-levelup">LevelUP storage</a> – lightweight server-less Node.js&nbsp;storage</li>
-<li><a href="https://github.com/c58/marsdb-mongo">MongoDB wrapper</a> – use MarsDB for comfortable work with&nbsp;MongoDB</li>
+<li>The&nbsp;Flower</li>
+<li>The&nbsp;Pollen</li>
+<li>The&nbsp;Data</li>
 </ul>
-<p>Besides all of this MarsDB supports observable cursors which is very nice addition to the toolbelt.
-The database supports any kind of find/update/remove operations that Meteor’s minimongo would also support.
-When you need a reference on how theses queries work go to the Meteor docs for supported <a href="https://atmospherejs.com/meteor/minimongo">query/modifier operations</a>.</p>
-<p>Let’s first create a collection of <code>posts</code>.</p>
-<pre><code class="lang-javascript"><span class="keyword">import</span> Collection <span class="keyword">from</span> <span class="string">'marsdb'</span>;
-<span class="keyword">import</span> LocalStorageManager <span class="keyword">from</span> <span class="string">'marsdb-localstorage'</span>;
+<p>The <code>Flower</code> is a GitHub repository which holds all of the files.
+These files can be passed through a template engine which uses the supplied&nbsp;data.</p>
+<p>The <code>Pollen</code> is just a vessel to get new data to the <code>Flower</code>.
+It can be supplied as an <span class="caps">HTTP</span> JSON endpoint, as a local file or directly as a set of&nbsp;arguments.</p>
+<p>The data can be considered as the <span class="caps">DNA</span>.
+Both sides can supply it, but the data from the Pollen takes precedence when merging the objects.
+The data supplies a list of files to act upon with the template engine along with the data to inject.
+The data can also supply file operations to move or delete files during the&nbsp;process.</p>
+<p>The developer of this project has posted an example which is very easy to follow along when you want to set up your own&nbsp;Pollinate.</p>
+<p>Don’t forget to to invest some time to rehash or practice your knowledge by checking this weeks challenge: <a href="http://daily-javascript.com/challenges/websocket-challenge/">Websocket Challenge</a>.</p>
 
-<span class="comment">// Setup different id generator and storage managers</span>
-<span class="comment">// Default storage is in-memory</span>
-Collection.defaultStorageManager(LocalStorageManager);
-Collection.defaultIdGenerator(() =&gt; {
-  <span class="keyword">return</span> {
-    value: <span class="built_in">Math</span>.random(),
-    seed: <span class="number">0</span>,
-  };
-});
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
+            <p class="date"><span>12. February 2016</span></p>
+            <h2><a href="/articles/weekly-challenge-2016-07/">Weekly Challenge - WebSocket Challenge</a></h2>
+          </header>
+          <section class="content"><p><img style="width: 100%; display:block;" src="http://daily-javascript.com/challenges/websocket-challenge/header.png" ></p>
+<p>Sadly this weeks challenge did also not get a very good turn out. I know it should not have been to hard to complete this challenge, still I received two submissions for it. <a href="/articles/weekly-challenge-2016-07/">The results can be found here</a>. If you have an idea how we could get more people to sent in their submissions, please reach out to me via twitter: <a href="https://twitter.com/DailyJavascript">@DailyJavascript</a>.</p>
+<p>For this weeks challenge you will be putting together a WebSocket server to handle chat messages.
+This is gonna be the first challenge in a three week series. The additions to the project will still be a surprise for now.
+To make sure you implement these challenges correctly I will provide you with some&nbsp;tests.</p>
+<p>For this weeks challenge your server needs to pass the following&nbsp;tests:</p>
+<pre><code class="lang-javascript"><span class="pi">'use strict'</span>;
 
-<span class="keyword">const</span> posts = <span class="keyword">new</span> Collection(<span class="string">'posts'</span>);
-</code></pre>
-<p>Now we can populate it with some&nbsp;data:</p>
-<pre><code class="lang-javascript"><span class="comment">// To insert one</span>
-posts.insert({text: <span class="string">'MarsDB is awesome'</span>}).then(docId =&gt; {
-  <span class="comment">// Invoked after persisting document</span>
-});
+<span class="keyword">const</span> should = <span class="built_in">require</span>(<span class="string">'should'</span>);
+<span class="keyword">const</span> io = <span class="built_in">require</span>(<span class="string">'socket.io-client'</span>);
 
-<span class="comment">// To insert a bulk</span>
-posts.insertAll(
-  {text: <span class="string">'MarsDB'</span>},
-  {text: <span class="string">'is'</span>},
-  {text: <span class="string">'awesome'</span>}
-).then(docsIds =&gt; {
-    <span class="built_in">console</span>.log(<span class="string">'---&gt;&gt;'</span>, docsIds);
-});
-</code></pre>
-<p>And we can retrieve one of the saved item like&nbsp;so:</p>
-<pre><code class="lang-javascript">posts.find({text: <span class="string">'MarsDB'</span>})
-  .sort([<span class="string">'createdAt'</span>])
-  .then(docs =&gt; {
-      <span class="built_in">console</span>.log(<span class="string">'--&gt;&gt;'</span>, docs);
+<span class="keyword">const</span> socketURL = <span class="string">'http://localhost:5000'</span>;
+
+<span class="keyword">const</span> options = {
+  transports: [<span class="string">'websocket'</span>],
+  <span class="string">'force new connection'</span>: <span class="literal">true</span>
+};
+
+<span class="keyword">const</span> chatUser1 = {<span class="string">'name'</span>:<span class="string">'Tom'</span>};
+<span class="keyword">const</span> chatUser2 = {<span class="string">'name'</span>:<span class="string">'Sally'</span>};
+<span class="keyword">const</span> chatUser3 = {<span class="string">'name'</span>:<span class="string">'Dana'</span>};
+
+describe(<span class="string">'Testing The Chat Server'</span>, () =&gt; {
+
+  it(<span class="string">'Should broadcast new user once they connect'</span>, (done) =&gt; {
+    <span class="keyword">let</span> client = io.connect(socketURL, options);
+
+    client.on(<span class="string">'connect'</span>, (data) =&gt; {
+      client.emit(<span class="string">'connection name'</span>,chatUser1);
+    });
+
+    client.on(<span class="string">'new user'</span>, (usersName) =&gt; {
+      usersName.should.be.type(<span class="string">'string'</span>);
+      usersName.should.equal(chatUser1.name + <span class="string">' has joined.'</span>);
+      client.disconnect();
+      done();
+    });
   });
+
+
+  it(<span class="string">'Should broadcast new user to all users'</span>, (done) =&gt; {
+    <span class="keyword">let</span> client1 = io.connect(socketURL, options);
+
+    client1.on(<span class="string">'connect'</span>, (data) =&gt; {
+      client1.emit(<span class="string">'connection name'</span>, chatUser1);
+      <span class="keyword">let</span> client2 = io.connect(socketURL, options);
+
+      client2.on(<span class="string">'connect'</span>, (data) =&gt; {
+        client2.emit(<span class="string">'connection name'</span>, chatUser2);
+      });
+
+      client2.on(<span class="string">'new user'</span>, (usersName) =&gt; {
+        usersName.should.equal(chatUser2.name + <span class="string">' has joined.'</span>);
+        client2.disconnect();
+      });
+
+    });
+
+    <span class="keyword">let</span> numberOfUsers = <span class="number">0</span>;
+    client1.on(<span class="string">'new user'</span>, (usersName) =&gt; {
+      numberOfUsers += <span class="number">1</span>;
+
+      <span class="keyword">if</span>(numberOfUsers === <span class="number">2</span>){
+        usersName.should.equal(chatUser2.name + <span class="string">' has joined.'</span>);
+        client1.disconnect();
+        done();
+      }
+    });
+  });
+
+  it(<span class="string">'Should be able to broadcast messages'</span>, (done) =&gt; {
+    <span class="keyword">let</span> client1, client2, client3;
+    <span class="keyword">let</span> message = <span class="string">'Hello World'</span>;
+    <span class="keyword">let</span> messages = <span class="number">0</span>;
+
+    <span class="keyword">let</span> checkMessage = (client) =&gt; {
+      client.on(<span class="string">'message'</span>, (msg) =&gt; {
+        message.should.equal(msg);
+        client.disconnect();
+        messages++;
+        <span class="keyword">if</span>(messages === <span class="number">3</span>){
+          done();
+        };
+      });
+    };
+
+    client1 = io.connect(socketURL, options);
+    checkMessage(client1);
+
+    client1.on(<span class="string">'connect'</span>, (data) =&gt; {
+      client2 = io.connect(socketURL, options);
+      checkMessage(client2);
+
+      client2.on(<span class="string">'connect'</span>, (data) =&gt; {
+        client3 = io.connect(socketURL, options);
+        checkMessage(client3);
+
+        client3.on(<span class="string">'connect'</span>, (data) =&gt; {
+          client2.send(message);
+        });
+      });
+    });
+  });
+
+
+  it(<span class="string">'Should be able to send private messages'</span>, (done) =&gt; {
+    <span class="keyword">let</span> client1, client2, client3;
+    <span class="keyword">let</span> message = {to: chatUser1.name, txt:<span class="string">'Private Hello World'</span>};
+    <span class="keyword">let</span> messages = <span class="number">0</span>;
+
+    <span class="keyword">let</span> completeTest = () =&gt; {
+      messages.should.equal(<span class="number">1</span>);
+      client1.disconnect();
+      client2.disconnect();
+      client3.disconnect();
+      done();
+    };
+
+    <span class="keyword">let</span> checkPrivateMessage = (client) =&gt; {
+      client.on(<span class="string">'private message'</span>, (msg) =&gt; {
+        message.txt.should.equal(msg.txt);
+        msg.from.should.equal(chatUser3.name);
+        messages++;
+        <span class="keyword">if</span>(client === client1){
+          setTimeout(completeTest, <span class="number">40</span>);
+        };
+      });
+    };
+
+    client1 = io.connect(socketURL, options);
+    checkPrivateMessage(client1);
+
+    client1.on(<span class="string">'connect'</span>, (data) =&gt; {
+      client1.emit(<span class="string">'connection name'</span>, chatUser1);
+      client2 = io.connect(socketURL, options);
+      checkPrivateMessage(client2);
+
+      client2.on(<span class="string">'connect'</span>, (data) =&gt; {
+        client2.emit(<span class="string">'connection name'</span>, chatUser2);
+        client3 = io.connect(socketURL, options);
+        checkPrivateMessage(client3);
+
+        client3.on(<span class="string">'connect'</span>, (data) =&gt; {
+          client3.emit(<span class="string">'connection name'</span>, chatUser3);
+          client3.emit(<span class="string">'private message'</span>, message)
+        });
+      });
+    });
+  });
+});
 </code></pre>
-<p>For more in depth examples and documentation check the <a href="https://github.com/c58/marsdb"><span class="caps">README</span> file</a>.</p>
-<p>A small reminder to challenge yourself. This week we will be focusing on transferring knowledge using the <a href="http://daily-javascript.com/articles/workshopper">workshopper framework</a> head over to the <a href="http://daily-javascript.com/challenges/workshopper">challenge page</a> for more&nbsp;details.</p>
+<p>The requirements for this challenge are pretty straight&nbsp;forward.</p>
+<ul>
+<li>You need to be able to connect with a single&nbsp;user.</li>
+<li>You need to be able to connect two users or&nbsp;more.</li>
+<li>A user should be able to send a message to a&nbsp;chatroom</li>
+<li>A user should be able to send private messages to other&nbsp;users</li>
+</ul>
+<p>The tests can be copied form this page but I also setup <a href="https://github.com/Daily-Javascript/WebSocket-Challenge">a repo which you can fork</a>
+Please deploy your server to <a href="https://www.heroku.com/">Heroku</a>. You can create a free account here and follow <a href="https://devcenter.heroku.com/articles/getting-started-with-nodejs">a very simple tutorial</a> if you are not familiar with how to deploy on Heroku.
+Submit the <span class="caps">URL</span> where your server is running to this <a href="https://docs.google.com/forms/d/13RzwE7HJmLyv-UaxdJqq7PGQGp82xAk9HyTyNKVLmdw/viewform?c=0&amp;w=1">Google Form</a> before Friday next&nbsp;week.</p>
+<p>I hope you guys will find this more challenging then last week. Happy&nbsp;coding.</p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
+            <p class="date"><span>11. February 2016</span></p>
+            <h2><a href="/articles/deco/">Deco</a></h2>
+          </header>
+          <section class="content"><p>I would like to start out with saying that this is <strong>not</strong> sponsored content.
+When I came across this I was so amazed that needed to share it with you&nbsp;all.</p>
+<p>Normally when you develop apps, you use an <span class="caps">IDE</span>. When targeting iOS you use xCode and when Android is your platform you are most likely using Android Studio.
+This becomes a real problem when switching context, between platform and technologies.
+Especially when you are building a <a href="https://facebook.github.io/react-native/">React Native</a> app.
+<a href="http://l.aunch.us/h2fyV">Deco</a> is a solution for that. Not only is it the first <span class="caps">IDE</span> to come out tailored to React Native, but it also come with a registry off React Native components. These components are standardized and work very nicely together with&nbsp;Deco.</p>
+<p><a href="https://www.youtube.com/watch?v=DmZEWOumVIE">This is a video</a> by one of the developer demonstrating some of the features included in the <span class="caps">IDE</span> by building an Uber clone in less than 5&nbsp;minutes.</p>
+<iframe width="100%" height="480" src="https://www.youtube.com/embed/DmZEWOumVIE" frameborder="0" allowfullscreen></iframe>
+
+<p>Sadly there is still a waitlist for the beta, I myself am still waiting to get access to it.
+Go to the website for more information and sign up for <a href="http://l.aunch.us/h2fyV">beta access</a>.</p>
+<p>Don’t forget to send in your submission for this <a href="http://daily-javascript.com/challenges/tetris-bag/">weeks challenge</a> before tomorrow afternoon, otherwise it will not be in the weekly&nbsp;results.</p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
+            <p class="date"><span>10. February 2016</span></p>
+            <h2><a href="/articles/react-native-android-sms-listener/">React Native SMS Listener</a></h2>
+          </header>
+          <section class="content"><p>SmsListener (GitHub: <a href="https://github.com/CentaurWarchief/react-native-android-sms-listener">CentaurWarchief/react-native-android-sms-listener</a>, License: <span class="caps">MIT</span>, npm:&nbsp;react-native-android-sms-listener)</p>
+<p>When you are building an app which requires some form of account validation like Whats App and Telegram using React Native.
+There is gonna be a moment that you want to verify on bases of a text message.
+CentaurWarchief has created a module so you don’t need to worry about listening for incoming&nbsp;texts.</p>
+<p>If works pretty straight forward, you attach an event listener and respond to incoming events like&nbsp;so:</p>
+<pre><code class="lang-javascript"><span class="keyword">import</span> SmsListener <span class="keyword">from</span> <span class="string">'react-native-android-sms-listener'</span>
+
+const mySubScription = SmsListener.addListener(myMessageHandler);
+
+<span class="function"><span class="keyword">function</span> <span class="title">myMessageHandler</span>(<span class="params">message</span>)</span>{
+    <span class="built_in">console</span>.log(message);
+}
+</code></pre>
+<p>This should not be unfamiliar.
+In contrast with the event listener <span class="caps">API</span> which get’s provided by the DOM, removing event listener works&nbsp;differently.</p>
+<pre><code class="lang-javascript">mySubScription.remove()
+</code></pre>
+<p>This is an example provided by the developer which demonstrates how to do authorization in the same manner as Whats App or Telegram do&nbsp;it:</p>
+<pre><code class="lang-javascript"><span class="keyword">let</span> subscription = SmsListener.addListener(message =&gt; {
+  <span class="keyword">let</span> verificationCodeRegex = <span class="regexp">/Your verification code: ([\d]{6})/</span>;
+
+  <span class="keyword">if</span> (verificationCodeRegex.test(message.body)) {
+    <span class="keyword">let</span> verificationCode = message.body.match(verificationCodeRegex)[<span class="number">1</span>];
+
+    YourPhoneVerificationApi.verifyPhoneNumber(
+      message.originatingAddress,
+      verificationCode
+    ).then(verifiedSuccessfully =&gt; {
+      <span class="keyword">if</span> (verifiedSuccessfully) {
+        subscription.remove();
+        <span class="keyword">return</span>;
+      }
+
+      <span class="keyword">if</span> (__DEV__) {
+        <span class="built_in">console</span>.info(
+          <span class="string">'Failed to verify phone `%s` using code `%s`'</span>,
+          message.originatingAddress,
+          verificationCode
+        );
+      }
+  });
+  }
+});
+</code></pre>
+<p>Sadly it only has support for Android at this point, hopefully somebody will implement the same for iOS.
+For more <span class="caps">API</span> reference check the <a href="https://github.com/CentaurWarchief/react-native-android-sms-listener"><span class="caps">README</span></a> and don’t forget to <a href="http://daily-javascript.com/challenges/tetris-bag/">challenge yourself trying to duplicate the randomization algorithm used by&nbsp;Tetris</a></p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
+            <p class="date"><span>09. February 2016</span></p>
+            <h2><a href="/articles/jhaml/">jHaml</a></h2>
+          </header>
+          <section class="content"><p>jHaml (GitHub: <a href="https://github.com/soyuka/jhaml">soyuka/jhaml</a>, License: <span class="caps">MIT</span>, npm:&nbsp;@soyuka/jhaml)</p>
+<p>jHaml is a Javascript implementation of the <a href="http://haml.info/">Haml</a> templating engine which was originally written in Ruby.
+When I was still doing a lot of Rails I first got introduced to Haml. I was able to change <code>erb</code> like&nbsp;this:</p>
+<pre><code class="lang-html"><span class="tag">&lt;<span class="title">section</span> <span class="attribute">class</span>=<span class="value">”container”</span>&gt;</span>
+  <span class="tag">&lt;<span class="title">h1</span>&gt;</span><span class="tag">&lt;<span class="title">%=</span> <span class="attribute">post.title</span> %&gt;</span><span class="tag">&lt;/<span class="title">h1</span>&gt;</span>
+  <span class="tag">&lt;<span class="title">h2</span>&gt;</span><span class="tag">&lt;<span class="title">%=</span> <span class="attribute">post.subtitle</span> %&gt;</span><span class="tag">&lt;/<span class="title">h2</span>&gt;</span>
+  <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">”content”</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">%=</span> <span class="attribute">post.content</span> %&gt;</span>
+  <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">section</span>&gt;</span>
+</code></pre>
+<p>Into:</p>
+<pre><code class="lang-haml"><span class="tag">%<span class="title">section</span><span class="value">.container</span></span>
+<span class="tag">  %<span class="title">h1</span></span>= post.title
+<span class="tag">  %<span class="title">h2</span></span>= post.subtitle
+  .content
+    =<span class="ruby"> post.content</span>
+</code></pre>
+<p>Now we use do the same for our Javascript applications. After searching a bit I noticed that there are a few implementations of this already.
+The reason why I like this library is that it’s based on streams and because of this it has great support for build tooling <a href="http://gulpjs.com/">Gulp</a>, which is also stream based.
+There also is a <a href="https://github.com/soyuka/jhaml/blob/master/test/express.js">nice example</a> of how to use it in frameworks like <a href="http://expressjs.com/">Express</a></p>
+<p>For more details and documentation check the <a href="https://github.com/soyuka/jhaml"><span class="caps">README</span></a> which thoroughly explains how it works and how to use&nbsp;it.</p>
+<p>Don’t forget the submit <a href="http://daily-javascript.com/challenges/tetris-bag/">this weeks challenge</a> before Friday on when I will post the&nbsp;results.</p>
 
           </section>
         </article>
