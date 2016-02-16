@@ -36,128 +36,176 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
-            <p class="date"><span>23. December 2015</span></p>
-            <h2><a href="/articles/shipit/">Shipit</a></h2>
+            <p class="date"><span>13. January 2016</span></p>
+            <h2><a href="/articles/featurejs/">Feature.js</a></h2>
           </header>
-          <section class="content"><p>Shipit (GitHub: <a href="https://github.com/shipitjs/shipit">shipitjs/shipit</a>, License: <span class="caps">MIT</span>, npm:&nbsp;shipit)</p>
-<p>Shipit is an automation engine and a deployment tool written for&nbsp;Node.</p>
-<p>Shipit is an alternative for <a href="http://capistranorb.com/">Capistrano</a>. If you are not familiar Capistrano, it is a remote server automation and deployment tool written in Ruby.
-Since Capistrano was written in Ruby, you needed to be comfortable working in Ruby and be familiar with the tooling that comes with it.
-Nowadays we are using Javascript for everything. Web servers, build tooling, bot’s you can even control a drone using Javascript.
-So it makes sense to do deployment in Javascript as&nbsp;well.</p>
-<p>Shipit’s task structure is very similar to that of <a href="http://gulpjs.com/">Gulp</a>. Since they are both based on <a href="https://github.com/orchestrator/orchestrator">orchestrator</a>.</p>
-<p>Besides the main <span class="caps">API</span> for handling remote work, there is also a dedicated deploy package based on git and rsync commands.
-With which you can deploy tag, branch or commit. Add additional behavior using hooks, build your project locally or remotely and you can do easy&nbsp;rollback.</p>
-<p>A simple <code>shipitfile.js</code> would look something like&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span> (<span class="params">shipit</span>) </span>{
-  <span class="built_in">require</span>(<span class="string">'shipit-deploy'</span>)(shipit);
-
-  shipit.initConfig({
-    <span class="keyword">default</span>: {
-      workspace: <span class="string">'/tmp/github-monitor'</span>,
-      deployTo: <span class="string">'/tmp/deploy_to'</span>,
-      repositoryUrl: <span class="string">'https://github.com/user/repo.git'</span>,
-      ignores: [<span class="string">'.git'</span>, <span class="string">'node_modules'</span>],
-      rsync: [<span class="string">'--del'</span>],
-      keepReleases: <span class="number">2</span>,
-      key: <span class="string">'/path/to/key'</span>,
-      shallowClone: <span class="literal">true</span>
-    },
-    staging: {
-      servers: <span class="string">'user@myserver.com'</span>
-    }
-  });
-};
-</code></pre>
-<p>The <span class="caps">CLI</span> structure works like: <code>shipit &lt;environment&gt; &lt;tasks ...&gt;</code>.
-So with a <code>shipitfile.js</code> like&nbsp;this:</p>
-<pre><code class="lang-bash">shipit staging deploy
-</code></pre>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>22. December 2015</span></p>
-            <h2><a href="/articles/siphon/">Siphon</a></h2>
-          </header>
-          <section class="content"><p>Usually I only mention stuff that is on Github, but I came across a tool which makes my personal development process a lot better.
-Sadly it’s not open source or at least not that I can tell. For now it’s still free, but eventually it will have a pricing. Do not think this is sponsored content, <strong>it is not</strong>.</p>
-<p>So now you are probably curious what it’s all about. The tools is called <a href="https://getsiphon.com/">Siphon</a> and what it does is make you not use Xcode for developing and deployment of React Native&nbsp;apps.</p>
-<p>The sandbox environment lets you create and test React Native apps without installing Xcode or Android Studio, which really amazed me.
-This would mean that you do not need to be on an Apple system to develop for iOS and Android, but if you prefer working on <a href="http://www.slackware.com/">Slackware</a> for instance, you can.
-There is no Windows support <em>yet</em>. If you were wondering, but the team is working on&nbsp;this.</p>
-<p>Because the project is still in alpha it is missing support for a lot of things, such as the entire Android platform, but they will be rolling out plenty more features over coming&nbsp;weeks.</p>
-<p>On the Siphon website are some wonderful tutorials on how to use their cli and sandbox. If I peaked your interest take a look at the <a href="https://getsiphon.com/docs/quickstart/">Getting Started</a>&nbsp;guide.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>21. December 2015</span></p>
-            <h2><a href="/articles/inspire-tree/">Inspire Tree</a></h2>
-          </header>
-          <section class="content"><p>Inspire Tree (GitHub: <a href="https://github.com/helion3/inspire-tree">helion3/inspire-tree</a>, License: <span class="caps">MIT</span>, npm:&nbsp;inspire-tree)</p>
-<p>First of all I would like to thank everybody that took the time to look at the <a href="http://daily-javascript.com/challenges">Weekly Challenges</a> over the weekend. If you have not looked at the challenge of last week you can still submit until Thursday&nbsp;night.</p>
-<p>Now to business, <a href="https://github.com/viveleroi">Mike Botsko</a> sent in Inspire Tree which is a un-opinionated collapsable tree <span class="caps">UI</span> library.
-The need for the library grew with the developers because the alternatives already out there where not extensive enough or just took to much hacking to make it listen to what they&nbsp;wanted.</p>
-<p>Some of the features that jumped out to me&nbsp;are:</p>
+          <section class="content"><p>Feature.js (GitHub: <a href="https://github.com/viljamis/feature.js/">viljamis/feature.js</a>, License:&nbsp;<span class="caps">MIT</span>)</p>
+<p>Feature.js is a very fast, simple and lightweight browser feature detection library. I received this from a ex-colleage of mine and I was amazed I did not stumble upon this before, since it has more than 1200 stars on Github.
+There are several features you can test with this library, here is a list of&nbsp;them:</p>
 <ul>
-<li>Events&nbsp;everywhere</li>
-<li>~40k minified,&nbsp;uncompressed</li>
-<li>No external&nbsp;dependencies</li>
-<li>Load data directly, via promises, callbacks,&nbsp;etc</li>
-<li>Load child nodes upfront or dynamically (or a mix of&nbsp;both)</li>
-<li>Tri-state checkboxes&nbsp;(optional)</li>
-<li>Multiselect&nbsp;(optional)</li>
-<li>Search by plain string, RegExp, custom matcher, or external resources&nbsp;(optional)</li>
+<li>AddEventListener</li>
+<li>Async&nbsp;attribute</li>
+<li>Canvas</li>
+<li>ClassList&nbsp;<span class="caps">API</span></li>
+<li><span class="caps">CORS</span>&nbsp;API</li>
+<li>Context&nbsp;Menu</li>
+<li><span class="caps">CSS</span> 3D&nbsp;transform</li>
+<li><span class="caps">CSS</span>&nbsp;transform</li>
+<li><span class="caps">CSS</span>&nbsp;transition</li>
+<li>Defer&nbsp;attribute</li>
+<li>DeviceOrientation</li>
+<li>DeviceMotion</li>
+<li>Geolocation</li>
+<li>History&nbsp;<span class="caps">API</span></li>
+<li>Input&nbsp;Placeholder</li>
+<li>LocalStorage</li>
+<li>MatchMedia</li>
+<li>Picture&nbsp;element</li>
+<li>QuerySelectorAll</li>
+<li><span class="caps">REM</span>&nbsp;Units</li>
+<li>Service&nbsp;Worker</li>
+<li>Sizes&nbsp;attribute</li>
+<li>Srcset&nbsp;attribute</li>
+<li><span class="caps">SVG</span></li>
+<li>Touch</li>
+<li>Viewport&nbsp;Units</li>
+<li>WebGL</li>
 </ul>
-<p>The renderer used by the library can be replaced with a custom renderer for framework support.
-Sadly there is only one example listed within the docs but it will be easy it would be to include it within React or Riot due to the Virtual&nbsp;<span class="caps">DOM</span>.</p>
-<p>To work with this library you need to have an element on the page to&nbsp;target:</p>
-<pre><code class="lang-html"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"myTree"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+<p>Since the tests it uses are pretty straight forward I will not go into this al to much. The most used test is done by simply checking if the requested feature is within the object in needs to be&nbsp;in.</p>
+<p>You use it with simple <code>if</code> statements like&nbsp;so:</p>
+<pre><code class="lang-javascript"><span class="keyword">if</span> (feature.webGL) {
+    <span class="built_in">console</span>.log(<span class="string">'WebGL supported'</span>);
+} <span class="keyword">else</span> {
+    <span class="built_in">console</span>.log(<span class="string">'WebGL not supported'</span>);
+}
 </code></pre>
-<p>Now we can init tree functionality and fetch the data at the same time like&nbsp;so:</p>
-<pre><code class="lang-javascript"><span class="keyword">const</span> tree = <span class="keyword">new</span> InspireTree({
-    target: <span class="string">'.tree'</span>,
-    data: $.getJSON(<span class="string">'http://example.com/some-data.json'</span>)
-});
-</code></pre>
-<p>When custom behavior is needed you can attach this to be fired when curtain events are emitted. There is a list of events present on the Github page for reference. This is an example of how a click handler would look&nbsp;like:</p>
-<pre><code class="lang-javascript">tree.on(<span class="string">'node.click'</span>, (evt, node) =&gt; {
-    <span class="comment">// node clicked!</span>
-    <span class="built_in">console</span>.log([<span class="string">'node clicked'</span>, evt, node]);
-});
-</code></pre>
-<p>The rest of the <span class="caps">API</span> is very well documented so I would suggest you browse through it if you need more convincing that this is one of the most extensive UI tree library out&nbsp;there.</p>
+<p>If you want to see it in action head over to the <a href="http://featurejs.com/">project page</a> where the developer has implemented a nice&nbsp;demo.</p>
 
           </section>
         </article>
         <article class="article intro">
           <header>
-            <p class="date"><span>18. December 2015</span></p>
-            <h2><a href="/articles/weekly-challenge-2015-51/">Weekly Challenges</a></h2>
+            <p class="date"><span>12. January 2016</span></p>
+            <h2><a href="/articles/catbee/">Catbee</a></h2>
           </header>
-          <section class="content"><p>Since I started missing a lot of Friday posts, I came up with a new section for which I can prepare during the&nbsp;week.</p>
-<p>I’m introducing Weekly Challenges. Every Friday I will post an assignment related to programming. These challenges can be math problems, mathematical phenomenons or building something using a previously mentioned&nbsp;library.</p>
-<p>These assignments are to challenges yourself. This is not a competition. I will do my best to design/pick challenges that will be interesting for developers of all skill levels.
-But do not feel limited to the challenge description, if you can create something more complex than the challenge describes, do&nbsp;it!</p>
-<p>If you have great idea’s for futures challenges please submit it via <a href="http://goo.gl/forms/8FaZJSBxjO">this Google Form</a>.</p>
-<p>An overview of the challenges can be found at <a href="/challenges">/challenges</a>. This weeks challenge is the <a href="/challenges/pythagoras-tree/">Pythagoras Tree</a>.</p>
+          <section class="content"><p>Catbee (GitHub: <a href="https://github.com/markuplab/catbee">markuplab/catbee</a>, License: <span class="caps">MIT</span>, npm:&nbsp;little-loader)</p>
+<p><p style="text-align: center; display: block;">
+<img src="https://raw.githubusercontent.com/markuplab/catbee-todomvc/master/logo.png" style="max-width: 300px; width: 100%;">
+</p>
+Catbee is an high level isomorphic framework inspired and based on best practices from <a href="https://github.com/catberry/catberry">Catberry</a>, <a href="https://github.com/Yomguithereal/baobab">Baobab</a> and <a href="https://github.com/cerebral/cerebral">Cerebral</a>.</p>
+<p>Catbee is Catberry little brother. Unlike Catberry, Catbee use “Single State Tree” conception.
+All state mutations run in signals, and powered by the <a href="https://github.com/markuplab/appstate">AppState</a>&nbsp;module.</p>
+<p>All data focused in Baobab tree, instead of distributed flux stores. The tree contains the full application state, and it has 2 interfaces: modify <span class="caps">API</span> also known as “Signals”, and read API also known as&nbsp;“Watchers”.</p>
+<p>Signal is the only way to modify state tree. It looks like middleware, but it is way more flexible and adopted for sync/async operations.
+If you want to learn more about signals, checkout <a href="http://cerebraljs.com/">this</a> and <a href="https://github.com/markuplab/appstate">this</a>.
+The developers recommend running signal on each user action, when you need change application state, and also signal automatically run on every url&nbsp;change.</p>
+<p>Signals use composition conception, and contains an array of independent functions. It’s very simple way to maintain big codebase. Here is an example of a&nbsp;Signal:</p>
+<pre><code class="lang-javascript"><span class="keyword">let</span> signal = [
+  setLoading, <span class="comment">// Sync function</span>
+  [ <span class="comment">// Here we run parallel functions</span>
+    getUser, { <span class="comment">// Async function with 2 outputs success and error</span>
+      success: [setUser], <span class="comment">// Run if we call output.success in getUser</span>
+      error: [setUserError] <span class="comment">// Run if we call output.error in getUser</span>
+    },
+    getNews, { <span class="comment">// It's function will run parallel with getUser, like Promise.all</span>
+      loaded: [setNews],
+      error: [setNewsError]
+    }
+  ],
+  unsetLoading
+];
+</code></pre>
+<p>Components can access data by <a href="https://github.com/Yomguithereal/baobab#specialized-getters">watchers</a>. There are two main reasons you should use watchers. You’ll need data context for template rendering, and you’ll also need state update events to rerender your component.
+You do not need bind watchers manually, it’s inside of&nbsp;Catbee.</p>
+<pre><code class="lang-javascript"><span class="comment">// Here we use simple Baobab.watch <span class="caps">API</span></span>
+<span class="built_in">module</span>.exports = {
+  news: [<span class="string">'news'</span>, <span class="string">'data'</span>],
+  isVisible: [<span class="string">'news'</span>, <span class="string">'UIState'</span>, <span class="string">'isVisible'</span>]
+};
+
+<span class="comment">// You can also use Baobab.watch dynamicly</span>
+<span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span> (<span class="params">attributes</span>) </span>{
+  <span class="comment">// Here attributes is &lt;cat-component id="unique" cat-id="1" watcher= "dynamic"&gt;&lt;/cat-component&gt;</span>
+  <span class="keyword">var</span> id = attributes[<span class="string">'cat-id'</span>];
+
+  <span class="keyword">return</span> {
+    title: [<span class="string">'news'</span>, <span class="string">'data'</span>, { id: id }, <span class="string">'title'</span>]
+  };
+}
+</code></pre>
+<p>I really like this library because of my associations with Baobab. My first encounter with it was via the post <a href="http://christianalfoni.github.io/javascript/2015/02/06/plant-a-baobab-tree-in-your-flux-application.html">“Plant a Baobab tree in your flux application”</a> which was written by <a href="https://twitter.com/christianalfoni">Christian Alfoni</a>. It lead me to think differently about flux and redux, I recommend you read&nbsp;it.</p>
+<p>Don’t forget to challenge yourself this week. I prepared another weekly challenge which is: <a href="http://daily-javascript.com/challenges/mandelbrot/">“Implement the Mandelbrot set using Javascript”</a>.</p>
 
           </section>
         </article>
         <article class="article intro">
           <header>
-            <p class="date"><span>17. December 2015</span></p>
-            <h2><a href="/articles/isomorphine/">isomorphine</a></h2>
+            <p class="date"><span>11. January 2016</span></p>
+            <h2><a href="/articles/little-loader/">Little Loader</a></h2>
           </header>
-          <section class="content"><p>isomorphine (GitHub: <a href="https://github.com/d-oliveros/isomorphine">d-oliveros/isomorphine</a>, License: <span class="caps">MIT</span>, npm:&nbsp;isomorphine)</p>
-<p>Earlier this week I came across <a href="https://medium.com/@MarcFly1103/a-painkiller-for-isomorphic-data-fetching-c829ecc84274#.hqabvytiu">a post</a> by <a href="https://medium.com/@MarcFly1103">Marco Romero</a>. It was a highlight of isomorphine, which is a Webpack loader that lets you require and use server-side entities from the browser, as if you were in the server.
-The browser accesses a proxy of the server’s methods that are being required. The proxy is a mirror of the server-side entity and creates an <span class="caps">HTTP</span> request to Isomorphine’s endpoint within the&nbsp;server.</p>
-<p>Marco describes it as “A Painkiller for Isomorphic Data Fetching”. With which I totally agree. When developing Isomorphic/Universal apps data retrieval can be a real hassle and this little marble will take way a lot of that&nbsp;pain.</p>
-<p>Of course there are established libraries and techniques for solving this issue such as: <a href="https://facebook.github.io/relay/">Relay</a> and <a href="https://github.com/RickWong/react-transmit">React-Transmit</a>. The downside of these approaches is that you are doing a commitment to a framework which could collide with your business philosophy or you just do not like React. Don’t get me wrong I love React, but I can understand if some developer do not or need something more agnostic and now you&nbsp;can.</p>
-<p>I could go into the details of how you would use it but I doubt that it will be more complete than the great post Marco did. So I won’t and instead refer you to the <a href="https://medium.com/@MarcFly1103/a-painkiller-for-isomorphic-data-fetching-c829ecc84274#.hqabvytiu">post on medium</a> and for more extensive documentation check the <a href="https://github.com/d-oliveros/isomorphine"><span class="caps">README</span></a>.</p>
+          <section class="content"><p>Little Loader (GitHub: <a href="https://github.com/walmartlabs/little-loader">walmartlabs/little-loader</a>, License: <span class="caps">MIT</span>, npm:&nbsp;little-loader)</p>
+<p>Little Loader is a lightweight JavaScript loader which is advertised as “The Only Correct Script Loader Ever Made”.
+It was developed by <a href="http://formidable.com">Formidable</a> for a project they did for&nbsp;Mallmart.</p>
+<p>The need for this library grew from the lack of browser support for the which the team needed.
+To give an example look at the overview made by the&nbsp;team.</p>
+<p><img src="https://cdn-images-1.medium.com/max/600/1*NUr1sQqkxQ8mdAcrWWLvjg.png" alt="https://cdn-images-1.medium.com/max/600/1*NUr1sQqkxQ8mdAcrWWLvjg.png"></p>
+<p>I’m already using it in one of my projects because after watching the introduction video I was convinced this is the best library for dynamically loading remote JavaScript&nbsp;files.</p>
+<iframe width="100%" height="480" src="https://www.youtube.com/embed/F080X3Tp6_8" frameborder="0" allowfullscreen></iframe>
+
+<p>So how do we work with it?
+First of all make use it is installed by&nbsp;running:</p>
+<pre><code class="lang-bash">npm i little-loader -S
+</code></pre>
+<p>Now we can require it within our app like&nbsp;so:</p>
+<pre><code class="lang-javascript"><span class="keyword">const</span> load = <span class="built_in">require</span>(<span class="string">"little-loader"</span>);
+
+load(<span class="string">"http://example.com/foo.js"</span>, <span class="function"><span class="keyword">function</span> (<span class="params">err</span>) </span>{
+  <span class="comment">// .. This is where you continue with your app.</span>
+});
+</code></pre>
+<p>That’s all actually. There are multiple ways to include Little Loader. You can get it from a <span class="caps">CDN</span>, from npm and it is compatible with AMD loaders such as&nbsp;RequireJS.</p>
+<p>When including Little Loader via a normal script tag, it will attach it self to the <code>window</code> Object and can be accessed via <code>window._lload</code> like&nbsp;so:</p>
+<pre><code class="lang-html"><span class="tag">&lt;<span class="title">script</span>&gt;</span><span class="javascript">
+  <span class="built_in">window</span>._lload(<span class="string">"http://example.com/foo.js"</span>, <span class="function"><span class="keyword">function</span> (<span class="params">err</span>) </span>{
+    <span class="comment">// .. Your code....</span>
+  });
+</span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+</code></pre>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
+            <p class="date"><span>08. January 2016</span></p>
+            <h2><a href="/articles/weekly-challenge-2016-02/">Weekly Challenge Week 2</a></h2>
+          </header>
+          <section class="content"><p>It’s Friday again, which means no new library today, but to make up for it I think I chose a really nice challenge. The Mandelbrot set.
+Some of you guys are probably familiar with it already from school or as a performance&nbsp;test.</p>
+<p>I came across this problem just recently when I was looking at the <a href="http://daily-javascript.com/articles/bigfloat/">bigfloat</a> library.
+The developer included it as a performance demo and it got my interest because of <a href="http://benchmarksgame.alioth.debian.org/u64q/performance.php?test=mandelbrot">“The Computer Language Benchmarks Game”</a>. Where it is listed as one of the benchmarks&nbsp;challenges.</p>
+<p>For details on the challenge go to the <a href="http://daily-javascript.com/challenges/mandelbrot">challenge page</a>.</p>
+<p>The results will be up next Friday so make sure you have submitted your implementation before&nbsp;then.</p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
+            <p class="date"><span>07. January 2016</span></p>
+            <h2><a href="/articles/nuclear-js/">NuclearJS</a></h2>
+          </header>
+          <section class="content"><p>NuclearJS (GitHub: <a href="https://github.com/optimizely/nuclear-js">optimizely/nuclear-js</a>, License: <span class="caps">MIT</span>, npm:&nbsp;nuclear-js)</p>
+<p>NuclearJS is a reactive flux implementation build with <a href="https://facebook.github.io/immutable-js/">ImmutableJS</a> data structures.
+It has been developed by <a href="https://www.optimizely.com/">Optimizely</a>, which is a company that provides A/B testing suite and more as a&nbsp;service.</p>
+<p>NuclearJS was designed first for large scale production apps. For a much more lightweight Flux implementation that shares many of the same ideas and design principles, as check out <a href="https://github.com/vigetlabs/microcosm">Microcosm</a>.</p>
+<p>As we have seen many Flux implementations already we have grown skeptical about new implementations.
+So that bears the question: “How NuclearJS differs from other Flux&nbsp;implementations?”.</p>
+<p>Well all app state is in a singular immutable map. In development you can see your entire application state at every point in time thanks to awesome debugging tools built into&nbsp;NuclearJS.</p>
+<p>State is not spread out through stores, instead stores are a declarative way of describing some top-level domain of your app state. For each key in the app state map a store declares the initial state of that key and how that piece of the app state reacts over time to actions dispatched on the flux&nbsp;system.</p>
+<p>Stores are not reference-able nor have any getX methods on them. Instead NuclearJS uses a functional lens concept called getters. In fact, the use of getters obviates the need for any store to know about another store, eliminating the confusing store.waitsFor method found in other flux&nbsp;implementations.</p>
+<p>NuclearJS is insanely efficient - change detection granularity is infinitesimal, you can even observe computed state where several pieces of the state map are combined together and run through a transform function. NuclearJS is smart enough to know when the value of any computed changes and only call its observer if and only if its value changed in a way that is orders of magnitude more efficient than traditional dirty checking. It does this by leveraging ImmutableJS data structure and using a state1 !== state2 reference comparison which runs in constant&nbsp;time.</p>
+<p>Automatic data observation / rendering – automatic re-rendering is built in for React in the form of a very lightweight mixin. It is also easily possible to build the same functionality for any <span class="caps">UI</span> framework such as VueJS, AngularJS and even&nbsp;Backbone.</p>
+<p>NuclearJS is not a side-project, it’s used as the default Flux implementation that powers all of Optimizely. It is well tested and will continue to be maintained for the foreseeable future. Our current codebase has over dozens of stores, actions and getters, we even share our prescribed method of large scale code organization and testing&nbsp;strategies.</p>
+<p>For examples I would refer you to <a href="https://optimizely.github.io/nuclear-js/">project homepage</a> because there you can find better explaintions than I can give it in my daily&nbsp;posts.</p>
 
           </section>
         </article>

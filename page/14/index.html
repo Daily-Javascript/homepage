@@ -36,287 +36,234 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
-            <p class="date"><span>06. October 2015</span></p>
-            <h2><a href="/articles/speckjs/">Speck JS</a></h2>
+            <p class="date"><span>14. October 2015</span></p>
+            <h2><a href="/articles/smart-crop/">Smartcrop.js</a></h2>
           </header>
-          <section class="content"><p>SpeckJS (GitHub: <a href="https://github.com/speckjs/speckjs">speckjs/speckjs</a>, License: <span class="caps">MIT</span>, npm:&nbsp;speckjs)</p>
-<p>SpeckJS is a library that parses JavaScript comments and outputs unit-tests. SpeckJS currently supports <a href="https://github.com/substack/tape">Tape</a>, <a href="https://github.com/jasmine/jasmine">Jasmine</a>, and <a href="https://github.com/mochajs/mocha">Mocha</a>/<a href="https://github.com/chaijs/chai">Chai</a>.</p>
-<p>SpeckJS comes with plugins for <a href="https://github.com/speckjs/grunt-speckjs">Grunt</a>, <a href="https://github.com/speckjs/gulp-speckjs">Gulp</a> and <a href="https://github.com/speckjs/atom-speckjs">Atom</a>.</p>
-<p>The goal of SpeckJS is to make it as easy as possible to get started using Test-Driven Development on a new project or to quickly add unit-tests to your existing&nbsp;project.</p>
-<p>Let’s make a&nbsp;test.</p>
-<pre><code class="lang-javascript"><span class="comment">/*
-test &gt; sum function
-# sum(1, 2) == 3 (returns the sum of both params)
-# sum(3, 4) == 7 (returns the sum of both params)
-*/</span>
-
-<span class="function"><span class="keyword">function</span> <span class="title">sum</span>(<span class="params">a, b</span>)</span>{
-    <span class="keyword">return</span> a + b;
-}
+          <section class="content"><p>Smartcrop (GitHub: <a href="https://github.com/jwagner/smartcrop.js">jwagner/smartcrop.js</a>, License: <span class="caps">MIT</span>, npm: smartcrop, bower:&nbsp;smartcrop)</p>
+<p>Smartcrop.js is not just another image cropping library. It detects the primary region of an image such as faces.
+It does this using the following&nbsp;algorithm.</p>
+<ol>
+<li>Find edges using <a href="https://en.wikipedia.org/wiki/Laplace&#39;s_method">Laplace&nbsp;method</a></li>
+<li>Find regions with a color like&nbsp;skin</li>
+<li>Find regions high in&nbsp;saturation</li>
+<li>Generate a set of candidate crops using a sliding&nbsp;window</li>
+<li>Rank them using a importance function to focus the detail in the center and avoid it in the&nbsp;edges.</li>
+<li>Output the candidate crop with the highest&nbsp;rank</li>
+</ol>
+<p>Using it in a simple&nbsp;example:</p>
+<pre><code class="lang-javascript">SmartCrop.crop(image, {width: <span class="number">100</span>, height: <span class="number">100</span>}, result =&gt; <span class="built_in">console</span>.log(result) );
+<span class="comment">// Which will return</span>
+<span class="comment">// -&gt; {topCrop: {x: 300, y: 200, height: 200, width: 200}}</span>
 </code></pre>
-<p>SpeckJS supports some basic assertion like: equal, strict equal, not equal.
-Besides relying on all the tools already provided, such as <code>gulp</code> and atom plugins, you could also script yourself with the <span class="caps">API</span> like&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="keyword">var</span> speck = <span class="built_in">require</span>(<span class="string">'speckjs'</span>);
+<p>When you wanna use it within node.js you would have to do something like&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="keyword">import</span> fs <span class="keyword">from</span> <span class="string">'fs'</span>;
+<span class="keyword">import</span> Canvas <span class="keyword">from</span> <span class="string">'canvas'</span>;
+<span class="keyword">import</span> SmartCrop <span class="keyword">from</span> <span class="string">'smartcrop'</span>;
 
-<span class="comment">// file object to be passed as an argument</span>
-<span class="keyword">var</span> file = {
-  name: <span class="string">'demo.js'</span>,
-  content: scriptContent
-};
-
-<span class="comment">// options hash selecting Jasmine and specifying a callback</span>
-<span class="keyword">var</span> option = {
-  testFW: <span class="string">'jasmine'</span>,
-  onBuild: <span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>{
-    <span class="built_in">console</span>.log(data);
-  }
-}
-
-<span class="comment">// Returns Jasmine test file</span>
-<span class="keyword">var</span> result = speck.build(file, option);
+SmartCrop.crop(img, options, result =&gt; {
+    <span class="built_in">console</span>.log(<span class="built_in"><span class="caps">JSON</span></span>.stringify(result, <span class="literal">null</span>, <span class="number">2</span>));
+    <span class="keyword">if</span>(output &amp;&amp; options.width &amp;&amp; options.height){
+        <span class="keyword">var</span> canvas = <span class="keyword">new</span> Canvas(options.width, options.height),
+            ctx = canvas.getContext(<span class="string">'2d'</span>),
+            crop = result.topCrop,
+            f = fs.createWriteStream(output);
+        ctx.patternQuality = <span class="string">'best'</span>;
+        ctx.filter = <span class="string">'best'</span>;
+        ctx.drawImage(img, crop.x, crop.y, crop.width, crop.height, <span class="number">0</span>, <span class="number">0</span>, canvas.width, canvas.height);
+        canvas.syncJPEGStream({quality: quality}).pipe(f);
+    }
+});
 </code></pre>
-<p>We will start using this in my company from now on, because it makes it a lot easier to integrate testing in a long running project that has never being tested just by walking through the files.
-I hope to see other people pick this up&nbsp;aswel.</p>
+<p>Smartcrop.js also offers a command line interface under the npm package name <a href="https://github.com/jwagner/smartcrop-cli"><code>smartcrop-cli</code></a>. Which based uses&nbsp;node-canvas.</p>
+<p>That one you would use like&nbsp;this:</p>
+<pre><code class="lang-bash">npm i smartcrop-cli -g
+smartcrop-cli --width <span class="number">100</span> --height <span class="number">100</span> photo.jpg square-thumbnail.jpg
+</code></pre>
+<p>Smartcrop-cli does requires <a href="https://github.com/Automattic/node-canvas">node-canvas</a> which requires local libraries to be installed. Refer to the <a href="https://github.com/Automattic/node-canvas/wiki/_pages">node-canvas wiki</a> installation&nbsp;instructions.</p>
 
           </section>
         </article>
         <article class="article intro">
           <header>
-            <p class="date"><span>05. October 2015</span></p>
-            <h2><a href="/articles/velocity-react/">Velocity React</a></h2>
+            <p class="date"><span>14. October 2015</span></p>
+            <h2><a href="/articles/chiffon/">Chiffon</a></h2>
           </header>
-          <section class="content"><p>velocity-react (GitHub: <a href="https://github.com/twitter-fabric/velocity-react">twitter-fabric/velocity-react</a>, License: <span class="caps">MIT</span>, npm:&nbsp;velocity-react)</p>
-<p>Today I had some trouble finding something to write about. Then I remembered the awesome work done by the guys at Twitter Fabric. They made a React component for interacting with amazing <a href="http://julian.com/research/velocity/">Velocity</a> animation library.
-Offical introduction can be found <a href="https://fabric.io/blog/introducing-the-velocityreact-library">here.</a></p>
-<p>If you are not familiar with <a href="http://julian.com/research/velocity/">Velocity</a> I suggest you take a look at this&nbsp;first.</p>
-<p>The package contains two components; <code>&lt;VelocityComponent /&gt;</code> and <code>&lt;VelocityTransitionGroup /&gt;</code></p>
-<p>Velocity React integration follow this simple&nbsp;algorithm:</p>
+          <section class="content"><p>Chiffon (GitHub: <a href="https://github.com/trueadm/Chiffon">polygonplanet/Chiffon</a>, License: <span class="caps">MIT</span>, npm: chiffon, bower:&nbsp;chiffon)</p>
+<p>Chiffon is a very small ECMAScript parser, tokenizer and minifier.
+Sometimes we come across an idea where you will need to parse or tokenize Javascript files for, for instance to do analysis on the&nbsp;code.</p>
+<p>When using Chiffon for tokenizing you will get an Array of each “element” of the input code like&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="keyword">let</span> tokens = Chiffon.tokenize(<span class="string">'var a = 1'</span>);
+</code></pre>
+<p>Which would then&nbsp;return:</p>
+<pre><code class="lang-javascript">[ { type: <span class="string">'Keyword'</span>,    value: <span class="string">'var'</span> },
+  { type: <span class="string">'Identifier'</span>, value: <span class="string">'a'</span> },
+  { type: <span class="string">'Punctuator'</span>, value: <span class="string">'='</span> },
+  { type: <span class="string">'Numeric'</span>,    value: <span class="string">'1'</span> } ]
+</code></pre>
+<p>Here is a list of all possible&nbsp;tokens:</p>
 <ul>
-<li>Initially, an animated component will appear as it would at the end of its given&nbsp;animation.</li>
-<li>If that given animation ever changes, it runs it to get to the new end state. If there’s an animation currently in progress, we stop it first, and then proceed smoothly from whatever intermediate state it left us&nbsp;in.</li>
+<li>Comment</li>
+<li>LineTerminator</li>
+<li>Template</li>
+<li>String</li>
+<li>Punctuator</li>
+<li>RegularExpression</li>
+<li>Numeric</li>
+<li>UnicodeEscapeSequence</li>
+<li>Identifier</li>
+<li>Null</li>
+<li>Boolean</li>
+<li>Keyword</li>
 </ul>
-<p>Here is a small example that was given in the introduction from&nbsp;Fabric.</p>
-<pre><code class="lang-javascript">render: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{
-  <span class="keyword">var</span> animationProps;
-  <span class="keyword">if</span> (<span class="keyword">this</span>.state.hovering) {
-    animationProps = {
-      duration: <span class="number">200</span>,
-      animation: {
-        rotateX: <span class="number">160</span>
+<p>Sadly JavaScript <span class="caps">AST</span> is not currently&nbsp;supported.</p>
+<p>When you wish to “untokenize” the Array, you can pass it into the <code>untokenize</code> method like&nbsp;this:</p>
+<pre><code class="lang-javascript">Chiffon.untokenize
+</code></pre>
+<p>When you want to use the minification, you would do something like&nbsp;this:</p>
+<pre><code class="lang-javascript">Chiffon.minify(<span class="string">'var a = 1 + 1; // comment'</span>);
+</code></pre>
+<p>Which is a simple implementation of <code>untokenize</code> and <code>tokenize</code> together like&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="function"><span class="keyword">function</span> <span class="title">minify</span>(<span class="params">code</span>) </span>{
+    <span class="keyword">return</span> untokenize(tokenize(code, { lineTerminator: <span class="literal">true</span> }));
+}
+</code></pre>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
+            <p class="date"><span>13. October 2015</span></p>
+            <h2><a href="/articles/t7/">t7</a></h2>
+          </header>
+          <section class="content"><p>t7 (GitHub: <a href="https://github.com/trueadm/t7">trueadm/t7</a>, License: <span class="caps">ISC</span>, npm:&nbsp;t7)</p>
+<p><img src="http://t7js.com/img/screenshot.png" style="max-width: 400px;width: 100%;left: 0;"></p>
+<p>While browsing I came across t7, which is a template library that compiles template strings into virtual <span class="caps">DOM</span> objects.
+Because of this functionality it’s used in frameworks such as <a href="https://github.com/trueadm/inferno">Inferno</a>, but it can also be used within&nbsp;React.</p>
+<p>There are multiple ways to work with t7. You could include the script on your page the old school way like&nbsp;this:</p>
+<pre><code class="lang-html"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"t7.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+</code></pre>
+<p>and you can build it with <a href="/articles/t7/">Browserify</a> or <a href="/articles/t7/">Webpack</a> by installing it via npm and require it like&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="keyword">import</span> t7 <span class="keyword">from</span> <span class="string">'t7'</span>;
+</code></pre>
+<p>Now let’s make a page with&nbsp;it.</p>
+<pre><code class="lang-javascript">const items = ['Pizza', 'Kebab', 'Donut'];
+const welcome = 'to the wonderful world of t7';
+
+t7`
+  &lt;div class="foo"&gt;
+    &lt;h1&gt;Welcome ${ welcome }&lt;/h1&gt;
+    &lt;ul&gt;
+      ${
+        items.map( item =&gt; t7`
+          &lt;li class="item"&gt;
+            &lt;span&gt;The item is: ${ item }&lt;/span&gt;
+          &lt;/li&gt;
+        `)
       }
-    };
-  } <span class="keyword">else</span> {
-    animationProps = {
-      duration: <span class="number">1100</span>, <span class="comment">// longer due to swinging</span>
-      animation: {
-        rotateX: [<span class="number">0</span>, <span class="string">'spring'</span>]
-      }
-    };
-  }
-
-  <span class="keyword">return</span> (
-    <span class="xml"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">onMouseEnter</span>=<span class="value">{function</span> () { <span class="attribute">this.setState</span>({<span class="attribute">hovering:</span> <span class="attribute">true</span>}); }}
-         <span class="attribute">onMouseLeave</span>=<span class="value">{function</span> () { <span class="attribute">this.setState</span>({<span class="attribute">hovering:</span> <span class="attribute">false</span>}); }}&gt;</span>
-      <span class="tag">&lt;<span class="title">VelocityComponent</span> {<span class="attribute">...animationProps</span>}&gt;</span>
-        {this.renderTopState()}
-      <span class="tag">&lt;/<span class="title">VelocityComponent</span>&gt;</span>
-      {this.renderUnderneathStats()}
-    <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-  )</span>;
-}
+    &lt;/ul&gt;
+  &lt;/div&gt;
+`;
 </code></pre>
-<p>Which will result in:
-<img src="https://static1.squarespace.com/static/54ac6f9ae4b0cf1d82a4b59e/t/560a9a19e4b08fcd39795d27/1443535397904/release_summary.gif?format=300w" tyle="max-width: 320px; width: 100%; position:static;"></p>
-<p>As the name implies <code>&lt;VelocityTransitionGroup /&gt;</code> can be used to animate a group of element at the same time. In the example on the Fabric blog we can use it being used to animate an input slider, but that’s not all. When you pay close attention you will the the toggle switch animating and a “jawbone” collapse. Al these animation are done at&nbsp;once.</p>
-<p><img src="https://static1.squarespace.com/static/54ac6f9ae4b0cf1d82a4b59e/t/560a9a69e4b0a427e3b70022/1443535503361/?format=750w" tyle="max-width: 320px; width: 100%; position:static;"></p>
-<p>I was very impressed with the work and I’m trying to push this as the new standard for animating React components at the company where I work. And will be the default for all my pet&nbsp;projects.</p>
+<p>By default t7 will attempt to check to see if React is available. If it is, t7 will automatically produce React elements as its output.
+When React is not present, you can use to export it to a Universal format.
+Universal <span class="caps">DOM</span> output should be compatible with most other virtual DOM frameworks out there, like <a href="https://github.com/Raynos/mercury">Mercury</a>, <a href="https://github.com/joelrich/citojs">Cito</a> and <a href="https://github.com/Matt-Esch/virtual-dom">Virtual-dom</a>.</p>
+<p>To set the way you want to output you&nbsp;use:</p>
+<pre><code class="lang-javascript">t7.setOutput(t7.Outputs.React);
+</code></pre>
+<p>The supported outputs&nbsp;are:</p>
+<ul>
+<li><a href="https://facebook.github.io/react/">React</a></li>
+<li><a href="https://github.com/trueadm/inferno">Inferno</a></li>
+<li><a href="http://mithril.js.org/">Mithril</a></li>
+<li>Universal</li>
+</ul>
 
           </section>
         </article>
         <article class="article intro">
           <header>
-            <p class="date"><span>02. October 2015</span></p>
-            <h2><a href="/articles/scroller-friday/">Scroller Friday</a></h2>
+            <p class="date"><span>12. October 2015</span></p>
+            <h2><a href="/articles/react-image-crop/">React Image Crop</a></h2>
           </header>
-          <section class="content"><p>fartscroll.js (GitHub: <a href="https://github.com/theonion/fartscroll.js">theonion/fartscroll.js</a>, License:&nbsp;<span class="caps">MIT</span>)</p>
-<p>Since it is Friday today my colleages and me are in a humorous mood. So when I started looking what to write about today I got some real fun suggestions.
-The first one is&nbsp;fartscroll.js.</p>
-<p>The name already saids it all, it’s a library that makes your page fart when the user is scrolling.
-Because everybody farts and likes farting, why not give your application the same privilege? Here is&nbsp;how:</p>
-<p>First we need to include the script within our&nbsp;markup.</p>
-<pre><code class="lang-html"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"http://code.onion.com/fartscroll.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+          <section class="content"><p>react-image-crop (GitHub: <a href="https://github.com/DominicTobias/react-image-crop">DominicTobias/react-image-crop</a>, License: <span class="caps">ISC</span>, npm:&nbsp;react-image-crop)</p>
+<p><img src="https://raw.githubusercontent.com/DominicTobias/react-image-crop/master/crop-demo.gif" style="max-width: 400px;width: 100%;left: 0;"></p>
+<p>React-image-crop is a React component for client side cropping of images. This mainly got my interest because I had several moments where I needed to implement something similar.
+This will take away that work in the future. I used to do the cropping server side which was a hassle. Upload the image, Getting the dimensions, crop with imagemagick then communicate that back to the&nbsp;browser.</p>
+<p>In hindsight I now know that there are a lot of different ways to approach this&nbsp;problem.</p>
+<p>What I like about react-image-crop is that it’s the basics of what you need to crop images.
+It gives you an object which can be used to render the cropped image in canvas to get a base64 encoded image. Another way to display this would be via clipping it with&nbsp;<span class="caps">CSS</span>.</p>
+<p>And you guys can probably come up with a few more ways.
+Let’s take a look at the setup for this&nbsp;component.</p>
+<pre><code class="lang-javascript"><span class="keyword">import</span> ReactCrop <span class="keyword">from</span> <span class="string">'react-image-crop'</span>;
+
+&lt;ReactCrop src=<span class="string">'path/to/image.jpg'</span> /&gt;
 </code></pre>
-<p>Then we call it like&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="comment">// Fart every 400 pixels scrolled in the window</span>
-fartscroll();
-</code></pre>
-<p>When you think you pages farts to often you can increase the amount of pixels that need to be scrolled before farting like&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="comment">// Fart every 800 pixels scrolled in the window</span>
-fartscroll(<span class="number">800</span>);
-</code></pre>
-<p>If you just want to have some fun on other webpages, you can use <a href="javascript:%20(function%20()%20{%20%20%20%20%20var%20fs%20=%20document.createElement('script');%20%20%20%20%20fs.setAttribute('src',%20'http://code.onion.com/fartscroll.js');%20%20%20%20%20document.head.appendChild(fs);%20%20%20%20%20window.setTimeout(function(){%20%20%20%20%20%20%20%20%20fartscroll(800);%20%20%20%20%20%20%20%20%20},%20500);%20}());">this bookmarklet</a>. Here is the code for&nbsp;it.</p>
-<pre><code class="lang-javascript">javascript:%20(function%20()%20{%20%20%20%20%20var%20fs%20=%20document.createElement(&#39;script&#39;);%20%20%20%20%20fs.setAttribute(&#39;src&#39;,%20&#39;http://code.onion.com/fartscroll.js&#39;);%20%20%20%20%20document.head.appendChild(fs);%20%20%20%20%20window.setTimeout(function(){%20%20%20%20%20%20%20%20%20fartscroll(800);%20%20%20%20%20%20%20%20%20},%20500);%20}());
-</code></pre>
-<h3 id="elevator-js">Elevator.js</h3>
-<p>elevator.js (GitHub: <a href="https://github.com/tholman/elevator.js">tholman/elevator.js</a>, License:&nbsp;<span class="caps">MIT</span>)</p>
-<p>While we are in the theme of scrolling libraries, here is another fun one. I cannot say that this one is very new, but it’s still gold in my opinion. So what does it do?
-Elevator.js is provides you with a “back to top” button that behaves like a real elevator. Now your users don’t have to be bored during the awkward time they spend waiting for your page to scroll back to the top. How do we use&nbsp;this?</p>
-<p>First we need to include the script within our&nbsp;markup.</p>
-<pre><code class="lang-html"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"https://cdn.rawgit.com/tholman/elevator.js/master/elevator.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
-</code></pre>
-<p>Now we need to instantiate it with some mp3 files and a trigger target like&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
-  <span class="keyword">var</span> elevator = <span class="keyword">new</span> Elevator({
-    element: <span class="built_in">document</span>.querySelector(<span class="string">'.elevator-button'</span>),
-    mainAudio: <span class="string">'/src/to/audio.mp3'</span>,
-    endAudio: <span class="string">'/src/to/end-audio.mp3'</span>
-  });
+<p>When you already want to add a crop, you just pass it as a prop like&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="keyword">var</span> crop = {
+    x: <span class="number">20</span>,
+    y: <span class="number">10</span>,
+    width: <span class="number">30</span>,
+    height: <span class="number">10</span>
 }
+
+&lt;ReactCrop src=<span class="string">'path/to/image.jpg'</span> crop={crop} /&gt;
 </code></pre>
-<p>If you do not have any inspiration for sounds you can just use the defaults like&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
-  <span class="keyword">var</span> elevator = <span class="keyword">new</span> Elevator({
-    element: <span class="built_in">document</span>.querySelector(<span class="string">'.elevator-button'</span>),
-    duration: <span class="number">1000</span> <span class="comment">// milliseconds</span>
-  });
-}
-</code></pre>
+<p>The <code>crop</code> object also has a property called <code>aspect</code>. With that you can lock the aspect if the cropped&nbsp;area.</p>
+<p>If you want to get the dimensions to where to crop you use the <code>onChange</code> or <code>onComplete</code> props.</p>
 
           </section>
         </article>
         <article class="article intro">
           <header>
-            <p class="date"><span>01. October 2015</span></p>
-            <h2><a href="/articles/tonic/">Tonic</a></h2>
+            <p class="date"><span>09. October 2015</span></p>
+            <h2><a href="/articles/gulp-load-subtasks/">Gulp load subtasks</a></h2>
           </header>
-          <section class="content"><p>During my browse session at work this morning I came across <a href="https://tonicdev.com/docs/embed">this post</a>.
-If I understand correctly the easiest way to describe Tonic is as a plugin that let’s you run Node.js in a&nbsp;browser.</p>
-<p>The reason why I write about this today is because of the newley released feature of embedding it on your page.
-This feature can be accessed in two ways. Via <span class="caps">HTML</span> markup or by initializing it programatically.
-Lets take a look at some&nbsp;examples.</p>
-<p>When you have access to the document markup we would make it work like&nbsp;this:</p>
-<pre><code class="lang-html"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"https://embed.tonicdev.com"</span> <span class="attribute">data-element-id</span>=<span class="value">"daily-element"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+          <section class="content"><p>gulp-load-subtasks (GitHub: <a href="https://github.com/skorlir/gulp-load-subtasks">skorlir/gulp-load-subtasks</a>, License: <span class="caps">ISC</span>, npm:&nbsp;gulp-load-subtasks)</p>
+<p>gulp-load-subtasks is a gulp “extention” which was long overdue in my opinion. The problem that it solves is that it is reducing the amount of clutter the forms inside a Gulpfile when working on big&nbsp;projects.</p>
+<p>This does require a bit of a shift in contrast of how we are used to writing our Gulpfile.
+Normally you would do something like&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="comment">// gulpfile.js</span>
+<span class="keyword">var</span> gulp = <span class="built_in">require</span>(<span class="string">'gulp'</span>);
 
-<span class="comment">&lt;!-- anywhere else on your page --&gt;</span>
-<span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"daily-element"</span>&gt;</span>
-var request = require('request');
-request('http://www.google.com', function (error, response, body) {
-    console.log(body) // Show the <span class="caps">HTML</span> for the Google homepage.
-});
-<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-</code></pre>
-<p>If this code runs Tonic it will dropdown an element showing the log&nbsp;output.</p>
-<p>If you do not have access to the document markup you can trigger it from Javascript like&nbsp;this:</p>
-<pre><code class="lang-javascript">
-<span class="keyword">var</span> scriptTag = <span class="built_in">document</span>.createElement(<span class="string">"script"</span>),
-    head = <span class="built_in">document</span>.querySelector(<span class="string">"head"</span>),
-    dailyElement = <span class="built_in">document</span>.createElement(<span class="string">'div'</span>);
-scriptTag.src = <span class="string">"https://embed.tonicdev.com"</span>;
-dailyElement.id = <span class="string">"daily-element"</span>;
-head.appendChild( scriptTag );
-
-<span class="built_in">document</span>.body.appendChild( dailyElement );
-
-<span class="keyword">var</span> notebook = Tonic.createNotebook({
-    <span class="comment">// the parent element for the new notebook</span>
-    element: <span class="built_in">document</span>.querySelector(<span class="string">"#daily-element"</span>),
-
-    <span class="comment">// specify the source of the notebook</span>
-    source: <span class="string">"\"hello world\""</span>,
-
-    <span class="comment">// optionally, set the notebook to be read-only</span>
-    readOnly: <span class="literal">false</span>,
-
-    <span class="comment">// optionally, provide a callback to be called when the notebook has finished loading</span>
-    onLoad: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{}
+gulp.task(<span class="string">'some-task'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+    <span class="comment">// Your stuff here</span>
 });
 </code></pre>
-<p>On of the things I’m still missing is the ability to run <span class="caps">ES2015</span>. I hope that the support for that will come very soon.
-This weekend I will be trying to include this within this website so you will be able to run the examples that I post right there in the&nbsp;browser.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>28. September 2015</span></p>
-            <h2><a href="/articles/clipboardjs/">Clipboard.js</a></h2>
-          </header>
-          <section class="content"><p>After writing this blog for a few days now I noticed that the bar of two libraries a day is hard to do when you have a day job next to it.
-Because I want to give each library a fair shot, I will be reducing it to one library a day on workdays so I can work on updates for the website as&nbsp;well.</p>
-<p>Clipboard.js (GitHub: <a href="https://github.com/zenorocha/clipboard.js">zenorocha/clipboard.js</a>, License: <span class="caps">MIT</span>, npm: clipboard, bower: clipboard&nbsp;)</p>
-<p>During my daily browse I came across Clipboard.js which is a library to put given content to the users clipboard from Javascript.
-Normally we are used to implementing this behavior using Flash or some bloated framework. Luckley now there is Clipboard.js which is an 2kb implementation of “Copy to&nbsp;clipboard”.</p>
-<p>To use it we need to require it first. If you are using <a href="http://browserify.org/">Browersify</a> or <a href="https://webpack.github.io/">Webpack</a> then&nbsp;use:</p>
-<pre><code class="lang-javascript"><span class="keyword">import</span> * <span class="keyword">as</span> Clipboard <span class="keyword">from</span> <span class="string">'clipboard'</span>;
-
-<span class="comment">// Or the old way</span>
-<span class="keyword">var</span> Clipboard = <span class="built_in">require</span>(<span class="string">'clipboard'</span>);
+<p>After a while you would get stuck with one big spaggetti of tasks.
+Now you can split that up into different files with their own&nbsp;dependencies.</p>
+<p>The file structure would look something like&nbsp;this:</p>
+<pre><code>+ gulpfile.js
+|
++ tasks/
+  + a.tasks.js
+  + b.tasks.js
+</code></pre><p>Task A would look like&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span> (<span class="params">gulp</span>) </span>{
+  gulp.task(<span class="string">'subtaskA1'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{
+    <span class="comment">// do things... A1</span>
+  })
+  gulp.task(<span class="string">'subtaskA2'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{
+    <span class="comment">// do things... A2</span>
+  })
+}
 </code></pre>
-<p>When including it in your html do it like&nbsp;this:</p>
-<pre><code class="lang-html"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"dist/clipboard.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+<p>And task B like&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span> (<span class="params">gulp, plugins</span>) </span>{
+  gulp.task(<span class="string">'subtaskB'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{
+    <span class="comment">// do things... B</span>
+    <span class="comment">// You can use plugins!</span>
+  })
+}
 </code></pre>
-<p>Now we can instantiate it using a <span class="caps">DOM</span> selector. For&nbsp;instance</p>
-<pre><code class="lang-javascript"><span class="keyword">new</span> Clipboard(<span class="string">'.btn'</span>);
+<p>Then when we get back to the Gulpfile we can do&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="keyword">var</span> gulp    = <span class="built_in">require</span>(<span class="string">'gulp'</span>),
+    plugins = <span class="built_in">require</span>(<span class="string">'gulp-load-plugins'</span>)()
+
+$.loadSubtasks(<span class="string">'tasks/**/*.js'</span>, gulp, plugins);
+
+<span class="comment">// refer tasks in a.tasks.js and b.tasks.js</span>
+gulp.task(<span class="string">'default'</span>, [ <span class="string">'subtaskA'</span>, <span class="string">'subtaskB'</span> ])
 </code></pre>
-<p>Internally, it needs to fetch all elements that match the selector and attach event listeners for each one. But what if you have hundreds of matches? Then this operation can consume a lot of memory.
-Because of this it uses event delegation which replaces multiple event listeners with just a single&nbsp;listener.</p>
-<p>The most common usage of this library would be to copy the text value of an <code>input</code> field or <code>textarea</code>. This is&nbsp;how:</p>
-<pre><code class="lang-html"><span class="comment">&lt;!-- Target --&gt;</span>
-<span class="tag">&lt;<span class="title">input</span> <span class="attribute">id</span>=<span class="value">"foo"</span> <span class="attribute">value</span>=<span class="value">"https://github.com/zenorocha/clipboard.js.git"</span>&gt;</span>
-
-<span class="comment">&lt;!-- Trigger --&gt;</span>
-<span class="tag">&lt;<span class="title">button</span> <span class="attribute">class</span>=<span class="value">"btn"</span> <span class="attribute">data-clipboard-target</span>=<span class="value">"#foo"</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">img</span> <span class="attribute">src</span>=<span class="value">"assets/clippy.svg"</span> <span class="attribute">alt</span>=<span class="value">"Copy to clipboard"</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">button</span>&gt;</span>
-</code></pre>
-<p>It also has the ability to cut to clipboard. You would do this by attaching the <code>data-clipboard-action</code> attribute to the trigger element like&nbsp;this:</p>
-<pre><code class="lang-html"><span class="comment">&lt;!-- Target --&gt;</span>
-<span class="tag">&lt;<span class="title">textarea</span> <span class="attribute">id</span>=<span class="value">"bar"</span>&gt;</span>Mussum ipsum cacilds...<span class="tag">&lt;/<span class="title">textarea</span>&gt;</span>
-
-<span class="comment">&lt;!-- Trigger --&gt;</span>
-<span class="tag">&lt;<span class="title">button</span> <span class="attribute">class</span>=<span class="value">"btn"</span> <span class="attribute">data-clipboard-action</span>=<span class="value">"cut"</span> <span class="attribute">data-clipboard-target</span>=<span class="value">"#bar"</span>&gt;</span>
-    Cut to clipboard
-<span class="tag">&lt;/<span class="title">button</span>&gt;</span>
-</code></pre>
-<p>When you find yourself in a situation where you would like to show some feedback to the user or capture what has been selected after a copy/cut operation, you can make use of the <code>success</code> and <code>error</code> events that are being sent. You would use that like&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="keyword">var</span> clipboard = <span class="keyword">new</span> Clipboard(<span class="string">'.btn'</span>);
-
-clipboard.on(<span class="string">'success'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>{
-    <span class="built_in">console</span>.info(<span class="string">'Action:'</span>, e.action);
-    <span class="built_in">console</span>.info(<span class="string">'Text:'</span>, e.text);
-    <span class="built_in">console</span>.info(<span class="string">'Trigger:'</span>, e.trigger);
-
-    e.clearSelection();
-});
-
-clipboard.on(<span class="string">'error'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>{
-    <span class="built_in">console</span>.error(<span class="string">'Action:'</span>, e.action);
-    <span class="built_in">console</span>.error(<span class="string">'Trigger:'</span>, e.trigger);
-});
-</code></pre>
-<p>The browser support on this project superised me, it relies on both Selection and execCommand APIs. The second one is supported in the following&nbsp;browsers.</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center"><img src="http://zenorocha.github.io/clipboard.js/assets/images/chrome.png" style="width:auto; left: auto;" width="48px" height="48px" alt="Chrome logo"></th>
-<th style="text-align:center"><img src="http://zenorocha.github.io/clipboard.js/assets/images/firefox.png" style="width:auto; left: auto;" width="48px" height="48px" alt="Firefox logo"></th>
-<th style="text-align:center"><img src="http://zenorocha.github.io/clipboard.js/assets/images/ie.png" style="width:auto; left: auto;" width="48px" height="48px" alt="Internet Explorer logo"></th>
-<th style="text-align:center"><img src="http://zenorocha.github.io/clipboard.js/assets/images/opera.png" style="width:auto; left: auto;" width="48px" height="48px" alt="Opera logo"></th>
-<th style="text-align:center"><img src="http://zenorocha.github.io/clipboard.js/assets/images/safari.png" style="width:auto; left: auto;" width="48px" height="48px" alt="Safari logo"></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">42+ ✔</td>
-<td style="text-align:center">41+ ✔</td>
-<td style="text-align:center">9+ ✔</td>
-<td style="text-align:center">29+ ✔</td>
-<td style="text-align:center">Nope ✘</td>
-</tr>
-</tbody>
-</table>
-<p>Although copy/cut operations with execCommand aren’t supported in Safari yet (including mobile), it gracefully degrades, because Selection is&nbsp;supported.</p>
-<p>This means you could show a tooltip saying Copied! when success event is called and Press Ctrl+C to copy when error event is called because the text is already&nbsp;selected.</p>
 
           </section>
         </article>
