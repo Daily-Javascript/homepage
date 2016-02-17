@@ -36,50 +36,30 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
-            <p class="date"><span>14. October 2015</span></p>
-            <h2><a href="/articles/smart-crop/">Smartcrop.js</a></h2>
+            <p class="date"><span>19. October 2015</span></p>
+            <h2><a href="/articles/vorpal/">Vorpal.js</a></h2>
           </header>
-          <section class="content"><p>Smartcrop (GitHub: <a href="https://github.com/jwagner/smartcrop.js">jwagner/smartcrop.js</a>, License: <span class="caps">MIT</span>, npm: smartcrop, bower:&nbsp;smartcrop)</p>
-<p>Smartcrop.js is not just another image cropping library. It detects the primary region of an image such as faces.
-It does this using the following&nbsp;algorithm.</p>
-<ol>
-<li>Find edges using <a href="https://en.wikipedia.org/wiki/Laplace&#39;s_method">Laplace&nbsp;method</a></li>
-<li>Find regions with a color like&nbsp;skin</li>
-<li>Find regions high in&nbsp;saturation</li>
-<li>Generate a set of candidate crops using a sliding&nbsp;window</li>
-<li>Rank them using a importance function to focus the detail in the center and avoid it in the&nbsp;edges.</li>
-<li>Output the candidate crop with the highest&nbsp;rank</li>
-</ol>
-<p>Using it in a simple&nbsp;example:</p>
-<pre><code class="lang-javascript">SmartCrop.crop(image, {width: <span class="number">100</span>, height: <span class="number">100</span>}, result =&gt; <span class="built_in">console</span>.log(result) );
-<span class="comment">// Which will return</span>
-<span class="comment">// -&gt; {topCrop: {x: 300, y: 200, height: 200, width: 200}}</span>
-</code></pre>
-<p>When you wanna use it within node.js you would have to do something like&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="keyword">import</span> fs <span class="keyword">from</span> <span class="string">'fs'</span>;
-<span class="keyword">import</span> Canvas <span class="keyword">from</span> <span class="string">'canvas'</span>;
-<span class="keyword">import</span> SmartCrop <span class="keyword">from</span> <span class="string">'smartcrop'</span>;
+          <section class="content"><p>Vorpal (GitHub: <a href="https://github.com/dthree/vorpal">dthree/vorpal</a>, License: <span class="caps">MIT</span>, npm:&nbsp;vorpal)</p>
+<p>Vorpal is a framework for building interactive <span class="caps">CLI</span> applications. Inspired and based on <a href="https://www.npmjs.com/package/commander">commander.js</a> which is a port from the wonderful work done on this <a href="https://github.com/commander-rb/commander">Ruby Gem</a>.
+It provides you with an interactive prompt provided by <a href="https://www.npmjs.com/package/inquirer">inquirer</a> and also provides a very extensive <span class="caps">API</span> with features such as: piped commands, command history, built-in help menu, tab autocompletion and the list goes&nbsp;on.</p>
+<p>For full documentation of the <span class="caps">API</span> you should take a look at the <a href="https://github.com/dthree/vorpal/wiki">Wiki</a>.</p>
+<p>Getting started with&nbsp;Vorpal.</p>
+<pre><code class="lang-javascript"><span class="keyword">import</span> vorpal <span class="keyword">from</span> <span class="string">'vorpal'</span>
 
-SmartCrop.crop(img, options, result =&gt; {
-    <span class="built_in">console</span>.log(<span class="built_in"><span class="caps">JSON</span></span>.stringify(result, <span class="literal">null</span>, <span class="number">2</span>));
-    <span class="keyword">if</span>(output &amp;&amp; options.width &amp;&amp; options.height){
-        <span class="keyword">var</span> canvas = <span class="keyword">new</span> Canvas(options.width, options.height),
-            ctx = canvas.getContext(<span class="string">'2d'</span>),
-            crop = result.topCrop,
-            f = fs.createWriteStream(output);
-        ctx.patternQuality = <span class="string">'best'</span>;
-        ctx.filter = <span class="string">'best'</span>;
-        ctx.drawImage(img, crop.x, crop.y, crop.width, crop.height, <span class="number">0</span>, <span class="number">0</span>, canvas.width, canvas.height);
-        canvas.syncJPEGStream({quality: quality}).pipe(f);
-    }
-});
+const program = vorpal();
+
+program
+  .command(<span class="string">'foo'</span>, <span class="string">'Outputs "bar"'</span>)
+  .action((args, callback) =&gt; {
+    <span class="keyword">this</span>.log(<span class="string">'bar'</span>);
+    callback();
+  });
+
+program
+  .delimiter(<span class="string">'app $'</span>)
+  .show();
 </code></pre>
-<p>Smartcrop.js also offers a command line interface under the npm package name <a href="https://github.com/jwagner/smartcrop-cli"><code>smartcrop-cli</code></a>. Which based uses&nbsp;node-canvas.</p>
-<p>That one you would use like&nbsp;this:</p>
-<pre><code class="lang-bash">npm i smartcrop-cli -g
-smartcrop-cli --width <span class="number">100</span> --height <span class="number">100</span> photo.jpg square-thumbnail.jpg
-</code></pre>
-<p>Smartcrop-cli does requires <a href="https://github.com/Automattic/node-canvas">node-canvas</a> which requires local libraries to be installed. Refer to the <a href="https://github.com/Automattic/node-canvas/wiki/_pages">node-canvas wiki</a> installation&nbsp;instructions.</p>
+<p>This creates an instance of Vorpal, adds a command which logs “bar”, sets the prompt delimiter to say “app $”, and shows the&nbsp;prompt.</p>
 
           </section>
         </article>
@@ -127,6 +107,55 @@ Sometimes we come across an idea where you will need to parse or tokenize Javasc
     <span class="keyword">return</span> untokenize(tokenize(code, { lineTerminator: <span class="literal">true</span> }));
 }
 </code></pre>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
+            <p class="date"><span>14. October 2015</span></p>
+            <h2><a href="/articles/smart-crop/">Smartcrop.js</a></h2>
+          </header>
+          <section class="content"><p>Smartcrop (GitHub: <a href="https://github.com/jwagner/smartcrop.js">jwagner/smartcrop.js</a>, License: <span class="caps">MIT</span>, npm: smartcrop, bower:&nbsp;smartcrop)</p>
+<p>Smartcrop.js is not just another image cropping library. It detects the primary region of an image such as faces.
+It does this using the following&nbsp;algorithm.</p>
+<ol>
+<li>Find edges using <a href="https://en.wikipedia.org/wiki/Laplace&#39;s_method">Laplace&nbsp;method</a></li>
+<li>Find regions with a color like&nbsp;skin</li>
+<li>Find regions high in&nbsp;saturation</li>
+<li>Generate a set of candidate crops using a sliding&nbsp;window</li>
+<li>Rank them using a importance function to focus the detail in the center and avoid it in the&nbsp;edges.</li>
+<li>Output the candidate crop with the highest&nbsp;rank</li>
+</ol>
+<p>Using it in a simple&nbsp;example:</p>
+<pre><code class="lang-javascript">SmartCrop.crop(image, {width: <span class="number">100</span>, height: <span class="number">100</span>}, result =&gt; <span class="built_in">console</span>.log(result) );
+<span class="comment">// Which will return</span>
+<span class="comment">// -&gt; {topCrop: {x: 300, y: 200, height: 200, width: 200}}</span>
+</code></pre>
+<p>When you wanna use it within node.js you would have to do something like&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="keyword">import</span> fs <span class="keyword">from</span> <span class="string">'fs'</span>;
+<span class="keyword">import</span> Canvas <span class="keyword">from</span> <span class="string">'canvas'</span>;
+<span class="keyword">import</span> SmartCrop <span class="keyword">from</span> <span class="string">'smartcrop'</span>;
+
+SmartCrop.crop(img, options, result =&gt; {
+    <span class="built_in">console</span>.log(<span class="built_in"><span class="caps">JSON</span></span>.stringify(result, <span class="literal">null</span>, <span class="number">2</span>));
+    <span class="keyword">if</span>(output &amp;&amp; options.width &amp;&amp; options.height){
+        <span class="keyword">var</span> canvas = <span class="keyword">new</span> Canvas(options.width, options.height),
+            ctx = canvas.getContext(<span class="string">'2d'</span>),
+            crop = result.topCrop,
+            f = fs.createWriteStream(output);
+        ctx.patternQuality = <span class="string">'best'</span>;
+        ctx.filter = <span class="string">'best'</span>;
+        ctx.drawImage(img, crop.x, crop.y, crop.width, crop.height, <span class="number">0</span>, <span class="number">0</span>, canvas.width, canvas.height);
+        canvas.syncJPEGStream({quality: quality}).pipe(f);
+    }
+});
+</code></pre>
+<p>Smartcrop.js also offers a command line interface under the npm package name <a href="https://github.com/jwagner/smartcrop-cli"><code>smartcrop-cli</code></a>. Which based uses&nbsp;node-canvas.</p>
+<p>That one you would use like&nbsp;this:</p>
+<pre><code class="lang-bash">npm i smartcrop-cli -g
+smartcrop-cli --width <span class="number">100</span> --height <span class="number">100</span> photo.jpg square-thumbnail.jpg
+</code></pre>
+<p>Smartcrop-cli does requires <a href="https://github.com/Automattic/node-canvas">node-canvas</a> which requires local libraries to be installed. Refer to the <a href="https://github.com/Automattic/node-canvas/wiki/_pages">node-canvas wiki</a> installation&nbsp;instructions.</p>
 
           </section>
         </article>
@@ -210,60 +239,6 @@ Let’s take a look at the setup for this&nbsp;component.</p>
 </code></pre>
 <p>The <code>crop</code> object also has a property called <code>aspect</code>. With that you can lock the aspect if the cropped&nbsp;area.</p>
 <p>If you want to get the dimensions to where to crop you use the <code>onChange</code> or <code>onComplete</code> props.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>09. October 2015</span></p>
-            <h2><a href="/articles/gulp-load-subtasks/">Gulp load subtasks</a></h2>
-          </header>
-          <section class="content"><p>gulp-load-subtasks (GitHub: <a href="https://github.com/skorlir/gulp-load-subtasks">skorlir/gulp-load-subtasks</a>, License: <span class="caps">ISC</span>, npm:&nbsp;gulp-load-subtasks)</p>
-<p>gulp-load-subtasks is a gulp “extention” which was long overdue in my opinion. The problem that it solves is that it is reducing the amount of clutter the forms inside a Gulpfile when working on big&nbsp;projects.</p>
-<p>This does require a bit of a shift in contrast of how we are used to writing our Gulpfile.
-Normally you would do something like&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="comment">// gulpfile.js</span>
-<span class="keyword">var</span> gulp = <span class="built_in">require</span>(<span class="string">'gulp'</span>);
-
-gulp.task(<span class="string">'some-task'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
-    <span class="comment">// Your stuff here</span>
-});
-</code></pre>
-<p>After a while you would get stuck with one big spaggetti of tasks.
-Now you can split that up into different files with their own&nbsp;dependencies.</p>
-<p>The file structure would look something like&nbsp;this:</p>
-<pre><code>+ gulpfile.js
-|
-+ tasks/
-  + a.tasks.js
-  + b.tasks.js
-</code></pre><p>Task A would look like&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span> (<span class="params">gulp</span>) </span>{
-  gulp.task(<span class="string">'subtaskA1'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{
-    <span class="comment">// do things... A1</span>
-  })
-  gulp.task(<span class="string">'subtaskA2'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{
-    <span class="comment">// do things... A2</span>
-  })
-}
-</code></pre>
-<p>And task B like&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span> (<span class="params">gulp, plugins</span>) </span>{
-  gulp.task(<span class="string">'subtaskB'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{
-    <span class="comment">// do things... B</span>
-    <span class="comment">// You can use plugins!</span>
-  })
-}
-</code></pre>
-<p>Then when we get back to the Gulpfile we can do&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="keyword">var</span> gulp    = <span class="built_in">require</span>(<span class="string">'gulp'</span>),
-    plugins = <span class="built_in">require</span>(<span class="string">'gulp-load-plugins'</span>)()
-
-$.loadSubtasks(<span class="string">'tasks/**/*.js'</span>, gulp, plugins);
-
-<span class="comment">// refer tasks in a.tasks.js and b.tasks.js</span>
-gulp.task(<span class="string">'default'</span>, [ <span class="string">'subtaskA'</span>, <span class="string">'subtaskB'</span> ])
-</code></pre>
 
           </section>
         </article>

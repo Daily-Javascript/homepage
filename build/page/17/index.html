@@ -36,6 +36,88 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
+            <p class="date"><span>27. September 2015</span></p>
+            <h2><a href="/articles/xregexp-and-gun/">XRegExp and Gun</a></h2>
+          </header>
+          <section class="content"><p>XRegExp (GitHub: <a href="https://github.com/slevithan/xregexp">slevithan/xregexp</a>, License: <span class="caps">MIT</span>, npm:&nbsp;xregexp)</p>
+<p> XRegExp is a regex utility belt that provides augmented and extensible JavaScript regular expressions.
+ It comes with a new modern syntax and flags beyond what browsers support natively. Furthermore it comes with tools to make client-side grepping and string parsing easier. This will free you from worrying about cross-browser inconsistencies and problems like manually manipulating <code>lastIndex</code> or slicing strings when&nbsp;tokenizing.</p>
+<p> Because XRegExp compiles to native <code>RegExp</code> objects it’s just as fast native regular expressions.
+ The only penalty would be the compiling the pattern the first&nbsp;time.</p>
+<p> Here are two example that the developer posted on&nbsp;Github.</p>
+<pre><code class="lang-javascript"> <span class="comment">// Using named capture and flag x (free-spacing and line comments)</span>
+<span class="keyword">const</span> date = XRegExp(<span class="string">'(?&lt;year&gt;  [0-9]{4} ) -?  # year  \n\
+                    (?&lt;month&gt; [0-9]{2} ) -?  # month \n\
+                    (?&lt;day&gt;   [0-9]{2} )     # day   '</span>, <span class="string">'x'</span>);
+
+<span class="comment">// XRegExp.exec gives you named backreferences on the match result</span>
+<span class="keyword">let</span> match = XRegExp.exec(<span class="string">'2015-02-22'</span>, date);
+match.year; <span class="comment">// -&gt; '2015'</span>
+
+<span class="comment">// You can also pass forward and return specific backreferences</span>
+<span class="keyword">const</span> html = <span class="string">'&lt;a href="http://daily-javascript.com/"&gt;Daily Javascript&lt;/a&gt;'</span> +
+           <span class="string">'&lt;a href="http://www.google.com/"&gt;Google&lt;/a&gt;'</span>;
+XRegExp.matchChain(html, [
+    {regex: <span class="regexp">/&lt;a href="([^"]+)"&gt;/i</span>, backref: <span class="number">1</span>},
+    {regex: XRegExp(<span class="string">'(?i)^https?://(?&lt;domain&gt;[^/?#]+)'</span>), backref: <span class="string">'domain'</span>}
+]); <span class="comment">// -&gt; ['daily-javascript.com', 'www.google.com']</span>
+
+<span class="comment">// Merge strings and regexes into a single pattern, safely rewriting backreferences</span>
+XRegExp.union([<span class="string">'a+b*c'</span>, <span class="regexp">/(dog)\1/</span>, <span class="regexp">/(cat)\1/</span>], <span class="string">'i'</span>);
+<span class="comment">// -&gt; /a\+b\*c|(dog)\1|(cat)\2/i</span>
+</code></pre>
+<p>You can also enabled some add-ons such as unicode support and then you can do&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="comment">// Test the Unicode category L (Letter)</span>
+<span class="keyword">const</span> unicodeWord = XRegExp(<span class="string">'^\\pL+$'</span>);
+unicodeWord.test(<span class="string">'Русский'</span>); <span class="comment">// -&gt; true</span>
+unicodeWord.test(<span class="string">'日本語'</span>); <span class="comment">// -&gt; true</span>
+unicodeWord.test(<span class="string">'العربية'</span>); <span class="comment">// -&gt; true</span>
+
+<span class="comment">// Test some Unicode scripts</span>
+XRegExp(<span class="string">'^\\p{Hiragana}+$'</span>).test(<span class="string">'ひらがな'</span>); <span class="comment">// -&gt; true</span>
+XRegExp(<span class="string">'^[\\p{Latin}\\p{Common}]+$'</span>).test(<span class="string">'Über Café.'</span>); <span class="comment">// -&gt; true</span>
+</code></pre>
+<p>When installed via npm all add-ons are always available to use this in the browser. You must include to addons like&nbsp;this:</p>
+<pre><code class="lang-html"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"src/xregexp.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+<span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"src/addons/unicode-base.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span> <span class="comment">&lt;!-- This must be include before the other addons --&gt;</span>
+<span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"src/addons/unicode-categories.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+<span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"src/addons/unicode-scripts.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+</code></pre>
+<h3 id="gun"><span class="caps">GUN</span></h3>
+<p><span class="caps">GUN</span> (GitHub: <a href="https://github.com/amark/gun">amark/gun</a>, License: Apache 2.0, npm:&nbsp;gun)</p>
+<p>Mark Nadal sent in <span class="caps">GUN</span> which is an open source alternative to Firebase.
+Mark tells me that he got tired of dealing with DevOps/SysAdmin work to keep MongoDB running in production. It was making him very unhappy.
+So he took it upon him self to start a DBaaS like Firebase, but one that he could run on his own&nbsp;servers.</p>
+<p>It looks very promising and very easy to setup. Right now it doesn’t have an efficient storage engine yet so it stores all the data in <span class="caps">JSON</span>.
+Let’s look at some&nbsp;examples.</p>
+<p>To make a connection we must require it and make a reference to&nbsp;it.</p>
+<pre><code class="lang-javascript"><span class="keyword">var</span> Gun = <span class="built_in">require</span>(<span class="string">'gun'</span>);
+<span class="keyword">var</span> ref = Gun(<span class="string">'http://gunjs.herokuapp.com/gun'</span>).get(<span class="string">'daily/javascript'</span>);
+</code></pre>
+<p>Now we are able to put and get data this&nbsp;way.</p>
+<pre><code class="lang-javascript">
+<span class="comment">// Putting data</span>
+gun.put({
+  username: <span class="string">"RamonGebben"</span>,
+  name: <span class="string">"Ramon Gebben"</span>,
+  email: <span class="string">"daily-javascript@ra-ge.net"</span>
+}).key(<span class="string">'usernames/RamonGebben'</span>);
+
+<span class="comment">// Getting data</span>
+gun.get(<span class="string">'usernames/RamonGebben'</span>).val((user) =&gt; <span class="built_in">console</span>.log(user.name));
+</code></pre>
+<p>You can also extend <span class="caps">GUN</span> by reacting on events like&nbsp;this:</p>
+<pre><code class="lang-javascript">Gun.on(<span class="string">'opt'</span>).event((gun, opt) =&gt; {
+    <span class="comment">/* Your module here! */</span>
+});
+</code></pre>
+<p>If you take a look at what the developers have planned to introduce, you will notice this is something to keep your eye&nbsp;on.</p>
+<p>I would not recommend using this in production just yet, because it feels very young, but for small prototype for which you don’t want to bother setting up an entire infrastructure to load and save this could be a good&nbsp;choice.</p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
             <p class="date"><span>26. September 2015</span></p>
             <h2><a href="/articles/jetsjs-and-replem/">Jets.js and repl'em</a></h2>
           </header>
