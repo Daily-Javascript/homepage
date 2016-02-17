@@ -36,6 +36,31 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
+            <p class="date"><span>17. February 2016</span></p>
+            <h2><a href="/articles/superhero-js/">Superhero.js</a></h2>
+          </header>
+          <section class="content"><p><a href="http://superherojs.com/">Superhero.js</a> is a great gathering of articles, videos and presentations to help you become a better JavaScript developer.
+This is a real outcome for people who feel overwhelmed by the amount of articles appearing across the web.
+It is hard to distinguish between the relevant and the irrelevant stuff out&nbsp;there.</p>
+<p>The collection is split up in categories so you have some context on why you should read it, or you can easily find a relevant resource to your problem.
+The categories&nbsp;are:</p>
+<ul>
+<li>Understanding JavaScript: Syntax, style and&nbsp;gotchas</li>
+<li>Organizing your code: <span class="caps">API</span> design, patterns and&nbsp;frameworks</li>
+<li>Testing your application: Testable code, readable&nbsp;tests</li>
+<li>Tools of the trade: Workflow, developer tools and&nbsp;debugging</li>
+<li>Performance and Profiling: Fast and memory-efficient&nbsp;code</li>
+<li>Securing your app: Principles, access control and&nbsp;validation</li>
+<li>Under the hood: Understanding the&nbsp;browser</li>
+<li>On the horizon: Stuff to keep an eye&nbsp;on</li>
+</ul>
+<p>When you would follow them all down you have a very nice learning path. Even if you have being doing JavaScript for sometime now, I would still recommend you take a gander at this page cause it really highlights some amazing&nbsp;resources.</p>
+<p>If you haven’t started on this weeks challenge yet, go to the challenge page of the <a href="http://daily-javascript.com/challenges/websocket-challenge/">Websocket Challenge</a> since there are only two days remaining in the&nbsp;challenge.</p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
             <p class="date"><span>16. February 2016</span></p>
             <h2><a href="/articles/pollinate/">Pollinate</a></h2>
           </header>
@@ -304,37 +329,6 @@ In contrast with the event listener <span class="caps">API</span> which get’s 
 </code></pre>
 <p>Sadly it only has support for Android at this point, hopefully somebody will implement the same for iOS.
 For more <span class="caps">API</span> reference check the <a href="https://github.com/CentaurWarchief/react-native-android-sms-listener"><span class="caps">README</span></a> and don’t forget to <a href="http://daily-javascript.com/challenges/tetris-bag/">challenge yourself trying to duplicate the randomization algorithm used by&nbsp;Tetris</a></p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>09. February 2016</span></p>
-            <h2><a href="/articles/jhaml/">jHaml</a></h2>
-          </header>
-          <section class="content"><p>jHaml (GitHub: <a href="https://github.com/soyuka/jhaml">soyuka/jhaml</a>, License: <span class="caps">MIT</span>, npm:&nbsp;@soyuka/jhaml)</p>
-<p>jHaml is a Javascript implementation of the <a href="http://haml.info/">Haml</a> templating engine which was originally written in Ruby.
-When I was still doing a lot of Rails I first got introduced to Haml. I was able to change <code>erb</code> like&nbsp;this:</p>
-<pre><code class="lang-html"><span class="tag">&lt;<span class="title">section</span> <span class="attribute">class</span>=<span class="value">”container”</span>&gt;</span>
-  <span class="tag">&lt;<span class="title">h1</span>&gt;</span><span class="tag">&lt;<span class="title">%=</span> <span class="attribute">post.title</span> %&gt;</span><span class="tag">&lt;/<span class="title">h1</span>&gt;</span>
-  <span class="tag">&lt;<span class="title">h2</span>&gt;</span><span class="tag">&lt;<span class="title">%=</span> <span class="attribute">post.subtitle</span> %&gt;</span><span class="tag">&lt;/<span class="title">h2</span>&gt;</span>
-  <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">”content”</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">%=</span> <span class="attribute">post.content</span> %&gt;</span>
-  <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">section</span>&gt;</span>
-</code></pre>
-<p>Into:</p>
-<pre><code class="lang-haml"><span class="tag">%<span class="title">section</span><span class="value">.container</span></span>
-<span class="tag">  %<span class="title">h1</span></span>= post.title
-<span class="tag">  %<span class="title">h2</span></span>= post.subtitle
-  .content
-    =<span class="ruby"> post.content</span>
-</code></pre>
-<p>Now we use do the same for our Javascript applications. After searching a bit I noticed that there are a few implementations of this already.
-The reason why I like this library is that it’s based on streams and because of this it has great support for build tooling <a href="http://gulpjs.com/">Gulp</a>, which is also stream based.
-There also is a <a href="https://github.com/soyuka/jhaml/blob/master/test/express.js">nice example</a> of how to use it in frameworks like <a href="http://expressjs.com/">Express</a></p>
-<p>For more details and documentation check the <a href="https://github.com/soyuka/jhaml"><span class="caps">README</span></a> which thoroughly explains how it works and how to use&nbsp;it.</p>
-<p>Don’t forget the submit <a href="http://daily-javascript.com/challenges/tetris-bag/">this weeks challenge</a> before Friday on when I will post the&nbsp;results.</p>
 
           </section>
         </article>
