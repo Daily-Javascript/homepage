@@ -1,4 +1,5 @@
 ---
+view: none
 title: 'WebSocket Chat challenge'
 date: '2016-02-12'
 author: ramon
