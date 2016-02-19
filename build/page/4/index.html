@@ -36,6 +36,52 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
+            <p class="date"><span>25. January 2016</span></p>
+            <h2><a href="/articles/pressure/">Pressure</a></h2>
+          </header>
+          <section class="content"><p>Pressure (GitHub: <a href="https://github.com/yamartino/pressure">yamartino/pressure</a>, License: <span class="caps">MIT</span>, npm:&nbsp;pressure)</p>
+<p><img src="https://camo.githubusercontent.com/ff9a4c42ce2565fd1ef4e2b55ebcd0e9028d6961/687474703a2f2f79616d617274696e6f2e6769746875622e696f2f70726573737572652f70726573737572652e676966" style=" width: 100%;" /></p>
+<p>Pressure is a library which makes dealing with Apple’s “Force Touch” and “3D Touch” simpler.
+At the time of writing this update the support for Force Touch&nbsp;was:</p>
+<ul>
+<li>iPhone&nbsp;6s</li>
+<li>iPhone 6s&nbsp;Plus</li>
+<li>MacBook 2015<ul>
+<li>13” MacBook Pro&nbsp;2015</li>
+<li>15” MacBook Pro&nbsp;2015</li>
+</ul>
+</li>
+<li>Magic Trackpad&nbsp;2</li>
+</ul>
+<p>And sadly it only works inside Safari.
+The developer has let us know that when there are more devices or browsers to support, that it will also be supported by&nbsp;Pressure.</p>
+<blockquote>
+<p>Future devices and browser that support force will be added when they come&nbsp;out</p>
+</blockquote>
+<p>The library is constructed in a way that Force Touch for new Macs and 3D Touch for the new iPhone 6s and 6s Plus are all bundled under one roof with a simple <span class="caps">API</span>. By&nbsp;example:</p>
+<pre><code class="lang-javascript"><span class="keyword">var</span> Pressure = <span class="built_in">require</span>(<span class="string">'pressure'</span>);
+
+Pressure.set(<span class="string">'#myAwesomeElement'</span>, {
+    change: (force) =&gt; {
+        <span class="keyword">this</span>.innerHTML = force;
+    }
+});
+</code></pre>
+<p>What this will do is render the “amount” of pressure put on <code>#myAwesomeElement</code>.
+The rest of the <span class="caps">API</span> is just as straight forward.
+Use <code>end</code> to know when the user has stopped putting pressure on your awesome element.
+<code>startDeepPress</code> to know if the user is applying deep pressure and <code>endDeepPress</code> to know when it stopped.
+And as a curtesy there is <code>unsupported</code> which tell’s you if Force Touch is&nbsp;available.</p>
+<p>If you want to know more head over to the <a href="http://yamartino.github.io/pressure/">Github Page</a> and check the <a href="http://yamartino.github.io/pressure/">documentation</a>. The developer also implemented a very nice demo on that same&nbsp;page.</p>
+<p>Since it’s the first day of the week I would like to remind you to challenge yourself this week.
+This weeks challenge is to create a workshop about a topic you care about or want to research.
+The only way you can be sure of knowing something is when you can teach it to somebody&nbsp;else.</p>
+<p>Head over to the <a href="http://daily-javascript.com/challenges/workshopper/">Workshopper Challenge</a> section for more&nbsp;details.</p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
             <p class="date"><span>22. January 2016</span></p>
             <h2><a href="/articles/weekly-challenge-2016-04/">Weekly Challenge - Workshopper</a></h2>
           </header>
@@ -104,24 +150,6 @@ Especially since the framework tries to aim at developer who want a little more 
 
 <p>And there will be more screencast’s in the future. This will definitely be part of the next <span class="caps">API</span> I’m gonna&nbsp;build.</p>
 <p>Don’t forget to challenge your self this week. There is still a challenge running which is <a href="http://daily-javascript.com/challenges/tic-tac-toe/">Make Tic Tac Toe in Javascript</a> but make sure you submit it before Friday is you want it to be shown in the weekly&nbsp;results.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>15. January 2016</span></p>
-            <h2><a href="/articles/weekly-challenge-2016-03/">Weekly Challenge - Tic tac toe</a></h2>
-          </header>
-          <section class="content"><p><img style="width: 100%; display:block;" src="http://i.imgur.com/AMfBBzl.png" ></p>
-<p>First of all here is a link to <a href="http://daily-javascript.com/challenges/mandelbrot/results">last weeks results</a> sadly the challenge was a bit to hard, so I heard in some direct feedback. So I will switch it up this week.
-No more fractals this time. This weeks challenge is create a Tic Tac Toe game using&nbsp;Javascript.</p>
-<p>You can go two ways for this&nbsp;implementation.</p>
-<p>The first one would be very naive. Simply switch between 2 users, the first user would be X the other would be O.
-The program should be able to detect when one of the players has won or if it is a&nbsp;tie.</p>
-<p>If you are feeling very confident implement <span class="caps">AI</span> for player O. Same rules would apply.
-Be mindful in your implementation because next week there will come some additional&nbsp;requirements.</p>
-<p>Again I’ve created <a href="http://codepen.io/DailyJavascript/pen/ZQXBaK">a Codepen for you to start with</a>.
-Please submit your solution to this <a href="http://goo.gl/forms/vM1b4oUXC6">Google Form</a> and happy&nbsp;coding.</p>
 
           </section>
         </article>

@@ -36,6 +36,43 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
+            <p class="date"><span>18. February 2016</span></p>
+            <h2><a href="/articles/clog/">CLog.js</a></h2>
+          </header>
+          <section class="content"><p>CLog.js (GitHub: <a href="https://github.com/CVarisco/CLog.js">CVarisco/CLog.js</a>, License: <span class="caps">MIT</span>, npm: clog_js bower:&nbsp;clog)</p>
+<p><img src="https://camo.githubusercontent.com/c4884bc7f9b88f02a4043a997a50bb50f6a01171/687474703a2f2f7777772e636976692e63687269737469616e7661726973636f2e636f6d2f646f776e6c6f61642f6e6f726d616c436c6f672e706e67" style="max-width: 756px; width: 100%;"></p>
+<p>CLog.js is a very lightweight library create custom colored log messages for the browser.
+Sadly this feature is only available in Google Chrome. In other browsers it falls back to the default&nbsp;console.log.</p>
+<p>The problem this library tries to solve is the same problem <a href="https://www.npmjs.com/package/chalk">Chalk</a> and <a href="https://github.com/marak/colors.js/">Colors.js</a> are trying to solve. But this library is only focused on the&nbsp;browser.</p>
+<p>I hope to see more options to style with such as background-color, underline and maybe strike-through, right now it only supports colors.
+You can install it using bower, npm or <a href="https://github.com/CVarisco/CLog.js/blob/master/clog.js">downloading it here</a>.</p>
+<p>Then you can instantiate it like&nbsp;so:</p>
+<pre><code class="lang-javascript"><span class="keyword">var</span> options = {
+    group: <span class="literal">false</span>,
+    colors: {
+        log: <span class="string">"#31f095"</span>,
+        debug: <span class="string">"#e86024"</span>,
+        data: <span class="string">"#<span class="caps">DDDDDD</span>"</span>
+        error: <span class="string">"#e22f2f"</span>,
+        network: <span class="string">"#08bce9"</span>,
+    }
+}
+
+<span class="keyword">var</span> CLog = <span class="keyword">new</span> CLog(options);
+</code></pre>
+<p>Now we can use it within our code like&nbsp;this:</p>
+<pre><code class="lang-javascript">CLog(<span class="string">'debug'</span>, <span class="string">'Pizza is awesome!!'</span>);
+</code></pre>
+<p>And it will log it in the color assigned to <code>debug</code>. In this same place we can give it a <span class="caps">HEX</span> color and it will use&nbsp;it.</p>
+<pre><code class="lang-javascript">CLog(<span class="string">'#<span class="caps">FFCFFF</span>'</span>, <span class="string">'Pizza is awesome!!'</span>);
+</code></pre>
+<p>Today is normally the last day you can submit your solution for this weeks challenge. Since I have only received one submission up till now, I will leave the submissions open until tomorrow night around <span class="caps">8PM</span> Amsterdam time, which would be 2PM New York time.
+Be sure you send in what you got before that time. When it’s not finished yet, hurry up. If you need a reminder on what the challenge was head over to the challenge page of: <a href="http://daily-javascript.com/challenges/websocket-challenge/">Websocket Challenge</a>.</p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
             <p class="date"><span>17. February 2016</span></p>
             <h2><a href="/articles/superhero-js/">Superhero.js</a></h2>
           </header>
@@ -275,60 +312,6 @@ Especially when you are building a <a href="https://facebook.github.io/react-nat
 <p>Sadly there is still a waitlist for the beta, I myself am still waiting to get access to it.
 Go to the website for more information and sign up for <a href="http://l.aunch.us/h2fyV">beta access</a>.</p>
 <p>Don’t forget to send in your submission for this <a href="http://daily-javascript.com/challenges/tetris-bag/">weeks challenge</a> before tomorrow afternoon, otherwise it will not be in the weekly&nbsp;results.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>10. February 2016</span></p>
-            <h2><a href="/articles/react-native-android-sms-listener/">React Native SMS Listener</a></h2>
-          </header>
-          <section class="content"><p>SmsListener (GitHub: <a href="https://github.com/CentaurWarchief/react-native-android-sms-listener">CentaurWarchief/react-native-android-sms-listener</a>, License: <span class="caps">MIT</span>, npm:&nbsp;react-native-android-sms-listener)</p>
-<p>When you are building an app which requires some form of account validation like Whats App and Telegram using React Native.
-There is gonna be a moment that you want to verify on bases of a text message.
-CentaurWarchief has created a module so you don’t need to worry about listening for incoming&nbsp;texts.</p>
-<p>If works pretty straight forward, you attach an event listener and respond to incoming events like&nbsp;so:</p>
-<pre><code class="lang-javascript"><span class="keyword">import</span> SmsListener <span class="keyword">from</span> <span class="string">'react-native-android-sms-listener'</span>
-
-const mySubScription = SmsListener.addListener(myMessageHandler);
-
-<span class="function"><span class="keyword">function</span> <span class="title">myMessageHandler</span>(<span class="params">message</span>)</span>{
-    <span class="built_in">console</span>.log(message);
-}
-</code></pre>
-<p>This should not be unfamiliar.
-In contrast with the event listener <span class="caps">API</span> which get’s provided by the DOM, removing event listener works&nbsp;differently.</p>
-<pre><code class="lang-javascript">mySubScription.remove()
-</code></pre>
-<p>This is an example provided by the developer which demonstrates how to do authorization in the same manner as Whats App or Telegram do&nbsp;it:</p>
-<pre><code class="lang-javascript"><span class="keyword">let</span> subscription = SmsListener.addListener(message =&gt; {
-  <span class="keyword">let</span> verificationCodeRegex = <span class="regexp">/Your verification code: ([\d]{6})/</span>;
-
-  <span class="keyword">if</span> (verificationCodeRegex.test(message.body)) {
-    <span class="keyword">let</span> verificationCode = message.body.match(verificationCodeRegex)[<span class="number">1</span>];
-
-    YourPhoneVerificationApi.verifyPhoneNumber(
-      message.originatingAddress,
-      verificationCode
-    ).then(verifiedSuccessfully =&gt; {
-      <span class="keyword">if</span> (verifiedSuccessfully) {
-        subscription.remove();
-        <span class="keyword">return</span>;
-      }
-
-      <span class="keyword">if</span> (__DEV__) {
-        <span class="built_in">console</span>.info(
-          <span class="string">'Failed to verify phone `%s` using code `%s`'</span>,
-          message.originatingAddress,
-          verificationCode
-        );
-      }
-  });
-  }
-});
-</code></pre>
-<p>Sadly it only has support for Android at this point, hopefully somebody will implement the same for iOS.
-For more <span class="caps">API</span> reference check the <a href="https://github.com/CentaurWarchief/react-native-android-sms-listener"><span class="caps">README</span></a> and don’t forget to <a href="http://daily-javascript.com/challenges/tetris-bag/">challenge yourself trying to duplicate the randomization algorithm used by&nbsp;Tetris</a></p>
 
           </section>
         </article>
