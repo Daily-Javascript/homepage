@@ -36,6 +36,66 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
+            <p class="date"><span>25. November 2015</span></p>
+            <h2><a href="/articles/vuejs/">Vue.js</a></h2>
+          </header>
+          <section class="content"><p>Vue.js (GitHub: <a href="https://github.com/vuejs/vue">vuejs/vue</a>, License: <span class="caps">MIT</span>, npm:&nbsp;vue</p>
+<p>Vue.js is a library for building web interfaces. Because it works together with some other tools, you can also call it a “framework”. Now, if you’ve never heard of or used Vue before, you are probably thinking: great, yet another JavaScript framework! I get it. That was my first thought as well, that is why I never looked at it with a serious eye. Vue isn’t particularly new, it has being in the making for almost two years now, and the first public release was in February 2014. Over time it has evolving into a great engine to build beautiful production ready app&nbsp;with.</p>
+<p>What makes it so awesome? Well, it supports all the features we are used to from libraries such as React, Ember and Angular but it’s size and api are a lot simpler.
+A thing I love in libraries,&nbsp;simplicity.</p>
+<p>So let’s take a look at a few small examples and let’s start with data&nbsp;binding.</p>
+<p>This is how we define the <code>template</code> which we are gonna&nbsp;use:</p>
+<pre><code class="lang-html"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"binding"</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">p</span>&gt;</span>{{message}}<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">input</span> <span class="attribute">v-model</span>=<span class="value">"message"</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+</code></pre>
+<p>And here we give it some&nbsp;data:</p>
+<pre><code class="lang-javascript">
+<span class="keyword">let</span> binding = <span class="keyword">new</span> Vue({
+  el: <span class="string">'#binding'</span>,
+  data: {
+    message: <span class="string">'Daily Javascript'</span>
+  }
+});
+</code></pre>
+<p>This would give is a <code>div</code> with an <code>input</code> field and a preview of the value it holds. When you start typing, Vue will take over from there.
+That’s cool right? Ok I get it data binding does not impress you anymore. Do you like working with components?
+Vue takes an approach that is very similar to React: it’s components all the way&nbsp;down.</p>
+<pre><code class="lang-javascript"><span class="keyword">const</span> Example = Vue.extend({
+    template: <span class="string">'&lt;div&gt;{{ message }}&lt;/div&gt;'</span>,
+    data () {
+        <span class="keyword">return</span> {
+            message: <span class="string">'Daily Javascript!'</span>
+        }
+    }
+});
+
+<span class="comment">// register it with the tag &lt;example&gt;</span>
+Vue.component(<span class="string">'example'</span>, Example);
+</code></pre>
+<p>Now we can use it like&nbsp;this:</p>
+<pre><code class="lang-html"><span class="tag">&lt;<span class="title">example</span>&gt;</span><span class="tag">&lt;/<span class="title">example</span>&gt;</span>
+</code></pre>
+<p>Because modularity is key nowadays it comes with the opportunity to <code>scope</code> styles to a component.
+That would look something like&nbsp;this:</p>
+<pre><code class="lang-html"><span class="tag">&lt;<span class="title">style</span> <span class="attribute">scoped</span> &gt;</span><span class="css">
+<span class="class">.message</span> <span class="rules">{
+  <span class="rule"><span class="attribute">color</span>:<span class="value"> red</span></span>;
+}</span>
+</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
+</code></pre>
+<p>Here is a full example component of how it would look when you would have it setup with a combination of <a href="https://github.com/webpack/webpack">Webpack</a> and <a href="https://github.com/vuejs/vue-loader">vue-loader</a>.</p>
+<p><img src="http://blog.evanyou.me/images/vue-hot.gif" alt="demo"></p>
+<p>It comes with a lot of more features that I will not go into such as routing and a build-in transition&nbsp;system.</p>
+<p>There is a demo for the transition system which demonstrates state-based tweening with&nbsp;Vue:</p>
+<p><p data-height="268" data-theme-id="0" data-slug-hash="XmZNOG" data-default-tab="result" data-user="yyx990803" class='codepen'>See the Pen <a href='http://codepen.io/yyx990803/pen/XmZNOG/'>Vue.js elastic header component</a> by Evan You (<a href='http://codepen.io/yyx990803'>@yyx990803</a>) on <a href='http://codepen.io'>CodePen</a>.</p></p>
+<script async src="//assets.codepen.io/assets/embed/ei.js"></script>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
             <p class="date"><span>24. November 2015</span></p>
             <h2><a href="/articles/vectorious/">Vectorious</a></h2>
           </header>
@@ -395,100 +455,6 @@ Domcom is a frontend framework which uses declarative components to proxy the <s
 
 demoSum()
 </code></pre>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>12. November 2015</span></p>
-            <h2><a href="/articles/react-treebeard/">React Treebeard</a></h2>
-          </header>
-          <section class="content"><p>React Treebeard (GitHub: <a href="https://github.com/alexcurtis/react-treebeard">alexcurtis/react-treebeard</a>, License: <span class="caps">MIT</span>, npm:&nbsp;react-treebeard)</p>
-<p>Ever come a cross a task where you needed to quickly make a bunch of data explorable or where you needed to visualize a massive object?
-Now there is React Treebeard which gives you a tree with collapsed&nbsp;leafs.</p>
-<p>So let’s say we have a batch of data like&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="keyword">const</span> myData = {
-    name: <span class="string">'root'</span>,
-    toggled: <span class="literal">true</span>,
-    children: [
-        {
-            name: <span class="string">'parent'</span>,
-            children: [
-                {
-                    name: <span class="string">'child'</span>,
-                    terminal: <span class="literal">true</span>
-                }
-            ]
-        },
-        {
-            name: <span class="string">'loading parent'</span>,
-            loading: <span class="literal">true</span>
-        },
-        {
-            name: <span class="string">'parent'</span>,
-            children: [
-                {
-                    name: <span class="string">'nested parent'</span>,
-                    children: [
-                        {
-                            name: <span class="string">'nested child'</span>,
-                            terminal: <span class="literal">true</span>
-                        }
-                    ]
-                }
-            ]
-        }
-    ]
-};
-</code></pre>
-<p>Then our component would look something like&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="function"><span class="keyword">function</span> <span class="title">TreeExample</span>(<span class="params">props</span>)</span>{
-    <span class="keyword">return</span> (
-        <span class="xml"><span class="tag">&lt;<span class="title">Treebeard</span>
-            <span class="attribute">data</span>=<span class="value">{props.data}</span>
-            <span class="attribute">onToggle</span>=<span class="value">{onToggle}</span>
-        /&gt;</span>
-    )</span>;
-}
-
-<span class="keyword">const</span> onToggle = () =&gt; {
-    <span class="comment">// Implement custom behavior</span>
-};
-
-<span class="keyword">const</span> shell = <span class="built_in">document</span>.querySelector(<span class="string">'#shell'</span>);
-ReactDOM.render(<span class="xml"><span class="tag">&lt;<span class="title">TreeExample</span> <span class="attribute">data</span>=<span class="value">{</span> <span class="attribute">myData</span> }/&gt;</span>, shell);</span>
-</code></pre>
-<p>With the decorators it’s very easy for you to use your own Node Header, Toggle and Loading components.
-This would look something like&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="keyword">let</span> decorators = {
-    Loading: (props) =&gt; {
-        <span class="keyword">return</span> (
-            <span class="xml"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">style</span>=<span class="value">{props.style}</span>&gt;</span>
-                loading...
-            <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-        )</span>;
-    },
-    Toggle: (props) =&gt; {
-        <span class="keyword">return</span> (
-            <span class="xml"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">style</span>=<span class="value">{props.style}</span>&gt;</span>
-                <span class="tag">&lt;<span class="title">svg</span> <span class="attribute">height</span>=<span class="value">{props.height}</span> <span class="attribute">width</span>=<span class="value">{props.width}</span>&gt;</span>
-                    // Vector Toggle Here
-                <span class="tag">&lt;/<span class="title">svg</span>&gt;</span>
-            <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-        )</span>;
-    },
-    Header: (props) =&gt; {
-        <span class="keyword">return</span> (
-            <span class="xml"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">style</span>=<span class="value">{props.style}</span>&gt;</span>
-                {props.node.name}
-            <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-        )</span>;
-    }
-};
-
-<span class="xml"><span class="tag">&lt;<span class="title">Treebeard</span> <span class="attribute">data</span>=<span class="value">{...}</span> <span class="attribute">decorators</span>=<span class="value">{decorators}</span>/&gt;</span></span>
-</code></pre>
-<p>If you wanna see what this all looks like while running in the browser, check out the <a href="http://alexcurtis.github.io/react-treebeard/#">demo page</a> provided by the&nbsp;developer.</p>
 
           </section>
         </article>
