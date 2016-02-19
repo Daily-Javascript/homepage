@@ -36,6 +36,160 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
+            <p class="date"><span>15. December 2015</span></p>
+            <h2><a href="/articles/runjs/">Runjs</a></h2>
+          </header>
+          <section class="content"><p>Runjs (GitHub: <a href="https://github.com/pawelgalazka/runjs">pawelgalazka/runjs</a>, License: <span class="caps">MIT</span>, npm:&nbsp;runjs)</p>
+<p>Back in the days we used to do everything with Makefile’s now we have Gulpfile’s, Gruntfile’s and probably too much to put in a list.
+Now there is a new friend in the build family, Runjs, which is a minimalistic framework for executing build&nbsp;tasks.</p>
+<p>It’s <span class="caps">API</span> consists of just a few functions run, watch, generate and call. With these functions you would create a runfile.js.
+A simple runfile would look something like&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="keyword">import</span> {run} <span class="keyword">from</span> <span class="string">'runjs'</span>;
+
+<span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">showFiles</span>(<span class="params"></span>)</span>{
+    run(<span class="string">'ls'</span>);
+}
+
+<span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">mkdir</span>(<span class="params">name</span>)</span>{
+    run(<span class="string">`mkdir <span class="subst">${name}</span>`</span>);
+}
+</code></pre>
+<p>These tasks can be executed via the Runjs cli like&nbsp;so:</p>
+<pre><code class="lang-bash">run showFiles
+run mkdir someDirName
+</code></pre>
+<p>It can do everything from watching files to generating new files based on configured templates etc.
+What I like about this little framework is that it does not require plugins but just Node packages for extra functionality. This in contrast to Gulp where most plugins are wrapped as a gulp-plugin and using libraries that do not have this is as&nbsp;hassle.</p>
+<p>To help you get started this is what full runfile would look&nbsp;like:</p>
+<pre><code class="lang-javascript"><span class="keyword">import</span> {run, generate, watch} <span class="keyword">from</span> <span class="string">'runjs'</span>;
+<span class="keyword">import</span> fs <span class="keyword">from</span> <span class="string">'fs'</span>;
+<span class="keyword">import</span> crypto <span class="keyword">from</span> <span class="string">'crypto'</span>;
+<span class="keyword">import</span> {sleep} <span class="keyword">from</span> <span class="string">'sleep'</span>;
+<span class="keyword">import</span> express <span class="keyword">from</span> <span class="string">'express'</span>;
+
+<span class="keyword">let</span> task = {};
+
+<span class="function"><span class="keyword">function</span> <span class="title">timeHash</span>(<span class="params"></span>)</span>{
+    <span class="keyword">let</span> time = <span class="built_in">Date</span>.now();
+    <span class="keyword">return</span> crypto.createHash(<span class="string">'sha1'</span>).update(time.toString()).digest(<span class="string">'hex'</span>);
+}
+
+<span class="function"><span class="keyword">function</span> <span class="title">exist</span>(<span class="params">path</span>)</span>{
+    <span class="keyword">try</span> {
+        fs.accessSync(path, fs.F_OK);
+        <span class="keyword">return</span> <span class="literal">true</span>;
+    } <span class="keyword">catch</span>(e){
+        <span class="keyword">return</span> <span class="literal">false</span>;
+    }
+}
+
+task.echo = () =&gt; {
+    <span class="built_in">console</span>.log(<span class="string">'echo'</span>);
+};
+
+task.install = () =&gt; {
+    run(<span class="string">'npm install'</span>);
+    run(<span class="string">'jspm install'</span>);
+    task[<span class="string">'build:dev:configure'</span>](<span class="literal">true</span>);
+};
+
+task.uninstall = () =&gt; {
+    task[<span class="string">'clean:dist'</span>]();
+    task[<span class="string">'clean:cache'</span>]();
+    run(<span class="string">'rm -rf node_modules'</span>);
+};
+
+task.test = () =&gt; {
+    run(<span class="string">'mocha'</span>);
+};
+
+task[<span class="string">'clean:dist'</span>] = () =&gt; {
+    run(<span class="string">'rm -rf dist/*'</span>);
+};
+
+task.cmd = (...args) =&gt; {
+    run(args.join(<span class="string">' '</span>));
+};
+
+task[<span class="string">'build:dev:configure'</span>] = (force) =&gt; {
+    <span class="keyword">if</span>(!exist(<span class="string">'dist/react.bundle.js'</span>) || force){
+        run(<span class="string">'jspm bundle react + react-dom dist/react.bundle.js --inject'</span>);
+    }
+};
+
+task.watch = () =&gt; {
+    watch(<span class="string">'src/app.less'</span>, () =&gt; {
+        run(<span class="string">'lessc src/app.less dist/app.css --source-map'</span>);
+    });
+
+    watch(<span class="string">'src/*.jsx'</span>, (path) =&gt; {
+        <span class="keyword">let</span> outPath = path.split(<span class="string">'/'</span>);
+        outPath.shift();
+        outPath.unshift(<span class="string">'dist'</span>);
+        outPath = outPath.join(<span class="string">'/'</span>);
+        outPath = outPath.split(<span class="string">'.'</span>);
+        outPath.pop();
+        outPath.push(<span class="string">'js'</span>);
+        outPath = outPath.join(<span class="string">'.'</span>);
+        run(<span class="string">`babel <span class="subst">${path}</span> --out-file <span class="subst">${outPath}</span> --source-maps inline`</span>);
+    });
+};
+
+task[<span class="string">'build:template'</span>] = (src, dst, context) =&gt; {
+    generate(src, dst, context);
+};
+
+task[<span class="string">'build:dev'</span>] = () =&gt; {
+    run(<span class="string">'lessc src/app.less dist/app.css --source-map-map-inline'</span>);
+    run(<span class="string">'babel src --out-dir dist --source-maps inline'</span>);
+    run(<span class="string">'rm dist/config.js'</span>);
+    task[<span class="string">'build:template'</span>](<span class="string">'src/index.tpl.html'</span>, <span class="string">'dist/index.html'</span>, {compiled: <span class="literal">false</span>});
+    task[<span class="string">'build:dev:configure'</span>]();
+};
+
+task[<span class="string">'build:dist'</span>] = () =&gt; {
+    task[<span class="string">'clean:dist'</span>]();
+    <span class="keyword">let</span> fingerprint = timeHash();
+    task[<span class="string">'build:template'</span>](<span class="string">'src/index.tpl.html'</span>, <span class="string">'dist/index.html'</span>, {compiled: <span class="literal">true</span>, fingerprint: fingerprint});
+    run(<span class="string">`jspm bundle-sfx app dist/app.<span class="subst">${fingerprint}</span>.js --minify`</span>);
+    run(<span class="string">`cleancss src/app.css -o dist/app.<span class="subst">${fingerprint}</span>.css`</span>);
+};
+
+task[<span class="string">'serve:express'</span>] = (prod) =&gt; {
+    <span class="keyword">let</span> port = <span class="number">9090</span>;
+    <span class="keyword">let</span> app = express();
+    app.use(express.static(<span class="string">'dist'</span>, {etag: <span class="literal">true</span>}));
+    <span class="keyword">if</span>(!prod){
+        app.use(express.static(<span class="string">'src'</span>, {etag: <span class="literal">true</span>}));
+    }
+    <span class="keyword">let</span> server = app.listen(port);
+    <span class="built_in">console</span>.log(<span class="string">'Express static server listening at http://localhost:%s'</span>, port);
+};
+
+task[<span class="string">'serve:dev'</span>] = () =&gt; {
+    task[<span class="string">'build:dev'</span>]();
+    task[<span class="string">'serve:express'</span>]();
+    run(<span class="string">'live-reload --port 9091 dist'</span>, {<span class="keyword">async</span>: <span class="literal">true</span>});
+    sleep(<span class="number">1</span>);
+    run(<span class="string">'open -a "Google Chrome" http://localhost:9090'</span>);
+    task.watch();
+};
+
+task[<span class="string">'serve:dist'</span>] = () =&gt; {
+    task[<span class="string">'build:dist'</span>]();
+    task[<span class="string">'serve:express'</span>](<span class="literal">true</span>);
+    sleep(<span class="number">1</span>);
+    run(<span class="string">'open -a "Google Chrome" http://localhost:9090'</span>);
+};
+
+
+<span class="keyword">export</span> <span class="keyword">default</span> task;
+</code></pre>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
             <p class="date"><span>14. December 2015</span></p>
             <h2><a href="/articles/shem/">Shem</a></h2>
           </header>
@@ -180,53 +334,6 @@ For more options and list of supported services check the <a href="http://ritesh
 <p>Here is a small CodePen demo of what it can do with the example code for you to try&nbsp;out.</p>
 <iframe height='268' scrolling='no' src='//codepen.io/ThePizzaMan/embed/YwPOVd/?height=268&theme-id=0&default-tab=result' frameborder='no' allowtransparency='true' allowfullscreen='true' style='width: 100%;'>See the Pen <a href='http://codepen.io/ThePizzaMan/pen/YwPOVd'>embed.js</a> by Ritesh Kumar (<a href='http://codepen.io/ritz078'>@ritz078</a>) on <a href='http://codepen.io'>CodePen</a>.
 </iframe>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>07. December 2015</span></p>
-            <h2><a href="/articles/iframe-resizer/">iFrame Resizer</a></h2>
-          </header>
-          <section class="content"><p>iFrame Resizer (GitHub: <a href="https://github.com/davidjbradshaw/iFrame-resizer">davidjbradshaw/iFrame-resizer</a>, License: <span class="caps">MIT</span>, npm:&nbsp;iframe-resizer)</p>
-<p><a href="https://github.com/davidjbradshaw">David Bradshaw</a> sent in iFrame-resizer. Which is a library to make working with the <code>&lt;iframe&gt;</code> tag a lot easier.
-It hides a lot of the stuff you need to change sizes, authorize domains or messaging. I suspect that this project started out as a simple library to help with resizing of an iframe which grew to a full fletched iframe utility&nbsp;belt.</p>
-<p>So let’s take a look how it works. The package consists of two files. The first one needs to be included on the <em>parent</em> page and the second one need to be within all the <em>child</em> frames. The child-script does not do anything unless when called by the parent. So a typical setup would look something like&nbsp;this:</p>
-<pre><code class="lang-html"><span class="doctype">&lt;!<span class="caps">DOCTYPE</span> html&gt;</span>
-<span class="tag">&lt;<span class="title">html</span>&gt;</span>
-<span class="tag">&lt;<span class="title">head</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">title</span>&gt;</span>Parent page<span class="tag">&lt;/<span class="title">title</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">head</span>&gt;</span>
-<span class="tag">&lt;<span class="title">body</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">h1</span>&gt;</span>This is the parent page<span class="tag">&lt;/<span class="title">h1</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">iframe</span> <span class="attribute">src</span>=<span class="value">"http://example.com/child-page"</span> <span class="attribute">id</span>=<span class="value">"my-frame"</span> <span class="attribute">scrolling</span>=<span class="value">"no"</span>&gt;</span><span class="tag">&lt;/<span class="title">iframe</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">body</span>&gt;</span>
-
-<span class="tag">&lt;<span class="title">script</span> <span class="attribute">scr</span>=<span class="value">"/path/to/iframeResizer.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
-
-<span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"/path/to/your/script.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">html</span>&gt;</span>
-</code></pre>
-<pre><code class="lang-html"><span class="doctype">&lt;!<span class="caps">DOCTYPE</span> html&gt;</span>
-<span class="tag">&lt;<span class="title">html</span>&gt;</span>
-<span class="tag">&lt;<span class="title">head</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">title</span>&gt;</span>Child page<span class="tag">&lt;/<span class="title">title</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">head</span>&gt;</span>
-<span class="tag">&lt;<span class="title">body</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">h1</span>&gt;</span>This is the child page<span class="tag">&lt;/<span class="title">h1</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">body</span>&gt;</span>
-
-<span class="tag">&lt;<span class="title">script</span> <span class="attribute">scr</span>=<span class="value">"/path/to/iframeResizer.contentWindow.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">html</span>&gt;</span>
-</code></pre>
-<p>Then to active auto-resize for instance, we can work with it from our script like&nbsp;so:</p>
-<pre><code class="lang-javascript"><span class="keyword">var</span> options = {
-    log: <span class="literal">true</span>,
-    autoResize: <span class="literal">true</span>
-}
-iFrameResize( options, <span class="string">'#my-frame'</span> );
-</code></pre>
-<p>As said before this is only the basic usage for more extensive usage you should check the <a href="http://davidjbradshaw.github.io/iframe-resizer">project page</a>.</p>
 
           </section>
         </article>
