@@ -13,5 +13,5 @@ template: challenges.jade
 | 2016/3  | [Tic Tac Toe](/challenges/tic-tac-toe/) | [See results](/challenges/tic-tac-toe/results) |
 | 2016/4  | [Workshopper](/challenges/workshopper/) | No results |
 | 2016/6  | [Tetris bag](/challenges/tetris-bag/) | [See results](/challenges/tetris-bag/results) |
-| 2016/7  | [WebSocket Challenge](/challenges/websocket-challenge/) | Running |
-<!-- [See results](/challenges/websocket-challenge/results) -->
+| 2016/7  | [WebSocket Challenge](/challenges/websocket-challenge/) | [See results](/challenges/websocket-challenge/results) |
+| 2016/8  | [WebSocket Challenge - part two](/challenges/websocket-challenge-part-two/) | Running |
