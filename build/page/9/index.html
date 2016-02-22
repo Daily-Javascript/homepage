@@ -36,6 +36,41 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
+            <p class="date"><span>08. December 2015</span></p>
+            <h2><a href="/articles/embedjs/">embed.js</a></h2>
+          </header>
+          <section class="content"><p>embed.js (GitHub: <a href="https://github.com/ritz078/embed.js/">ritz078/embed.js</a>, License: <span class="caps">MIT</span>, npm:&nbsp;embed-js)</p>
+<p>embed.js is plugin which analyses a string and automatically transform is to embeds emojis, media, maps, tweets, code and services.
+No more hassle on finding out how different services work, no more putting off features, because the intergration would be complicated. Just transform it using&nbsp;embed.js.</p>
+<p>So how do we use it? Imagine having a blog and the content of a post would look like&nbsp;this:</p>
+<pre><code>This is the blog we al know and :heart:. Url will become clickable like this http://daily-javascript.com.
+youtube videos. https://www.youtube.com/watch?v=bQRLVxZHKPs
+and embed codepen&#39;s like so: http://codepen.io/ThePizzaMan/pen/YwPOVd
+</code></pre><p>This would get transformed into a pretty post with all the services embedded. The only thing needed is a Google Auth key which you can get <a href="https://console.developers.google.com/">here</a></p>
+<p>Then if we want to transform a specific element we would do something like&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="function"><span class="keyword">function</span> <span class="title">embed</span>(<span class="params"></span>) </span>{
+    <span class="keyword">var</span> x = <span class="keyword">new</span> EmbedJS({
+        element: <span class="built_in">document</span>.getElementById(<span class="string">'rawText'</span>),
+        googleAuthKey: <span class="string">'&lt;googleAuthKey&gt;'</span>,
+        videoWidth: <span class="number">800</span>,
+        tweetOptions: {
+            hideMedia: <span class="literal">true</span>
+        },
+        codeEmbedHeight:<span class="number">600</span>
+    });
+    x.render();
+};
+</code></pre>
+<p>It supports emoji’s, Twitter, Gists, Codepen’s, photo’s, Spotify, Google Maps, Markdown and many more.
+For more options and list of supported services check the <a href="http://riteshkr.com/embed.js/">project page</a>.</p>
+<p>Here is a small CodePen demo of what it can do with the example code for you to try&nbsp;out.</p>
+<iframe height='268' scrolling='no' src='//codepen.io/ThePizzaMan/embed/YwPOVd/?height=268&theme-id=0&default-tab=result' frameborder='no' allowtransparency='true' allowfullscreen='true' style='width: 100%;'>See the Pen <a href='http://codepen.io/ThePizzaMan/pen/YwPOVd'>embed.js</a> by Ritesh Kumar (<a href='http://codepen.io/ritz078'>@ritz078</a>) on <a href='http://codepen.io'>CodePen</a>.
+</iframe>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
             <p class="date"><span>07. December 2015</span></p>
             <h2><a href="/articles/iframe-resizer/">iFrame Resizer</a></h2>
           </header>
@@ -179,69 +214,6 @@ Its goal is to help web applications with accessibility concerns provide every u
 Yoann uses the term “One config to rule them all”. Since I’m a big Lord of the Rings fan, this slogan catch my attention. After trying it our in some projects I really enjoyed how it cleans up all the config files in my tree&nbsp;view.</p>
 <p>The <span class="caps">CLI</span> is very easy, use <code>-a</code> to ‘archive’ all the <code>.something</code> files and <code>-e</code> to extract them again.
 Besides that it comes with a bunch more options to specify that way it should behave such as: destination, pattern, safe mode and what to&nbsp;ignore.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>30. November 2015</span></p>
-            <h2><a href="/articles/microm/">Microm</a></h2>
-          </header>
-          <section class="content"><p>Microm (GitHub: <a href="https://github.com/zzarcon/microm">zzarcon/microm</a>, License: <span class="caps">MIT</span>, npm: microm, bower:&nbsp;microm)</p>
-<p>Microm is a wrapper of few audio converting libraries to expose a Promise and Event oriented <span class="caps">API</span>.
-The goal of the library is to make it more trivial to play and convert audio in the browser. Besides that I would say this work in some <a href="http://electron.atom.io/">Electron</a>&nbsp;application.</p>
-<p>Microm uses the following&nbsp;libs:</p>
-<ul>
-<li><a href="https://github.com/zhuker/lamejs">lamejs</a> mp3 encoder in&nbsp;javascript</li>
-<li><a href="https://github.com/webrtc/adapter">webrtc-adapter</a> Shim to insulate apps from spec changes and prefix&nbsp;differences</li>
-<li><a href="https://github.com/muaz-khan/RecordRTC">RecordRTC</a> record WebRTC audio/video media&nbsp;streams</li>
-<li><a href="https://github.com/tildeio/rsvp.js/"><span class="caps">RSVP</span></a> Provides tools for organizing asynchronous&nbsp;code</li>
-</ul>
-<p>In order to get the user recorded data, it use webrtc-adapter and RecordRTC to provide some shims and tools to make it easy to work with multiple browsers.
-Next they use lamejs to convert Wav to Mp3 and finally to provide a Promise based <span class="caps">API</span>, it uses RSVP to support the <a href="https://promisesaplus.com/">Promises/A+</a>.</p>
-<p>Let’s look at some example code. When you want to record the browsers microphone you can use the <code>startRecording</code> like&nbsp;so:</p>
-<pre><code class="lang-javascript"><span class="keyword">const</span> microm = <span class="keyword">new</span> Microm();
-
-microm.startRecording()
-      .then(() =&gt; { <span class="built_in">console</span>.log(<span class="string">'recording...'</span>)})
-      .catch(() =&gt; { <span class="built_in">console</span>.log(<span class="string">'error recording'</span>)});
-</code></pre>
-<p>Because we want to do a bit more then just record, let’s play it back to the user. To do that we need to do this:
-We do this like&nbsp;so:</p>
-<pre><code class="lang-javascript">microm.stop()
-      .then((result) =&gt; { microm.play() });
-</code></pre>
-<p>If you want to provide you user with a download of the recording can use the <code>download</code> method like&nbsp;so:</p>
-<pre><code class="lang-javascript">microm.stop()
-      .then((result) =&gt; { microm.download(<span class="string">'my-voice'</span>) });
-</code></pre>
-<p>Alternatively you could save the recording to a server by posting a base64 encoding of&nbsp;it.</p>
-<pre><code class="lang-javascript">microm.getBase64().then((base64<span class="ord">st</span>ring) =&gt; {
-    $.ajax({
-        type: <span class="string">'<span class="caps">POST</span>'</span>,
-        contentType: <span class="string">'application/octet-stream'</span>,
-        mimeType: <span class="string">'audio/mpeg'</span>,
-        processData: <span class="literal">false</span>,
-        url: <span class="string">'http://some.serv.er/upload-audio'</span>,
-        data: base64<span class="ord">st</span>ring,
-        success: someSuccessCallBack
-    });
-});
-</code></pre>
-<p>Besides recording, playing and downloading you want to give the user some feedback.
-We can use the events emitted by the library to present the user with&nbsp;feedback.</p>
-<p>By attaching the <code>on</code> listener we can listen for this list of&nbsp;events:</p>
-<ul>
-<li><code>timeupdate</code></li>
-<li><code>loadedmetadata</code></li>
-<li><code>play</code></li>
-<li><code>pause</code></li>
-<li><code>ended</code></li>
-</ul>
-<p>By&nbsp;example:</p>
-<pre><code class="lang-javascript">microm.on(<span class="string">'timeupdate'</span>, updateCurrentTime);
-<span class="function"><span class="keyword">function</span> <span class="title">updateCurrentTime</span>(<span class="params">time</span>) </span>{ <span class="built_in">console</span>.log(time); }
-</code></pre>
 
           </section>
         </article>

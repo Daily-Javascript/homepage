@@ -36,6 +36,52 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
+            <p class="date"><span>07. October 2015</span></p>
+            <h2><a href="/articles/read-file-relative/">Read file relative</a></h2>
+          </header>
+          <section class="content"><p>read-file-relative (GitHub: <a href="https://github.com/inikulin/read-file-relative">inikulin/read-file-relative</a>, License: Unknown, npm:&nbsp;read-file-relative)</p>
+<p>A problem everybody probably encounters once in a while is relativity of file paths while reading files with Node.js.
+You would do something like&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="keyword">var</span> fs   = <span class="built_in">require</span>(<span class="string">'fs'</span>);
+<span class="keyword">var</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);
+<span class="keyword">var</span> data = fs.readFileSync(path.join(__dirname, <span class="string">'/data-file.txt'</span>)).toString();
+
+<span class="comment">// Or like:</span>
+<span class="keyword">var</span> fs   = <span class="built_in">require</span>(<span class="string">'fs'</span>);
+<span class="keyword">var</span> data = fs.readFileSync(__dirname + <span class="string">'/data-file.txt'</span>).toString();
+
+<span class="comment">// Or even like this</span>
+<span class="keyword">var</span> fs   = <span class="built_in">require</span>(<span class="string">'fs'</span>);
+<span class="keyword">var</span> data = fs.readFileSync(<span class="string">'./data-file.txt'</span>).toString();
+</code></pre>
+<p>Now you can easily read out files without all the annoying boilerplate code.
+Imagine a world where you could do&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="keyword">var</span> data = readSync(<span class="string">'/data-file.txt'</span>);
+</code></pre>
+<p>Well you can stop imagining, because it’s here and it’s called <code>read-file-relative</code>.
+<code>Read-file-relative</code> comes with two main functions on it’s <span class="caps">API</span>: read and readSync.
+Let’s take a&nbsp;look.</p>
+<p>To read out the file synchronously this is what you would&nbsp;do.</p>
+<pre><code class="lang-javascript"><span class="keyword">var</span> readSync = <span class="built_in">require</span>(<span class="string">'read-file-relative'</span>).readSync;
+<span class="keyword">var</span> data = readSync(<span class="string">'/file.txt'</span>);
+</code></pre>
+<p>When you prefer asynchronously reading you just provide a callback like&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="keyword">var</span> read = <span class="built_in">require</span>(<span class="string">'read-file-relative'</span>).read;
+read(<span class="string">'/file.txt'</span>, <span class="string">'utf8'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">err, content</span>) </span>{
+   <span class="comment">// ...</span>
+});
+</code></pre>
+<p>Note that for the <code>read</code> we need to provide the encoding else it will return a&nbsp;buffer.</p>
+<p>Besides reading files you can also just convert a path to an absolute path like&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="keyword">var</span> toAbsPath = <span class="built_in">require</span>(<span class="string">'read-file-relative'</span>).toAbsPath;
+<span class="keyword">var</span> absPath = toAbsPath(<span class="string">'/file.txt'</span>);
+</code></pre>
+<p>This is a nice addition to everybody’s toolbox. It doesn’t do much, but what it does, it does very&nbsp;well.</p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
             <p class="date"><span>06. October 2015</span></p>
             <h2><a href="/articles/speckjs/">Speck JS</a></h2>
           </header>
@@ -233,71 +279,6 @@ head.appendChild( scriptTag );
 </code></pre>
 <p>On of the things I’m still missing is the ability to run <span class="caps">ES2015</span>. I hope that the support for that will come very soon.
 This weekend I will be trying to include this within this website so you will be able to run the examples that I post right there in the&nbsp;browser.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>28. September 2015</span></p>
-            <h2><a href="/articles/levi/">Levi</a></h2>
-          </header>
-          <section class="content"><p>Levi (GitHub: <a href="https://github.com/cshum/levi">cshum/levi</a>, License: <span class="caps">MIT</span>, npm:&nbsp;levi)</p>
-<p>Levi is a streaming full-text search for Node.js and browsers which used LevelDB for storage.
-The search implementation is done by using <a href="https://en.wikipedia.org/wiki/Tf%E2%80%93idf"><span class="caps">TF</span>-IDF</a> and <a href="https://en.wikipedia.org/wiki/Cosine_similarity">cosine similarity</a>, and it’s provided with configurable text processing pipelines: Tokenizer, Porter Stemmer and Stopwords&nbsp;filter.</p>
-<p>Levi is built on <a href="https://github.com/Level/levelup">LevelUP</a> which is a fast, asynchronous, transactional storage interface. By default it uses LevelDB on Node.js, when in running in the browser it uses <a href="https://github.com/maxogden/level.js">IndexedDB</a>. Levi supports with a variety of LevelDOWN compatible&nbsp;backends.</p>
-<p>In addition, Levi provides relevancy scoring for live changing data using <span class="caps">TF</span>-ICF - a TF-IDF approximation based on existing corpus. Such scoring matches are comparably close to TF-IDF when existing corpus is sufficiently large, with significantly better performance O(N) instead of&nbsp;O(N^2).</p>
-<p>Let’s take a look at the <span class="caps">API</span>. To get started, we need to create a new Levi instance. We do that like&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="keyword">import</span> levi <span class="keyword">from</span> <span class="string">'levi'</span>;
-
-<span class="keyword">const</span> lv = levi(<span class="string">'db'</span>)
-.use(levi.tokenizer())
-.use(levi.stemmer())
-.use(levi.stopword());
-</code></pre>
-<p>The text processing pipeline <code>levi.tokenizer()</code>, <code>levi.stemmer()</code>, <code>levi.stopword()</code> are required for indexing. These are exposed as <a href="https://github.com/cshum/ginga">ginga</a> plugins so that they can be swapped for different language&nbsp;configurations.</p>
-<p>Now that we have an instance we can use it to talk to the <span class="caps">API</span> like&nbsp;this:</p>
-<pre><code class="lang-javascript">lv.put(<span class="string">'a'</span>, <span class="string">'Lorem Ipsum is simply dummy text.'</span>, err =&gt; {
-    <span class="comment">// ...</span>
- });
-
-<span class="comment">// object fields as value</span>
-lv.put(<span class="string">'b'</span>, {
-  id: <span class="string">'b'</span>,
-  title: <span class="string">'Lorem Ipsum'</span>,
-  body: <span class="string">'Dummy text of the printing and typesetting industry.'</span>
-}, (err) =&gt; {
-    <span class="comment">//...</span>
-});
-</code></pre>
-<p>Or retrieve it&nbsp;like:</p>
-<pre><code class="lang-javascript">lv.get(<span class="string">'b'</span>, res =&gt; {
-    <span class="comment">// res here;</span>
-});
-</code></pre>
-<p>To actually search we need to use Levi’s main interface which would be <code>searchStream</code>. We use that like&nbsp;this.</p>
-<pre><code class="lang-javascript">lv.searchStream(<span class="string">'lorem ipsum'</span>).toArray(<span class="function"><span class="keyword">function</span> (<span class="params">results</span>) </span>{ ... }) <span class="comment">// highland method</span>
-
-lv.searchStream(<span class="string">'lorem ipsum'</span>, {
-  fields: { title: <span class="number">10</span>, <span class="string">'*'</span>: <span class="number">1</span> } <span class="comment">// title field boost. '*' means any field</span>
-}).pipe(...)
-
-lv.searchStream(<span class="string">'lorem ipusm'</span>, {
-  fields: { title: <span class="number">1</span> }, <span class="comment">// title only</span>
-}).pipe(...)
-
-<span class="comment">// ltgt</span>
-lv.searchStream(<span class="string">'lorem ipusm'</span>, {
-  gt: <span class="string">'!posts!'</span>,
-  lt: <span class="string">'!posts!~'</span>
-}).pipe(...)
-
-<span class="comment">// document as query</span>
-lv.searchStream({
-  title: <span class="string">'Lorem Ipsum'</span>,
-  body: <span class="string">'Dummy text of the printing and typesetting industry.'</span>
-}).pipe(...)
-</code></pre>
-<p>Because I do not fully understand everything that is going on here, I need to refer you to the extensive documentation on the <a href="https://github.com/cshum/levi">GitHub page</a>. The reason I still mention this library is that I understand from the explanation a colleague gave me that this library will have a significant impact on the speed of your text&nbsp;search.</p>
 
           </section>
         </article>

@@ -1,6 +1,6 @@
 ---
 title: 'Realm React Native'
-date: '201-02-22'
+date: '2016-02-22'
 author: ramon
 template: article.jade
 ---

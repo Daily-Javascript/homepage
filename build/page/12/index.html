@@ -36,6 +36,80 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
+            <p class="date"><span>09. November 2015</span></p>
+            <h2><a href="/articles/squiggle/">Squiggle</a></h2>
+          </header>
+          <section class="content"><p>Squiggle (GitHub: <a href="https://github.com/wavebeem/squiggle">wavebeem/squiggle</a>, License: <span class="caps">MIT</span>, npm:&nbsp;squiggle-lang)</p>
+<p>Squiggle is a strict, expression-oriented, compile-to-<span class="caps">JS</span> programming language. Yes, yet another compile-to-JS language.
+At the beginning I was sceptic about it, but once I started reading <a href="http://squiggle-lang.org/tutorial">the tutorial</a> posted on the site I adjusted my opinion.
+Not everything is there yet, but I need to say that I like the way it looks and might even consider picking it&nbsp;up.</p>
+<p>So some of the features that drew my attention&nbsp;are:</p>
+<ul>
+<li>Arity checked functions<ul>
+<li>When calling a function created in Squiggle with not enough arguments, it throws an&nbsp;exception.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Frozen literals<ul>
+<li>Array and object literals are frozen with <code>Object.freeze</code> by default, so you can’t accidentally mutate&nbsp;them.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Easy updates<ul>
+<li>Operators <code>++</code> to concatenate two arrays or two strings, and ~ to merge two objects into a new frozen object with the prototype of the first&nbsp;object.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Destructuring assignment<ul>
+<li>Grab object properties or array elements when you assign variables, like: <code>let [x, y] = [1, 2] or let {x, y} = {x: 1, y: 2}.</code></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Pattern matching<ul>
+<li>Is similar to the Javascript <code>switch</code> but with destructuring power built-in and no dangerous&nbsp;fall-through.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>No type coercion<ul>
+<li>Standard operators like <code>+</code>, <code>-</code>, <code>*</code>, and more, have been replaced with strict version that do not perform any type coercions, throwing exceptions on bad&nbsp;inputs.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Deep equality<ul>
+<li>The operator == performs a deep equality&nbsp;check.</li>
+</ul>
+</li>
+</ul>
+<p>There are a lot more features which just make it work a bit nicer. If you want a good overview of what this language can do I would recommend you reading <a href="http://squiggle-lang.org/tutorial">the tutorial</a> section of the website and then <a href="http://squiggle-lang.org/try">give it a shot in the browser</a>.</p>
+<p>Here is a small example provided by the developer in which you can see how it would work together met Node’s <span class="caps">HTTP</span>&nbsp;package.</p>
+<pre><code class="lang-javascript"><span class="keyword">let</span> http = <span class="built_in">require</span> <span class="string">"http"</span>
+
+<span class="keyword">let</span> port = <span class="number">1337</span>
+<span class="keyword">let</span> host = <span class="string">"127.0.0.1"</span>
+
+def handler(res, res) =
+    <span class="keyword">let</span> headers = {<span class="string">"Content-Type"</span>: <span class="string">"text/plain"</span>}
+    <span class="keyword">let</span> _ = res.writeHead(<span class="number">200</span>, headers)
+    <span class="keyword">let</span> _ = res.end(<span class="string">"Hello world\n"</span>)
+    <span class="keyword">in</span> <span class="literal">undefined</span>
+
+<span class="keyword">let</span> server = http.createServer(handler)
+<span class="keyword">let</span> _ = server.listen(port, host)
+<span class="keyword">let</span> _ = <span class="built_in">console</span>.log(<span class="string">"Server running at http://"</span> ++ host + <span class="string">":"</span> ++ port ++ <span class="string">"/"</span>)
+<span class="keyword">in</span> <span class="literal">undefined</span>
+</code></pre>
+<p>Since there is a comment section present after the latest update, I would love to here what you guys think of this and the blog in&nbsp;general.</p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
             <p class="date"><span>06. November 2015</span></p>
             <h2><a href="/articles/es6-quiz/">ES6 Quiz</a></h2>
           </header>
@@ -126,31 +200,6 @@ Keo gives you a more functional approach to creating React&nbsp;components.</p>
 <span class="comment">// ...</span>
 <span class="keyword">export</span> <span class="keyword">default</span> stitch({ componentWillMount, render }, state =&gt; state.zombies);
 </code></pre>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>02. November 2015</span></p>
-            <h2><a href="/articles/streamjs/">Stream.js</a></h2>
-          </header>
-          <section class="content"><p>Stream.js (GitHub: <a href="https://github.com/winterbe/streamjs">winterbe/streamjs</a>, License: <span class="caps">MIT</span>, npm: streamjs, bower:&nbsp;streamjs)</p>
-<p>Stream.js is a lightweight functional library for operating on in memory collections. It requires <span class="caps">ES</span> 5+, but has built-in support for ES6 features it works in all current browsers, Node.js and Java 8 <a href="http://openjdk.java.net/projects/nashorn/">Nashorn</a>.</p>
-<p>This library is built around a lazily evaluated operation pipeline. Which means that instead of consecutively performing each operation on the input collection, objects are passed vertically and one by one into the chain.
-Interim results will not be stored in internal collections. Instead objects are piped into the result&nbsp;object.</p>
-<p>Stream’s operations are lazily evaluated to avoid examining all of the input data when it’s not necessary.
-For instance with a filter - map - findFirst stream you don’t have to filter and map the whole data. Instead map and findFirst are executed just one time before returning the single result. This results in way better performance when operation upon large amount of&nbsp;input.</p>
-<p>Like&nbsp;this:</p>
-<pre><code class="lang-javascript">Stream([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>])
-   .filter((num) =&gt; {   <span class="comment">// called twice</span>
-      <span class="keyword">return</span> num % <span class="number">2</span> === <span class="number">0</span>;
-   })
-   .map((even) =&gt; {     <span class="comment">// called once</span>
-      <span class="keyword">return</span> <span class="string">"even"</span> + even;
-   })
-   .findFirst();        <span class="comment">// called once</span>
-</code></pre>
-<p>Because this library has a very extensive <span class="caps">API</span>, I will not be discussing that today and I will just refer you to the <a href="https://github.com/winterbe/streamjs/blob/master/APIDOC.md"><span class="caps">API</span> Docs</a> provided by the&nbsp;developer</p>
 
           </section>
         </article>
