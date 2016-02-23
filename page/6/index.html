@@ -36,6 +36,55 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
+            <p class="date"><span>13. January 2016</span></p>
+            <h2><a href="/articles/featurejs/">Feature.js</a></h2>
+          </header>
+          <section class="content"><p>Feature.js (GitHub: <a href="https://github.com/viljamis/feature.js/">viljamis/feature.js</a>, License:&nbsp;<span class="caps">MIT</span>)</p>
+<p>Feature.js is a very fast, simple and lightweight browser feature detection library. I received this from a ex-colleage of mine and I was amazed I did not stumble upon this before, since it has more than 1200 stars on Github.
+There are several features you can test with this library, here is a list of&nbsp;them:</p>
+<ul>
+<li>AddEventListener</li>
+<li>Async&nbsp;attribute</li>
+<li>Canvas</li>
+<li>ClassList&nbsp;<span class="caps">API</span></li>
+<li><span class="caps">CORS</span>&nbsp;API</li>
+<li>Context&nbsp;Menu</li>
+<li><span class="caps">CSS</span> 3D&nbsp;transform</li>
+<li><span class="caps">CSS</span>&nbsp;transform</li>
+<li><span class="caps">CSS</span>&nbsp;transition</li>
+<li>Defer&nbsp;attribute</li>
+<li>DeviceOrientation</li>
+<li>DeviceMotion</li>
+<li>Geolocation</li>
+<li>History&nbsp;<span class="caps">API</span></li>
+<li>Input&nbsp;Placeholder</li>
+<li>LocalStorage</li>
+<li>MatchMedia</li>
+<li>Picture&nbsp;element</li>
+<li>QuerySelectorAll</li>
+<li><span class="caps">REM</span>&nbsp;Units</li>
+<li>Service&nbsp;Worker</li>
+<li>Sizes&nbsp;attribute</li>
+<li>Srcset&nbsp;attribute</li>
+<li><span class="caps">SVG</span></li>
+<li>Touch</li>
+<li>Viewport&nbsp;Units</li>
+<li>WebGL</li>
+</ul>
+<p>Since the tests it uses are pretty straight forward I will not go into this al to much. The most used test is done by simply checking if the requested feature is within the object in needs to be&nbsp;in.</p>
+<p>You use it with simple <code>if</code> statements like&nbsp;so:</p>
+<pre><code class="lang-javascript"><span class="keyword">if</span> (feature.webGL) {
+    <span class="built_in">console</span>.log(<span class="string">'WebGL supported'</span>);
+} <span class="keyword">else</span> {
+    <span class="built_in">console</span>.log(<span class="string">'WebGL not supported'</span>);
+}
+</code></pre>
+<p>If you want to see it in action head over to the <a href="http://featurejs.com/">project page</a> where the developer has implemented a nice&nbsp;demo.</p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
             <p class="date"><span>12. January 2016</span></p>
             <h2><a href="/articles/catbee/">Catbee</a></h2>
           </header>
@@ -157,21 +206,6 @@ So that bears the question: “How NuclearJS differs from other Flux&nbsp;implem
 <p>Automatic data observation / rendering – automatic re-rendering is built in for React in the form of a very lightweight mixin. It is also easily possible to build the same functionality for any <span class="caps">UI</span> framework such as VueJS, AngularJS and even&nbsp;Backbone.</p>
 <p>NuclearJS is not a side-project, it’s used as the default Flux implementation that powers all of Optimizely. It is well tested and will continue to be maintained for the foreseeable future. Our current codebase has over dozens of stores, actions and getters, we even share our prescribed method of large scale code organization and testing&nbsp;strategies.</p>
 <p>For examples I would refer you to <a href="https://optimizely.github.io/nuclear-js/">project homepage</a> because there you can find better explaintions than I can give it in my daily&nbsp;posts.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>06. January 2016</span></p>
-            <h2><a href="/articles/happy-new-year/">Happy new year</a></h2>
-          </header>
-          <section class="content"><p>First of all let me say Happy new year! The last couple of weeks I did not do any posted due to all the celebrations and illness.
-Luckily the holiday season is over and we can get back to creating and learning to make beautiful applications.
-Something some people might be interested in is the results of the latest challenge which was <a href="http://daily-javascript.com/challenges/let-it-snow">“Let it snow”</a>.</p>
-<p>Well sadly I only received two submissions. Which let me to believe people did not feel challenged by this assignment. I will do my best to find something more interesting.
-The results can be found on the results page of the challenge which would be <a href="http://daily-javascript.com/challenges/let-it-snow/results">Daily-Javascript.com/challenges/let-it-snow/results</a></p>
-<p>From tomorrow on Daily-Javascript will be getting daily updates again. Hope you guys keep on&nbsp;reading.</p>
-<p>Happy&nbsp;coding.</p>
 
           </section>
         </article>

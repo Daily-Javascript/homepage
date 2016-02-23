@@ -36,6 +36,71 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
+            <p class="date"><span>23. February 2016</span></p>
+            <h2><a href="/articles/pointing-fingers/">Pointing Fingers</a></h2>
+          </header>
+          <section class="content"><p>pointing-fingers (GitHub: <a href="https://github.com/jareware/pointing-fingers">jareware/pointing-fingers</a>, License: <span class="caps">MIT</span>, npm:&nbsp;pointing-fingers)</p>
+<p>A interest of mine is testing. Sadly there are not that many changes in the Javascript community in the field of testing.
+But then I found <code>pointing-fingers</code> over the weekend, which is a tool for testing upstream <span class="caps">API</span>’s.
+Since “Software doesn’t exist in a vacuum” we need to take unexpected API changes into account.
+But thoroughly testing third party API’s is of course not what we want to do.
+This tool offers you a sensible middle ground, and a convenient workflow&nbsp;for:</p>
+<ul>
+<li>Documenting the upstream <span class="caps">API</span> format, as not all API’s are perfectly&nbsp;documented</li>
+<li>Versioning that documentation, as <span class="caps">API</span>’s tend to change over&nbsp;time</li>
+<li>Automatically alerting you to <span class="caps">API</span> changes, as sometimes upstream vendors&nbsp;won’t</li>
+<li>Explicitly accepting those <span class="caps">API</span> changes, as your app will likely need to be changed&nbsp;accordingly</li>
+</ul>
+<p>An example test with all the optional options using Mocha and Chai’s <code>assert</code>:</p>
+<pre><code class="lang-javascript"><span class="keyword">import</span> { assert } <span class="keyword">from</span> <span class="string">'chai'</span>;
+<span class="keyword">import</span> { testUpstreamChanges } <span class="keyword">from</span> <span class="string">'pointing-fingers'</span>;
+
+describe(<span class="string">'GitHub <span class="caps">API</span>'</span>, () =&gt; {
+  testUpstreamChanges({
+    learn: <span class="literal">false</span>, <span class="comment">// turn this on to update your fixtures (defaults to false)</span>
+    fixtures: <span class="string">'test/fixtures/'</span>, <span class="comment">// fixtures will be written here (defaults to "/dev/null")</span>
+    runner: it, <span class="comment">// run each test in a separate Mocha it() block (defaults to running everything together)</span>
+    assert: assert.deepEqual, <span class="comment">// which assert(actual, expected) to use (defaults to simple string comparison)</span>
+    placeholder: <span class="string">'(<span class="caps">IGNORED</span> IN TEST SUITE)'</span>, <span class="comment">// ignored fields are replaced with this (defaults to null)</span>
+    ignores: [ <span class="comment">// these are simply delegated to lodash's _.set() (defaults to [])</span>
+      <span class="string">'data.documentation_url'</span>, <span class="comment">// we don't care if the doc <span class="caps">URL</span> changes, so ignore that field</span>
+      <span class="string">'headers.content-length'</span>, <span class="comment">// this could also change spontaneously, and we're not interested</span>
+      <span class="string">'headers.date'</span> <span class="comment">// ^ ditto</span>
+    ],
+    transforms: [ <span class="comment">// these are invoked with the response object to allow arbitrary checks/ignores (defaults to [])</span>
+      res =&gt; res.status = (res.status &gt;= <span class="number">400</span> &amp;&amp; res.status &lt; <span class="number">500</span>) <span class="comment">// ensure it's 4xx, but tolerate small changes</span>
+      <span class="comment">/*
+      // transforms which throw an Error are ignored, so it's safe to traverse/iterate complex objects without
+      // littering the transform function with key existence checks. also, the res object is always an isolated
+      // clone, so in-place mutation is fine.
+      res =&gt; res.data.Teams.forEach(x =&gt; x.TeamRankingPoints = isNumber(x.TeamRankingPoints)),
+      */</span>
+    ],
+    headers: { <span class="comment">// these are attached to outgoing requests (defaults to {})</span>
+      <span class="string">'X-Api-Key'</span>: process.env.MY_SECRET_KEY
+    },
+    method: <span class="string">'<span class="caps">GET</span>'</span>, <span class="comment">// (defaults to "<span class="caps">GET</span>")</span>
+    base: <span class="string">'https://api.github.com'</span>, <span class="comment">// all <span class="caps">URL'</span>s are prefixed with this (defaults to "")</span>
+    urls: [ <span class="comment">// these are the actual <span class="caps">URL'</span>s that will be tested (defaults to [])</span>
+      <span class="string">'/user'</span> <span class="comment">// the <span class="caps">URL'</span>s can be listed as simple strings</span>
+      <span class="comment">/*
+      { // ...but also as objects
+        url: '/something-else',
+        headers: { // all options (ignores, transforms, etc) can be overridden per-<span class="caps">URL</span>
+          'X-Api-Key': 'some other key'
+        }
+      }
+      */</span>
+    ]
+  });
+});
+</code></pre>
+<p>Head over to the challenge page of <a href="http://daily-javascript.com/challenges/websocket-challenge-part-two/">Websocket Challenge - part two</a> and see what you need to do in order to make on to this weeks Hall of&nbsp;Hero’s.</p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
             <p class="date"><span>22. February 2016</span></p>
             <h2><a href="/articles/realm-react-native/">Realm React Native</a></h2>
           </header>
@@ -182,35 +247,6 @@ The categories&nbsp;are:</p>
 </ul>
 <p>When you would follow them all down you have a very nice learning path. Even if you have being doing JavaScript for sometime now, I would still recommend you take a gander at this page cause it really highlights some amazing&nbsp;resources.</p>
 <p>If you haven’t started on this weeks challenge yet, go to the challenge page of the <a href="http://daily-javascript.com/challenges/websocket-challenge/">Websocket Challenge</a> since there are only two days remaining in the&nbsp;challenge.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>16. February 2016</span></p>
-            <h2><a href="/articles/pollinate/">Pollinate</a></h2>
-          </header>
-          <section class="content"><p>Pollinate (GitHub: <a href="https://github.com/everysquare/pollinate">everysquare/pollinate</a>, License: <span class="caps">MIT</span>, npm:&nbsp;pollinate)</p>
-<p>Pollinate is for the best I can describe a scaffolding engine. It takes a template project and uses <a href="http://mozilla.github.io/nunjucks/">Nunjucks</a> to generate the files with the names. The name comes from visualization a tree as a&nbsp;“Flower”.</p>
-<blockquote>
-<p>Think of a tree of files as a <code>Flower</code> and a source data as <code>Pollen</code>; combined together they create a fertilized project seed. Pollinate will allow you to template a set of files and store them on GitHub. When you decide to use them later you can <code>pollinate</code> them using an object of data. Each time you pollinate you can specify which files to <code>discard</code>, <code>parse</code>, or <code>move</code>.</p>
-</blockquote>
-<p>There are three components to a Pollinate&nbsp;boilerplate.</p>
-<ul>
-<li>The&nbsp;Flower</li>
-<li>The&nbsp;Pollen</li>
-<li>The&nbsp;Data</li>
-</ul>
-<p>The <code>Flower</code> is a GitHub repository which holds all of the files.
-These files can be passed through a template engine which uses the supplied&nbsp;data.</p>
-<p>The <code>Pollen</code> is just a vessel to get new data to the <code>Flower</code>.
-It can be supplied as an <span class="caps">HTTP</span> JSON endpoint, as a local file or directly as a set of&nbsp;arguments.</p>
-<p>The data can be considered as the <span class="caps">DNA</span>.
-Both sides can supply it, but the data from the Pollen takes precedence when merging the objects.
-The data supplies a list of files to act upon with the template engine along with the data to inject.
-The data can also supply file operations to move or delete files during the&nbsp;process.</p>
-<p>The developer of this project has posted an example which is very easy to follow along when you want to set up your own&nbsp;Pollinate.</p>
-<p>Don’t forget to to invest some time to rehash or practice your knowledge by checking this weeks challenge: <a href="http://daily-javascript.com/challenges/websocket-challenge/">Websocket Challenge</a>.</p>
 
           </section>
         </article>

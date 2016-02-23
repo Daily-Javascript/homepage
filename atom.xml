@@ -5,9 +5,74 @@
     <atom:link href="http://daily-javascript.com/feed.xml" rel="self" type="application/rss+xml"></atom:link>
     <link>http://daily-javascript.com</link>
     <description>For your daily dose of Javascript libraries.</description>
-    <pubDate>Mon, 22 Feb 2016 01:00:00 +0100</pubDate>
+    <pubDate>Tue, 23 Feb 2016 01:00:00 +0100</pubDate>
     <generator>Wintersmith - https://github.com/jnordberg/wintersmith</generator>
     <language>en</language>
+    <item>
+      <title>Pointing Fingers</title>
+      <link>http://daily-javascript.com/articles/pointing-fingers/</link>
+      <pubDate>Tue, 23 Feb 2016 01:00:00 +0100</pubDate>
+      <guid isPermaLink="true">http://daily-javascript.com/articles/pointing-fingers/</guid>
+      <author></author>
+      <description>&lt;p&gt;pointing-fingers (GitHub: &lt;a href=&quot;https://github.com/jareware/pointing-fingers&quot;&gt;jareware/pointing-fingers&lt;/a&gt;, License: MIT, npm: pointing-fingers)&lt;/p&gt;
+&lt;p&gt;A interest of mine is testing. Sadly there are not that many changes in the Javascript community in the field of testing.
+But then I found &lt;code&gt;pointing-fingers&lt;/code&gt; over the weekend, which is a tool for testing upstream API’s.
+Since “Software doesn’t exist in a vacuum” we need to take unexpected API changes into account.
+But thoroughly testing third party API’s is of course not what we want to do.
+This tool offers you a sensible middle ground, and a convenient workflow for:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Documenting the upstream API format, as not all API’s are perfectly documented&lt;/li&gt;
+&lt;li&gt;Versioning that documentation, as API’s tend to change over time&lt;/li&gt;
+&lt;li&gt;Automatically alerting you to API changes, as sometimes upstream vendors won’t&lt;/li&gt;
+&lt;li&gt;Explicitly accepting those API changes, as your app will likely need to be changed accordingly&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;An example test with all the optional options using Mocha and Chai’s &lt;code&gt;assert&lt;/code&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;import&lt;/span&gt; { assert } &lt;span class=&quot;keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;'chai'&lt;/span&gt;;
+&lt;span class=&quot;keyword&quot;&gt;import&lt;/span&gt; { testUpstreamChanges } &lt;span class=&quot;keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;'pointing-fingers'&lt;/span&gt;;
+
+describe(&lt;span class=&quot;string&quot;&gt;'GitHub API'&lt;/span&gt;, () =&amp;gt; {
+  testUpstreamChanges({
+    learn: &lt;span class=&quot;literal&quot;&gt;false&lt;/span&gt;, &lt;span class=&quot;comment&quot;&gt;// turn this on to update your fixtures (defaults to false)&lt;/span&gt;
+    fixtures: &lt;span class=&quot;string&quot;&gt;'test/fixtures/'&lt;/span&gt;, &lt;span class=&quot;comment&quot;&gt;// fixtures will be written here (defaults to &quot;/dev/null&quot;)&lt;/span&gt;
+    runner: it, &lt;span class=&quot;comment&quot;&gt;// run each test in a separate Mocha it() block (defaults to running everything together)&lt;/span&gt;
+    assert: assert.deepEqual, &lt;span class=&quot;comment&quot;&gt;// which assert(actual, expected) to use (defaults to simple string comparison)&lt;/span&gt;
+    placeholder: &lt;span class=&quot;string&quot;&gt;'(IGNORED IN TEST SUITE)'&lt;/span&gt;, &lt;span class=&quot;comment&quot;&gt;// ignored fields are replaced with this (defaults to null)&lt;/span&gt;
+    ignores: [ &lt;span class=&quot;comment&quot;&gt;// these are simply delegated to lodash's _.set() (defaults to [])&lt;/span&gt;
+      &lt;span class=&quot;string&quot;&gt;'data.documentation_url'&lt;/span&gt;, &lt;span class=&quot;comment&quot;&gt;// we don't care if the doc URL changes, so ignore that field&lt;/span&gt;
+      &lt;span class=&quot;string&quot;&gt;'headers.content-length'&lt;/span&gt;, &lt;span class=&quot;comment&quot;&gt;// this could also change spontaneously, and we're not interested&lt;/span&gt;
+      &lt;span class=&quot;string&quot;&gt;'headers.date'&lt;/span&gt; &lt;span class=&quot;comment&quot;&gt;// ^ ditto&lt;/span&gt;
+    ],
+    transforms: [ &lt;span class=&quot;comment&quot;&gt;// these are invoked with the response object to allow arbitrary checks/ignores (defaults to [])&lt;/span&gt;
+      res =&amp;gt; res.status = (res.status &amp;gt;= &lt;span class=&quot;number&quot;&gt;400&lt;/span&gt; &amp;amp;&amp;amp; res.status &amp;lt; &lt;span class=&quot;number&quot;&gt;500&lt;/span&gt;) &lt;span class=&quot;comment&quot;&gt;// ensure it's 4xx, but tolerate small changes&lt;/span&gt;
+      &lt;span class=&quot;comment&quot;&gt;/*
+      // transforms which throw an Error are ignored, so it's safe to traverse/iterate complex objects without
+      // littering the transform function with key existence checks. also, the res object is always an isolated
+      // clone, so in-place mutation is fine.
+      res =&amp;gt; res.data.Teams.forEach(x =&amp;gt; x.TeamRankingPoints = isNumber(x.TeamRankingPoints)),
+      */&lt;/span&gt;
+    ],
+    headers: { &lt;span class=&quot;comment&quot;&gt;// these are attached to outgoing requests (defaults to {})&lt;/span&gt;
+      &lt;span class=&quot;string&quot;&gt;'X-Api-Key'&lt;/span&gt;: process.env.MY_SECRET_KEY
+    },
+    method: &lt;span class=&quot;string&quot;&gt;'GET'&lt;/span&gt;, &lt;span class=&quot;comment&quot;&gt;// (defaults to &quot;GET&quot;)&lt;/span&gt;
+    base: &lt;span class=&quot;string&quot;&gt;'https://api.github.com'&lt;/span&gt;, &lt;span class=&quot;comment&quot;&gt;// all URL's are prefixed with this (defaults to &quot;&quot;)&lt;/span&gt;
+    urls: [ &lt;span class=&quot;comment&quot;&gt;// these are the actual URL's that will be tested (defaults to [])&lt;/span&gt;
+      &lt;span class=&quot;string&quot;&gt;'/user'&lt;/span&gt; &lt;span class=&quot;comment&quot;&gt;// the URL's can be listed as simple strings&lt;/span&gt;
+      &lt;span class=&quot;comment&quot;&gt;/*
+      { // ...but also as objects
+        url: '/something-else',
+        headers: { // all options (ignores, transforms, etc) can be overridden per-URL
+          'X-Api-Key': 'some other key'
+        }
+      }
+      */&lt;/span&gt;
+    ]
+  });
+});
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Head over to the challenge page of &lt;a href=&quot;http://daily-javascript.com/challenges/websocket-challenge-part-two/&quot;&gt;Websocket Challenge - part two&lt;/a&gt; and see what you need to do in order to make on to this weeks Hall of Hero’s.&lt;/p&gt;
+</description>
+    </item>
     <item>
       <title>Realm React Native</title>
       <link>http://daily-javascript.com/articles/realm-react-native/</link>
