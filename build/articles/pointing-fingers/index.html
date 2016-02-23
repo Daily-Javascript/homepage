@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="Daily updates about Javascript News, libraries and Weekly challenges">
+    <meta name="keywords" content="Javascript News, React, ES2015, Daily, Updates, Weekly Challenges">
+    <meta name="theme-color" content="#39424D">
+    <title>Pointing Fingers - Daily Javascript
+    </title>
+    <link rel="alternate" href="http://daily-javascript.com/feed.xml" type="application/rss+xml" title="For your daily dose of Javascript libraries.">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic|Anonymous+Pro:400,700,400italic,700italic|Merriweather:400,700,300">
+    <link rel="stylesheet" href="/css/main.css">
+  </head>
+  <body class="article-detail">
+    <div class="social"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A//Daily-Javascript.com" target="_blank" class="social-btn facebook"></a><a href="https://twitter.com/home?status=Follow%20%40DailyJavascript%20for%20update%20of%20new%20Javascript%20libraries%20and%20challanges%0A%23Javascript" target="_blank" class="social-btn twitter"></a><a href="https://www.reddit.com/submit?url=http%3A//Daily-Javascript.com" target="_blank" class="social-btn reddit"></a><a href="https://plus.google.com/share?url=http%3A//Daily-Javascript.com" target="_blank" class="social-btn google"></a></div>
+    <header class="header">
+      <div class="content-wrap">
+        <h1>Pointing Fingers</h1>
+        <p class="author">Written by <span class="author"><a href="mailto:ramon@ra-ge.net">Ramon Gebben</a></span>
+        </p>
+      </div>
+    </header>
+    <div id="content">
+      <div class="content-wrap">
+        <article class="article">
+          <section class="content"><p>pointing-fingers (GitHub: <a href="https://github.com/jareware/pointing-fingers">jareware/pointing-fingers</a>, License: <span class="caps">MIT</span>, npm:&nbsp;pointing-fingers)</p>
+<p>A interest of mine is testing. Sadly there are not that many changes in the Javascript community in the field of testing.
+But then I found <code>pointing-fingers</code> over the weekend, which is a tool for testing upstream <span class="caps">API</span>’s.
+Since “Software doesn’t exist in a vacuum” we need to take unexpected API changes into account.
+But thoroughly testing third party API’s is of course not what we want to do.
+This tool offers you a sensible middle ground, and a convenient workflow&nbsp;for:</p>
+<ul>
+<li>Documenting the upstream <span class="caps">API</span> format, as not all API’s are perfectly&nbsp;documented</li>
+<li>Versioning that documentation, as <span class="caps">API</span>’s tend to change over&nbsp;time</li>
+<li>Automatically alerting you to <span class="caps">API</span> changes, as sometimes upstream vendors&nbsp;won’t</li>
+<li>Explicitly accepting those <span class="caps">API</span> changes, as your app will likely need to be changed&nbsp;accordingly</li>
+</ul>
+<p>An example test with all the optional options using Mocha and Chai’s <code>assert</code>:</p>
+<pre><code class="lang-javascript"><span class="keyword">import</span> { assert } <span class="keyword">from</span> <span class="string">'chai'</span>;
+<span class="keyword">import</span> { testUpstreamChanges } <span class="keyword">from</span> <span class="string">'pointing-fingers'</span>;
+
+describe(<span class="string">'GitHub <span class="caps">API</span>'</span>, () =&gt; {
+  testUpstreamChanges({
+    learn: <span class="literal">false</span>, <span class="comment">// turn this on to update your fixtures (defaults to false)</span>
+    fixtures: <span class="string">'test/fixtures/'</span>, <span class="comment">// fixtures will be written here (defaults to "/dev/null")</span>
+    runner: it, <span class="comment">// run each test in a separate Mocha it() block (defaults to running everything together)</span>
+    assert: assert.deepEqual, <span class="comment">// which assert(actual, expected) to use (defaults to simple string comparison)</span>
+    placeholder: <span class="string">'(<span class="caps">IGNORED</span> IN TEST SUITE)'</span>, <span class="comment">// ignored fields are replaced with this (defaults to null)</span>
+    ignores: [ <span class="comment">// these are simply delegated to lodash's _.set() (defaults to [])</span>
+      <span class="string">'data.documentation_url'</span>, <span class="comment">// we don't care if the doc <span class="caps">URL</span> changes, so ignore that field</span>
+      <span class="string">'headers.content-length'</span>, <span class="comment">// this could also change spontaneously, and we're not interested</span>
+      <span class="string">'headers.date'</span> <span class="comment">// ^ ditto</span>
+    ],
+    transforms: [ <span class="comment">// these are invoked with the response object to allow arbitrary checks/ignores (defaults to [])</span>
+      res =&gt; res.status = (res.status &gt;= <span class="number">400</span> &amp;&amp; res.status &lt; <span class="number">500</span>) <span class="comment">// ensure it's 4xx, but tolerate small changes</span>
+      <span class="comment">/*
+      // transforms which throw an Error are ignored, so it's safe to traverse/iterate complex objects without
+      // littering the transform function with key existence checks. also, the res object is always an isolated
+      // clone, so in-place mutation is fine.
+      res =&gt; res.data.Teams.forEach(x =&gt; x.TeamRankingPoints = isNumber(x.TeamRankingPoints)),
+      */</span>
+    ],
+    headers: { <span class="comment">// these are attached to outgoing requests (defaults to {})</span>
+      <span class="string">'X-Api-Key'</span>: process.env.MY_SECRET_KEY
+    },
+    method: <span class="string">'<span class="caps">GET</span>'</span>, <span class="comment">// (defaults to "<span class="caps">GET</span>")</span>
+    base: <span class="string">'https://api.github.com'</span>, <span class="comment">// all <span class="caps">URL'</span>s are prefixed with this (defaults to "")</span>
+    urls: [ <span class="comment">// these are the actual <span class="caps">URL'</span>s that will be tested (defaults to [])</span>
+      <span class="string">'/user'</span> <span class="comment">// the <span class="caps">URL'</span>s can be listed as simple strings</span>
+      <span class="comment">/*
+      { // ...but also as objects
+        url: '/something-else',
+        headers: { // all options (ignores, transforms, etc) can be overridden per-<span class="caps">URL</span>
+          'X-Api-Key': 'some other key'
+        }
+      }
+      */</span>
+    ]
+  });
+});
+</code></pre>
+<p>Head over to the challenge page of <a href="http://daily-javascript.com/challenges/websocket-challenge-part-two/">Websocket Challenge - part two</a> and see what you need to do in order to make on to this weeks Hall of&nbsp;Hero’s.</p>
+</section>
+          <div id="disqus_thread"></div>
+          <script>
+            (function() { var d = document, s = d.createElement('script'); s.src = '//daily-javascript.disqus.com/embed.js'; s.setAttribute('data-timestamp', +new Date()); (d.head || d.body).appendChild(s); })();
+            
+          </script>
+        </article>
+      </div>
+    </div>
+    <footer>
+      <script type="text/javascript">(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-68072930-1', 'auto');ga('send', 'pageview');</script>
+      <div class="content-wrap">
+        <div class="nav"><a href="/">« Full blog</a></div>
+        <section class="about">
+        </section>
+        <section class="copy">
+          <p>&copy; 2016 Ramon Gebben &mdash; powered by&nbsp;<a href="https://github.com/jnordberg/wintersmith">Wintersmith</a>
+          </p>
+        </section>
+      </div>
+    </footer>
+  </body>
+</html>

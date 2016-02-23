@@ -36,6 +36,39 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
+            <p class="date"><span>26. September 2015</span></p>
+            <h2><a href="/articles/jetsjs-and-replem/">Jets.js and repl'em</a></h2>
+          </header>
+          <section class="content"><p>Jets.js (GitHub: <a href="https://github.com/NeXTs/Jets.js">NeXTs/Jets.js</a>, License: <span class="caps">MIT</span>, npm: jets, bower:&nbsp;jets)</p>
+<p>Jets.js is a search engine which utilizes <span class="caps">CSS</span> to present the results.
+The main idea is not to affect attributes of each tag in the list while filtering.
+Instead apply dynamic CSS rule in only <code>&lt;style&gt;</code> tag and browser will decide which item of list to show or hide. Since it’s just <span class="caps">CSS</span> - Jets.js may be applied to any tag, whether it’s a table or UL, OL,&nbsp;DIV…</p>
+<p><img src="http://nexts.github.io/Jets.js/img/demo_hover.gif" style="max-width: 400px;width: 100%;left: 0;"></p>
+<p>On the developers <a href="http://nexts.github.io/Jets.js/">page</a> there is a speed&nbsp;test.</p>
+<p><img src="http://i.imgur.com/SToKoIY.png" style="left:0; width: 100%;"></p>
+<p>Because I was so amazed by how easy it was to setup I started a small <a href="http://codepen.io/Dailjs-Javascript/pen/vNyXOr">codepen</a> and had some fun with&nbsp;it.</p>
+<h3 id="repl-em">repl’em</h3>
+<p>repl’em (GitHub: <a href="https://github.com/raine/replem">raine/replem</a>, License: Unknown, npm:&nbsp;replem)</p>
+<p>If you are a developer like me you shall recognize the pain of trying a lot of different modules to find which one suits your task.
+repl’em let’s you run a list of modules that use specify in a repl&nbsp;context.</p>
+<p><img src="https://raw.githubusercontent.com/raine/replem/media/term.png" style="left:0; width: 100%; min-height:200px;"></p>
+<p>It also supports custom repl’s such as coffee-script. To use these you must give them as an&nbsp;argument.</p>
+<pre><code class="lang-bash">$ npm install --prefix ~/.replem coffee-script
+$ replem --repl coffee-script/repl lodash
+</code></pre>
+<p>You can also get all module properties in the direct context. You do this by providing each module with a bang (!)&nbsp;argument.</p>
+<pre><code class="lang-bash">$ replem ramda!
+Installed into REPL context:
+ - ramda@<span class="number">0.17</span>.<span class="number">1</span> as ramda
+&gt; reduce === ramda.reduce
+<span class="literal">true</span>
+</code></pre>
+<p>This tool will certainly make it easier to try out new modules for providing you with new posts&nbsp;everyday.</p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
             <p class="date"><span>25. September 2015</span></p>
             <h2><a href="/articles/plop-and-selectize/">Plop and Selectize</a></h2>
           </header>

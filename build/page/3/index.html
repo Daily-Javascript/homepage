@@ -36,6 +36,21 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
+            <p class="date"><span>08. February 2016</span></p>
+            <h2><a href="/articles/javascript-by-example/">Javascript by Example</a></h2>
+          </header>
+          <section class="content"><p>Javascript by Example (GitHub: <a href="https://github.com/bmkmanoj/js-by-examples">bmkmanoj/js-by-examples</a>, License:&nbsp;<span class="caps">MIT</span>)</p>
+<p>Manoj Kumar sent in Javascript by Example which is a GitHub repo which explains “nitty gritties” of Javascript by showing code snippets with some&nbsp;description.</p>
+<p>Currently there is no particular order in how you should read it. Some of the concepts already explained are: closures, operators, bind, call, apply, function scope, hoisting and many&nbsp;more.</p>
+<p>One of the first things the authors want to make clear is that this is <strong>not</strong> a replacement for conventional learning by books, blogs and countless experimentations, but rather an additional resource to the existing set of learning&nbsp;paths.</p>
+<p>This project started as a bit of in house documentation of curtain “lesser known” concepts in Javascript. After realizing the rest of the community could benefit from this as well, it was put on&nbsp;Github.</p>
+<p>For more information and a short brief on how you can contribute to this project checkout the <a href="https://github.com/bmkmanoj/js-by-examples"><span class="caps">README</span></a>.</p>
+<p>Don’t forget to submit this weeks challenge: <a href="http://daily-javascript.com/challenges/tetris-bag/">“Tetris Bag”</a> where you need to implement the same randomization algorithm as used in the popular nineties game&nbsp;Tetris.</p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
             <p class="date"><span>05. February 2016</span></p>
             <h2><a href="/articles/weekly-challenge-2016-05/">Weekly Challenge - Tetris bag</a></h2>
           </header>
@@ -160,57 +175,6 @@ No longer will we be limited to what is implemented in the spec. That is where H
 <p>I would strongly recommend you take a look at <a href="https://surma.link/things/houdini-intro/">Surma’s post</a> and check out <a href="https://drafts.css-houdini.org/">the drafts already created</a>.</p>
 <p>Surma also posted a small demo of what Compositor Worklet can do in a very early implementation he got to play&nbsp;with.</p>
 <iframe width="100%" height="480" src="https://www.youtube.com/embed/EUlIxr8mk7s" frameborder="0" allowfullscreen></iframe>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>01. February 2016</span></p>
-            <h2><a href="/articles/conflux/">Conflux</a></h2>
-          </header>
-          <section class="content"><p>Conflux (GitHub: <a href="https://github.com/ben-ng/conflux">ben-ng/conflux</a>, License: <span class="caps">MIT</span>, npm:&nbsp;conflux)</p>
-<p>Conflux is Redux implantation for distributed systems.
-As the developer says: Distributed systems are hard. Conflux tries to make distributed systems more understandable.
-It aims to do what <a href="http://redux.js.org/">Redux</a> did for <a href="https://facebook.github.io/flux">Flux</a>, and what <a href="http://raft.github.io/">Raft</a> did for <a href="http://www.wikiwand.com/en/Paxos_%28computer_science%29">Paxos</a>.
-Natrually, it does this by composing the two&nbsp;ideas.</p>
-<h3 id="so-what-does-it-really-do-">So what does it really&nbsp;do?</h3>
-<p>You can build serverless applications. Which does not mean <a href="https://github.com/serverless/serverless">“serverless”</a> as in it uses <span class="caps">AWS</span> <a href="https://github.com/serverless/serverless">Lambda</a>.
-Serverless as in there is no central server, like how BitTorrent works just a cluster of nodes that coordinate with each other.
-The developer let’s know that he is working an a few example applications to help you get&nbsp;going.</p>
-<p>A quick example provided by the&nbsp;developer:</p>
-<pre><code class="lang-javascript"><span class="keyword">var</span> node = conflux({
-    id: uuid.v4(),
-    <span class="comment">// how many nodes are in the cluster?</span>
-    clusterSize: <span class="number">5</span>,
-    <span class="comment">// how should nodes communicate?</span>
-    channel: {
-        name: <span class="string">'redis'</span>
-    },
-    <span class="comment">// define your action creators</span>
-    methods: {
-        append(thing){
-            <span class="keyword">return</span> thing;
-        }
-    },
-    <span class="comment">// define your reducer</span>
-    reduce(state, action) {
-        state = state == <span class="literal">null</span> ? [] : state;
-        <span class="keyword">return</span> state.concat(action);
-    },
-});
-
-<span class="comment">// subscribe to changes</span>
-node.subscribe(() =&gt; {
-    <span class="built_in">console</span>.log(nodeB.getState().log.join(<span class="string">' '</span>));
-});
-
-<span class="comment">// perform an action</span>
-node.perform(<span class="string">'append'</span>, [<span class="string">'foo'</span>]);
-</code></pre>
-<p>When you have worked with Redux before Conflux should feel very familiar.
-You <code>subscribe()</code> to a Conflux instance, and call <code>getState()</code> inside to get the current state.
-Instead of dispatching actions directly, you <code>perform()</code> methods that <code>dispatch()</code> them.
-The methods are declared when you construct a Conflux instance which is the equivalent to how Action Creators work in&nbsp;Redux.</p>
 
           </section>
         </article>

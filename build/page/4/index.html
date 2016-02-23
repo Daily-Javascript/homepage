@@ -36,6 +36,57 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
+            <p class="date"><span>01. February 2016</span></p>
+            <h2><a href="/articles/conflux/">Conflux</a></h2>
+          </header>
+          <section class="content"><p>Conflux (GitHub: <a href="https://github.com/ben-ng/conflux">ben-ng/conflux</a>, License: <span class="caps">MIT</span>, npm:&nbsp;conflux)</p>
+<p>Conflux is Redux implantation for distributed systems.
+As the developer says: Distributed systems are hard. Conflux tries to make distributed systems more understandable.
+It aims to do what <a href="http://redux.js.org/">Redux</a> did for <a href="https://facebook.github.io/flux">Flux</a>, and what <a href="http://raft.github.io/">Raft</a> did for <a href="http://www.wikiwand.com/en/Paxos_%28computer_science%29">Paxos</a>.
+Natrually, it does this by composing the two&nbsp;ideas.</p>
+<h3 id="so-what-does-it-really-do-">So what does it really&nbsp;do?</h3>
+<p>You can build serverless applications. Which does not mean <a href="https://github.com/serverless/serverless">“serverless”</a> as in it uses <span class="caps">AWS</span> <a href="https://github.com/serverless/serverless">Lambda</a>.
+Serverless as in there is no central server, like how BitTorrent works just a cluster of nodes that coordinate with each other.
+The developer let’s know that he is working an a few example applications to help you get&nbsp;going.</p>
+<p>A quick example provided by the&nbsp;developer:</p>
+<pre><code class="lang-javascript"><span class="keyword">var</span> node = conflux({
+    id: uuid.v4(),
+    <span class="comment">// how many nodes are in the cluster?</span>
+    clusterSize: <span class="number">5</span>,
+    <span class="comment">// how should nodes communicate?</span>
+    channel: {
+        name: <span class="string">'redis'</span>
+    },
+    <span class="comment">// define your action creators</span>
+    methods: {
+        append(thing){
+            <span class="keyword">return</span> thing;
+        }
+    },
+    <span class="comment">// define your reducer</span>
+    reduce(state, action) {
+        state = state == <span class="literal">null</span> ? [] : state;
+        <span class="keyword">return</span> state.concat(action);
+    },
+});
+
+<span class="comment">// subscribe to changes</span>
+node.subscribe(() =&gt; {
+    <span class="built_in">console</span>.log(nodeB.getState().log.join(<span class="string">' '</span>));
+});
+
+<span class="comment">// perform an action</span>
+node.perform(<span class="string">'append'</span>, [<span class="string">'foo'</span>]);
+</code></pre>
+<p>When you have worked with Redux before Conflux should feel very familiar.
+You <code>subscribe()</code> to a Conflux instance, and call <code>getState()</code> inside to get the current state.
+Instead of dispatching actions directly, you <code>perform()</code> methods that <code>dispatch()</code> them.
+The methods are declared when you construct a Conflux instance which is the equivalent to how Action Creators work in&nbsp;Redux.</p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
             <p class="date"><span>27. January 2016</span></p>
             <h2><a href="/articles/marsdb/">MarsDB</a></h2>
           </header>
@@ -200,23 +251,6 @@ So that will have to wait for some other week. This week we are gonna think abou
 <p>Pick a topic which you feel comfortable with or something you find interesting and create a workshop for that topic.
 You will be using the <a href="https://github.com/workshopper/workshopper">Workshopper</a> framework which I mentioned <a href="http://daily-javascript.com/articles/workshopper/">this week</a>.
 For more detail on the challenge go to the <a href="http://daily-javascript.com/challenges/workshopper">challenge page</a>.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>21. January 2016</span></p>
-            <h2><a href="/articles/mantra/">Mantra</a></h2>
-          </header>
-          <section class="content"><p>Mantra (GitHub: <a href="https://github.com/kadirahq/mantra">kadirahq/mantra</a>, License:&nbsp;<span class="caps">MIT</span>)</p>
-<p>Mantra is an application architecture for <a href="https://www.meteor.com/">Meteor</a>.
-If you are not familair with Meteor I would strongly advice you take a look at it.
-The developers of Mantra try to achieve two main goals: High Maintainability and Future&nbsp;Proof.</p>
-<p>Maintainability is a key factor for success when working within large teams.
-Mantra achieves this by unit testing every part of the app, while following standards for <strong>everything</strong>. This makes it easy to add new users and work with&nbsp;teams.</p>
-<p>There is a very extensive spec of how a Mantra application would work which can be found <a href="https://kadirahq.github.io/mantra/">here</a>.
-I really like this approach, ‘cause it combines the best parts of all the new and shiny stuff out&nbsp;there.</p>
-<p>Today is the last day you can submit your solution for the <a href="http://daily-javascript.com/challenges/tic-tac-toe/">weekly challenge</a>. Next weeks challenge will be up tomorrow so make sure you check back then to see what I have in store for you&nbsp;next.</p>
 
           </section>
         </article>

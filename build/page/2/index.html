@@ -36,6 +36,35 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
+            <p class="date"><span>16. February 2016</span></p>
+            <h2><a href="/articles/pollinate/">Pollinate</a></h2>
+          </header>
+          <section class="content"><p>Pollinate (GitHub: <a href="https://github.com/everysquare/pollinate">everysquare/pollinate</a>, License: <span class="caps">MIT</span>, npm:&nbsp;pollinate)</p>
+<p>Pollinate is for the best I can describe a scaffolding engine. It takes a template project and uses <a href="http://mozilla.github.io/nunjucks/">Nunjucks</a> to generate the files with the names. The name comes from visualization a tree as a&nbsp;“Flower”.</p>
+<blockquote>
+<p>Think of a tree of files as a <code>Flower</code> and a source data as <code>Pollen</code>; combined together they create a fertilized project seed. Pollinate will allow you to template a set of files and store them on GitHub. When you decide to use them later you can <code>pollinate</code> them using an object of data. Each time you pollinate you can specify which files to <code>discard</code>, <code>parse</code>, or <code>move</code>.</p>
+</blockquote>
+<p>There are three components to a Pollinate&nbsp;boilerplate.</p>
+<ul>
+<li>The&nbsp;Flower</li>
+<li>The&nbsp;Pollen</li>
+<li>The&nbsp;Data</li>
+</ul>
+<p>The <code>Flower</code> is a GitHub repository which holds all of the files.
+These files can be passed through a template engine which uses the supplied&nbsp;data.</p>
+<p>The <code>Pollen</code> is just a vessel to get new data to the <code>Flower</code>.
+It can be supplied as an <span class="caps">HTTP</span> JSON endpoint, as a local file or directly as a set of&nbsp;arguments.</p>
+<p>The data can be considered as the <span class="caps">DNA</span>.
+Both sides can supply it, but the data from the Pollen takes precedence when merging the objects.
+The data supplies a list of files to act upon with the template engine along with the data to inject.
+The data can also supply file operations to move or delete files during the&nbsp;process.</p>
+<p>The developer of this project has posted an example which is very easy to follow along when you want to set up your own&nbsp;Pollinate.</p>
+<p>Don’t forget to to invest some time to rehash or practice your knowledge by checking this weeks challenge: <a href="http://daily-javascript.com/challenges/websocket-challenge/">Websocket Challenge</a>.</p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
             <p class="date"><span>12. February 2016</span></p>
             <h2><a href="/articles/weekly-challenge-2016-07/">Weekly Challenge - WebSocket Challenge</a></h2>
           </header>
@@ -306,21 +335,6 @@ The reason why I like this library is that it’s based on streams and because o
 There also is a <a href="https://github.com/soyuka/jhaml/blob/master/test/express.js">nice example</a> of how to use it in frameworks like <a href="http://expressjs.com/">Express</a></p>
 <p>For more details and documentation check the <a href="https://github.com/soyuka/jhaml"><span class="caps">README</span></a> which thoroughly explains how it works and how to use&nbsp;it.</p>
 <p>Don’t forget the submit <a href="http://daily-javascript.com/challenges/tetris-bag/">this weeks challenge</a> before Friday on when I will post the&nbsp;results.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>08. February 2016</span></p>
-            <h2><a href="/articles/javascript-by-example/">Javascript by Example</a></h2>
-          </header>
-          <section class="content"><p>Javascript by Example (GitHub: <a href="https://github.com/bmkmanoj/js-by-examples">bmkmanoj/js-by-examples</a>, License:&nbsp;<span class="caps">MIT</span>)</p>
-<p>Manoj Kumar sent in Javascript by Example which is a GitHub repo which explains “nitty gritties” of Javascript by showing code snippets with some&nbsp;description.</p>
-<p>Currently there is no particular order in how you should read it. Some of the concepts already explained are: closures, operators, bind, call, apply, function scope, hoisting and many&nbsp;more.</p>
-<p>One of the first things the authors want to make clear is that this is <strong>not</strong> a replacement for conventional learning by books, blogs and countless experimentations, but rather an additional resource to the existing set of learning&nbsp;paths.</p>
-<p>This project started as a bit of in house documentation of curtain “lesser known” concepts in Javascript. After realizing the rest of the community could benefit from this as well, it was put on&nbsp;Github.</p>
-<p>For more information and a short brief on how you can contribute to this project checkout the <a href="https://github.com/bmkmanoj/js-by-examples"><span class="caps">README</span></a>.</p>
-<p>Don’t forget to submit this weeks challenge: <a href="http://daily-javascript.com/challenges/tetris-bag/">“Tetris Bag”</a> where you need to implement the same randomization algorithm as used in the popular nineties game&nbsp;Tetris.</p>
 
           </section>
         </article>
