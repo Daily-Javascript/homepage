@@ -36,6 +36,60 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
+            <p class="date"><span>10. February 2016</span></p>
+            <h2><a href="/articles/react-native-android-sms-listener/">React Native SMS Listener</a></h2>
+          </header>
+          <section class="content"><p>SmsListener (GitHub: <a href="https://github.com/CentaurWarchief/react-native-android-sms-listener">CentaurWarchief/react-native-android-sms-listener</a>, License: <span class="caps">MIT</span>, npm:&nbsp;react-native-android-sms-listener)</p>
+<p>When you are building an app which requires some form of account validation like Whats App and Telegram using React Native.
+There is gonna be a moment that you want to verify on bases of a text message.
+CentaurWarchief has created a module so you don’t need to worry about listening for incoming&nbsp;texts.</p>
+<p>If works pretty straight forward, you attach an event listener and respond to incoming events like&nbsp;so:</p>
+<pre><code class="lang-javascript"><span class="keyword">import</span> SmsListener <span class="keyword">from</span> <span class="string">'react-native-android-sms-listener'</span>
+
+const mySubScription = SmsListener.addListener(myMessageHandler);
+
+<span class="function"><span class="keyword">function</span> <span class="title">myMessageHandler</span>(<span class="params">message</span>)</span>{
+    <span class="built_in">console</span>.log(message);
+}
+</code></pre>
+<p>This should not be unfamiliar.
+In contrast with the event listener <span class="caps">API</span> which get’s provided by the DOM, removing event listener works&nbsp;differently.</p>
+<pre><code class="lang-javascript">mySubScription.remove()
+</code></pre>
+<p>This is an example provided by the developer which demonstrates how to do authorization in the same manner as Whats App or Telegram do&nbsp;it:</p>
+<pre><code class="lang-javascript"><span class="keyword">let</span> subscription = SmsListener.addListener(message =&gt; {
+  <span class="keyword">let</span> verificationCodeRegex = <span class="regexp">/Your verification code: ([\d]{6})/</span>;
+
+  <span class="keyword">if</span> (verificationCodeRegex.test(message.body)) {
+    <span class="keyword">let</span> verificationCode = message.body.match(verificationCodeRegex)[<span class="number">1</span>];
+
+    YourPhoneVerificationApi.verifyPhoneNumber(
+      message.originatingAddress,
+      verificationCode
+    ).then(verifiedSuccessfully =&gt; {
+      <span class="keyword">if</span> (verifiedSuccessfully) {
+        subscription.remove();
+        <span class="keyword">return</span>;
+      }
+
+      <span class="keyword">if</span> (__DEV__) {
+        <span class="built_in">console</span>.info(
+          <span class="string">'Failed to verify phone `%s` using code `%s`'</span>,
+          message.originatingAddress,
+          verificationCode
+        );
+      }
+  });
+  }
+});
+</code></pre>
+<p>Sadly it only has support for Android at this point, hopefully somebody will implement the same for iOS.
+For more <span class="caps">API</span> reference check the <a href="https://github.com/CentaurWarchief/react-native-android-sms-listener"><span class="caps">README</span></a> and don’t forget to <a href="http://daily-javascript.com/challenges/tetris-bag/">challenge yourself trying to duplicate the randomization algorithm used by&nbsp;Tetris</a></p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
             <p class="date"><span>09. February 2016</span></p>
             <h2><a href="/articles/jhaml/">jHaml</a></h2>
           </header>
@@ -158,36 +212,6 @@ context.mount(<span class="built_in">document</span>.querySelector(<span class="
 Besides the amazing demo’s you can also find very expensive documentation about the <span class="caps">API</span> and some real helpful&nbsp;guides.</p>
 <p>This is by far <a href="http://samsarajs.org/demos/ParallaxCats/index.html">my favorite&nbsp;demo</a></p>
 <iframe src="http://samsarajs.org/demos/ParallaxCats/index.html" width="100%" height="480px"></iframe>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>03. February 2016</span></p>
-            <h2><a href="/articles/microwork/">Microwork.js</a></h2>
-          </header>
-          <section class="content"><p>Microwork.js (GitHub: <a href="https://github.com/yamalight/microwork">yamalight/microwork</a>, License: <span class="caps">MIT</span>, npm:&nbsp;microwork)</p>
-<p>Microwork.js is a library for simple creation of distributed micro services using <a href="https://www.rabbitmq.com">RabbitMQ</a>.
-If you are not familiar with RabbitMQ, it is a messaging server.
-Messaging enables applications to connect and scale.
-Applications can connect to each other, as components of a larger&nbsp;application.</p>
-<p>An example service that subscribe to messages from <code>do.stuff</code> topic and uses incoming&nbsp;data:</p>
-<pre><code class="lang-javascript"><span class="keyword">import</span> Microwork <span class="keyword">from</span> <span class="string">'microwork'</span>;
-
-<span class="comment">// create task runner</span>
-<span class="keyword">const</span> runner = <span class="keyword">new</span> Microwork({host: <span class="string">'my.rabbit.host'</span>, exchange: <span class="string">'my.exchange'</span>});
-
-<span class="comment">// add worker to specific topic</span>
-<span class="keyword">await</span> runner.subscribe(<span class="string">'do.stuff'</span>, (msg, reply) =&gt; {
-    <span class="comment">// Capitalize first letter of the message</span>
-    reply(msg.charAt(<span class="number">0</span>).toUpperCase() + msg.slice(<span class="number">1</span>));
-});
-
-<span class="comment">// after work is done - cleanup</span>
-<span class="keyword">await</span> runner.stop();
-</code></pre>
-<p>There are a few useful plugin already available such as: a hardware stats plugin which provides basic hardware stats about Node, a health plugin which provides basic keep-alive signal and a subscribers info plugin which provides basic information about&nbsp;subscribers.</p>
-<p>For more examples and documentation check out the <a href="http://yamalight.github.io/microwork/">Github Page</a>.</p>
 
           </section>
         </article>

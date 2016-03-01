@@ -36,6 +36,37 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
+            <p class="date"><span>05. November 2015</span></p>
+            <h2><a href="/articles/inherito/">inHerito</a></h2>
+          </header>
+          <section class="content"><p>inHerito (GitHub: <a href="/articles/inherito/Ositoozy/inherito">Ositoozy/inherito</a>, License: <span class="caps">BSD</span>, bower:&nbsp;rot.js)</p>
+<p>inHerito is a compostable factory that allows you create objects you want ease and “correct” inheritance. It allows you to use properties and function methods from other objects without overusing and over inheriting. Every object that is created gets it’s own logging information if option is set to true and allows you to keep a mindful eye on your objects. This is my take on solving the original <span class="caps">OOP</span> problem of over inheriting. Now you have “Objects Linked to Other Objects” and inherit only if you say&nbsp;so.</p>
+<p>Then the first question that popped into my head was do we need yet another design pattern, well no ofcourse not but it could be useful for bootstrapping a new application to set the tone and get the correct&nbsp;mindset.</p>
+<p>As the developer&nbsp;claims:</p>
+<blockquote>
+<p>Never be affraid again to have more than one level deep of inherited object inheritance tree. In <span class="caps">OOP</span> we usually create newer objects for the sake of inheritance and not for the sake of semantical&nbsp;correctness.</p>
+<ul>
+<li>Ex: Let’s consider a dog. A good and sane <span class="caps">OOP</span> developer would most likely create an abstract tree that resides the dog animal this way<pre><code class="lang-javascript">Animal <span class="comment">// And Followed by animal properties (ex blood, heart, etc.)</span>
+Animal.k9.dog <span class="comment">// And Followed by dog properties (bark, bite, age, how many legs, etc.)</span>
+</code></pre>
+</li>
+</ul>
+</blockquote>
+<p>But let’s say in that same program we want to make the robot dog, which semantically inherits a of the dog’s properties to begin with. But we know semantically that robot dog belongs basically from two classes. It’s not an Animal anymore but shares a lot with&nbsp;dog.</p>
+<pre><code class="lang-javascript"><span class="keyword">let</span> robotDog = dog.create({
+    inherit: [bite, bark],
+    material: metal
+});
+
+Is it a dog? <span class="literal">true</span>
+Is it a robot? <span class="literal">true</span>
+</code></pre>
+<p>This project currently is very young but I like the direction where it is going. Momentairley it can be used as a base template by just cloning the repo. Sadly there are no other ways to generate a project holding this methodologies but as the developer tells me there will be in the&nbsp;future.</p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
             <p class="date"><span>04. November 2015</span></p>
             <h2><a href="/articles/rotjs/">Rot.js</a></h2>
           </header>
@@ -149,126 +180,6 @@ Port is to run your development server on (defaults to&nbsp;3000).</p>
 </code></pre>
 <p>When you wanna run it with the Redux-DevTools enabled&nbsp;use:</p>
 <pre><code class="lang-bash">DEBUG=<span class="literal">true</span> npm start
-</code></pre>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>28. October 2015</span></p>
-            <h2><a href="/articles/vstack-validator/">vstack-validator</a></h2>
-          </header>
-          <section class="content"><p>Vstack-validator (GitHub: <a href="https://github.com/vslinko/vstack-validator">vslinko/vstack-validator</a>, License: <span class="caps">MIT</span>, npm:&nbsp;vstack-validator)</p>
-<p>When you are working with very complex and deeply nested data structures, validation can become a real pain.
-Vstack-validator tries to solve this problem by providing you with a declarative <span class="caps">API</span> which consists of 3 methods: a validator, a constraint and a schema.
-The Validator is a function that receives a value and returns boolean result of validation.
-Constraint is a function that receives a value and returns validation metadata.
-With a Schema we create declarations of the constraints in a tree, which in turn can be used to validate an object, which would look like&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="keyword">import</span> {schema} <span class="keyword">from</span> <span class="string">'vstack-validator'</span>;
-
-<span class="keyword">const</span> userSchema = schema.type(<span class="string">'user'</span>, {
-    email: {
-        notEmpty: schema.constraint(schema.validators.isNotEmpty, <span class="string">'Email is empty'</span>),
-        email: schema.constraint(schema.validators.isEmail, <span class="string">'Email is not valid'</span>),
-    },
-    password: schema.optional({
-        notEmpty: schema.constraint(schema.validators.isNotEmpty, <span class="string">'Password is empty'</span>),
-        minLength: schema.minLength(<span class="number">3</span>, <span class="string">'Password is less than 3'</span>),
-    }),
-});
-
-<span class="keyword">const</span> itemSchema = schema.type(<span class="string">'item'</span>, {
-    name: {
-        notEmpty: schema.constraint(schema.validators.isNotEmpty, <span class="string">'Name is empty'</span>),
-    },
-});
-
-<span class="keyword">const</span> cartSchema = schema.type(<span class="string">'cart'</span>, {
-    user: userSchema,
-    items: schema.list(itemSchema),
-});
-
-<span class="keyword">let</span> validationData = {
-    user: {
-        email: <span class="string">''</span>,
-        password: <span class="string">''</span>,
-    },
-    items: [
-        { name: <span class="string">''</span> },
-    ],
-};
-
-cartSchema.check(validationData)
-          .then((constraintResult) =&gt; <span class="built_in">console</span>.log(constraintResult));
-</code></pre>
-<p>When the <code>check</code> is executed <code>constraintResult</code> it would look something like&nbsp;this:</p>
-<pre><code class="lang-javascript">{
-    valid: <span class="literal">false</span>,
-    message: <span class="string">'Objectisnotvalid'</span>,
-    children: {
-        user: {
-            valid: <span class="literal">false</span>,
-            message: <span class="string">'Objectisnotvalid'</span>,
-            children: {
-                email: {
-                    valid: <span class="literal">false</span>,
-                    message: <span class="string">'Valueisnotvalid'</span>,
-                    children: {
-                        notEmpty: {
-                            valid: <span class="literal">false</span>,
-                            message: <span class="string">'Emailisempty'</span>,
-                            children: <span class="literal">null</span>
-                        },
-                        email: {
-                            valid: <span class="literal">false</span>,
-                            message: <span class="string">'Emailisnotvalid'</span>,
-                            children: <span class="literal">null</span>
-                        }
-                    }
-                },
-                password: {
-                    valid: <span class="literal">false</span>,
-                    message: <span class="string">'Valueisnotvalid'</span>,
-                    children: {
-                        notEmpty: {
-                            valid: <span class="literal">false</span>,
-                            message: <span class="string">'Passwordisempty'</span>,
-                            children: <span class="literal">null</span>
-                        },
-                        minLength: {
-                            valid: <span class="literal">false</span>,
-                            message: <span class="string">'Passwordislessthan3'</span>,
-                            children: <span class="literal">null</span>
-                        }
-                    }
-                }
-            }
-        },
-        items: {
-            valid: <span class="literal">false</span>,
-            message: <span class="string">'Arrayisnotvalid'</span>,
-            children: [
-                {
-                    valid: <span class="literal">false</span>,
-                    message: <span class="string">'Objectisnotvalid'</span>,
-                    children: {
-                        name: {
-                            valid: <span class="literal">false</span>,
-                            message: <span class="string">'Valueisnotvalid'</span>,
-                            children: {
-                                notEmpty: {
-                                    valid: <span class="literal">false</span>,
-                                    message: <span class="string">'Nameisempty'</span>,
-                                    children: <span class="literal">null</span>
-                                }
-                            }
-                        }
-                    }
-                }
-            ]
-        }
-    }
-}
 </code></pre>
 
           </section>
