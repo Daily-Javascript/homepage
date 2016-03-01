@@ -1,5 +1,5 @@
 ---
-title: 'Let it snow results'
+title: 'Mandelbrot Challenge results'
 date: '2016-01-06'
 author: ramon
 template: challenge.jade
