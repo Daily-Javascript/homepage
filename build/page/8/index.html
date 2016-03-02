@@ -36,6 +36,48 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
+            <p class="date"><span>23. December 2015</span></p>
+            <h2><a href="/articles/shipit/">Shipit</a></h2>
+          </header>
+          <section class="content"><p>Shipit (GitHub: <a href="https://github.com/shipitjs/shipit">shipitjs/shipit</a>, License: <span class="caps">MIT</span>, npm:&nbsp;shipit)</p>
+<p>Shipit is an automation engine and a deployment tool written for&nbsp;Node.</p>
+<p>Shipit is an alternative for <a href="http://capistranorb.com/">Capistrano</a>. If you are not familiar Capistrano, it is a remote server automation and deployment tool written in Ruby.
+Since Capistrano was written in Ruby, you needed to be comfortable working in Ruby and be familiar with the tooling that comes with it.
+Nowadays we are using Javascript for everything. Web servers, build tooling, bot’s you can even control a drone using Javascript.
+So it makes sense to do deployment in Javascript as&nbsp;well.</p>
+<p>Shipit’s task structure is very similar to that of <a href="http://gulpjs.com/">Gulp</a>. Since they are both based on <a href="https://github.com/orchestrator/orchestrator">orchestrator</a>.</p>
+<p>Besides the main <span class="caps">API</span> for handling remote work, there is also a dedicated deploy package based on git and rsync commands.
+With which you can deploy tag, branch or commit. Add additional behavior using hooks, build your project locally or remotely and you can do easy&nbsp;rollback.</p>
+<p>A simple <code>shipitfile.js</code> would look something like&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span> (<span class="params">shipit</span>) </span>{
+  <span class="built_in">require</span>(<span class="string">'shipit-deploy'</span>)(shipit);
+
+  shipit.initConfig({
+    <span class="keyword">default</span>: {
+      workspace: <span class="string">'/tmp/github-monitor'</span>,
+      deployTo: <span class="string">'/tmp/deploy_to'</span>,
+      repositoryUrl: <span class="string">'https://github.com/user/repo.git'</span>,
+      ignores: [<span class="string">'.git'</span>, <span class="string">'node_modules'</span>],
+      rsync: [<span class="string">'--del'</span>],
+      keepReleases: <span class="number">2</span>,
+      key: <span class="string">'/path/to/key'</span>,
+      shallowClone: <span class="literal">true</span>
+    },
+    staging: {
+      servers: <span class="string">'user@myserver.com'</span>
+    }
+  });
+};
+</code></pre>
+<p>The <span class="caps">CLI</span> structure works like: <code>shipit &lt;environment&gt; &lt;tasks ...&gt;</code>.
+So with a <code>shipitfile.js</code> like&nbsp;this:</p>
+<pre><code class="lang-bash">shipit staging deploy
+</code></pre>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
             <p class="date"><span>22. December 2015</span></p>
             <h2><a href="/articles/siphon/">Siphon</a></h2>
           </header>
@@ -116,160 +158,6 @@ The browser accesses a proxy of the server’s methods that are being required. 
 <p>Marco describes it as “A Painkiller for Isomorphic Data Fetching”. With which I totally agree. When developing Isomorphic/Universal apps data retrieval can be a real hassle and this little marble will take way a lot of that&nbsp;pain.</p>
 <p>Of course there are established libraries and techniques for solving this issue such as: <a href="https://facebook.github.io/relay/">Relay</a> and <a href="https://github.com/RickWong/react-transmit">React-Transmit</a>. The downside of these approaches is that you are doing a commitment to a framework which could collide with your business philosophy or you just do not like React. Don’t get me wrong I love React, but I can understand if some developer do not or need something more agnostic and now you&nbsp;can.</p>
 <p>I could go into the details of how you would use it but I doubt that it will be more complete than the great post Marco did. So I won’t and instead refer you to the <a href="https://medium.com/@MarcFly1103/a-painkiller-for-isomorphic-data-fetching-c829ecc84274#.hqabvytiu">post on medium</a> and for more extensive documentation check the <a href="https://github.com/d-oliveros/isomorphine"><span class="caps">README</span></a>.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>15. December 2015</span></p>
-            <h2><a href="/articles/runjs/">Runjs</a></h2>
-          </header>
-          <section class="content"><p>Runjs (GitHub: <a href="https://github.com/pawelgalazka/runjs">pawelgalazka/runjs</a>, License: <span class="caps">MIT</span>, npm:&nbsp;runjs)</p>
-<p>Back in the days we used to do everything with Makefile’s now we have Gulpfile’s, Gruntfile’s and probably too much to put in a list.
-Now there is a new friend in the build family, Runjs, which is a minimalistic framework for executing build&nbsp;tasks.</p>
-<p>It’s <span class="caps">API</span> consists of just a few functions run, watch, generate and call. With these functions you would create a runfile.js.
-A simple runfile would look something like&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="keyword">import</span> {run} <span class="keyword">from</span> <span class="string">'runjs'</span>;
-
-<span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">showFiles</span>(<span class="params"></span>)</span>{
-    run(<span class="string">'ls'</span>);
-}
-
-<span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">mkdir</span>(<span class="params">name</span>)</span>{
-    run(<span class="string">`mkdir <span class="subst">${name}</span>`</span>);
-}
-</code></pre>
-<p>These tasks can be executed via the Runjs cli like&nbsp;so:</p>
-<pre><code class="lang-bash">run showFiles
-run mkdir someDirName
-</code></pre>
-<p>It can do everything from watching files to generating new files based on configured templates etc.
-What I like about this little framework is that it does not require plugins but just Node packages for extra functionality. This in contrast to Gulp where most plugins are wrapped as a gulp-plugin and using libraries that do not have this is as&nbsp;hassle.</p>
-<p>To help you get started this is what full runfile would look&nbsp;like:</p>
-<pre><code class="lang-javascript"><span class="keyword">import</span> {run, generate, watch} <span class="keyword">from</span> <span class="string">'runjs'</span>;
-<span class="keyword">import</span> fs <span class="keyword">from</span> <span class="string">'fs'</span>;
-<span class="keyword">import</span> crypto <span class="keyword">from</span> <span class="string">'crypto'</span>;
-<span class="keyword">import</span> {sleep} <span class="keyword">from</span> <span class="string">'sleep'</span>;
-<span class="keyword">import</span> express <span class="keyword">from</span> <span class="string">'express'</span>;
-
-<span class="keyword">let</span> task = {};
-
-<span class="function"><span class="keyword">function</span> <span class="title">timeHash</span>(<span class="params"></span>)</span>{
-    <span class="keyword">let</span> time = <span class="built_in">Date</span>.now();
-    <span class="keyword">return</span> crypto.createHash(<span class="string">'sha1'</span>).update(time.toString()).digest(<span class="string">'hex'</span>);
-}
-
-<span class="function"><span class="keyword">function</span> <span class="title">exist</span>(<span class="params">path</span>)</span>{
-    <span class="keyword">try</span> {
-        fs.accessSync(path, fs.F_OK);
-        <span class="keyword">return</span> <span class="literal">true</span>;
-    } <span class="keyword">catch</span>(e){
-        <span class="keyword">return</span> <span class="literal">false</span>;
-    }
-}
-
-task.echo = () =&gt; {
-    <span class="built_in">console</span>.log(<span class="string">'echo'</span>);
-};
-
-task.install = () =&gt; {
-    run(<span class="string">'npm install'</span>);
-    run(<span class="string">'jspm install'</span>);
-    task[<span class="string">'build:dev:configure'</span>](<span class="literal">true</span>);
-};
-
-task.uninstall = () =&gt; {
-    task[<span class="string">'clean:dist'</span>]();
-    task[<span class="string">'clean:cache'</span>]();
-    run(<span class="string">'rm -rf node_modules'</span>);
-};
-
-task.test = () =&gt; {
-    run(<span class="string">'mocha'</span>);
-};
-
-task[<span class="string">'clean:dist'</span>] = () =&gt; {
-    run(<span class="string">'rm -rf dist/*'</span>);
-};
-
-task.cmd = (...args) =&gt; {
-    run(args.join(<span class="string">' '</span>));
-};
-
-task[<span class="string">'build:dev:configure'</span>] = (force) =&gt; {
-    <span class="keyword">if</span>(!exist(<span class="string">'dist/react.bundle.js'</span>) || force){
-        run(<span class="string">'jspm bundle react + react-dom dist/react.bundle.js --inject'</span>);
-    }
-};
-
-task.watch = () =&gt; {
-    watch(<span class="string">'src/app.less'</span>, () =&gt; {
-        run(<span class="string">'lessc src/app.less dist/app.css --source-map'</span>);
-    });
-
-    watch(<span class="string">'src/*.jsx'</span>, (path) =&gt; {
-        <span class="keyword">let</span> outPath = path.split(<span class="string">'/'</span>);
-        outPath.shift();
-        outPath.unshift(<span class="string">'dist'</span>);
-        outPath = outPath.join(<span class="string">'/'</span>);
-        outPath = outPath.split(<span class="string">'.'</span>);
-        outPath.pop();
-        outPath.push(<span class="string">'js'</span>);
-        outPath = outPath.join(<span class="string">'.'</span>);
-        run(<span class="string">`babel <span class="subst">${path}</span> --out-file <span class="subst">${outPath}</span> --source-maps inline`</span>);
-    });
-};
-
-task[<span class="string">'build:template'</span>] = (src, dst, context) =&gt; {
-    generate(src, dst, context);
-};
-
-task[<span class="string">'build:dev'</span>] = () =&gt; {
-    run(<span class="string">'lessc src/app.less dist/app.css --source-map-map-inline'</span>);
-    run(<span class="string">'babel src --out-dir dist --source-maps inline'</span>);
-    run(<span class="string">'rm dist/config.js'</span>);
-    task[<span class="string">'build:template'</span>](<span class="string">'src/index.tpl.html'</span>, <span class="string">'dist/index.html'</span>, {compiled: <span class="literal">false</span>});
-    task[<span class="string">'build:dev:configure'</span>]();
-};
-
-task[<span class="string">'build:dist'</span>] = () =&gt; {
-    task[<span class="string">'clean:dist'</span>]();
-    <span class="keyword">let</span> fingerprint = timeHash();
-    task[<span class="string">'build:template'</span>](<span class="string">'src/index.tpl.html'</span>, <span class="string">'dist/index.html'</span>, {compiled: <span class="literal">true</span>, fingerprint: fingerprint});
-    run(<span class="string">`jspm bundle-sfx app dist/app.<span class="subst">${fingerprint}</span>.js --minify`</span>);
-    run(<span class="string">`cleancss src/app.css -o dist/app.<span class="subst">${fingerprint}</span>.css`</span>);
-};
-
-task[<span class="string">'serve:express'</span>] = (prod) =&gt; {
-    <span class="keyword">let</span> port = <span class="number">9090</span>;
-    <span class="keyword">let</span> app = express();
-    app.use(express.static(<span class="string">'dist'</span>, {etag: <span class="literal">true</span>}));
-    <span class="keyword">if</span>(!prod){
-        app.use(express.static(<span class="string">'src'</span>, {etag: <span class="literal">true</span>}));
-    }
-    <span class="keyword">let</span> server = app.listen(port);
-    <span class="built_in">console</span>.log(<span class="string">'Express static server listening at http://localhost:%s'</span>, port);
-};
-
-task[<span class="string">'serve:dev'</span>] = () =&gt; {
-    task[<span class="string">'build:dev'</span>]();
-    task[<span class="string">'serve:express'</span>]();
-    run(<span class="string">'live-reload --port 9091 dist'</span>, {<span class="keyword">async</span>: <span class="literal">true</span>});
-    sleep(<span class="number">1</span>);
-    run(<span class="string">'open -a "Google Chrome" http://localhost:9090'</span>);
-    task.watch();
-};
-
-task[<span class="string">'serve:dist'</span>] = () =&gt; {
-    task[<span class="string">'build:dist'</span>]();
-    task[<span class="string">'serve:express'</span>](<span class="literal">true</span>);
-    sleep(<span class="number">1</span>);
-    run(<span class="string">'open -a "Google Chrome" http://localhost:9090'</span>);
-};
-
-
-<span class="keyword">export</span> <span class="keyword">default</span> task;
-</code></pre>
 
           </section>
         </article>
