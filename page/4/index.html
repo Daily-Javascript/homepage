@@ -36,6 +36,52 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
+            <p class="date"><span>04. February 2016</span></p>
+            <h2><a href="/articles/samsarajs/">SamsaraJS</a></h2>
+          </header>
+          <section class="content"><p>SamsaraJS (GitHub: <a href="https://github.com/dmvaldman/samsara">dmvaldman/samsara</a>, License: <span class="caps">MIT</span>, npm:&nbsp;samsarajs)</p>
+<p>SamsaraJS is a functional reactive library for animating layout.
+It tries to provides a language for positioning, orienting and sizing <span class="caps">DOM</span> elements, and animating those properties over time.
+Everything within Samsara is based on streams. This means that can subscribe to for instance the user input and preform curtain actions when the input occurs. By&nbsp;example:</p>
+<pre><code class="lang-javascript"><span class="keyword">const</span> Surface = Samsara.<span class="caps">DOM</span>.Surface;
+<span class="keyword">const</span> Context = Samsara.<span class="caps">DOM</span>.Context;
+<span class="keyword">const</span> Transform = Samsara.Core.Transform;
+<span class="keyword">const</span> MouseInput = Samsara.Inputs.MouseInput;
+
+<span class="keyword">const</span> surface = <span class="keyword">new</span> Surface({
+    content: <span class="string">'drag me'</span>,
+    size: [<span class="number">100</span>,<span class="number">100</span>],
+    properties : {
+        background : <span class="string">'#<span class="caps">FF0000</span>'</span>
+    }
+});
+
+<span class="keyword">const</span> mouse = <span class="keyword">new</span> MouseInput();
+
+<span class="comment">// The mouse now listens to the <span class="caps">DOM</span> events originating from the surface</span>
+mouse.subscribe(surface);
+
+<span class="comment">// Map the mouse data to a translation</span>
+<span class="keyword">const</span> transform = mouse.map(data =&gt; Transform.translate(data.cumulate));
+
+<span class="keyword">const</span> context = <span class="keyword">new</span> Context();
+context.add({transform : transform}).add(surface);
+context.mount(<span class="built_in">document</span>.querySelector(<span class="string">'#myAwesomeApp'</span>));
+</code></pre>
+<p>A great thing about SamsaraJS is that it does not have any opinion about content. It’s only responsibility is&nbsp;presentation.</p>
+<blockquote>
+<p>It moves rectangles around the screen — what you do inside those rectangles is up to&nbsp;you.</p>
+</blockquote>
+<p>A sad thing about this library is that it does require a <span class="caps">CSS</span> sheet to be loaded, which can be found <code>node_modules/samsarajs/dist/samsara.css</code>.</p>
+<p>The developer has posted some really amazing examples on <a href="http://www.samsarajs.org/">samsarajs.org</a> which you should definitely check out.
+Besides the amazing demo’s you can also find very expensive documentation about the <span class="caps">API</span> and some real helpful&nbsp;guides.</p>
+<p>This is by far <a href="http://samsarajs.org/demos/ParallaxCats/index.html">my favorite&nbsp;demo</a></p>
+<iframe src="http://samsarajs.org/demos/ParallaxCats/index.html" width="100%" height="480px"></iframe>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
             <p class="date"><span>03. February 2016</span></p>
             <h2><a href="/articles/microwork/">Microwork.js</a></h2>
           </header>
@@ -192,49 +238,6 @@ posts.insertAll(
 </code></pre>
 <p>For more in depth examples and documentation check the <a href="https://github.com/c58/marsdb"><span class="caps">README</span> file</a>.</p>
 <p>A small reminder to challenge yourself. This week we will be focusing on transferring knowledge using the <a href="http://daily-javascript.com/articles/workshopper">workshopper framework</a> head over to the <a href="http://daily-javascript.com/challenges/workshopper">challenge page</a> for more&nbsp;details.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>26. January 2016</span></p>
-            <h2><a href="/articles/preact/">Preact</a></h2>
-          </header>
-          <section class="content"><p>Preact (GitHub: <a href="https://github.com/developit/preact">developit/preact</a>, License: <span class="caps">MIT</span>, npm:&nbsp;preact)</p>
-<p>Preact is an attempt to recreate the core value proposition of React using as little code as possible.
-It is far to say that the developers succeeded in this, since it’s only around 3kb when minified and&nbsp;gzipped.</p>
-<p>The library retains a large amount of compatibility with React. Note that only the <a href="https://facebook.github.io/react/blog/2015/10/07/react-v0.14.html#stateless-functional-components">stateless functional components</a> and <a href="https://facebook.github.io/react/docs/reusable-components.html#es6-classes"><span class="caps">ES6</span> Classes interface</a> are available for&nbsp;use.</p>
-<p>It already has a few add-ons such as <a href="http://git.io/preact-router">a router</a>, <a href="http://git.io/preact-render-to-string">an universal renderer</a> and <a href="https://github.com/developit/preact-compat">a compatibility layer for other React modules</a>.</p>
-<p>A full list of demo’s, add-ons and libraries can be found on the <a href="http://developit.github.io/preact/">Github Page</a>.</p>
-<p>Let’s take a look on how we work with&nbsp;it.</p>
-<pre><code class="lang-javascript"><span class="comment">// import the stuff we want to use</span>
-<span class="keyword">import</span> { h, render, Component } <span class="keyword">from</span> <span class="string">'preact'</span>;
-
-<span class="comment">// Tell Babel to transform <span class="caps">JSX</span> into h() calls:</span>
-<span class="comment">/** @jsx h */</span>
-
-<span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>{
-    render() {
-        <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="title">h1</span>&gt;</span>My Super Awesome App<span class="tag">&lt;/<span class="title">h1</span>&gt;</span>;</span>
-    }
-}
-
-<span class="comment">// render an instance of App into &lt;body&gt;:</span>
-render(<span class="xml"><span class="tag">&lt;<span class="title">App</span> /&gt;</span>, document.body);</span>
-</code></pre>
-<p>As you can see it’s very similar to React but only 3kb.
-It comes with the same set of lifecycle&nbsp;events:</p>
-<ul>
-<li>componentWillMount</li>
-<li>componentDidMount</li>
-<li>componentWillUnmount</li>
-<li>componentDidUnmount</li>
-<li>componentWillReceiveProps</li>
-<li>shouldComponentUpdate</li>
-<li>componentWillUpdate</li>
-<li>componentDidUpdate</li>
-</ul>
-<p>For more examples check the <a href="https://github.com/developit/preact-compat"><span class="caps">README</span></a> or the <a href="http://developit.github.io/preact/">Github Page</a> where you can find some amazing examples posted by the&nbsp;developer.</p>
 
           </section>
         </article>

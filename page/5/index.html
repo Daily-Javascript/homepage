@@ -36,6 +36,49 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
+            <p class="date"><span>26. January 2016</span></p>
+            <h2><a href="/articles/preact/">Preact</a></h2>
+          </header>
+          <section class="content"><p>Preact (GitHub: <a href="https://github.com/developit/preact">developit/preact</a>, License: <span class="caps">MIT</span>, npm:&nbsp;preact)</p>
+<p>Preact is an attempt to recreate the core value proposition of React using as little code as possible.
+It is far to say that the developers succeeded in this, since it’s only around 3kb when minified and&nbsp;gzipped.</p>
+<p>The library retains a large amount of compatibility with React. Note that only the <a href="https://facebook.github.io/react/blog/2015/10/07/react-v0.14.html#stateless-functional-components">stateless functional components</a> and <a href="https://facebook.github.io/react/docs/reusable-components.html#es6-classes"><span class="caps">ES6</span> Classes interface</a> are available for&nbsp;use.</p>
+<p>It already has a few add-ons such as <a href="http://git.io/preact-router">a router</a>, <a href="http://git.io/preact-render-to-string">an universal renderer</a> and <a href="https://github.com/developit/preact-compat">a compatibility layer for other React modules</a>.</p>
+<p>A full list of demo’s, add-ons and libraries can be found on the <a href="http://developit.github.io/preact/">Github Page</a>.</p>
+<p>Let’s take a look on how we work with&nbsp;it.</p>
+<pre><code class="lang-javascript"><span class="comment">// import the stuff we want to use</span>
+<span class="keyword">import</span> { h, render, Component } <span class="keyword">from</span> <span class="string">'preact'</span>;
+
+<span class="comment">// Tell Babel to transform <span class="caps">JSX</span> into h() calls:</span>
+<span class="comment">/** @jsx h */</span>
+
+<span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>{
+    render() {
+        <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="title">h1</span>&gt;</span>My Super Awesome App<span class="tag">&lt;/<span class="title">h1</span>&gt;</span>;</span>
+    }
+}
+
+<span class="comment">// render an instance of App into &lt;body&gt;:</span>
+render(<span class="xml"><span class="tag">&lt;<span class="title">App</span> /&gt;</span>, document.body);</span>
+</code></pre>
+<p>As you can see it’s very similar to React but only 3kb.
+It comes with the same set of lifecycle&nbsp;events:</p>
+<ul>
+<li>componentWillMount</li>
+<li>componentDidMount</li>
+<li>componentWillUnmount</li>
+<li>componentDidUnmount</li>
+<li>componentWillReceiveProps</li>
+<li>shouldComponentUpdate</li>
+<li>componentWillUpdate</li>
+<li>componentDidUpdate</li>
+</ul>
+<p>For more examples check the <a href="https://github.com/developit/preact-compat"><span class="caps">README</span></a> or the <a href="http://developit.github.io/preact/">Github Page</a> where you can find some amazing examples posted by the&nbsp;developer.</p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
             <p class="date"><span>25. January 2016</span></p>
             <h2><a href="/articles/pressure/">Pressure</a></h2>
           </header>
@@ -128,28 +171,6 @@ Which is a great thing if you are teaching people how are still scared of the te
 The <code>workshopper</code> package is largely concerned with the menu system and some basic command-line parsing but much of the work for executing the exercise validation is handled by <a href="http://github.com/rvagg/workshopper-exercise">workshopper-exercise</a>.</p>
 <p>I really like this project because it’s a nice and quick way to really get into how something works. For instance <a href="https://github.com/timoxley/functional-javascript-workshop">this workshop on functional Javascript</a>.</p>
 <p>If you did not submit you solution to this weeks challenge, creating Tic Tac Toe, I’d advice you to get a move on it because there is only day remaining. If you need to refresh you memory on the challenge head over to <a href="http://daily-javascript.com/challenges/tic-tac-toe/">the challenge page</a>.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>18. January 2016</span></p>
-            <h2><a href="/articles/nodal/">Nodal</a></h2>
-          </header>
-          <section class="content"><p>Nodal (GitHub: <a href="https://github.com/keithwhor/nodal">keithwhor/nodal</a>, License: <span class="caps">MIT</span>, npm:&nbsp;nodal)</p>
-<p>Nodal is a web server and <span class="caps">API</span> framework for Node.js. It is built upon an ideology of a robust, scalable microservice architecture.
-It borrows a lot from <a href="http://rubyonrails.org/">Rails</a> and <a href="https://www.djangoproject.com/">Django</a> so working with the framework made me feel right at home since I used to do a lot of Rails.
-With familiar commands such as: <code>nodal db:migrate</code>, <code>nodal g:controller</code> et&nbsp;cetra.</p>
-<p>One of the features that really blew me away was how a scaffold <span class="caps">CRUD</span> handles query parameters.
-It uses the <code>.where(this.params.query)</code> where the query params will be applied as a filter.
-Which uses a very similar syntax as the <a href="https://docs.djangoproject.com/en/1.9/topics/db/queries/#retrieving-specific-objects-with-filters">filter methods in Django’s <span class="caps">ORM</span></a>.</p>
-<p>The framework is configured to use <a href="http://www.postgresql.org/">Postgresql</a> as a database, which is a great idea in my opinion.
-Especially since the framework tries to aim at developer who want a little more guidance in their development process to get familiar with Node.js and the Javascript eco system in&nbsp;general.</p>
-<p>The developer <a href="https://youtu.be/IxBXkFbUqtk">posted a screencast</a> of him setting up a very simple twitter clone which I recommend you&nbsp;watch.</p>
-<iframe width="100%" height="480" src="https://www.youtube.com/embed/IxBXkFbUqtk" frameborder="0" allowfullscreen></iframe>
-
-<p>And there will be more screencast’s in the future. This will definitely be part of the next <span class="caps">API</span> I’m gonna&nbsp;build.</p>
-<p>Don’t forget to challenge your self this week. There is still a challenge running which is <a href="http://daily-javascript.com/challenges/tic-tac-toe/">Make Tic Tac Toe in Javascript</a> but make sure you submit it before Friday is you want it to be shown in the weekly&nbsp;results.</p>
 
           </section>
         </article>
