@@ -35,6 +35,52 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
+            <p class="date"><span>22. February 2016</span></p>
+            <h2><a href="/articles/realm-react-native/">Realm React Native</a></h2>
+          </header>
+          <section class="content"><p>Realm (GitHub: <a href="https://github.com/realm/realm-js">realm/realm-js</a>, License: Apache-2.0, npm:&nbsp;realm)</p>
+<p>Today at Facebook’s React.js Conference, The Realm team launched a new Realm mobile database designed for React Native.
+This database should offers easy object persistence and full query capabilities.
+The performance profile is usually 2–10x faster than existing options such as SQLite and&nbsp;CoreData.</p>
+<p>When you are not familiar with Realm then you don’t know that, it was designed from the ground up to enable reactive app development.
+This is possible via live objects, change events, and support for <a href="https://realm.io/news/unidirectional-data-flow-in-swift/">unidirectional data flows</a>.</p>
+<p>By&nbsp;example:</p>
+<pre><code class="lang-javascript"><span class="keyword">const</span> Realm = <span class="built_in">require</span>(<span class="string">'realm'</span>);
+
+<span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>{}
+Person.schema = {
+    name: <span class="string">'Person'</span>,
+    primaryKey: <span class="string">'name'</span>,
+    properties: {
+        name: <span class="string">'string'</span>,
+        age: {type: <span class="string">'int'</span>, <span class="keyword">default</span>: <span class="number">0</span>},
+    },
+};
+
+<span class="keyword">const</span> realm = <span class="keyword">new</span> Realm({schema: [Person]});
+
+<span class="comment">// Query</span>
+<span class="keyword">let</span> people = realm.objects(<span class="string">'Person'</span>, <span class="string">'age &gt;= 17'</span>);
+people.length <span class="comment">// =&gt; 0</span>
+
+<span class="comment">// Write</span>
+realm.write(() =&gt; {
+    savedPerson = realm.create(<span class="string">'Person'</span>, {
+        name: <span class="string">'Hal Incandenza'</span>,
+        age: <span class="number">17</span>,
+    });
+});
+
+<span class="comment">// Queries are updated in real-time</span>
+people.length <span class="comment">// =&gt; 1</span>
+</code></pre>
+<p>For more information and full documentation check the <a href="https://realm.io/">Realm website</a> where the developer have posted a lot of amazing examples to help you get&nbsp;started.</p>
+<p>Don’t forget to check out the challenge section. <a href="http://http://daily-javascript.com/challenges/websocket-challenge-part-two">This weeks challenge</a> extends on last weeks challenge so if you didn’t do that challenge you have some catching up to do. If you have great ideas for next challenges please reach out to me on twitter <a href="http://twitter.com/DailyJavascript">@DailyJavascript</a>.</p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
             <p class="date"><span>19. February 2016</span></p>
             <h2><a href="/articles/weekly-challenge-2016-08/">Weekly Challenge - WebSocket Challenge part two</a></h2>
           </header>
@@ -164,176 +210,6 @@ The data supplies a list of files to act upon with the template engine along wit
 The data can also supply file operations to move or delete files during the&nbsp;process.</p>
 <p>The developer of this project has posted an example which is very easy to follow along when you want to set up your own&nbsp;Pollinate.</p>
 <p>Don’t forget to to invest some time to rehash or practice your knowledge by checking this weeks challenge: <a href="http://daily-javascript.com/challenges/websocket-challenge/">Websocket Challenge</a>.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>12. February 2016</span></p>
-            <h2><a href="/articles/weekly-challenge-2016-07/">Weekly Challenge - WebSocket Challenge</a></h2>
-          </header>
-          <section class="content"><p><img style="width: 100%; display:block;" src="http://daily-javascript.com/challenges/websocket-challenge/header.png" ></p>
-<p>Sadly this weeks challenge did also not get a very good turn out. I know it should not have been to hard to complete this challenge, still I received two submissions for it. <a href="/articles/weekly-challenge-2016-07/">The results can be found here</a>. If you have an idea how we could get more people to sent in their submissions, please reach out to me via twitter: <a href="https://twitter.com/DailyJavascript">@DailyJavascript</a>.</p>
-<p>For this weeks challenge you will be putting together a WebSocket server to handle chat messages.
-This is gonna be the first challenge in a three week series. The additions to the project will still be a surprise for now.
-To make sure you implement these challenges correctly I will provide you with some&nbsp;tests.</p>
-<p>For this weeks challenge your server needs to pass the following&nbsp;tests:</p>
-<pre><code class="lang-javascript"><span class="pi">'use strict'</span>;
-
-<span class="keyword">const</span> should = <span class="built_in">require</span>(<span class="string">'should'</span>);
-<span class="keyword">const</span> io = <span class="built_in">require</span>(<span class="string">'socket.io-client'</span>);
-
-<span class="keyword">const</span> socketURL = <span class="string">'http://localhost:5000'</span>;
-
-<span class="keyword">const</span> options = {
-  transports: [<span class="string">'websocket'</span>],
-  <span class="string">'force new connection'</span>: <span class="literal">true</span>
-};
-
-<span class="keyword">const</span> chatUser1 = {<span class="string">'name'</span>:<span class="string">'Tom'</span>};
-<span class="keyword">const</span> chatUser2 = {<span class="string">'name'</span>:<span class="string">'Sally'</span>};
-<span class="keyword">const</span> chatUser3 = {<span class="string">'name'</span>:<span class="string">'Dana'</span>};
-
-describe(<span class="string">'Testing The Chat Server'</span>, () =&gt; {
-
-  it(<span class="string">'Should broadcast new user once they connect'</span>, (done) =&gt; {
-    <span class="keyword">let</span> client = io.connect(socketURL, options);
-
-    client.on(<span class="string">'connect'</span>, (data) =&gt; {
-      client.emit(<span class="string">'connection name'</span>,chatUser1);
-    });
-
-    client.on(<span class="string">'new user'</span>, (usersName) =&gt; {
-      usersName.should.be.type(<span class="string">'string'</span>);
-      usersName.should.equal(chatUser1.name + <span class="string">' has joined.'</span>);
-      client.disconnect();
-      done();
-    });
-  });
-
-
-  it(<span class="string">'Should broadcast new user to all users'</span>, (done) =&gt; {
-    <span class="keyword">let</span> client1 = io.connect(socketURL, options);
-
-    client1.on(<span class="string">'connect'</span>, (data) =&gt; {
-      client1.emit(<span class="string">'connection name'</span>, chatUser1);
-      <span class="keyword">let</span> client2 = io.connect(socketURL, options);
-
-      client2.on(<span class="string">'connect'</span>, (data) =&gt; {
-        client2.emit(<span class="string">'connection name'</span>, chatUser2);
-      });
-
-      client2.on(<span class="string">'new user'</span>, (usersName) =&gt; {
-        usersName.should.equal(chatUser2.name + <span class="string">' has joined.'</span>);
-        client2.disconnect();
-      });
-
-    });
-
-    <span class="keyword">let</span> numberOfUsers = <span class="number">0</span>;
-    client1.on(<span class="string">'new user'</span>, (usersName) =&gt; {
-      numberOfUsers += <span class="number">1</span>;
-
-      <span class="keyword">if</span>(numberOfUsers === <span class="number">2</span>){
-        usersName.should.equal(chatUser2.name + <span class="string">' has joined.'</span>);
-        client1.disconnect();
-        done();
-      }
-    });
-  });
-
-  it(<span class="string">'Should be able to broadcast messages'</span>, (done) =&gt; {
-    <span class="keyword">let</span> client1, client2, client3;
-    <span class="keyword">let</span> message = <span class="string">'Hello World'</span>;
-    <span class="keyword">let</span> messages = <span class="number">0</span>;
-
-    <span class="keyword">let</span> checkMessage = (client) =&gt; {
-      client.on(<span class="string">'message'</span>, (msg) =&gt; {
-        message.should.equal(msg);
-        client.disconnect();
-        messages++;
-        <span class="keyword">if</span>(messages === <span class="number">3</span>){
-          done();
-        };
-      });
-    };
-
-    client1 = io.connect(socketURL, options);
-    checkMessage(client1);
-
-    client1.on(<span class="string">'connect'</span>, (data) =&gt; {
-      client2 = io.connect(socketURL, options);
-      checkMessage(client2);
-
-      client2.on(<span class="string">'connect'</span>, (data) =&gt; {
-        client3 = io.connect(socketURL, options);
-        checkMessage(client3);
-
-        client3.on(<span class="string">'connect'</span>, (data) =&gt; {
-          client2.send(message);
-        });
-      });
-    });
-  });
-
-
-  it(<span class="string">'Should be able to send private messages'</span>, (done) =&gt; {
-    <span class="keyword">let</span> client1, client2, client3;
-    <span class="keyword">let</span> message = {to: chatUser1.name, txt:<span class="string">'Private Hello World'</span>};
-    <span class="keyword">let</span> messages = <span class="number">0</span>;
-
-    <span class="keyword">let</span> completeTest = () =&gt; {
-      messages.should.equal(<span class="number">1</span>);
-      client1.disconnect();
-      client2.disconnect();
-      client3.disconnect();
-      done();
-    };
-
-    <span class="keyword">let</span> checkPrivateMessage = (client) =&gt; {
-      client.on(<span class="string">'private message'</span>, (msg) =&gt; {
-        message.txt.should.equal(msg.txt);
-        msg.from.should.equal(chatUser3.name);
-        messages++;
-        <span class="keyword">if</span>(client === client1){
-          setTimeout(completeTest, <span class="number">40</span>);
-        };
-      });
-    };
-
-    client1 = io.connect(socketURL, options);
-    checkPrivateMessage(client1);
-
-    client1.on(<span class="string">'connect'</span>, (data) =&gt; {
-      client1.emit(<span class="string">'connection name'</span>, chatUser1);
-      client2 = io.connect(socketURL, options);
-      checkPrivateMessage(client2);
-
-      client2.on(<span class="string">'connect'</span>, (data) =&gt; {
-        client2.emit(<span class="string">'connection name'</span>, chatUser2);
-        client3 = io.connect(socketURL, options);
-        checkPrivateMessage(client3);
-
-        client3.on(<span class="string">'connect'</span>, (data) =&gt; {
-          client3.emit(<span class="string">'connection name'</span>, chatUser3);
-          client3.emit(<span class="string">'private message'</span>, message)
-        });
-      });
-    });
-  });
-});
-</code></pre>
-<p>The requirements for this challenge are pretty straight&nbsp;forward.</p>
-<ul>
-<li>You need to be able to connect with a single&nbsp;user.</li>
-<li>You need to be able to connect two users or&nbsp;more.</li>
-<li>A user should be able to send a message to a&nbsp;chatroom</li>
-<li>A user should be able to send private messages to other&nbsp;users</li>
-</ul>
-<p>The tests can be copied form this page but I also setup <a href="https://github.com/Daily-Javascript/WebSocket-Challenge">a repo which you can fork</a>
-Please deploy your server to <a href="https://www.heroku.com/">Heroku</a>. You can create a free account here and follow <a href="https://devcenter.heroku.com/articles/getting-started-with-nodejs">a very simple tutorial</a> if you are not familiar with how to deploy on Heroku.
-Submit the <span class="caps">URL</span> where your server is running to this <a href="https://docs.google.com/forms/d/13RzwE7HJmLyv-UaxdJqq7PGQGp82xAk9HyTyNKVLmdw/viewform?c=0&amp;w=1">Google Form</a> before Friday next&nbsp;week.</p>
-<p>I hope you guys will find this more challenging then last week. Happy&nbsp;coding.</p>
 
           </section>
         </article>

@@ -35,6 +35,41 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
+            <p class="date"><span>05. February 2016</span></p>
+            <h2><a href="/articles/weekly-challenge-2016-05/">Weekly Challenge - Tetris bag</a></h2>
+          </header>
+          <section class="content"><p><img style="width: 100%; display:block;" src="http://daily-javascript.com/challenges/tetris-bag/header.jpg" ></p>
+<p>Since I did not get any submissions for the Workshopper Challenge I will make this challenge a lot more technical, so you guys will actually feel challenged. Since all of you are probably nineteens kids, you all know Tetris.
+It is a popular belief that the “tetromino” pieces you are given in a game of Tetris are not randomly selected.
+What really happens is that all seven pieces are placed into a “bag”. A piece is randomly removed from the bag and presented to the player. This process is repeated until the bag is&nbsp;empty.</p>
+<p>Your challenge is to reproduce this.
+For the first part of this challenge you will only need to focus on the algorithm of randomly removing elements from the bag and filling it once it’s empty.
+There is one limitation: Repetition of pieces will not be more then twice the same.
+So you can get twice the same piece but never 3 times the&nbsp;same.</p>
+<p>For now you can make the output just <code>log</code> the piece which needs to be dropped, next week we will explore the Tetris game some more.
+Output a string signifying 50 tetromino pieces given to the player using the random bag system. This will be printed on a single line.
+Some code to get you started can be found inside <a href="http://codepen.io/DailyJavascript/pen/bEmqpK">this codepen</a>.</p>
+<p>The pieces will be represented by letters for&nbsp;now:</p>
+<ul>
+<li>O</li>
+<li>I</li>
+<li>S</li>
+<li>Z</li>
+<li>L</li>
+<li>J</li>
+<li>T</li>
+</ul>
+<p data-height="460" data-theme-id="21361" data-slug-hash="bEmqpK" data-default-tab="result" data-user="DailyJavascript" class='codepen'>See the Pen <a href='http://codepen.io/DailyJavascript/pen/bEmqpK/'>bEmqpK</a> by DailyJavascript (<a href='http://codepen.io/DailyJavascript'>@DailyJavascript</a>) on <a href='http://codepen.io'>CodePen</a>.</p>
+
+<p>Submissions can be sent to this <a href="http://goo.gl/forms/yBEvtgrO4K">Google Form.</a>.</p>
+<p>Don’t forget to submit before next&nbsp;Friday.</p>
+<p>Happy&nbsp;coding.</p>
+<script async src="//assets.codepen.io/assets/embed/ei.js"></script>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
             <p class="date"><span>04. February 2016</span></p>
             <h2><a href="/articles/samsarajs/">SamsaraJS</a></h2>
           </header>
@@ -175,68 +210,6 @@ node.perform(<span class="string">'append'</span>, [<span class="string">'foo'</
 You <code>subscribe()</code> to a Conflux instance, and call <code>getState()</code> inside to get the current state.
 Instead of dispatching actions directly, you <code>perform()</code> methods that <code>dispatch()</code> them.
 The methods are declared when you construct a Conflux instance which is the equivalent to how Action Creators work in&nbsp;Redux.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>27. January 2016</span></p>
-            <h2><a href="/articles/marsdb/">MarsDB</a></h2>
-          </header>
-          <section class="content"><p>MarsDB (GitHub: <a href="https://github.com/c58/marsdb">c58/marsdb</a>, License: <span class="caps">MIT</span>, npm:&nbsp;mardb)</p>
-<p>MarsDB is a very lightweight client-side database.
-It is inspired by a Meteor’s <a href="https://atmospherejs.com/meteor/minimongo">minimongo</a> matching/modifying implementation.
-The library has a Promise based interface and can be backed with any storage implementation such&nbsp;as:</p>
-<ul>
-<li>In-memory storage (built-in&nbsp;default)</li>
-<li><a href="https://github.com/c58/marsdb-localforage">LocalForage storage</a> – fastest in-browser storage (InexedDB, WebSQL and fallback to&nbsp;localStorage)</li>
-<li><a href="https://github.com/c58/marsdb-localstorage">LocalStorage storage</a> – not recommended, better prefer&nbsp;LocalForage</li>
-<li><a href="https://github.com/c58/marsdb-levelup">LevelUP storage</a> – lightweight server-less Node.js&nbsp;storage</li>
-<li><a href="https://github.com/c58/marsdb-mongo">MongoDB wrapper</a> – use MarsDB for comfortable work with&nbsp;MongoDB</li>
-</ul>
-<p>Besides all of this MarsDB supports observable cursors which is very nice addition to the toolbelt.
-The database supports any kind of find/update/remove operations that Meteor’s minimongo would also support.
-When you need a reference on how theses queries work go to the Meteor docs for supported <a href="https://atmospherejs.com/meteor/minimongo">query/modifier operations</a>.</p>
-<p>Let’s first create a collection of <code>posts</code>.</p>
-<pre><code class="lang-javascript"><span class="keyword">import</span> Collection <span class="keyword">from</span> <span class="string">'marsdb'</span>;
-<span class="keyword">import</span> LocalStorageManager <span class="keyword">from</span> <span class="string">'marsdb-localstorage'</span>;
-
-<span class="comment">// Setup different id generator and storage managers</span>
-<span class="comment">// Default storage is in-memory</span>
-Collection.defaultStorageManager(LocalStorageManager);
-Collection.defaultIdGenerator(() =&gt; {
-  <span class="keyword">return</span> {
-    value: <span class="built_in">Math</span>.random(),
-    seed: <span class="number">0</span>,
-  };
-});
-
-<span class="keyword">const</span> posts = <span class="keyword">new</span> Collection(<span class="string">'posts'</span>);
-</code></pre>
-<p>Now we can populate it with some&nbsp;data:</p>
-<pre><code class="lang-javascript"><span class="comment">// To insert one</span>
-posts.insert({text: <span class="string">'MarsDB is awesome'</span>}).then(docId =&gt; {
-  <span class="comment">// Invoked after persisting document</span>
-});
-
-<span class="comment">// To insert a bulk</span>
-posts.insertAll(
-  {text: <span class="string">'MarsDB'</span>},
-  {text: <span class="string">'is'</span>},
-  {text: <span class="string">'awesome'</span>}
-).then(docsIds =&gt; {
-    <span class="built_in">console</span>.log(<span class="string">'---&gt;&gt;'</span>, docsIds);
-});
-</code></pre>
-<p>And we can retrieve one of the saved item like&nbsp;so:</p>
-<pre><code class="lang-javascript">posts.find({text: <span class="string">'MarsDB'</span>})
-  .sort([<span class="string">'createdAt'</span>])
-  .then(docs =&gt; {
-      <span class="built_in">console</span>.log(<span class="string">'--&gt;&gt;'</span>, docs);
-  });
-</code></pre>
-<p>For more in depth examples and documentation check the <a href="https://github.com/c58/marsdb"><span class="caps">README</span> file</a>.</p>
-<p>A small reminder to challenge yourself. This week we will be focusing on transferring knowledge using the <a href="http://daily-javascript.com/articles/workshopper">workshopper framework</a> head over to the <a href="http://daily-javascript.com/challenges/workshopper">challenge page</a> for more&nbsp;details.</p>
 
           </section>
         </article>

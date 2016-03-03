@@ -35,6 +35,51 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
+            <p class="date"><span>22. October 2015</span></p>
+            <h2><a href="/articles/observatory/">Observatory</a></h2>
+          </header>
+          <section class="content"><p>Observatory (GitHub: <a href="https://github.com/mikesizz/observatory">mikesizz/observatory</a>, License: <span class="caps">MIT</span>, npm:&nbsp;observatoryjs)</p>
+<p>When you are following the spec proposals or read any other blog you have probably heard about <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/observe">Object.observe</a>, which is used for asynchronously observing the changes to an&nbsp;object.</p>
+<p>Observatory is an attempt to provide javascript developers an interface for Object.observe with mongodb style querying for&nbsp;specificity.</p>
+<p>In order to use it we need to create a new instance of&nbsp;Observatory.</p>
+<pre><code class="lang-javascript"><span class="keyword">import</span> Observatory <span class="keyword">from</span> <span class="string">'Observatory'</span>;
+<span class="keyword">const</span> observer = <span class="keyword">new</span> Observatory();
+</code></pre>
+<p>Now we can observe an object by binding an event to it like&nbsp;so:</p>
+<pre><code class="lang-javascript">observer.on( object , query , callback );
+</code></pre>
+<p>Currently it supports the following&nbsp;events:</p>
+<ul>
+<li>$update which observes events that include an update to a queried&nbsp;property</li>
+<li>$add which observes events that include an addition to a queried&nbsp;property</li>
+<li>$delete which observes events that include an deletion from a queried&nbsp;property</li>
+</ul>
+<p>The real power is within the query expressions, by using different selectors you can create an expression for more specific event&nbsp;handling.</p>
+<pre><code class="lang-javascript"><span class="keyword">let</span> cat = {
+    age: <span class="number">3</span>
+};
+
+observer.on( cat , { $update: { <span class="string">"age"</span>: { $gt: <span class="number">10</span> } } } , () =&gt; {
+    <span class="built_in">console</span>.log(<span class="string">"Your cat is older than 10"</span>);
+});
+</code></pre>
+<p>It provides the following value&nbsp;selectors:</p>
+<ul>
+<li>$lt - check if the property is less than the query&nbsp;value</li>
+<li>$gte - check if the property is greater than or equal to the query&nbsp;value</li>
+<li>$lte - check if the property is less than or equal to the query&nbsp;value</li>
+<li>$eq - check if the property is equal to the query&nbsp;value</li>
+</ul>
+<p>For arrays it has a couple&nbsp;extra:</p>
+<ul>
+<li>$in - check if the target array contains any of the query values after the event&nbsp;fires</li>
+<li>$all - check if the target array contains all of the query values after the event&nbsp;fires</li>
+</ul>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
             <p class="date"><span>21. October 2015</span></p>
             <h2><a href="/articles/roll-up/">Rollup.js</a></h2>
           </header>
@@ -203,53 +248,6 @@ SmartCrop.crop(img, options, result =&gt; {
 smartcrop-cli --width <span class="number">100</span> --height <span class="number">100</span> photo.jpg square-thumbnail.jpg
 </code></pre>
 <p>Smartcrop-cli does requires <a href="https://github.com/Automattic/node-canvas">node-canvas</a> which requires local libraries to be installed. Refer to the <a href="https://github.com/Automattic/node-canvas/wiki/_pages">node-canvas wiki</a> installation&nbsp;instructions.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>14. October 2015</span></p>
-            <h2><a href="/articles/chiffon/">Chiffon</a></h2>
-          </header>
-          <section class="content"><p>Chiffon (GitHub: <a href="https://github.com/trueadm/Chiffon">polygonplanet/Chiffon</a>, License: <span class="caps">MIT</span>, npm: chiffon, bower:&nbsp;chiffon)</p>
-<p>Chiffon is a very small ECMAScript parser, tokenizer and minifier.
-Sometimes we come across an idea where you will need to parse or tokenize Javascript files for, for instance to do analysis on the&nbsp;code.</p>
-<p>When using Chiffon for tokenizing you will get an Array of each “element” of the input code like&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="keyword">let</span> tokens = Chiffon.tokenize(<span class="string">'var a = 1'</span>);
-</code></pre>
-<p>Which would then&nbsp;return:</p>
-<pre><code class="lang-javascript">[ { type: <span class="string">'Keyword'</span>,    value: <span class="string">'var'</span> },
-  { type: <span class="string">'Identifier'</span>, value: <span class="string">'a'</span> },
-  { type: <span class="string">'Punctuator'</span>, value: <span class="string">'='</span> },
-  { type: <span class="string">'Numeric'</span>,    value: <span class="string">'1'</span> } ]
-</code></pre>
-<p>Here is a list of all possible&nbsp;tokens:</p>
-<ul>
-<li>Comment</li>
-<li>LineTerminator</li>
-<li>Template</li>
-<li>String</li>
-<li>Punctuator</li>
-<li>RegularExpression</li>
-<li>Numeric</li>
-<li>UnicodeEscapeSequence</li>
-<li>Identifier</li>
-<li>Null</li>
-<li>Boolean</li>
-<li>Keyword</li>
-</ul>
-<p>Sadly JavaScript <span class="caps">AST</span> is not currently&nbsp;supported.</p>
-<p>When you wish to “untokenize” the Array, you can pass it into the <code>untokenize</code> method like&nbsp;this:</p>
-<pre><code class="lang-javascript">Chiffon.untokenize
-</code></pre>
-<p>When you want to use the minification, you would do something like&nbsp;this:</p>
-<pre><code class="lang-javascript">Chiffon.minify(<span class="string">'var a = 1 + 1; // comment'</span>);
-</code></pre>
-<p>Which is a simple implementation of <code>untokenize</code> and <code>tokenize</code> together like&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="function"><span class="keyword">function</span> <span class="title">minify</span>(<span class="params">code</span>) </span>{
-    <span class="keyword">return</span> untokenize(tokenize(code, { lineTerminator: <span class="literal">true</span> }));
-}
-</code></pre>
 
           </section>
         </article>
