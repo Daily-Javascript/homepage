@@ -35,6 +35,39 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
+            <p class="date"><span>03. March 2016</span></p>
+            <h2><a href="/articles/lmth/">lmth</a></h2>
+          </header>
+          <section class="content"><p>lmth (GitHub: <a href="https://github.com/chrisdotcode/lmth">chrisdotcode/lmth</a>, License: <span class="caps">BSD</span>-3-Clause, npm:&nbsp;lmth)</p>
+<p>Manually concatenation of <span class="caps">HTML</span> strings is painful. Even jQuery gets this wrong, because we are still creating writing out our HTML but now in strings which can be very error prone and cause unneeded debugging&nbsp;time.</p>
+<p>The is the reason tools like <a href="https://github.com/caolan/pithy">pithy</a> and <a href="https://github.com/dominictarr/hyperscript">hyperscript</a> came up.
+Now there is a new kid on the block. lmth is a <span class="caps">HTML</span> DSL for JavaScript very similar to pithy, as the developer puts&nbsp;it:</p>
+<blockquote>
+<p>lmth can be considered a spiritual successor to <a href="https://github.com/caolan/pithy">pithy</a>, and a cousin of sorts to&nbsp;hyperscript.</p>
+</blockquote>
+<p>It can output <span class="caps">HTML</span> as a string or as a DOM tree.
+In contrast with pithy, the text content is escaped by default. But you disable this if you want&nbsp;to.</p>
+<p>A quick example of how it would&nbsp;look:</p>
+<pre><code class="lang-javascript"><span class="pi">    'use strict'</span>;
+    <span class="keyword">import</span> l <span class="keyword">from</span> <span class="string">'lmth'</span>;
+
+    <span class="keyword">const</span> html = l.main({id: <span class="string">'main'</span>}, [
+        l.h1(<span class="literal">null</span>, <span class="string">'Hello, world!'</span>),
+        l.img({src: <span class="string">'/foo.png'</span>})
+    ]);
+
+    <span class="comment">// To a string:</span>
+    html.render();
+    <span class="comment">// &lt;main id="main"&gt;&lt;h1&gt;Hello, world!&lt;/h1&gt;&lt;img src="/foo.png"&gt;&lt;/main&gt;</span>
+
+    <span class="comment">// To a <span class="caps">DOM</span> tree:</span>
+    html.toDOM();
+</code></pre>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
             <p class="date"><span>02. March 2016</span></p>
             <h2><a href="/articles/enzyme/">Enzyme</a></h2>
           </header>
@@ -207,52 +240,6 @@ describe(<span class="string">'GitHub <span class="caps">API</span>'</span>, () 
 });
 </code></pre>
 <p>Head over to the challenge page of <a href="http://daily-javascript.com/challenges/websocket-challenge-part-two/">Websocket Challenge - part two</a> and see what you need to do in order to make on to this weeks Hall of&nbsp;Hero’s.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>22. February 2016</span></p>
-            <h2><a href="/articles/realm-react-native/">Realm React Native</a></h2>
-          </header>
-          <section class="content"><p>Realm (GitHub: <a href="https://github.com/realm/realm-js">realm/realm-js</a>, License: Apache-2.0, npm:&nbsp;realm)</p>
-<p>Today at Facebook’s React.js Conference, The Realm team launched a new Realm mobile database designed for React Native.
-This database should offers easy object persistence and full query capabilities.
-The performance profile is usually 2–10x faster than existing options such as SQLite and&nbsp;CoreData.</p>
-<p>When you are not familiar with Realm then you don’t know that, it was designed from the ground up to enable reactive app development.
-This is possible via live objects, change events, and support for <a href="https://realm.io/news/unidirectional-data-flow-in-swift/">unidirectional data flows</a>.</p>
-<p>By&nbsp;example:</p>
-<pre><code class="lang-javascript"><span class="keyword">const</span> Realm = <span class="built_in">require</span>(<span class="string">'realm'</span>);
-
-<span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>{}
-Person.schema = {
-    name: <span class="string">'Person'</span>,
-    primaryKey: <span class="string">'name'</span>,
-    properties: {
-        name: <span class="string">'string'</span>,
-        age: {type: <span class="string">'int'</span>, <span class="keyword">default</span>: <span class="number">0</span>},
-    },
-};
-
-<span class="keyword">const</span> realm = <span class="keyword">new</span> Realm({schema: [Person]});
-
-<span class="comment">// Query</span>
-<span class="keyword">let</span> people = realm.objects(<span class="string">'Person'</span>, <span class="string">'age &gt;= 17'</span>);
-people.length <span class="comment">// =&gt; 0</span>
-
-<span class="comment">// Write</span>
-realm.write(() =&gt; {
-    savedPerson = realm.create(<span class="string">'Person'</span>, {
-        name: <span class="string">'Hal Incandenza'</span>,
-        age: <span class="number">17</span>,
-    });
-});
-
-<span class="comment">// Queries are updated in real-time</span>
-people.length <span class="comment">// =&gt; 1</span>
-</code></pre>
-<p>For more information and full documentation check the <a href="https://realm.io/">Realm website</a> where the developer have posted a lot of amazing examples to help you get&nbsp;started.</p>
-<p>Don’t forget to check out the challenge section. <a href="http://http://daily-javascript.com/challenges/websocket-challenge-part-two">This weeks challenge</a> extends on last weeks challenge so if you didn’t do that challenge you have some catching up to do. If you have great ideas for next challenges please reach out to me on twitter <a href="http://twitter.com/DailyJavascript">@DailyJavascript</a>.</p>
 
           </section>
         </article>
