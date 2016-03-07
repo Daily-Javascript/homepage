@@ -35,6 +35,35 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
+            <p class="date"><span>09. December 2015</span></p>
+            <h2><a href="/articles/bigfloat/">bigfloat</a></h2>
+          </header>
+          <section class="content"><p>bigfloat (GitHub: <a href="https://github.com/charto/bigfloat">charto/bigfloat</a>, License: <span class="caps">MIT</span>, npm:&nbsp;bigfloat)</p>
+<p>bigfloat is an arbitrary precision math library optimized for computation on geometry and geoinformatics. It provides a base 2 floating point.
+It can covert Javascript float’s, add, subtract, multiply and convert it back to a Javascript String. It can do all this whiteout losing any significant bits. Numbers are  treaded as immutable and will return a new&nbsp;BigFloat.</p>
+<p>So how does it do this?
+Numbers are represented in 32-bit limbs (digits in base 2^32).
+The least significant limb is stored first. This because basic algorithms for arithmetic operations progress from the least to most significant digit while propagating carry. If carry causes the output to grow, adding a new limb at the end of the Array is faster than adding it in the beginning.
+The library was optimized for exponents relatively close to zero, so the location of the decimal point is always present in the limb array, even if that introduces otherwise insignificant leading or trailing zero&nbsp;digits.</p>
+<p>Let’s look at a quick example if I would run&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="keyword">const</span> x = <span class="built_in">Math</span>.pow(<span class="number">2</span>, <span class="number">53</span>),
+    result = x + <span class="number">1</span> - x;
+
+<span class="built_in">console</span>.log( result );
+</code></pre>
+<p>It will give me back <code>0</code>. But we would expect to get <code>1</code>. If we would do the same using&nbsp;bigfloat:</p>
+<pre><code class="lang-javascript"><span class="keyword">const</span> BigFloat = <span class="built_in">require</span>(<span class="string">'bigfloat'</span>).BigFloat,
+       x = <span class="built_in">Math</span>.pow(<span class="number">2</span>, <span class="number">53</span>),
+      result = <span class="keyword">new</span> BigFloat(x).add(<span class="number">1</span>).sub(x).toString();
+
+<span class="built_in">console</span>.log(result);
+</code></pre>
+<p>It would log <code>1</code>, as we would&nbsp;suspect.</p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
             <p class="date"><span>08. December 2015</span></p>
             <h2><a href="/articles/embedjs/">embed.js</a></h2>
           </header>
@@ -198,21 +227,6 @@ Don’t get me wrong, I ofter find myself using a <code>div</code> to make butto
 <p>ally.js is a library simplifying certain accessibility features, functions and behaviors.
 Its goal is to help web applications with accessibility concerns provide every user with a good&nbsp;experience.</p>
 <p>It has an amazingly extensive <span class="caps">API</span> to solve most accessibility problems, way to much to even begin to describe so I will direct you to their <a href="http://allyjs.io/index.html">website</a> where everything is explained into more detail than I could do in a&nbsp;day.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>01. December 2015</span></p>
-            <h2><a href="/articles/dotconf/">dotconf</a></h2>
-          </header>
-          <section class="content"><p>dotconf (GitHub: <a href="https://github.com/yoannmoinet/dotconf">yoannmoinet/dotconf</a>, License: <span class="caps">MIT</span>, npm:&nbsp;dotconf)</p>
-<p><img src="https://github.com/yoannmoinet/dotconf/raw/master/media/demo.gif" alt="demo"></p>
-<p>Are you also tired of all the <code>.something</code> config files for all the tooling we need which is cluttering up your tree? Well <a href="https://github.com/yoannmoinet">Yoann Moinet</a> made a solution for this problem,&nbsp;dotconf.</p>
-<p>What is does is bundle all your existing <code>.something</code> files and directories into one <code>.conf</code>.
-Yoann uses the term “One config to rule them all”. Since I’m a big Lord of the Rings fan, this slogan catch my attention. After trying it our in some projects I really enjoyed how it cleans up all the config files in my tree&nbsp;view.</p>
-<p>The <span class="caps">CLI</span> is very easy, use <code>-a</code> to ‘archive’ all the <code>.something</code> files and <code>-e</code> to extract them again.
-Besides that it comes with a bunch more options to specify that way it should behave such as: destination, pattern, safe mode and what to&nbsp;ignore.</p>
 
           </section>
         </article>
