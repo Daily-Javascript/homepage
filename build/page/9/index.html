@@ -35,6 +35,47 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
+            <p class="date"><span>21. December 2015</span></p>
+            <h2><a href="/articles/inspire-tree/">Inspire Tree</a></h2>
+          </header>
+          <section class="content"><p>Inspire Tree (GitHub: <a href="https://github.com/helion3/inspire-tree">helion3/inspire-tree</a>, License: <span class="caps">MIT</span>, npm:&nbsp;inspire-tree)</p>
+<p>First of all I would like to thank everybody that took the time to look at the <a href="http://daily-javascript.com/challenges">Weekly Challenges</a> over the weekend. If you have not looked at the challenge of last week you can still submit until Thursday&nbsp;night.</p>
+<p>Now to business, <a href="https://github.com/viveleroi">Mike Botsko</a> sent in Inspire Tree which is a un-opinionated collapsable tree <span class="caps">UI</span> library.
+The need for the library grew with the developers because the alternatives already out there where not extensive enough or just took to much hacking to make it listen to what they&nbsp;wanted.</p>
+<p>Some of the features that jumped out to me&nbsp;are:</p>
+<ul>
+<li>Events&nbsp;everywhere</li>
+<li>~40k minified,&nbsp;uncompressed</li>
+<li>No external&nbsp;dependencies</li>
+<li>Load data directly, via promises, callbacks,&nbsp;etc</li>
+<li>Load child nodes upfront or dynamically (or a mix of&nbsp;both)</li>
+<li>Tri-state checkboxes&nbsp;(optional)</li>
+<li>Multiselect&nbsp;(optional)</li>
+<li>Search by plain string, RegExp, custom matcher, or external resources&nbsp;(optional)</li>
+</ul>
+<p>The renderer used by the library can be replaced with a custom renderer for framework support.
+Sadly there is only one example listed within the docs but it will be easy it would be to include it within React or Riot due to the Virtual&nbsp;<span class="caps">DOM</span>.</p>
+<p>To work with this library you need to have an element on the page to&nbsp;target:</p>
+<pre><code class="lang-html"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"myTree"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+</code></pre>
+<p>Now we can init tree functionality and fetch the data at the same time like&nbsp;so:</p>
+<pre><code class="lang-javascript"><span class="keyword">const</span> tree = <span class="keyword">new</span> InspireTree({
+    target: <span class="string">'.tree'</span>,
+    data: $.getJSON(<span class="string">'http://example.com/some-data.json'</span>)
+});
+</code></pre>
+<p>When custom behavior is needed you can attach this to be fired when curtain events are emitted. There is a list of events present on the Github page for reference. This is an example of how a click handler would look&nbsp;like:</p>
+<pre><code class="lang-javascript">tree.on(<span class="string">'node.click'</span>, (evt, node) =&gt; {
+    <span class="comment">// node clicked!</span>
+    <span class="built_in">console</span>.log([<span class="string">'node clicked'</span>, evt, node]);
+});
+</code></pre>
+<p>The rest of the <span class="caps">API</span> is very well documented so I would suggest you browse through it if you need more convincing that this is one of the most extensive UI tree library out&nbsp;there.</p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
             <p class="date"><span>18. December 2015</span></p>
             <h2><a href="/articles/weekly-challenge-2015-51/">Weekly Challenges</a></h2>
           </header>
@@ -236,67 +277,6 @@ If you are familiar with languages such as LISP and Haskell you will feel right 
 <blockquote>
 <p>I am providing code in this repository to you under an open source license. Because this is my personal repository, the license you receive to my code is from me and not from my employer&nbsp;(Facebook).</p>
 </blockquote>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>10. December 2015</span></p>
-            <h2><a href="/articles/splitjs/">Split.js</a></h2>
-          </header>
-          <section class="content"><p>Split.js (GitHub: <a href="https://github.com/nathancahill/Split.js">nathancahill/Split.js</a>, License: <span class="caps">MIT</span>, npm:&nbsp;split.js)</p>
-<p>Split.js is a lightweight, unopinionated utility for creating adjustable split views or panes. What I like about this library is the minimal requirements to get it to work.
-It has no depenencies such as jQuery and does not require you to jump through three burning hoopes before you have it working,
-just two elements that have a parent in common and you are set.
-I comes with draggable gutters to resize the panes and the <span class="caps">API</span> is very easy, just one function, <code>Split</code>.</p>
-<p>So let’s look at some code. Let’s say we have a markup that looks something like&nbsp;this:</p>
-<pre><code class="lang-html"><span class="comment">&lt;!-- .... --&gt;</span>
-<span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"parent"</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"one"</span>&gt;</span>
-        <span class="comment">&lt;!-- .... --&gt;</span>
-    <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"two"</span>&gt;</span>
-        <span class="comment">&lt;!-- .... --&gt;</span>
-    <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-<span class="comment">&lt;!-- .... --&gt;</span>
-</code></pre>
-<p>Then a basic split would work like this in&nbsp;Javascript:</p>
-<pre><code class="lang-javascript">Split([<span class="string">'#one'</span>, <span class="string">'#two'</span>], {
-    sizes: [<span class="number">25</span>, <span class="number">75</span>],
-    minSize: <span class="number">200</span>
-});
-</code></pre>
-<p>It’s possible to add as many elements as you want, as long as they share the same parent. Let’s take three as&nbsp;example:</p>
-<pre><code class="lang-javascript">Split([<span class="string">'#one'</span>, <span class="string">'#two'</span>, <span class="string">'#three'</span>], {
-    minSize: [<span class="number">100</span>, <span class="number">100</span>, <span class="number">300</span>]
-});
-</code></pre>
-<p>Because this library is unopinionated, it does not come with much styling. You can implement your own styles like&nbsp;so:</p>
-<pre><code class="lang-css"><span class="class">.gutter</span> <span class="rules">{
-  <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="hexcolor">#eee</span></span></span>;
-  <span class="rule"><span class="attribute">background-repeat</span>:<span class="value"> no-repeat</span></span>;
-  <span class="rule"><span class="attribute">background-position</span>:<span class="value"> <span class="number">50%</span></span></span>;
-}</span>
-
-<span class="class">.gutter</span><span class="class">.gutter-horizontal</span> <span class="rules">{
-  <span class="rule"><span class="attribute">background-image</span>:<span class="value"> <span class="function">url</span>(<span class="string">'grips/vertical.png'</span>)</span></span>;
-  <span class="rule"><span class="attribute">cursor</span>:<span class="value"> ew-resize</span></span>;
-}</span>
-
-<span class="class">.gutter</span><span class="class">.gutter-vertical</span> <span class="rules">{
-  <span class="rule"><span class="attribute">background-image</span>:<span class="value"> <span class="function">url</span>(<span class="string">'grips/horizontal.png'</span>)</span></span>;
-  <span class="rule"><span class="attribute">cursor</span>:<span class="value"> ns-resize</span></span>;
-}</span>
-</code></pre>
-<p>Note that split works the best with <code>border-box</code>ed element’s, so if you did not apply this within your reset, you could set it like&nbsp;this:</p>
-<pre><code class="lang-css"><span class="class">.split</span> <span class="rules">{
-  <span class="rule"><span class="attribute">-webkit-box-sizing</span>:<span class="value"> border-box</span></span>;
-     <span class="rule"><span class="attribute">-moz-box-sizing</span>:<span class="value"> border-box</span></span>;
-          <span class="rule"><span class="attribute">box-sizing</span>:<span class="value"> border-box</span></span>;
-}</span>
-</code></pre>
-<p>The library comes with a lot of extra options which will infusence how the panes and the gutters should act. Check the <a href="https://github.com/nathancahill/Split.js"><span class="caps">README</span></a> for&nbsp;that.</p>
 
           </section>
         </article>
