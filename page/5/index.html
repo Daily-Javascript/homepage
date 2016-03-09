@@ -35,6 +35,36 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
+            <p class="date"><span>03. February 2016</span></p>
+            <h2><a href="/articles/microwork/">Microwork.js</a></h2>
+          </header>
+          <section class="content"><p>Microwork.js (GitHub: <a href="https://github.com/yamalight/microwork">yamalight/microwork</a>, License: <span class="caps">MIT</span>, npm:&nbsp;microwork)</p>
+<p>Microwork.js is a library for simple creation of distributed micro services using <a href="https://www.rabbitmq.com">RabbitMQ</a>.
+If you are not familiar with RabbitMQ, it is a messaging server.
+Messaging enables applications to connect and scale.
+Applications can connect to each other, as components of a larger&nbsp;application.</p>
+<p>An example service that subscribe to messages from <code>do.stuff</code> topic and uses incoming&nbsp;data:</p>
+<pre><code class="lang-javascript"><span class="keyword">import</span> Microwork <span class="keyword">from</span> <span class="string">'microwork'</span>;
+
+<span class="comment">// create task runner</span>
+<span class="keyword">const</span> runner = <span class="keyword">new</span> Microwork({host: <span class="string">'my.rabbit.host'</span>, exchange: <span class="string">'my.exchange'</span>});
+
+<span class="comment">// add worker to specific topic</span>
+<span class="keyword">await</span> runner.subscribe(<span class="string">'do.stuff'</span>, (msg, reply) =&gt; {
+    <span class="comment">// Capitalize first letter of the message</span>
+    reply(msg.charAt(<span class="number">0</span>).toUpperCase() + msg.slice(<span class="number">1</span>));
+});
+
+<span class="comment">// after work is done - cleanup</span>
+<span class="keyword">await</span> runner.stop();
+</code></pre>
+<p>There are a few useful plugin already available such as: a hardware stats plugin which provides basic hardware stats about Node, a health plugin which provides basic keep-alive signal and a subscribers info plugin which provides basic information about&nbsp;subscribers.</p>
+<p>For more examples and documentation check out the <a href="http://yamalight.github.io/microwork/">Github Page</a>.</p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
             <p class="date"><span>02. February 2016</span></p>
             <h2><a href="/articles/houdini/">Houdini</a></h2>
           </header>
@@ -204,52 +234,6 @@ It comes with the same set of lifecycle&nbsp;events:</p>
 <li>componentDidUpdate</li>
 </ul>
 <p>For more examples check the <a href="https://github.com/developit/preact-compat"><span class="caps">README</span></a> or the <a href="http://developit.github.io/preact/">Github Page</a> where you can find some amazing examples posted by the&nbsp;developer.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>25. January 2016</span></p>
-            <h2><a href="/articles/pressure/">Pressure</a></h2>
-          </header>
-          <section class="content"><p>Pressure (GitHub: <a href="https://github.com/yamartino/pressure">yamartino/pressure</a>, License: <span class="caps">MIT</span>, npm:&nbsp;pressure)</p>
-<p><img src="https://camo.githubusercontent.com/ff9a4c42ce2565fd1ef4e2b55ebcd0e9028d6961/687474703a2f2f79616d617274696e6f2e6769746875622e696f2f70726573737572652f70726573737572652e676966" style=" width: 100%;" /></p>
-<p>Pressure is a library which makes dealing with Apple’s “Force Touch” and “3D Touch” simpler.
-At the time of writing this update the support for Force Touch&nbsp;was:</p>
-<ul>
-<li>iPhone&nbsp;6s</li>
-<li>iPhone 6s&nbsp;Plus</li>
-<li>MacBook 2015<ul>
-<li>13” MacBook Pro&nbsp;2015</li>
-<li>15” MacBook Pro&nbsp;2015</li>
-</ul>
-</li>
-<li>Magic Trackpad&nbsp;2</li>
-</ul>
-<p>And sadly it only works inside Safari.
-The developer has let us know that when there are more devices or browsers to support, that it will also be supported by&nbsp;Pressure.</p>
-<blockquote>
-<p>Future devices and browser that support force will be added when they come&nbsp;out</p>
-</blockquote>
-<p>The library is constructed in a way that Force Touch for new Macs and 3D Touch for the new iPhone 6s and 6s Plus are all bundled under one roof with a simple <span class="caps">API</span>. By&nbsp;example:</p>
-<pre><code class="lang-javascript"><span class="keyword">var</span> Pressure = <span class="built_in">require</span>(<span class="string">'pressure'</span>);
-
-Pressure.set(<span class="string">'#myAwesomeElement'</span>, {
-    change: (force) =&gt; {
-        <span class="keyword">this</span>.innerHTML = force;
-    }
-});
-</code></pre>
-<p>What this will do is render the “amount” of pressure put on <code>#myAwesomeElement</code>.
-The rest of the <span class="caps">API</span> is just as straight forward.
-Use <code>end</code> to know when the user has stopped putting pressure on your awesome element.
-<code>startDeepPress</code> to know if the user is applying deep pressure and <code>endDeepPress</code> to know when it stopped.
-And as a curtesy there is <code>unsupported</code> which tell’s you if Force Touch is&nbsp;available.</p>
-<p>If you want to know more head over to the <a href="http://yamartino.github.io/pressure/">Github Page</a> and check the <a href="http://yamartino.github.io/pressure/">documentation</a>. The developer also implemented a very nice demo on that same&nbsp;page.</p>
-<p>Since it’s the first day of the week I would like to remind you to challenge yourself this week.
-This weeks challenge is to create a workshop about a topic you care about or want to research.
-The only way you can be sure of knowing something is when you can teach it to somebody&nbsp;else.</p>
-<p>Head over to the <a href="http://daily-javascript.com/challenges/workshopper/">Workshopper Challenge</a> section for more&nbsp;details.</p>
 
           </section>
         </article>
