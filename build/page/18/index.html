@@ -35,6 +35,59 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
+            <p class="date"><span>05. October 2015</span></p>
+            <h2><a href="/articles/velocity-react/">Velocity React</a></h2>
+          </header>
+          <section class="content"><p>velocity-react (GitHub: <a href="https://github.com/twitter-fabric/velocity-react">twitter-fabric/velocity-react</a>, License: <span class="caps">MIT</span>, npm:&nbsp;velocity-react)</p>
+<p>Today I had some trouble finding something to write about. Then I remembered the awesome work done by the guys at Twitter Fabric. They made a React component for interacting with amazing <a href="http://julian.com/research/velocity/">Velocity</a> animation library.
+Offical introduction can be found <a href="https://fabric.io/blog/introducing-the-velocityreact-library">here.</a></p>
+<p>If you are not familiar with <a href="http://julian.com/research/velocity/">Velocity</a> I suggest you take a look at this&nbsp;first.</p>
+<p>The package contains two components; <code>&lt;VelocityComponent /&gt;</code> and <code>&lt;VelocityTransitionGroup /&gt;</code></p>
+<p>Velocity React integration follow this simple&nbsp;algorithm:</p>
+<ul>
+<li>Initially, an animated component will appear as it would at the end of its given&nbsp;animation.</li>
+<li>If that given animation ever changes, it runs it to get to the new end state. If there’s an animation currently in progress, we stop it first, and then proceed smoothly from whatever intermediate state it left us&nbsp;in.</li>
+</ul>
+<p>Here is a small example that was given in the introduction from&nbsp;Fabric.</p>
+<pre><code class="lang-javascript">render: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{
+  <span class="keyword">var</span> animationProps;
+  <span class="keyword">if</span> (<span class="keyword">this</span>.state.hovering) {
+    animationProps = {
+      duration: <span class="number">200</span>,
+      animation: {
+        rotateX: <span class="number">160</span>
+      }
+    };
+  } <span class="keyword">else</span> {
+    animationProps = {
+      duration: <span class="number">1100</span>, <span class="comment">// longer due to swinging</span>
+      animation: {
+        rotateX: [<span class="number">0</span>, <span class="string">'spring'</span>]
+      }
+    };
+  }
+
+  <span class="keyword">return</span> (
+    <span class="xml"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">onMouseEnter</span>=<span class="value">{function</span> () { <span class="attribute">this.setState</span>({<span class="attribute">hovering:</span> <span class="attribute">true</span>}); }}
+         <span class="attribute">onMouseLeave</span>=<span class="value">{function</span> () { <span class="attribute">this.setState</span>({<span class="attribute">hovering:</span> <span class="attribute">false</span>}); }}&gt;</span>
+      <span class="tag">&lt;<span class="title">VelocityComponent</span> {<span class="attribute">...animationProps</span>}&gt;</span>
+        {this.renderTopState()}
+      <span class="tag">&lt;/<span class="title">VelocityComponent</span>&gt;</span>
+      {this.renderUnderneathStats()}
+    <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+  )</span>;
+}
+</code></pre>
+<p>Which will result in:
+<img src="https://static1.squarespace.com/static/54ac6f9ae4b0cf1d82a4b59e/t/560a9a19e4b08fcd39795d27/1443535397904/release_summary.gif?format=300w" tyle="max-width: 320px; width: 100%; position:static;"></p>
+<p>As the name implies <code>&lt;VelocityTransitionGroup /&gt;</code> can be used to animate a group of element at the same time. In the example on the Fabric blog we can use it being used to animate an input slider, but that’s not all. When you pay close attention you will the the toggle switch animating and a “jawbone” collapse. Al these animation are done at&nbsp;once.</p>
+<p><img src="https://static1.squarespace.com/static/54ac6f9ae4b0cf1d82a4b59e/t/560a9a69e4b0a427e3b70022/1443535503361/?format=750w" tyle="max-width: 320px; width: 100%; position:static;"></p>
+<p>I was very impressed with the work and I’m trying to push this as the new standard for animating React components at the company where I work. And will be the default for all my pet&nbsp;projects.</p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
             <p class="date"><span>02. October 2015</span></p>
             <h2><a href="/articles/scroller-friday/">Scroller Friday</a></h2>
           </header>
@@ -139,134 +192,6 @@ This weekend I will be trying to include this within this website so you will be
         <article class="article intro">
           <header>
             <p class="date"><span>28. September 2015</span></p>
-            <h2><a href="/articles/clipboardjs/">Clipboard.js</a></h2>
-          </header>
-          <section class="content"><p>After writing this blog for a few days now I noticed that the bar of two libraries a day is hard to do when you have a day job next to it.
-Because I want to give each library a fair shot, I will be reducing it to one library a day on workdays so I can work on updates for the website as&nbsp;well.</p>
-<p>Clipboard.js (GitHub: <a href="https://github.com/zenorocha/clipboard.js">zenorocha/clipboard.js</a>, License: <span class="caps">MIT</span>, npm: clipboard, bower: clipboard&nbsp;)</p>
-<p>During my daily browse I came across Clipboard.js which is a library to put given content to the users clipboard from Javascript.
-Normally we are used to implementing this behavior using Flash or some bloated framework. Luckley now there is Clipboard.js which is an 2kb implementation of “Copy to&nbsp;clipboard”.</p>
-<p>To use it we need to require it first. If you are using <a href="http://browserify.org/">Browersify</a> or <a href="https://webpack.github.io/">Webpack</a> then&nbsp;use:</p>
-<pre><code class="lang-javascript"><span class="keyword">import</span> * <span class="keyword">as</span> Clipboard <span class="keyword">from</span> <span class="string">'clipboard'</span>;
-
-<span class="comment">// Or the old way</span>
-<span class="keyword">var</span> Clipboard = <span class="built_in">require</span>(<span class="string">'clipboard'</span>);
-</code></pre>
-<p>When including it in your html do it like&nbsp;this:</p>
-<pre><code class="lang-html"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"dist/clipboard.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
-</code></pre>
-<p>Now we can instantiate it using a <span class="caps">DOM</span> selector. For&nbsp;instance</p>
-<pre><code class="lang-javascript"><span class="keyword">new</span> Clipboard(<span class="string">'.btn'</span>);
-</code></pre>
-<p>Internally, it needs to fetch all elements that match the selector and attach event listeners for each one. But what if you have hundreds of matches? Then this operation can consume a lot of memory.
-Because of this it uses event delegation which replaces multiple event listeners with just a single&nbsp;listener.</p>
-<p>The most common usage of this library would be to copy the text value of an <code>input</code> field or <code>textarea</code>. This is&nbsp;how:</p>
-<pre><code class="lang-html"><span class="comment">&lt;!-- Target --&gt;</span>
-<span class="tag">&lt;<span class="title">input</span> <span class="attribute">id</span>=<span class="value">"foo"</span> <span class="attribute">value</span>=<span class="value">"https://github.com/zenorocha/clipboard.js.git"</span>&gt;</span>
-
-<span class="comment">&lt;!-- Trigger --&gt;</span>
-<span class="tag">&lt;<span class="title">button</span> <span class="attribute">class</span>=<span class="value">"btn"</span> <span class="attribute">data-clipboard-target</span>=<span class="value">"#foo"</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">img</span> <span class="attribute">src</span>=<span class="value">"assets/clippy.svg"</span> <span class="attribute">alt</span>=<span class="value">"Copy to clipboard"</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">button</span>&gt;</span>
-</code></pre>
-<p>It also has the ability to cut to clipboard. You would do this by attaching the <code>data-clipboard-action</code> attribute to the trigger element like&nbsp;this:</p>
-<pre><code class="lang-html"><span class="comment">&lt;!-- Target --&gt;</span>
-<span class="tag">&lt;<span class="title">textarea</span> <span class="attribute">id</span>=<span class="value">"bar"</span>&gt;</span>Mussum ipsum cacilds...<span class="tag">&lt;/<span class="title">textarea</span>&gt;</span>
-
-<span class="comment">&lt;!-- Trigger --&gt;</span>
-<span class="tag">&lt;<span class="title">button</span> <span class="attribute">class</span>=<span class="value">"btn"</span> <span class="attribute">data-clipboard-action</span>=<span class="value">"cut"</span> <span class="attribute">data-clipboard-target</span>=<span class="value">"#bar"</span>&gt;</span>
-    Cut to clipboard
-<span class="tag">&lt;/<span class="title">button</span>&gt;</span>
-</code></pre>
-<p>When you find yourself in a situation where you would like to show some feedback to the user or capture what has been selected after a copy/cut operation, you can make use of the <code>success</code> and <code>error</code> events that are being sent. You would use that like&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="keyword">var</span> clipboard = <span class="keyword">new</span> Clipboard(<span class="string">'.btn'</span>);
-
-clipboard.on(<span class="string">'success'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>{
-    <span class="built_in">console</span>.info(<span class="string">'Action:'</span>, e.action);
-    <span class="built_in">console</span>.info(<span class="string">'Text:'</span>, e.text);
-    <span class="built_in">console</span>.info(<span class="string">'Trigger:'</span>, e.trigger);
-
-    e.clearSelection();
-});
-
-clipboard.on(<span class="string">'error'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>{
-    <span class="built_in">console</span>.error(<span class="string">'Action:'</span>, e.action);
-    <span class="built_in">console</span>.error(<span class="string">'Trigger:'</span>, e.trigger);
-});
-</code></pre>
-<p>The browser support on this project superised me, it relies on both Selection and execCommand APIs. The second one is supported in the following&nbsp;browsers.</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center"><img src="http://zenorocha.github.io/clipboard.js/assets/images/chrome.png" style="width:auto; left: auto;" width="48px" height="48px" alt="Chrome logo"></th>
-<th style="text-align:center"><img src="http://zenorocha.github.io/clipboard.js/assets/images/firefox.png" style="width:auto; left: auto;" width="48px" height="48px" alt="Firefox logo"></th>
-<th style="text-align:center"><img src="http://zenorocha.github.io/clipboard.js/assets/images/ie.png" style="width:auto; left: auto;" width="48px" height="48px" alt="Internet Explorer logo"></th>
-<th style="text-align:center"><img src="http://zenorocha.github.io/clipboard.js/assets/images/opera.png" style="width:auto; left: auto;" width="48px" height="48px" alt="Opera logo"></th>
-<th style="text-align:center"><img src="http://zenorocha.github.io/clipboard.js/assets/images/safari.png" style="width:auto; left: auto;" width="48px" height="48px" alt="Safari logo"></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">42+ ✔</td>
-<td style="text-align:center">41+ ✔</td>
-<td style="text-align:center">9+ ✔</td>
-<td style="text-align:center">29+ ✔</td>
-<td style="text-align:center">Nope ✘</td>
-</tr>
-</tbody>
-</table>
-<p>Although copy/cut operations with execCommand aren’t supported in Safari yet (including mobile), it gracefully degrades, because Selection is&nbsp;supported.</p>
-<p>This means you could show a tooltip saying Copied! when success event is called and Press Ctrl+C to copy when error event is called because the text is already&nbsp;selected.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>28. September 2015</span></p>
-            <h2><a href="/articles/runejs-and-queryl/">Rune.js and queryl</a></h2>
-          </header>
-          <section class="content"><p>Rune.js (GitHub: <a href="https://github.com/runemadsen/rune.js">runemadsen/rune.js</a>, License: <span class="caps">MIT</span>&nbsp;)</p>
-<p>Rune.js is a library for programming graphic design systems with <span class="caps">SVG</span>. It has a fluent drawing API, an unobtrusive scene graph, and a bunch of features designed specifically for graphic designers, such as: native support for color conversion, grid systems, typography, pixel iteration and an expanding set of computational geometry helpers. What peaked my interest is that it uses a <a href="https://github.com/Matt-Esch/virtual-dom">virtual-dom</a> under the&nbsp;hood.</p>
-<p>If you’re not familiar with the virtual-dom I suggest you take a break to take a look at that&nbsp;first.</p>
-<p>Unfortunately I could not find any npm or bower install instructions, so I am hoping that the developer will add that&nbsp;soon.</p>
-<p>Rune.js has all basic shapes in the&nbsp;<span class="caps">API</span>.</p>
-<pre><code class="lang-javascript">r.line(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">100</span>);
-
-r.rect(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">50</span>);
-
-r.ellipse(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">50</span>);
-
-r.circle(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>);
-
-r.triangle(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">100</span>);
-</code></pre>
-<p>And for more complex shapes it fluent <span class="caps">API</span> makes drawing with SVG very readable and&nbsp;familiar.</p>
-<pre><code class="lang-javascript">r.polygon(<span class="number">0</span>, <span class="number">0</span>).lineTo(<span class="number">100</span>, <span class="number">0</span>).lineTo(<span class="number">100</span>, <span class="number">100</span>).lineTo(<span class="number">0</span>, <span class="number">100</span>);
-
-r.path(<span class="number">0</span>, <span class="number">0</span>).lineTo(<span class="number">100</span>, <span class="number">0</span>).curveTo(<span class="number">100</span>, <span class="number">100</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">0</span>, <span class="number">0</span>);
-</code></pre>
-<p>Since this library is packed with features and concepts, I will only give you the tip of the iceberg right now. If you want to know more, consult the <a href="http://runemadsen.github.io/rune.js/">amazing documentation</a>.</p>
-<h3 id="queryl">queryl</h3>
-<p>queryl (GitHub: <a href="https://github.com/issuetrackapp/queryl">issuetrackapp/queryl</a>, License: <span class="caps">MIT</span>, npm:&nbsp;queryl)</p>
-<p>queryl is a query language to preform complex object searches. The purpose of this “language” is to allow the developer to build very complex queries to e.g. search a collection of objects, to validate objects before you dump it in a db or even to make assertions in&nbsp;tests.</p>
-<p>queryl comes with a very simple <span class="caps">API</span>. <code>queryl.match</code> is the main entry at this point this will always return a boolean and expects an object to match. For&nbsp;example:</p>
-<pre><code class="lang-javascript">queryl.match({
-  $contain: {
-    foo: <span class="number">1</span>
-  }
-}, {
-  foo: [ <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span> ]
-});
-&gt; <span class="literal">true</span>
-</code></pre>
-<p>This is just a very basic example of what it can do. The full <span class="caps">API</span> docs shows the entire power of this&nbsp;“language”.</p>
-<p>I can see this working very well for matching and parsing certain objects like the ones you would receive from, for instance, the Google spreadsheet&nbsp;<span class="caps">API</span>.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>28. September 2015</span></p>
             <h2><a href="/articles/levi/">Levi</a></h2>
           </header>
           <section class="content"><p>Levi (GitHub: <a href="https://github.com/cshum/levi">cshum/levi</a>, License: <span class="caps">MIT</span>, npm:&nbsp;levi)</p>
@@ -326,6 +251,50 @@ lv.searchStream({
 }).pipe(...)
 </code></pre>
 <p>Because I do not fully understand everything that is going on here, I need to refer you to the extensive documentation on the <a href="https://github.com/cshum/levi">GitHub page</a>. The reason I still mention this library is that I understand from the explanation a colleague gave me that this library will have a significant impact on the speed of your text&nbsp;search.</p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
+            <p class="date"><span>28. September 2015</span></p>
+            <h2><a href="/articles/runejs-and-queryl/">Rune.js and queryl</a></h2>
+          </header>
+          <section class="content"><p>Rune.js (GitHub: <a href="https://github.com/runemadsen/rune.js">runemadsen/rune.js</a>, License: <span class="caps">MIT</span>&nbsp;)</p>
+<p>Rune.js is a library for programming graphic design systems with <span class="caps">SVG</span>. It has a fluent drawing API, an unobtrusive scene graph, and a bunch of features designed specifically for graphic designers, such as: native support for color conversion, grid systems, typography, pixel iteration and an expanding set of computational geometry helpers. What peaked my interest is that it uses a <a href="https://github.com/Matt-Esch/virtual-dom">virtual-dom</a> under the&nbsp;hood.</p>
+<p>If you’re not familiar with the virtual-dom I suggest you take a break to take a look at that&nbsp;first.</p>
+<p>Unfortunately I could not find any npm or bower install instructions, so I am hoping that the developer will add that&nbsp;soon.</p>
+<p>Rune.js has all basic shapes in the&nbsp;<span class="caps">API</span>.</p>
+<pre><code class="lang-javascript">r.line(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">100</span>);
+
+r.rect(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">50</span>);
+
+r.ellipse(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">50</span>);
+
+r.circle(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>);
+
+r.triangle(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">100</span>);
+</code></pre>
+<p>And for more complex shapes it fluent <span class="caps">API</span> makes drawing with SVG very readable and&nbsp;familiar.</p>
+<pre><code class="lang-javascript">r.polygon(<span class="number">0</span>, <span class="number">0</span>).lineTo(<span class="number">100</span>, <span class="number">0</span>).lineTo(<span class="number">100</span>, <span class="number">100</span>).lineTo(<span class="number">0</span>, <span class="number">100</span>);
+
+r.path(<span class="number">0</span>, <span class="number">0</span>).lineTo(<span class="number">100</span>, <span class="number">0</span>).curveTo(<span class="number">100</span>, <span class="number">100</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">0</span>, <span class="number">0</span>);
+</code></pre>
+<p>Since this library is packed with features and concepts, I will only give you the tip of the iceberg right now. If you want to know more, consult the <a href="http://runemadsen.github.io/rune.js/">amazing documentation</a>.</p>
+<h3 id="queryl">queryl</h3>
+<p>queryl (GitHub: <a href="https://github.com/issuetrackapp/queryl">issuetrackapp/queryl</a>, License: <span class="caps">MIT</span>, npm:&nbsp;queryl)</p>
+<p>queryl is a query language to preform complex object searches. The purpose of this “language” is to allow the developer to build very complex queries to e.g. search a collection of objects, to validate objects before you dump it in a db or even to make assertions in&nbsp;tests.</p>
+<p>queryl comes with a very simple <span class="caps">API</span>. <code>queryl.match</code> is the main entry at this point this will always return a boolean and expects an object to match. For&nbsp;example:</p>
+<pre><code class="lang-javascript">queryl.match({
+  $contain: {
+    foo: <span class="number">1</span>
+  }
+}, {
+  foo: [ <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span> ]
+});
+&gt; <span class="literal">true</span>
+</code></pre>
+<p>This is just a very basic example of what it can do. The full <span class="caps">API</span> docs shows the entire power of this&nbsp;“language”.</p>
+<p>I can see this working very well for matching and parsing certain objects like the ones you would receive from, for instance, the Google spreadsheet&nbsp;<span class="caps">API</span>.</p>
 
           </section>
         </article>
