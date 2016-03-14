@@ -35,6 +35,47 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
+            <p class="date"><span>21. October 2015</span></p>
+            <h2><a href="/articles/roll-up/">Rollup.js</a></h2>
+          </header>
+          <section class="content"><p>Rollup.js (GitHub: <a href="https://github.com/rollup/rollup">rollup/rollup</a>, License: <span class="caps">MIT</span>, npm:&nbsp;rollup)</p>
+<p>Rollup is a next-generation Javascript module bundler. Build your app or library using <span class="caps">ES2015</span> modules, then efficiently bundle them up into a single file for use in browsers and Node.js.
+This is not an unfamiliar concept to the most of us. What makes Rollup stand out is that fact that it’s using only the functionality that you&nbsp;import.</p>
+<p>Normally you would do something like&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="keyword">var</span> util = <span class="built_in">require</span>(<span class="string">'util'</span>);
+util.ajax(<span class="string">'http://some-api.com/?q=DailyJavascript'</span>).then( handleData );
+</code></pre>
+<p>What this does is include the entire module <code>util</code> but we only use the <code>ajax</code> method. This will increase the total size of our app.
+Now there is <span class="caps">ES2015</span> module loading which allows us to include only the functions we need like&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="keyword">import</span> { ajax } <span class="keyword">from</span> <span class="string">'util'</span>;
+ajax(<span class="string">'http://some-api.com/?q=DailyJavascript'</span>).then( handleData );
+</code></pre>
+<p>When we build the second example, with for instance Browserify, what would happen is that the entire module would still get loaded. Kinda beats the point of using <code>import</code> right?
+Luckily there is Rollup to the rescue which will only build that what you&nbsp;need.</p>
+<p>For the moment it only provides a command line interface which you can acquire&nbsp;via:</p>
+<pre><code class="lang-bash">npm i rollup -g
+</code></pre>
+<p>The usage is pretty straight&nbsp;forward.</p>
+<pre><code class="lang-bash"><span class="comment"># create a self-executing bundle...</span>
+rollup --format iife -- src/app.js &gt; build/app.js
+
+<span class="comment"># ...with inline sourcemaps:</span>
+rollup <span class="operator">-f</span> iife --sourcemap inline -- src/app.js &gt; build/app.js
+
+<span class="comment"># create a bundle with dependencies on jQuery and Angular,</span>
+<span class="comment"># with a sourcemap in a separate file</span>
+rollup <span class="operator">-f</span> iife --globals jquery:jQuery,angular:ng \
+  -i src/app.js -o build/app.js -m build/app.js.map
+</code></pre>
+<p>For more commands check out the <code>--help</code>.</p>
+<p>Alternatively, you could use rollup command from an npm run script cntext, you can install it as a devDependency&nbsp;using:</p>
+<pre><code class="lang-bash">npm i rollup -D
+</code></pre>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
             <p class="date"><span>20. October 2015</span></p>
             <h2><a href="/articles/ljson/">λJSON</a></h2>
           </header>
@@ -209,56 +250,6 @@ SmartCrop.crop(img, options, result =&gt; {
 smartcrop-cli --width <span class="number">100</span> --height <span class="number">100</span> photo.jpg square-thumbnail.jpg
 </code></pre>
 <p>Smartcrop-cli does requires <a href="https://github.com/Automattic/node-canvas">node-canvas</a> which requires local libraries to be installed. Refer to the <a href="https://github.com/Automattic/node-canvas/wiki/_pages">node-canvas wiki</a> installation&nbsp;instructions.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>13. October 2015</span></p>
-            <h2><a href="/articles/t7/">t7</a></h2>
-          </header>
-          <section class="content"><p>t7 (GitHub: <a href="https://github.com/trueadm/t7">trueadm/t7</a>, License: <span class="caps">ISC</span>, npm:&nbsp;t7)</p>
-<p><img src="http://t7js.com/img/screenshot.png" style="max-width: 400px;width: 100%;left: 0;"></p>
-<p>While browsing I came across t7, which is a template library that compiles template strings into virtual <span class="caps">DOM</span> objects.
-Because of this functionality it’s used in frameworks such as <a href="https://github.com/trueadm/inferno">Inferno</a>, but it can also be used within&nbsp;React.</p>
-<p>There are multiple ways to work with t7. You could include the script on your page the old school way like&nbsp;this:</p>
-<pre><code class="lang-html"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"t7.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
-</code></pre>
-<p>and you can build it with <a href="/articles/t7/">Browserify</a> or <a href="/articles/t7/">Webpack</a> by installing it via npm and require it like&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="keyword">import</span> t7 <span class="keyword">from</span> <span class="string">'t7'</span>;
-</code></pre>
-<p>Now let’s make a page with&nbsp;it.</p>
-<pre><code class="lang-javascript">const items = ['Pizza', 'Kebab', 'Donut'];
-const welcome = 'to the wonderful world of t7';
-
-t7`
-  &lt;div class="foo"&gt;
-    &lt;h1&gt;Welcome ${ welcome }&lt;/h1&gt;
-    &lt;ul&gt;
-      ${
-        items.map( item =&gt; t7`
-          &lt;li class="item"&gt;
-            &lt;span&gt;The item is: ${ item }&lt;/span&gt;
-          &lt;/li&gt;
-        `)
-      }
-    &lt;/ul&gt;
-  &lt;/div&gt;
-`;
-</code></pre>
-<p>By default t7 will attempt to check to see if React is available. If it is, t7 will automatically produce React elements as its output.
-When React is not present, you can use to export it to a Universal format.
-Universal <span class="caps">DOM</span> output should be compatible with most other virtual DOM frameworks out there, like <a href="https://github.com/Raynos/mercury">Mercury</a>, <a href="https://github.com/joelrich/citojs">Cito</a> and <a href="https://github.com/Matt-Esch/virtual-dom">Virtual-dom</a>.</p>
-<p>To set the way you want to output you&nbsp;use:</p>
-<pre><code class="lang-javascript">t7.setOutput(t7.Outputs.React);
-</code></pre>
-<p>The supported outputs&nbsp;are:</p>
-<ul>
-<li><a href="https://facebook.github.io/react/">React</a></li>
-<li><a href="https://github.com/trueadm/inferno">Inferno</a></li>
-<li><a href="http://mithril.js.org/">Mithril</a></li>
-<li>Universal</li>
-</ul>
 
           </section>
         </article>
