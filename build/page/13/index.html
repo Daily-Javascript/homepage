@@ -35,6 +35,75 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
+            <p class="date"><span>16. November 2015</span></p>
+            <h2><a href="/articles/domcom/">Domcom</a></h2>
+          </header>
+          <section class="content"><p>Domcom (GitHub: <a href="https://github.com/taijiweb/domcom">taijiweb/domcom</a>, License: <span class="caps">MIT</span>, npm:&nbsp;domcom)</p>
+<p>Yesterday I got an email with the request to take a look at the Domcom.
+Domcom is a frontend framework which uses declarative components to proxy the <span class="caps">DOM</span> in order to implement better performance than <a href="https://github.com/Matt-Esch/virtual-dom">VirtualDOM</a>. It comes with “lazy” reactive functions to manage data. A few of the features included in this framework&nbsp;are:</p>
+<ul>
+<li><p>Declarative compostable components with reactive&nbsp;function</p>
+</li>
+<li><p>Only render the invalidated components and refresh the really changed <span class="caps">DOM</span> nodes with automatic update status&nbsp;checking</p>
+</li>
+<li><p>Decouple with model and&nbsp;controller</p>
+</li>
+<li><p>Simple but powerful&nbsp;route</p>
+</li>
+<li><p>Support for&nbsp;promise</p>
+</li>
+</ul>
+<p>And a whole lot more but I would refer you to the <a href="https://github.com/taijiweb/domcom">Github project</a> for&nbsp;that.</p>
+<p>Here is a code example provided by the developer to give a taste of&nbsp;Domcom:</p>
+<p>In&nbsp;javascript:</p>
+<pre><code class="lang-javascript">    <span class="keyword">const</span> {list, text, p, flow, see} = dc
+    ​
+    demoSum = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
+      <span class="keyword">let</span> a, b, comp, p1, t1, t2;
+
+      a = see(<span class="number">1</span>);
+      b = see(<span class="number">2</span>);
+
+      comp = list((t1 = text({
+        value: a,
+        onchange() { <span class="keyword">return</span> a(<span class="keyword">this</span>.value * <span class="number">1</span>); }
+
+      })), (t2 = text({
+        value: b,
+        onchange() { <span class="keyword">return</span> b(<span class="keyword">this</span>.value * <span class="number">1</span>); }
+
+      })), p1 = p(flow.add(a, b)));
+
+      dc.updateWhen([t1, t2], <span class="string">'change'</span>, p1);
+
+      <span class="keyword">return</span> comp.mount();
+    };
+    ​
+    demoSum();
+</code></pre>
+<p>Since the developer likes coffee-script is here the same example in&nbsp;coffee-script.</p>
+<pre><code class="lang-coffeescript">{list, text, p, flow, see} = dc
+<span class="function">
+<span class="title">demoSum</span> = -&gt;</span>
+
+    a = see <span class="number">1</span>; b = see <span class="number">2</span>
+
+    comp = list \
+        (t1 = text <span class="attribute">value</span>: a, <span class="attribute">onchange</span>: <span class="function">-&gt;</span> a <span class="property">@value</span>*<span class="number">1</span>),
+        (t2 = text <span class="attribute">value</span>: b, <span class="attribute">onchange</span>: <span class="function">-&gt;</span> b <span class="property">@value</span>*<span class="number">1</span>),
+        p1 = p flow.add a, b
+
+    dc.updateWhen [t1, t2], <span class="string">'change'</span>, p1
+
+    comp.mount()
+
+demoSum()
+</code></pre>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
             <p class="date"><span>12. November 2015</span></p>
             <h2><a href="/articles/react-treebeard/">React Treebeard</a></h2>
           </header>
@@ -293,19 +362,6 @@ def handler(res, res) =
 <span class="keyword">in</span> <span class="literal">undefined</span>
 </code></pre>
 <p>Since there is a comment section present after the latest update, I would love to here what you guys think of this and the blog in&nbsp;general.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>06. November 2015</span></p>
-            <h2><a href="/articles/es6-quiz/">ES6 Quiz</a></h2>
-          </header>
-          <section class="content"><p>Today I will not be checking any new library. It is time to invest in some more in depth knowledge of how <span class="caps">ES6</span>/ES2015/ESnext works. This week I was checking my reddit feed looking for something awesome to show you all, when I stumbled across <a href="http://perfectionkills.com/javascript-quiz-es6/?utm_source=javascriptweekly&amp;utm_medium=email">this quiz</a> from Perfect&nbsp;Skills.</p>
-<p>I shared this quiz at my job and noticed that a lot of people were “familiar” with <span class="caps">ES6</span>. However nobody got a perfect score, Ok, the quiz is actually really hard, but still as frontend/javascript developer we should know the language we are working with or going to work with in the very near future. That is the reason why I would recommend everybody taking this quiz, because it will enlighten you on how much you do not know or fully understand about the new standard in&nbsp;Javascript.</p>
-<p>The answers and explanation can be found <a href="https://gist.github.com/DmitrySoshnikov/3928607cb8fdba42e712">here</a>, but I recommend that you do not look at them before taking the&nbsp;test.</p>
-<p>I will be redoing this website over the weekend so I might not be able to provide you with a new post on Monday. The reason why I need to redo it, is because the static site generator I’m using to supply you with new posts each day broke on me this week. I spend several hours debugging without any luck so I will be switching to <a href="https://github.com/jnordberg/wintersmith">Wintersmith</a> with which I only had good experiences so hopefully I do not need to redo it any time soon. I will also be looking into including a comment section so I can here more back from you&nbsp;guys.</p>
-<p>Thanks for all your loyal support and have a nice&nbsp;weekend.</p>
 
           </section>
         </article>
