@@ -35,6 +35,55 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
+            <p class="date"><span>14. October 2015</span></p>
+            <h2><a href="/articles/smart-crop/">Smartcrop.js</a></h2>
+          </header>
+          <section class="content"><p>Smartcrop (GitHub: <a href="https://github.com/jwagner/smartcrop.js">jwagner/smartcrop.js</a>, License: <span class="caps">MIT</span>, npm: smartcrop, bower:&nbsp;smartcrop)</p>
+<p>Smartcrop.js is not just another image cropping library. It detects the primary region of an image such as faces.
+It does this using the following&nbsp;algorithm.</p>
+<ol>
+<li>Find edges using <a href="https://en.wikipedia.org/wiki/Laplace&#39;s_method">Laplace&nbsp;method</a></li>
+<li>Find regions with a color like&nbsp;skin</li>
+<li>Find regions high in&nbsp;saturation</li>
+<li>Generate a set of candidate crops using a sliding&nbsp;window</li>
+<li>Rank them using a importance function to focus the detail in the center and avoid it in the&nbsp;edges.</li>
+<li>Output the candidate crop with the highest&nbsp;rank</li>
+</ol>
+<p>Using it in a simple&nbsp;example:</p>
+<pre><code class="lang-javascript">SmartCrop.crop(image, {width: <span class="number">100</span>, height: <span class="number">100</span>}, result =&gt; <span class="built_in">console</span>.log(result) );
+<span class="comment">// Which will return</span>
+<span class="comment">// -&gt; {topCrop: {x: 300, y: 200, height: 200, width: 200}}</span>
+</code></pre>
+<p>When you wanna use it within node.js you would have to do something like&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="keyword">import</span> fs <span class="keyword">from</span> <span class="string">'fs'</span>;
+<span class="keyword">import</span> Canvas <span class="keyword">from</span> <span class="string">'canvas'</span>;
+<span class="keyword">import</span> SmartCrop <span class="keyword">from</span> <span class="string">'smartcrop'</span>;
+
+SmartCrop.crop(img, options, result =&gt; {
+    <span class="built_in">console</span>.log(<span class="built_in"><span class="caps">JSON</span></span>.stringify(result, <span class="literal">null</span>, <span class="number">2</span>));
+    <span class="keyword">if</span>(output &amp;&amp; options.width &amp;&amp; options.height){
+        <span class="keyword">var</span> canvas = <span class="keyword">new</span> Canvas(options.width, options.height),
+            ctx = canvas.getContext(<span class="string">'2d'</span>),
+            crop = result.topCrop,
+            f = fs.createWriteStream(output);
+        ctx.patternQuality = <span class="string">'best'</span>;
+        ctx.filter = <span class="string">'best'</span>;
+        ctx.drawImage(img, crop.x, crop.y, crop.width, crop.height, <span class="number">0</span>, <span class="number">0</span>, canvas.width, canvas.height);
+        canvas.syncJPEGStream({quality: quality}).pipe(f);
+    }
+});
+</code></pre>
+<p>Smartcrop.js also offers a command line interface under the npm package name <a href="https://github.com/jwagner/smartcrop-cli"><code>smartcrop-cli</code></a>. Which based uses&nbsp;node-canvas.</p>
+<p>That one you would use like&nbsp;this:</p>
+<pre><code class="lang-bash">npm i smartcrop-cli -g
+smartcrop-cli --width <span class="number">100</span> --height <span class="number">100</span> photo.jpg square-thumbnail.jpg
+</code></pre>
+<p>Smartcrop-cli does requires <a href="https://github.com/Automattic/node-canvas">node-canvas</a> which requires local libraries to be installed. Refer to the <a href="https://github.com/Automattic/node-canvas/wiki/_pages">node-canvas wiki</a> installation&nbsp;instructions.</p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
             <p class="date"><span>13. October 2015</span></p>
             <h2><a href="/articles/t7/">t7</a></h2>
           </header>
@@ -205,52 +254,6 @@ Nom is a <a href="http://yeoman.io">Yeoman</a> generator which is a collection o
 </code></pre>
 <p>That’s&nbsp;it.</p>
 <p>I’ve tried this out and will probably be using this to make my workflow a bit more <span class="caps">DRY</span> and hope that other people will also consider to optimize their workflow with modules like <code>nom</code>.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>07. October 2015</span></p>
-            <h2><a href="/articles/read-file-relative/">Read file relative</a></h2>
-          </header>
-          <section class="content"><p>read-file-relative (GitHub: <a href="https://github.com/inikulin/read-file-relative">inikulin/read-file-relative</a>, License: Unknown, npm:&nbsp;read-file-relative)</p>
-<p>A problem everybody probably encounters once in a while is relativity of file paths while reading files with Node.js.
-You would do something like&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="keyword">var</span> fs   = <span class="built_in">require</span>(<span class="string">'fs'</span>);
-<span class="keyword">var</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);
-<span class="keyword">var</span> data = fs.readFileSync(path.join(__dirname, <span class="string">'/data-file.txt'</span>)).toString();
-
-<span class="comment">// Or like:</span>
-<span class="keyword">var</span> fs   = <span class="built_in">require</span>(<span class="string">'fs'</span>);
-<span class="keyword">var</span> data = fs.readFileSync(__dirname + <span class="string">'/data-file.txt'</span>).toString();
-
-<span class="comment">// Or even like this</span>
-<span class="keyword">var</span> fs   = <span class="built_in">require</span>(<span class="string">'fs'</span>);
-<span class="keyword">var</span> data = fs.readFileSync(<span class="string">'./data-file.txt'</span>).toString();
-</code></pre>
-<p>Now you can easily read out files without all the annoying boilerplate code.
-Imagine a world where you could do&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="keyword">var</span> data = readSync(<span class="string">'/data-file.txt'</span>);
-</code></pre>
-<p>Well you can stop imagining, because it’s here and it’s called <code>read-file-relative</code>.
-<code>Read-file-relative</code> comes with two main functions on it’s <span class="caps">API</span>: read and readSync.
-Let’s take a&nbsp;look.</p>
-<p>To read out the file synchronously this is what you would&nbsp;do.</p>
-<pre><code class="lang-javascript"><span class="keyword">var</span> readSync = <span class="built_in">require</span>(<span class="string">'read-file-relative'</span>).readSync;
-<span class="keyword">var</span> data = readSync(<span class="string">'/file.txt'</span>);
-</code></pre>
-<p>When you prefer asynchronously reading you just provide a callback like&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="keyword">var</span> read = <span class="built_in">require</span>(<span class="string">'read-file-relative'</span>).read;
-read(<span class="string">'/file.txt'</span>, <span class="string">'utf8'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">err, content</span>) </span>{
-   <span class="comment">// ...</span>
-});
-</code></pre>
-<p>Note that for the <code>read</code> we need to provide the encoding else it will return a&nbsp;buffer.</p>
-<p>Besides reading files you can also just convert a path to an absolute path like&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="keyword">var</span> toAbsPath = <span class="built_in">require</span>(<span class="string">'read-file-relative'</span>).toAbsPath;
-<span class="keyword">var</span> absPath = toAbsPath(<span class="string">'/file.txt'</span>);
-</code></pre>
-<p>This is a nice addition to everybody’s toolbox. It doesn’t do much, but what it does, it does very&nbsp;well.</p>
 
           </section>
         </article>

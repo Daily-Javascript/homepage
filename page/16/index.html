@@ -35,6 +35,51 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
+            <p class="date"><span>22. October 2015</span></p>
+            <h2><a href="/articles/observatory/">Observatory</a></h2>
+          </header>
+          <section class="content"><p>Observatory (GitHub: <a href="https://github.com/mikesizz/observatory">mikesizz/observatory</a>, License: <span class="caps">MIT</span>, npm:&nbsp;observatoryjs)</p>
+<p>When you are following the spec proposals or read any other blog you have probably heard about <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/observe">Object.observe</a>, which is used for asynchronously observing the changes to an&nbsp;object.</p>
+<p>Observatory is an attempt to provide javascript developers an interface for Object.observe with mongodb style querying for&nbsp;specificity.</p>
+<p>In order to use it we need to create a new instance of&nbsp;Observatory.</p>
+<pre><code class="lang-javascript"><span class="keyword">import</span> Observatory <span class="keyword">from</span> <span class="string">'Observatory'</span>;
+<span class="keyword">const</span> observer = <span class="keyword">new</span> Observatory();
+</code></pre>
+<p>Now we can observe an object by binding an event to it like&nbsp;so:</p>
+<pre><code class="lang-javascript">observer.on( object , query , callback );
+</code></pre>
+<p>Currently it supports the following&nbsp;events:</p>
+<ul>
+<li>$update which observes events that include an update to a queried&nbsp;property</li>
+<li>$add which observes events that include an addition to a queried&nbsp;property</li>
+<li>$delete which observes events that include an deletion from a queried&nbsp;property</li>
+</ul>
+<p>The real power is within the query expressions, by using different selectors you can create an expression for more specific event&nbsp;handling.</p>
+<pre><code class="lang-javascript"><span class="keyword">let</span> cat = {
+    age: <span class="number">3</span>
+};
+
+observer.on( cat , { $update: { <span class="string">"age"</span>: { $gt: <span class="number">10</span> } } } , () =&gt; {
+    <span class="built_in">console</span>.log(<span class="string">"Your cat is older than 10"</span>);
+});
+</code></pre>
+<p>It provides the following value&nbsp;selectors:</p>
+<ul>
+<li>$lt - check if the property is less than the query&nbsp;value</li>
+<li>$gte - check if the property is greater than or equal to the query&nbsp;value</li>
+<li>$lte - check if the property is less than or equal to the query&nbsp;value</li>
+<li>$eq - check if the property is equal to the query&nbsp;value</li>
+</ul>
+<p>For arrays it has a couple&nbsp;extra:</p>
+<ul>
+<li>$in - check if the target array contains any of the query values after the event&nbsp;fires</li>
+<li>$all - check if the target array contains all of the query values after the event&nbsp;fires</li>
+</ul>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
             <p class="date"><span>21. October 2015</span></p>
             <h2><a href="/articles/roll-up/">Rollup.js</a></h2>
           </header>
@@ -201,55 +246,6 @@ Sometimes we come across an idea where you will need to parse or tokenize Javasc
     <span class="keyword">return</span> untokenize(tokenize(code, { lineTerminator: <span class="literal">true</span> }));
 }
 </code></pre>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>14. October 2015</span></p>
-            <h2><a href="/articles/smart-crop/">Smartcrop.js</a></h2>
-          </header>
-          <section class="content"><p>Smartcrop (GitHub: <a href="https://github.com/jwagner/smartcrop.js">jwagner/smartcrop.js</a>, License: <span class="caps">MIT</span>, npm: smartcrop, bower:&nbsp;smartcrop)</p>
-<p>Smartcrop.js is not just another image cropping library. It detects the primary region of an image such as faces.
-It does this using the following&nbsp;algorithm.</p>
-<ol>
-<li>Find edges using <a href="https://en.wikipedia.org/wiki/Laplace&#39;s_method">Laplace&nbsp;method</a></li>
-<li>Find regions with a color like&nbsp;skin</li>
-<li>Find regions high in&nbsp;saturation</li>
-<li>Generate a set of candidate crops using a sliding&nbsp;window</li>
-<li>Rank them using a importance function to focus the detail in the center and avoid it in the&nbsp;edges.</li>
-<li>Output the candidate crop with the highest&nbsp;rank</li>
-</ol>
-<p>Using it in a simple&nbsp;example:</p>
-<pre><code class="lang-javascript">SmartCrop.crop(image, {width: <span class="number">100</span>, height: <span class="number">100</span>}, result =&gt; <span class="built_in">console</span>.log(result) );
-<span class="comment">// Which will return</span>
-<span class="comment">// -&gt; {topCrop: {x: 300, y: 200, height: 200, width: 200}}</span>
-</code></pre>
-<p>When you wanna use it within node.js you would have to do something like&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="keyword">import</span> fs <span class="keyword">from</span> <span class="string">'fs'</span>;
-<span class="keyword">import</span> Canvas <span class="keyword">from</span> <span class="string">'canvas'</span>;
-<span class="keyword">import</span> SmartCrop <span class="keyword">from</span> <span class="string">'smartcrop'</span>;
-
-SmartCrop.crop(img, options, result =&gt; {
-    <span class="built_in">console</span>.log(<span class="built_in"><span class="caps">JSON</span></span>.stringify(result, <span class="literal">null</span>, <span class="number">2</span>));
-    <span class="keyword">if</span>(output &amp;&amp; options.width &amp;&amp; options.height){
-        <span class="keyword">var</span> canvas = <span class="keyword">new</span> Canvas(options.width, options.height),
-            ctx = canvas.getContext(<span class="string">'2d'</span>),
-            crop = result.topCrop,
-            f = fs.createWriteStream(output);
-        ctx.patternQuality = <span class="string">'best'</span>;
-        ctx.filter = <span class="string">'best'</span>;
-        ctx.drawImage(img, crop.x, crop.y, crop.width, crop.height, <span class="number">0</span>, <span class="number">0</span>, canvas.width, canvas.height);
-        canvas.syncJPEGStream({quality: quality}).pipe(f);
-    }
-});
-</code></pre>
-<p>Smartcrop.js also offers a command line interface under the npm package name <a href="https://github.com/jwagner/smartcrop-cli"><code>smartcrop-cli</code></a>. Which based uses&nbsp;node-canvas.</p>
-<p>That one you would use like&nbsp;this:</p>
-<pre><code class="lang-bash">npm i smartcrop-cli -g
-smartcrop-cli --width <span class="number">100</span> --height <span class="number">100</span> photo.jpg square-thumbnail.jpg
-</code></pre>
-<p>Smartcrop-cli does requires <a href="https://github.com/Automattic/node-canvas">node-canvas</a> which requires local libraries to be installed. Refer to the <a href="https://github.com/Automattic/node-canvas/wiki/_pages">node-canvas wiki</a> installation&nbsp;instructions.</p>
 
           </section>
         </article>
