@@ -35,6 +35,56 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
+            <p class="date"><span>15. March 2016</span></p>
+            <h2><a href="/articles/hactar/">Hactar</a></h2>
+          </header>
+          <section class="content"><p>Hactar (GitHub: <a href="https://github.com/Hactar-js/hactar">Hactar-js/hactar</a>, License: <span class="caps">ISC</span>, npm:&nbsp;hactar)</p>
+<p>Since a few month I start noticing a lot of people getting frustrated with the amount of setup required when trying new techniques.
+First of all I would like to refer these people that we are developers and it is our task to learn these methods and techniques. The libraries and frameworks we use are not consumer products. I do not understand where the expectation comes from that a framework or library should feel like a consumer&nbsp;product.</p>
+<p>mpjme has a <a href="https://www.youtube.com/watch?v=LyQU1sdnAtM">very great episode</a> about exactly this problem in the Javascript&nbsp;community.</p>
+<iframe width="100%" height="480px" src="https://www.youtube.com/embed/LyQU1sdnAtM" frameborder="0" allowfullscreen></iframe>
+
+<p>When I was browsing for new tools today I came across Hactar.
+Hactar is an attempt to resolve the issue of “Javascript Fatigue”. It configures build tools, installs dependencies, adds imports, creates tests&nbsp;automatically.</p>
+<p>It does not require boilerplates, no generators, and no build tools to configure.
+To start using Hactar you simply write code and it figures out what you want to do and the best practices to make it&nbsp;happen.</p>
+<p>Typically a workflow with Hactar would look like&nbsp;this;</p>
+<p>Start up&nbsp;Hactar</p>
+<pre><code class="lang-bash">$ hactar -p hactar-babel
+
+<span class="comment"># initiating npm</span>
+<span class="comment"># name: (testcats)</span>
+<span class="comment"># ...</span>
+<span class="comment"># hactar is running</span>
+</code></pre>
+<p>Open/create a file to start coding&nbsp;in.</p>
+<pre><code class="lang-bash">emacs index.js
+</code></pre>
+<p>And add some boilerplate which you will probably copy and past from the documentation of the library you want to&nbsp;use:</p>
+<pre><code class="lang-javascript"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;
+<span class="keyword">import</span> Button <span class="keyword">from</span> <span class="string">'react-toolbox/lib/button'</span>;
+
+<span class="keyword">const</span> CustomButton = () =&gt; (
+  <span class="xml"><span class="tag">&lt;<span class="title">Button</span> <span class="attribute">label</span>=<span class="value">"Hello world"</span> <span class="attribute">raised</span> <span class="attribute">accent</span> /&gt;</span>
+)</span>;
+
+<span class="keyword">export</span> <span class="keyword">default</span> CustomButton;
+</code></pre>
+<p>Hactar will detect all the features used here and install the following&nbsp;packages:</p>
+<ul>
+<li>babel<ul>
+<li>configured with babel and&nbsp;es2015</li>
+</ul>
+</li>
+<li>react</li>
+<li>react-toolbox</li>
+</ul>
+<p>So you don’t have to worry about setting up any environment&nbsp;anymore.</p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
             <p class="date"><span>14. March 2016</span></p>
             <h2><a href="/articles/quiet-js/">Quiet.js</a></h2>
           </header>
@@ -151,39 +201,6 @@ That’s it. You can probably already see the possibilities with a system like&n
 <p>This may seem like a simple library you may want to make&nbsp;yourself.</p>
 </blockquote>
 <p>One of the thing to take into consideration is the error handling, this because the default streams provided by RxJs to not handle errors that&nbsp;gracefully.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>03. March 2016</span></p>
-            <h2><a href="/articles/lmth/">lmth</a></h2>
-          </header>
-          <section class="content"><p>lmth (GitHub: <a href="https://github.com/chrisdotcode/lmth">chrisdotcode/lmth</a>, License: <span class="caps">BSD</span>-3-Clause, npm:&nbsp;lmth)</p>
-<p>Manually concatenation of <span class="caps">HTML</span> strings is painful. Even jQuery gets this wrong, because we are still creating writing out our HTML but now in strings which can be very error prone and cause unneeded debugging&nbsp;time.</p>
-<p>The is the reason tools like <a href="https://github.com/caolan/pithy">pithy</a> and <a href="https://github.com/dominictarr/hyperscript">hyperscript</a> came up.
-Now there is a new kid on the block. lmth is a <span class="caps">HTML</span> DSL for JavaScript very similar to pithy, as the developer puts&nbsp;it:</p>
-<blockquote>
-<p>lmth can be considered a spiritual successor to <a href="https://github.com/caolan/pithy">pithy</a>, and a cousin of sorts to&nbsp;hyperscript.</p>
-</blockquote>
-<p>It can output <span class="caps">HTML</span> as a string or as a DOM tree.
-In contrast with pithy, the text content is escaped by default. But you disable this if you want&nbsp;to.</p>
-<p>A quick example of how it would&nbsp;look:</p>
-<pre><code class="lang-javascript"><span class="pi">    'use strict'</span>;
-    <span class="keyword">import</span> l <span class="keyword">from</span> <span class="string">'lmth'</span>;
-
-    <span class="keyword">const</span> html = l.main({id: <span class="string">'main'</span>}, [
-        l.h1(<span class="literal">null</span>, <span class="string">'Hello, world!'</span>),
-        l.img({src: <span class="string">'/foo.png'</span>})
-    ]);
-
-    <span class="comment">// To a string:</span>
-    html.render();
-    <span class="comment">// &lt;main id="main"&gt;&lt;h1&gt;Hello, world!&lt;/h1&gt;&lt;img src="/foo.png"&gt;&lt;/main&gt;</span>
-
-    <span class="comment">// To a <span class="caps">DOM</span> tree:</span>
-    html.toDOM();
-</code></pre>
 
           </section>
         </article>
