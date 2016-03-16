@@ -35,6 +35,163 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
+            <p class="date"><span>23. November 2015</span></p>
+            <h2><a href="/articles/psdjs/">PSD.js</a></h2>
+          </header>
+          <section class="content"><p><span class="caps">PSD</span>.js (GitHub: <a href="https://github.com/meltingice/psd.js">meltingice/psd.js</a>, License: <span class="caps">MIT</span>, npm:&nbsp;psd)</p>
+<p><span class="caps">PSD</span>.js is a general purpose PSD parser written in Coffeescript. I was inspired by PSD.rb which allows you to work with a Photoshop document in a manageable tree structure and find out data such&nbsp;as:</p>
+<ul>
+<li>Document&nbsp;structure</li>
+<li>Document&nbsp;size</li>
+<li>Layer/folder size +&nbsp;positioning</li>
+<li>Layer/folder&nbsp;names</li>
+<li>Layer/folder visibility and&nbsp;opacity</li>
+<li>Font data (via psd-enginedata)<ul>
+<li>Text area&nbsp;contents</li>
+<li>Font names, sizes, and&nbsp;colors</li>
+</ul>
+</li>
+<li>Color mode and&nbsp;bit-depth</li>
+<li>Vector mask&nbsp;data</li>
+<li>Flattened image&nbsp;data</li>
+<li>Layer&nbsp;comps</li>
+</ul>
+<p>Although there are still some pieces missing that are present in <span class="caps">PSD</span>.rb, the eventual goal is to have all the features PSD.rb offers.
+So let’s look at an example for converting <code>.psd</code> as a <code>.png</code>.</p>
+<pre><code class="lang-javascript"><span class="keyword">import</span> <span class="caps">PSD</span> <span class="keyword">from</span> <span class="string">'psd'</span>;
+
+<span class="keyword">const</span> psd = <span class="caps">PSD</span>.fromFile(<span class="string">'my/awesome/file.psd'</span>);
+
+psd.parse();
+
+<span class="comment">// Log the tree structure of the .psd</span>
+<span class="built_in">console</span>.log(psd.tree().export());
+
+<span class="comment">// You can use promises syntax for opening and parsing</span>
+<span class="caps">PSD</span>.open(<span class="string">'my/awesome/file'</span>)
+    .then(psd =&gt; psd.image.saveAsPng(<span class="string">'./output.png'</span>))
+    .then(() =&gt; <span class="built_in">console</span>.log(<span class="string">'Finished!'</span>));
+</code></pre>
+<p>There is a very extensive <span class="caps">API</span> for traversing the document. If you would know the path to a group or layer within the tree, there is a way you can search by that path.
+That would look something like&nbsp;this:</p>
+<pre><code class="lang-javascript">psd.tree().childrenAtPath(<span class="string">'Version A/Matte'</span>);
+psd.tree().childrenAtPath([<span class="string">'Version A'</span>, <span class="string">'Matte'</span>]);
+</code></pre>
+<p>Once you have the layer you are interested in you can access the data like&nbsp;so:</p>
+<pre><code class="lang-javascript"><span class="comment">// Get the first layer</span>
+<span class="keyword">const</span> node = psd.tree().descendants()[<span class="number">0</span>];
+
+<span class="comment">// Read the name</span>
+node.get(<span class="string">'name'</span>);
+<span class="comment">// Read the width</span>
+node.get(<span class="string">'width'</span>);
+</code></pre>
+<p>Here is an example of the output <code>tree().export()</code> would give&nbsp;you:</p>
+<pre><code class="lang-javascript">{
+    children: [
+        {
+            type: <span class="string">'group'</span>,
+            visible: <span class="literal">false</span>,
+            opacity: <span class="number">1</span>,
+            blendingMode: <span class="string">'normal'</span>,
+            name: <span class="string">'VersionD'</span>,
+            left: <span class="number">0</span>,
+            right: <span class="number">900</span>,
+            top: <span class="number">0</span>,
+            bottom: <span class="number">600</span>,
+            height: <span class="number">600</span>,
+            width: <span class="number">900</span>,
+            children: [
+                {
+                    type: <span class="string">'layer'</span>,
+                    visible: <span class="literal">true</span>,
+                    opacity: <span class="number">1</span>,
+                    blendingMode: <span class="string">'normal'</span>,
+                    name: <span class="string">'Makeachangeandsave.'</span>,
+                    left: <span class="number">275</span>,
+                    right: <span class="number">636</span>,
+                    top: <span class="number">435</span>,
+                    bottom: <span class="number">466</span>,
+                    height: <span class="number">31</span>,
+                    width: <span class="number">361</span>,
+                    mask: {
+
+                    },
+                    text: {
+                        value: <span class="string">'Makeachangeandsave.'</span>,
+                        font: {
+                            name: <span class="string">'HelveticaNeue-Light'</span>,
+                            sizes: [
+                                <span class="number">33</span>
+                            ],
+                            colors: [
+                                [
+                                    <span class="number">85</span>,
+                                    <span class="number">96</span>,
+                                    <span class="number">110</span>,
+                                    <span class="number">255</span>
+                                ]
+                            ],
+                            alignment: [
+                                <span class="string">'center'</span>
+                            ]
+                        },
+                        left: <span class="number">0</span>,
+                        top: <span class="number">0</span>,
+                        right: <span class="number">0</span>,
+                        bottom: <span class="number">0</span>,
+                        transform: {
+                            xx: <span class="number">1</span>,
+                            xy: <span class="number">0</span>,
+                            yx: <span class="number">0</span>,
+                            yy: <span class="number">1</span>,
+                            tx: <span class="number">456</span>,
+                            ty: <span class="number">459</span>
+                        }
+                    },
+                    image: {
+
+                    }
+                }
+            ]
+        }
+    ],
+    <span class="built_in">document</span>: {
+        width: <span class="number">900</span>,
+        height: <span class="number">600</span>,
+        resources: {
+            layerComps: [
+                {
+                    id: <span class="number">692243163</span>,
+                    name: <span class="string">'VersionA'</span>,
+                    capturedInfo: <span class="number">1</span>
+                },
+                {
+                    id: <span class="number">725235304</span>,
+                    name: <span class="string">'VersionB'</span>,
+                    capturedInfo: <span class="number">1</span>
+                },
+                {
+                    id: <span class="number">730932877</span>,
+                    name: <span class="string">'VersionC'</span>,
+                    capturedInfo: <span class="number">1</span>
+                }
+            ],
+            guides: [
+
+            ],
+            slices: [
+
+            ]
+        }
+    }
+}
+</code></pre>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
             <p class="date"><span>19. November 2015</span></p>
             <h2><a href="/articles/node-5-1-0/">Node v5.1.0 Stable</a></h2>
           </header>
@@ -263,66 +420,6 @@ notie.confirm(<span class="string">'Title text'</span>, <span class="string">'Ye
 <li>Error ( Red&nbsp;)</li>
 <li>Notice ( Blue&nbsp;)</li>
 </ol>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>10. November 2015</span></p>
-            <h2><a href="/articles/babel-typecheck/">Babel Typecheck</a></h2>
-          </header>
-          <section class="content"><p>Babel Typecheck (GitHub: <a href="https://github.com/codemix/babel-plugin-typecheck">codemix/babel-plugin-typecheck</a>, License: <span class="caps">MIT</span>, npm:&nbsp;babel-plugin-typecheck)</p>
-<p>Babel Typecheck is a <a href="https://babeljs.io/">Babel</a> plugin for static and runtime type checking. It does so using <a href="http://flowtype.org/">Flow type</a>.
-What it does is turn a code block like&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="function"><span class="keyword">function</span> <span class="title">sendMessage</span> (<span class="params">to: User, message: string</span>): <span class="title">boolean</span> </span>{
-  <span class="keyword">return</span> socket.send(to, message);
-}
-</code></pre>
-<p>Into&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="function"><span class="keyword">function</span> <span class="title">sendMessage</span>(<span class="params">to, message</span>) </span>{
-  <span class="keyword">var</span> _socket$send;
-
-  <span class="keyword">if</span> (!(to <span class="keyword">instanceof</span> User)) <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">TypeError</span>(<span class="string">"Value of argument 'to' violates contract."</span>);
-  <span class="keyword">if</span> (<span class="keyword">typeof</span> message !== <span class="string">"string"</span>) <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">TypeError</span>(<span class="string">"Value of argument 'message' violates contract."</span>);
-  _socket$send = socket.send(to, message);
-  <span class="keyword">if</span> (<span class="keyword">typeof</span> _socket$send !== <span class="string">"boolean"</span>) <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">TypeError</span>(<span class="string">"Function 'sendMessage' return value violates contract."</span>);
-  <span class="keyword">return</span> _socket$send;
-}
-</code></pre>
-<p>What this does is it executes the same as when you would write your function like&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="function"><span class="keyword">function</span> <span class="title">sendMessage</span> (<span class="params">to, message</span>) </span>{
-  <span class="keyword">return</span> socket.send(to, message);
-}
-</code></pre>
-<p>But with one big difference, when you call this function with the wrong arguments your application just breaks.
-When using Babel Typecheck it would present you with a type error on transpiling so you will not make silly mistakes again. Well not the type error kind at&nbsp;least.</p>
-<p>In the example above we see a few new things, mostly attached to the function&nbsp;call:</p>
-<pre><code class="lang-javascript">    (to: User, message: string): boolean
-</code></pre>
-<p>Which means that the <code>to</code> parameter expects to be an instance of User.
-The <code>message</code> parameter expects to be a String.
-The <code>:</code> at the and of the function call is to indicate what the function will return which is a Boolean in this&nbsp;example.</p>
-<p>This function demonstrates which kinds of annotations are&nbsp;supported:</p>
-<pre><code class="lang-javascript"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">
-    aNum: number,
-    anOptionalString: ?string, <span class="comment">// will allow null/undefined</span>
-    anObject: Object,
-    aDate: Date,
-    anError: Error,
-    aUnionType: Object|string,
-    aClass: User,
-    aShape: {foo: number, bar: ?string},
-    anArray: Array,
-    arrayOf: string[] | Array&lt;string&gt;,
-    {x, y}: {x: string, y: number}, <span class="comment">// destructuring works</span>
-    es6Defaults: number = 42
-</span>) : <span class="title">number</span> </span>{
-  <span class="keyword">return</span> aNum;
-}
-</code></pre>
-<p>When I saw the syntax of this plugin the first thing that jumped into my mind was why not just use Typescript then.
-Since Typescript had it’s own upstream this might not be inline with the ESnext(<span class="caps">ES6</span>/ES7) feature we have grown to love.
-By including this plugin in your <code>.babelrc</code> to can have the power and security of strongly typed Javascript and all the new features provided by&nbsp;Babel.</p>
 
           </section>
         </article>

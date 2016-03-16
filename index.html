@@ -35,6 +35,60 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
+            <p class="date"><span>16. March 2016</span></p>
+            <h2><a href="/articles/meow/">Meow</a></h2>
+          </header>
+          <section class="content"><p>meow (GitHub: <a href="https://github.com/sindresorhus/meow">sindresorhus/meow</a>, License: <span class="caps">ISC</span>, npm:&nbsp;meow)</p>
+<p>After looking over some the source code of a <span class="caps">CLI</span> I might wanted to mention today, I came across&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="built_in">require</span>(<span class="string">'meow'</span>)
+</code></pre>
+<p>Which made me curious. So I clicked on the package, which I can do thanks to <a href="https://github.com/octo-linker/chrome-extension">Octolinker</a>.
+This landed me with in the repository of Meow, which is a <span class="caps">CLI</span>&nbsp;helper.</p>
+<p>It parses arguments, converts flags to camelCase, shows <code>--help</code> message and it sets the process title to the binary name defined in <code>package.json</code> which is a nice cosmetic&nbsp;touch.</p>
+<p>As an&nbsp;example:</p>
+<pre><code class="lang-javascript"><span class="keyword">const</span> meow = <span class="built_in">require</span>(<span class="string">'meow'</span>);
+
+<span class="keyword">const</span> cli = meow(<span class="string">`
+    Usage
+      $ foo &lt;input&gt;
+
+    Options
+      -r, --rainbow  Include a rainbow
+
+    Examples
+      $ foo unicorns --rainbow
+      🌈 unicorns 🌈
+`</span>, {
+    alias: {
+        r: <span class="string">'rainbow'</span>
+    }
+});
+
+foo(cli.input[<span class="number">0</span>], cli.flags);
+</code></pre>
+<p>When this is called like&nbsp;so:</p>
+<pre><code class="lang-bash">node foo-app.js unicorns --rainbow
+</code></pre>
+<p>Meow will provide you with the following&nbsp;object:</p>
+<pre><code class="lang-javascript">{
+    input: [<span class="string">'unicorns'</span>],
+    flags: {rainbow: <span class="literal">true</span>},
+    <span class="comment">// ...</span>
+}
+</code></pre>
+<p>With which you could implement a method&nbsp;like:</p>
+<pre><code class="lang-javascript">  <span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">action, flags</span>)</span>{
+    <span class="keyword">if</span>( action === <span class="string">'unicorns'</span> ){
+      <span class="keyword">const</span> outputString = flags.rainbow ? <span class="string">'🌈 unicorns 🌈'</span> : <span class="string">'unicorns'</span>;
+      <span class="built_in">console</span>.log(outputString);
+    }
+  }
+</code></pre>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
             <p class="date"><span>15. March 2016</span></p>
             <h2><a href="/articles/hactar/">Hactar</a></h2>
           </header>
@@ -170,37 +224,6 @@ When you do not like the default spinner, you could select another one from the 
   frames: [<span class="string">'-'</span>, <span class="string">'+'</span>, <span class="string">'-'</span>],
 };
 </code></pre>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>07. March 2016</span></p>
-            <h2><a href="/articles/rx-pubsub/">rxjs-pubsub</a></h2>
-          </header>
-          <section class="content"><p>rxjs-pubsub (GitHub: <a href="https://github.com/richardanaya/rxjs-pubsub">richardanaya/rxjs-pubsub</a>, License: <span class="caps">MIT</span>, npm:&nbsp;rxjs-pubsub)</p>
-<p>In modern applications we use a lot of functional paradigms. We do this via libraries and tools like RxJs, Bacon.js and Ramda.
-One of the patterns I really like is the PubSub(publish and subscribe) pattern. Out of the box RxJs does not provide anything to do&nbsp;this.</p>
-<p>When I came across this little library I was really happy that someone took the time to package this into a nice little module.
-First I shall describe what pubsub is for those who haven’t had the pleasure of working with&nbsp;it.</p>
-<p>The idea is that when an “action” gets preformed and event gets emitted to whom ever cares.
-So first I would create my “event&nbsp;bus”:</p>
-<pre><code class="lang-javascript"><span class="keyword">const</span> myEventBus = pubsub.create();
-</code></pre>
-<p>On this object we can attach a&nbsp;subscription.</p>
-<pre><code class="lang-javascript">myEventBus(<span class="string">'some:event'</span>).subscribe((msg) =&gt; <span class="built_in">console</span>.log(msg) );
-</code></pre>
-<p>Now we are listening for publications on the <code>some:event</code> channel.
-To trigger the <code>console.log</code> which we put as a callback we need to publish something to this&nbsp;channel.</p>
-<pre><code class="lang-javascript">myEventBus.publish(<span class="string">'some:event'</span>, <span class="string">'Some body'</span>);
-</code></pre>
-<p>This will log <code>Some body</code>. This example uses a string but it’s not limited to strings.
-That’s it. You can probably already see the possibilities with a system like&nbsp;this.</p>
-<p>As the developer let’s know in a&nbsp;footnote:</p>
-<blockquote>
-<p>This may seem like a simple library you may want to make&nbsp;yourself.</p>
-</blockquote>
-<p>One of the thing to take into consideration is the error handling, this because the default streams provided by RxJs to not handle errors that&nbsp;gracefully.</p>
 
           </section>
         </article>
