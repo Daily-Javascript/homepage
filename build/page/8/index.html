@@ -35,6 +35,25 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
+            <p class="date"><span>14. January 2016</span></p>
+            <h2><a href="/articles/chakracore-and-10-years-jquery/">ChakraCore and 10 years of jQuery</a></h2>
+          </header>
+          <section class="content"><p>ChakraCore (GitHub: <a href="https://github.com/Microsoft/ChakraCore">Microsoft/ChakraCore</a>, License:&nbsp;<span class="caps">MIT</span>)</p>
+<p>In case you did not see or hear it yet, Microsoft has open sourced the ChakraCore.
+ChakraCore is the Javascript engine that powers Microsoft&nbsp;Edge.</p>
+<p>The ChakraCore repository provides a fully supported and open-source standalone JavaScript engine, with the same  as the Microsoft Edge’s Chakra engine, to embed within your&nbsp;projects.</p>
+<p>For more in depth information I would refer you to the <a href="https://blogs.windows.com/msedgedev/2016/01/13/chakracore-now-open/">official post by Microsoft</a>. When you don’t feel like reading that, just watch this <a href="https://youtu.be/1bfDB3YPHFI">announcement video</a>.</p>
+<iframe width="100%" height="480" src="https://www.youtube.com/embed/1bfDB3YPHFI" frameborder="0" allowfullscreen></iframe>
+
+<p>Besides the great news coming from Microsoft, jQuery has a special day to celebrate. The ten year existence of the most used library on the web.
+The first release was at 14<span class="ord">th</span> of January 2006. Since then it has changed a lot and helped evolve the web to the great platform it is&nbsp;nowadays.</p>
+<p>Go over to the <a href="http://blog.jquery.com/2016/01/14/ten-years-of-jquery-and-beyond/">jQuery blog</a> to read a little bit about the journey to&nbsp;today.</p>
+<p>Don’t forget to submit your implementation of this weeks challenge. If you need a refresher on what the assignment was head over the <a href="http://daily-javascript.com/challenges/mandelbrot/">challenge&nbsp;page</a></p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
             <p class="date"><span>13. January 2016</span></p>
             <h2><a href="/articles/featurejs/">Feature.js</a></h2>
           </header>
@@ -184,27 +203,6 @@ Some of you guys are probably familiar with it already from school or as a perfo
 The developer included it as a performance demo and it got my interest because of <a href="http://benchmarksgame.alioth.debian.org/u64q/performance.php?test=mandelbrot">“The Computer Language Benchmarks Game”</a>. Where it is listed as one of the benchmarks&nbsp;challenges.</p>
 <p>For details on the challenge go to the <a href="http://daily-javascript.com/challenges/mandelbrot">challenge page</a>.</p>
 <p>The results will be up next Friday so make sure you have submitted your implementation before&nbsp;then.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>07. January 2016</span></p>
-            <h2><a href="/articles/nuclear-js/">NuclearJS</a></h2>
-          </header>
-          <section class="content"><p>NuclearJS (GitHub: <a href="https://github.com/optimizely/nuclear-js">optimizely/nuclear-js</a>, License: <span class="caps">MIT</span>, npm:&nbsp;nuclear-js)</p>
-<p>NuclearJS is a reactive flux implementation build with <a href="https://facebook.github.io/immutable-js/">ImmutableJS</a> data structures.
-It has been developed by <a href="https://www.optimizely.com/">Optimizely</a>, which is a company that provides A/B testing suite and more as a&nbsp;service.</p>
-<p>NuclearJS was designed first for large scale production apps. For a much more lightweight Flux implementation that shares many of the same ideas and design principles, as check out <a href="https://github.com/vigetlabs/microcosm">Microcosm</a>.</p>
-<p>As we have seen many Flux implementations already we have grown skeptical about new implementations.
-So that bears the question: “How NuclearJS differs from other Flux&nbsp;implementations?”.</p>
-<p>Well all app state is in a singular immutable map. In development you can see your entire application state at every point in time thanks to awesome debugging tools built into&nbsp;NuclearJS.</p>
-<p>State is not spread out through stores, instead stores are a declarative way of describing some top-level domain of your app state. For each key in the app state map a store declares the initial state of that key and how that piece of the app state reacts over time to actions dispatched on the flux&nbsp;system.</p>
-<p>Stores are not reference-able nor have any getX methods on them. Instead NuclearJS uses a functional lens concept called getters. In fact, the use of getters obviates the need for any store to know about another store, eliminating the confusing store.waitsFor method found in other flux&nbsp;implementations.</p>
-<p>NuclearJS is insanely efficient - change detection granularity is infinitesimal, you can even observe computed state where several pieces of the state map are combined together and run through a transform function. NuclearJS is smart enough to know when the value of any computed changes and only call its observer if and only if its value changed in a way that is orders of magnitude more efficient than traditional dirty checking. It does this by leveraging ImmutableJS data structure and using a state1 !== state2 reference comparison which runs in constant&nbsp;time.</p>
-<p>Automatic data observation / rendering – automatic re-rendering is built in for React in the form of a very lightweight mixin. It is also easily possible to build the same functionality for any <span class="caps">UI</span> framework such as VueJS, AngularJS and even&nbsp;Backbone.</p>
-<p>NuclearJS is not a side-project, it’s used as the default Flux implementation that powers all of Optimizely. It is well tested and will continue to be maintained for the foreseeable future. Our current codebase has over dozens of stores, actions and getters, we even share our prescribed method of large scale code organization and testing&nbsp;strategies.</p>
-<p>For examples I would refer you to <a href="https://optimizely.github.io/nuclear-js/">project homepage</a> because there you can find better explaintions than I can give it in my daily&nbsp;posts.</p>
 
           </section>
         </article>

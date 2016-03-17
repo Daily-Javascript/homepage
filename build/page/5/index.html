@@ -35,6 +35,37 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
+            <p class="date"><span>09. February 2016</span></p>
+            <h2><a href="/articles/jhaml/">jHaml</a></h2>
+          </header>
+          <section class="content"><p>jHaml (GitHub: <a href="https://github.com/soyuka/jhaml">soyuka/jhaml</a>, License: <span class="caps">MIT</span>, npm:&nbsp;@soyuka/jhaml)</p>
+<p>jHaml is a Javascript implementation of the <a href="http://haml.info/">Haml</a> templating engine which was originally written in Ruby.
+When I was still doing a lot of Rails I first got introduced to Haml. I was able to change <code>erb</code> like&nbsp;this:</p>
+<pre><code class="lang-html"><span class="tag">&lt;<span class="title">section</span> <span class="attribute">class</span>=<span class="value">”container”</span>&gt;</span>
+  <span class="tag">&lt;<span class="title">h1</span>&gt;</span><span class="tag">&lt;<span class="title">%=</span> <span class="attribute">post.title</span> %&gt;</span><span class="tag">&lt;/<span class="title">h1</span>&gt;</span>
+  <span class="tag">&lt;<span class="title">h2</span>&gt;</span><span class="tag">&lt;<span class="title">%=</span> <span class="attribute">post.subtitle</span> %&gt;</span><span class="tag">&lt;/<span class="title">h2</span>&gt;</span>
+  <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">”content”</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">%=</span> <span class="attribute">post.content</span> %&gt;</span>
+  <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">section</span>&gt;</span>
+</code></pre>
+<p>Into:</p>
+<pre><code class="lang-haml"><span class="tag">%<span class="title">section</span><span class="value">.container</span></span>
+<span class="tag">  %<span class="title">h1</span></span>= post.title
+<span class="tag">  %<span class="title">h2</span></span>= post.subtitle
+  .content
+    =<span class="ruby"> post.content</span>
+</code></pre>
+<p>Now we use do the same for our Javascript applications. After searching a bit I noticed that there are a few implementations of this already.
+The reason why I like this library is that it’s based on streams and because of this it has great support for build tooling <a href="http://gulpjs.com/">Gulp</a>, which is also stream based.
+There also is a <a href="https://github.com/soyuka/jhaml/blob/master/test/express.js">nice example</a> of how to use it in frameworks like <a href="http://expressjs.com/">Express</a></p>
+<p>For more details and documentation check the <a href="https://github.com/soyuka/jhaml"><span class="caps">README</span></a> which thoroughly explains how it works and how to use&nbsp;it.</p>
+<p>Don’t forget the submit <a href="http://daily-javascript.com/challenges/tetris-bag/">this weeks challenge</a> before Friday on when I will post the&nbsp;results.</p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
             <p class="date"><span>08. February 2016</span></p>
             <h2><a href="/articles/javascript-by-example/">Javascript by Example</a></h2>
           </header>
@@ -156,24 +187,6 @@ Applications can connect to each other, as components of a larger&nbsp;applicati
 </code></pre>
 <p>There are a few useful plugin already available such as: a hardware stats plugin which provides basic hardware stats about Node, a health plugin which provides basic keep-alive signal and a subscribers info plugin which provides basic information about&nbsp;subscribers.</p>
 <p>For more examples and documentation check out the <a href="http://yamalight.github.io/microwork/">Github Page</a>.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>02. February 2016</span></p>
-            <h2><a href="/articles/houdini/">Houdini</a></h2>
-          </header>
-          <section class="content"><p>During my daily browse I came across <a href="https://surma.link/things/houdini-intro/">“New ways to make your web app jank with Houdini – An introduction”</a>. Which made me curious. After the first paragraph I was hooked.
-The author Surma make the point that as developers we can only observe what the magic <span class="caps">CSS</span> does.
-Even when we are animating using Javascript we are still animating the CSS properties of the animated&nbsp;element.</p>
-<p>This way of thinking is actually backward. What if there was a way you could access the magic <span class="caps">CSS</span> does?
-Define your own properties for doing layout, scroll behavior or position. The possibilities are endless.
-No longer will we be limited to what is implemented in the spec. That is where Houdini comes&nbsp;in.</p>
-<p>The Houdini task force is a collection of engineers from Mozilla, Apple, Microsoft, <span class="caps">HP</span>, Intel and Google working together to expose certain parts of the CSS engine. This task force is working on a <a href="https://drafts.css-houdini.org/">collection of drafts</a> with the goal to get them accepted by the <span class="caps">W3C</span> and become part of the actual web&nbsp;standards.</p>
-<p>I would strongly recommend you take a look at <a href="https://surma.link/things/houdini-intro/">Surma’s post</a> and check out <a href="https://drafts.css-houdini.org/">the drafts already created</a>.</p>
-<p>Surma also posted a small demo of what Compositor Worklet can do in a very early implementation he got to play&nbsp;with.</p>
-<iframe width="100%" height="480" src="https://www.youtube.com/embed/EUlIxr8mk7s" frameborder="0" allowfullscreen></iframe>
 
           </section>
         </article>
