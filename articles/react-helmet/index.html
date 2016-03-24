@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="Daily updates about Javascript News, libraries and Weekly challenges">
+    <meta name="keywords" content="Javascript News, React, ES2015, Daily, Updates, Weekly Challenges">
+    <meta name="theme-color" content="#39424D">
+    <title>React Helmet - Daily Javascript
+    </title>
+    <link rel="alternate" href="http://daily-javascript.com/feed.xml" type="application/rss+xml" title="For your daily dose of Javascript libraries.">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic|Anonymous+Pro:400,700,400italic,700italic|Merriweather:400,700,300">
+    <link rel="stylesheet" href="/css/main.css">
+  </head>
+  <body class="article-detail">
+    <div class="social"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A//Daily-Javascript.com" target="_blank" class="social-btn facebook"></a><a href="https://twitter.com/home?status=Follow%20%40DailyJavascript%20for%20update%20of%20new%20Javascript%20libraries%20and%20challanges%0A%23Javascript" target="_blank" class="social-btn twitter"></a><a href="https://www.reddit.com/submit?url=http%3A//Daily-Javascript.com" target="_blank" class="social-btn reddit"></a><a href="https://plus.google.com/share?url=http%3A//Daily-Javascript.com" target="_blank" class="social-btn google"></a></div>
+    <header class="header">
+      <div class="content-wrap">
+        <h1>React Helmet</h1>
+        <p class="author">Written by <span class="author"><a href="mailto:ramon@ra-ge.net">Ramon Gebben</a></span>
+        </p>
+      </div>
+    </header>
+    <div id="content">
+      <div class="content-wrap">
+        <article class="article">
+          <section class="content"><p>React Helmet (GitHub: <a href="https://github.com/nfl/react-helmet">nfl/react-helmet</a>, License: <span class="caps">MIT</span>, npm:&nbsp;react-helmet)</p>
+<p>First if all I’d like to start out with giving you guys an explanation for why I have not being posted as regularly as normal.
+Me and my girlfriend are currently in the process of buying an apartment. This costs a lot of time and effort to get all the paperwork done in time.
+Once this is resolved I will be back on the daily posts as&nbsp;usual.</p>
+<p>Let’s get on with the show. Maybe you are already familiar with the library/component because it is not exactly new anymore.
+However when I started asking around about how colleagues and friends of mine solve the problem Helmet is trying to solve, they came up with a few useful and working solutions but non as elegant as Helmet without making something like Helmet&nbsp;yourself.</p>
+<p>What it does is give you a component to manage the <span class="caps">SEO</span>, share and other meta tags. So you don’t have to put that into your <code>index.html</code>.
+Let’s assume you have an application which has <code>App</code> as an entry point component like&nbsp;so:</p>
+<pre><code class="lang-javascript"><span class="function"><span class="keyword">function</span> <span class="title">App</span>(<span class="params"></span>)</span>{
+  <span class="keyword">return</span> (<span class="xml"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">className</span>=<span class="value">"app"</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">SomeComponent</span> /&gt;</span>
+    <span class="tag">&lt;<span class="title">SomeOtherComponent</span>&gt;</span>
+      <span class="tag">&lt;<span class="title">ChildComponent</span> /&gt;</span>
+      <span class="tag">&lt;<span class="title">SecondChildComponent</span> /&gt;</span>
+    <span class="tag">&lt;/<span class="title">SomeOtherComponent</span>&gt;</span>
+    //.. etc
+  <span class="tag">&lt;/<span class="title">div</span>&gt;</span>)</span>;
+}
+</code></pre>
+<p>And you want the title to be set to “My Awesome Application”, you can add Helmet like&nbsp;so:</p>
+<pre><code class="lang-javascript"><span class="function"><span class="keyword">function</span> <span class="title">App</span>(<span class="params"></span>)</span>{
+  <span class="keyword">return</span> (<span class="xml"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">className</span>=<span class="value">"app"</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">Helmet</span> <span class="attribute">title</span>=<span class="value">"My Awesome Application"</span> /&gt;</span>
+    <span class="tag">&lt;<span class="title">SomeComponent</span> /&gt;</span>
+    <span class="tag">&lt;<span class="title">SomeOtherComponent</span>&gt;</span>
+      <span class="tag">&lt;<span class="title">ChildComponent</span> /&gt;</span>
+      <span class="tag">&lt;<span class="title">SecondChildComponent</span> /&gt;</span>
+    <span class="tag">&lt;/<span class="title">SomeOtherComponent</span>&gt;</span>
+    //.. etc
+  <span class="tag">&lt;/<span class="title">div</span>&gt;</span>)</span>;
+}
+</code></pre>
+<p>There are way to much features to this component than I care to mention here, so if it peaked your interest I suggest you head over to the <a href="https://github.com/nfl/react-helmet">Github Page</a> and check out all it has to&nbsp;offer.</p>
+</section>
+          <div id="disqus_thread"></div>
+          <script>
+            (function() { var d = document, s = d.createElement('script'); s.src = '//daily-javascript.disqus.com/embed.js'; s.setAttribute('data-timestamp', +new Date()); (d.head || d.body).appendChild(s); })();
+            
+          </script>
+        </article>
+      </div>
+    </div>
+    <footer>
+      <script type="text/javascript">(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-68072930-1', 'auto');ga('send', 'pageview');</script>
+      <div class="content-wrap">
+        <div class="nav"><a href="/">« Full blog</a></div>
+        <section class="about">
+        </section>
+        <section class="copy">
+          <p>&copy; 2016 Ramon Gebben &mdash; powered by&nbsp;<a href="https://github.com/jnordberg/wintersmith">Wintersmith</a>
+          </p>
+        </section>
+      </div>
+    </footer>
+  </body>
+</html>

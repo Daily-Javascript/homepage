@@ -35,6 +35,52 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
+            <p class="date"><span>06. October 2015</span></p>
+            <h2><a href="/articles/speckjs/">Speck JS</a></h2>
+          </header>
+          <section class="content"><p>SpeckJS (GitHub: <a href="https://github.com/speckjs/speckjs">speckjs/speckjs</a>, License: <span class="caps">MIT</span>, npm:&nbsp;speckjs)</p>
+<p>SpeckJS is a library that parses JavaScript comments and outputs unit-tests. SpeckJS currently supports <a href="https://github.com/substack/tape">Tape</a>, <a href="https://github.com/jasmine/jasmine">Jasmine</a>, and <a href="https://github.com/mochajs/mocha">Mocha</a>/<a href="https://github.com/chaijs/chai">Chai</a>.</p>
+<p>SpeckJS comes with plugins for <a href="https://github.com/speckjs/grunt-speckjs">Grunt</a>, <a href="https://github.com/speckjs/gulp-speckjs">Gulp</a> and <a href="https://github.com/speckjs/atom-speckjs">Atom</a>.</p>
+<p>The goal of SpeckJS is to make it as easy as possible to get started using Test-Driven Development on a new project or to quickly add unit-tests to your existing&nbsp;project.</p>
+<p>Let’s make a&nbsp;test.</p>
+<pre><code class="lang-javascript"><span class="comment">/*
+test &gt; sum function
+# sum(1, 2) == 3 (returns the sum of both params)
+# sum(3, 4) == 7 (returns the sum of both params)
+*/</span>
+
+<span class="function"><span class="keyword">function</span> <span class="title">sum</span>(<span class="params">a, b</span>)</span>{
+    <span class="keyword">return</span> a + b;
+}
+</code></pre>
+<p>SpeckJS supports some basic assertion like: equal, strict equal, not equal.
+Besides relying on all the tools already provided, such as <code>gulp</code> and atom plugins, you could also script yourself with the <span class="caps">API</span> like&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="keyword">var</span> speck = <span class="built_in">require</span>(<span class="string">'speckjs'</span>);
+
+<span class="comment">// file object to be passed as an argument</span>
+<span class="keyword">var</span> file = {
+  name: <span class="string">'demo.js'</span>,
+  content: scriptContent
+};
+
+<span class="comment">// options hash selecting Jasmine and specifying a callback</span>
+<span class="keyword">var</span> option = {
+  testFW: <span class="string">'jasmine'</span>,
+  onBuild: <span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>{
+    <span class="built_in">console</span>.log(data);
+  }
+}
+
+<span class="comment">// Returns Jasmine test file</span>
+<span class="keyword">var</span> result = speck.build(file, option);
+</code></pre>
+<p>We will start using this in my company from now on, because it makes it a lot easier to integrate testing in a long running project that has never being tested just by walking through the files.
+I hope to see other people pick this up&nbsp;aswel.</p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
             <p class="date"><span>05. October 2015</span></p>
             <h2><a href="/articles/velocity-react/">Velocity React</a></h2>
           </header>
@@ -186,50 +232,6 @@ head.appendChild( scriptTag );
 </code></pre>
 <p>On of the things I’m still missing is the ability to run <span class="caps">ES2015</span>. I hope that the support for that will come very soon.
 This weekend I will be trying to include this within this website so you will be able to run the examples that I post right there in the&nbsp;browser.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>28. September 2015</span></p>
-            <h2><a href="/articles/runejs-and-queryl/">Rune.js and queryl</a></h2>
-          </header>
-          <section class="content"><p>Rune.js (GitHub: <a href="https://github.com/runemadsen/rune.js">runemadsen/rune.js</a>, License: <span class="caps">MIT</span>&nbsp;)</p>
-<p>Rune.js is a library for programming graphic design systems with <span class="caps">SVG</span>. It has a fluent drawing API, an unobtrusive scene graph, and a bunch of features designed specifically for graphic designers, such as: native support for color conversion, grid systems, typography, pixel iteration and an expanding set of computational geometry helpers. What peaked my interest is that it uses a <a href="https://github.com/Matt-Esch/virtual-dom">virtual-dom</a> under the&nbsp;hood.</p>
-<p>If you’re not familiar with the virtual-dom I suggest you take a break to take a look at that&nbsp;first.</p>
-<p>Unfortunately I could not find any npm or bower install instructions, so I am hoping that the developer will add that&nbsp;soon.</p>
-<p>Rune.js has all basic shapes in the&nbsp;<span class="caps">API</span>.</p>
-<pre><code class="lang-javascript">r.line(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">100</span>);
-
-r.rect(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">50</span>);
-
-r.ellipse(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">50</span>);
-
-r.circle(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>);
-
-r.triangle(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">100</span>);
-</code></pre>
-<p>And for more complex shapes it fluent <span class="caps">API</span> makes drawing with SVG very readable and&nbsp;familiar.</p>
-<pre><code class="lang-javascript">r.polygon(<span class="number">0</span>, <span class="number">0</span>).lineTo(<span class="number">100</span>, <span class="number">0</span>).lineTo(<span class="number">100</span>, <span class="number">100</span>).lineTo(<span class="number">0</span>, <span class="number">100</span>);
-
-r.path(<span class="number">0</span>, <span class="number">0</span>).lineTo(<span class="number">100</span>, <span class="number">0</span>).curveTo(<span class="number">100</span>, <span class="number">100</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">0</span>, <span class="number">0</span>);
-</code></pre>
-<p>Since this library is packed with features and concepts, I will only give you the tip of the iceberg right now. If you want to know more, consult the <a href="http://runemadsen.github.io/rune.js/">amazing documentation</a>.</p>
-<h3 id="queryl">queryl</h3>
-<p>queryl (GitHub: <a href="https://github.com/issuetrackapp/queryl">issuetrackapp/queryl</a>, License: <span class="caps">MIT</span>, npm:&nbsp;queryl)</p>
-<p>queryl is a query language to preform complex object searches. The purpose of this “language” is to allow the developer to build very complex queries to e.g. search a collection of objects, to validate objects before you dump it in a db or even to make assertions in&nbsp;tests.</p>
-<p>queryl comes with a very simple <span class="caps">API</span>. <code>queryl.match</code> is the main entry at this point this will always return a boolean and expects an object to match. For&nbsp;example:</p>
-<pre><code class="lang-javascript">queryl.match({
-  $contain: {
-    foo: <span class="number">1</span>
-  }
-}, {
-  foo: [ <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span> ]
-});
-&gt; <span class="literal">true</span>
-</code></pre>
-<p>This is just a very basic example of what it can do. The full <span class="caps">API</span> docs shows the entire power of this&nbsp;“language”.</p>
-<p>I can see this working very well for matching and parsing certain objects like the ones you would receive from, for instance, the Google spreadsheet&nbsp;<span class="caps">API</span>.</p>
 
           </section>
         </article>
