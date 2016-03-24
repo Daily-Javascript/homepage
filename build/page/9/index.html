@@ -35,6 +35,42 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
+            <p class="date"><span>11. January 2016</span></p>
+            <h2><a href="/articles/little-loader/">Little Loader</a></h2>
+          </header>
+          <section class="content"><p>Little Loader (GitHub: <a href="https://github.com/walmartlabs/little-loader">walmartlabs/little-loader</a>, License: <span class="caps">MIT</span>, npm:&nbsp;little-loader)</p>
+<p>Little Loader is a lightweight JavaScript loader which is advertised as “The Only Correct Script Loader Ever Made”.
+It was developed by <a href="http://formidable.com">Formidable</a> for a project they did for&nbsp;Mallmart.</p>
+<p>The need for this library grew from the lack of browser support for the which the team needed.
+To give an example look at the overview made by the&nbsp;team.</p>
+<p><img src="https://cdn-images-1.medium.com/max/600/1*NUr1sQqkxQ8mdAcrWWLvjg.png" alt="https://cdn-images-1.medium.com/max/600/1*NUr1sQqkxQ8mdAcrWWLvjg.png"></p>
+<p>I’m already using it in one of my projects because after watching the introduction video I was convinced this is the best library for dynamically loading remote JavaScript&nbsp;files.</p>
+<iframe width="100%" height="480" src="https://www.youtube.com/embed/F080X3Tp6_8" frameborder="0" allowfullscreen></iframe>
+
+<p>So how do we work with it?
+First of all make use it is installed by&nbsp;running:</p>
+<pre><code class="lang-bash">npm i little-loader -S
+</code></pre>
+<p>Now we can require it within our app like&nbsp;so:</p>
+<pre><code class="lang-javascript"><span class="keyword">const</span> load = <span class="built_in">require</span>(<span class="string">"little-loader"</span>);
+
+load(<span class="string">"http://example.com/foo.js"</span>, <span class="function"><span class="keyword">function</span> (<span class="params">err</span>) </span>{
+  <span class="comment">// .. This is where you continue with your app.</span>
+});
+</code></pre>
+<p>That’s all actually. There are multiple ways to include Little Loader. You can get it from a <span class="caps">CDN</span>, from npm and it is compatible with AMD loaders such as&nbsp;RequireJS.</p>
+<p>When including Little Loader via a normal script tag, it will attach it self to the <code>window</code> Object and can be accessed via <code>window._lload</code> like&nbsp;so:</p>
+<pre><code class="lang-html"><span class="tag">&lt;<span class="title">script</span>&gt;</span><span class="javascript">
+  <span class="built_in">window</span>._lload(<span class="string">"http://example.com/foo.js"</span>, <span class="function"><span class="keyword">function</span> (<span class="params">err</span>) </span>{
+    <span class="comment">// .. Your code....</span>
+  });
+</span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+</code></pre>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
             <p class="date"><span>08. January 2016</span></p>
             <h2><a href="/articles/weekly-challenge-2016-02/">Weekly Challenge Week 2</a></h2>
           </header>
@@ -92,48 +128,6 @@ The results can be found on the results page of the challenge which would be <a 
 To view the submitted solutions check the <a href="http://daily-javascript.com/challenges/pythagoras-tree/results">results section of the challenge</a>.</p>
 <p>For this weeks challenge I wanted to something Christmas themed and came up with a lot of ideas, but since we can not spend the entire week working on the challenge I thought to go for something simple: Let it&nbsp;snow.</p>
 <p>An overview of the challenges can be found at <a href="/challenges">/challenges</a>. For more details about this weeks challenge go to <a href="http://daily-javascript.com/challenges/let-it-snow/">Let it snow</a>.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>23. December 2015</span></p>
-            <h2><a href="/articles/shipit/">Shipit</a></h2>
-          </header>
-          <section class="content"><p>Shipit (GitHub: <a href="https://github.com/shipitjs/shipit">shipitjs/shipit</a>, License: <span class="caps">MIT</span>, npm:&nbsp;shipit)</p>
-<p>Shipit is an automation engine and a deployment tool written for&nbsp;Node.</p>
-<p>Shipit is an alternative for <a href="http://capistranorb.com/">Capistrano</a>. If you are not familiar Capistrano, it is a remote server automation and deployment tool written in Ruby.
-Since Capistrano was written in Ruby, you needed to be comfortable working in Ruby and be familiar with the tooling that comes with it.
-Nowadays we are using Javascript for everything. Web servers, build tooling, bot’s you can even control a drone using Javascript.
-So it makes sense to do deployment in Javascript as&nbsp;well.</p>
-<p>Shipit’s task structure is very similar to that of <a href="http://gulpjs.com/">Gulp</a>. Since they are both based on <a href="https://github.com/orchestrator/orchestrator">orchestrator</a>.</p>
-<p>Besides the main <span class="caps">API</span> for handling remote work, there is also a dedicated deploy package based on git and rsync commands.
-With which you can deploy tag, branch or commit. Add additional behavior using hooks, build your project locally or remotely and you can do easy&nbsp;rollback.</p>
-<p>A simple <code>shipitfile.js</code> would look something like&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span> (<span class="params">shipit</span>) </span>{
-  <span class="built_in">require</span>(<span class="string">'shipit-deploy'</span>)(shipit);
-
-  shipit.initConfig({
-    <span class="keyword">default</span>: {
-      workspace: <span class="string">'/tmp/github-monitor'</span>,
-      deployTo: <span class="string">'/tmp/deploy_to'</span>,
-      repositoryUrl: <span class="string">'https://github.com/user/repo.git'</span>,
-      ignores: [<span class="string">'.git'</span>, <span class="string">'node_modules'</span>],
-      rsync: [<span class="string">'--del'</span>],
-      keepReleases: <span class="number">2</span>,
-      key: <span class="string">'/path/to/key'</span>,
-      shallowClone: <span class="literal">true</span>
-    },
-    staging: {
-      servers: <span class="string">'user@myserver.com'</span>
-    }
-  });
-};
-</code></pre>
-<p>The <span class="caps">CLI</span> structure works like: <code>shipit &lt;environment&gt; &lt;tasks ...&gt;</code>.
-So with a <code>shipitfile.js</code> like&nbsp;this:</p>
-<pre><code class="lang-bash">shipit staging deploy
-</code></pre>
 
           </section>
         </article>

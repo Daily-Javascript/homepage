@@ -35,6 +35,47 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
+            <p class="date"><span>24. March 2016</span></p>
+            <h2><a href="/articles/react-helmet/">React Helmet</a></h2>
+          </header>
+          <section class="content"><p>React Helmet (GitHub: <a href="https://github.com/nfl/react-helmet">nfl/react-helmet</a>, License: <span class="caps">MIT</span>, npm:&nbsp;react-helmet)</p>
+<p>First if all I’d like to start out with giving you guys an explanation for why I have not being posted as regularly as normal.
+Me and my girlfriend are currently in the process of buying an apartment. This costs a lot of time and effort to get all the paperwork done in time.
+Once this is resolved I will be back on the daily posts as&nbsp;usual.</p>
+<p>Let’s get on with the show. Maybe you are already familiar with the library/component because it is not exactly new anymore.
+However when I started asking around about how colleagues and friends of mine solve the problem Helmet is trying to solve, they came up with a few useful and working solutions but non as elegant as Helmet without making something like Helmet&nbsp;yourself.</p>
+<p>What it does is give you a component to manage the <span class="caps">SEO</span>, share and other meta tags. So you don’t have to put that into your <code>index.html</code>.
+Let’s assume you have an application which has <code>App</code> as an entry point component like&nbsp;so:</p>
+<pre><code class="lang-javascript"><span class="function"><span class="keyword">function</span> <span class="title">App</span>(<span class="params"></span>)</span>{
+  <span class="keyword">return</span> (<span class="xml"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">className</span>=<span class="value">"app"</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">SomeComponent</span> /&gt;</span>
+    <span class="tag">&lt;<span class="title">SomeOtherComponent</span>&gt;</span>
+      <span class="tag">&lt;<span class="title">ChildComponent</span> /&gt;</span>
+      <span class="tag">&lt;<span class="title">SecondChildComponent</span> /&gt;</span>
+    <span class="tag">&lt;/<span class="title">SomeOtherComponent</span>&gt;</span>
+    //.. etc
+  <span class="tag">&lt;/<span class="title">div</span>&gt;</span>)</span>;
+}
+</code></pre>
+<p>And you want the title to be set to “My Awesome Application”, you can add Helmet like&nbsp;so:</p>
+<pre><code class="lang-javascript"><span class="function"><span class="keyword">function</span> <span class="title">App</span>(<span class="params"></span>)</span>{
+  <span class="keyword">return</span> (<span class="xml"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">className</span>=<span class="value">"app"</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">Helmet</span> <span class="attribute">title</span>=<span class="value">"My Awesome Application"</span> /&gt;</span>
+    <span class="tag">&lt;<span class="title">SomeComponent</span> /&gt;</span>
+    <span class="tag">&lt;<span class="title">SomeOtherComponent</span>&gt;</span>
+      <span class="tag">&lt;<span class="title">ChildComponent</span> /&gt;</span>
+      <span class="tag">&lt;<span class="title">SecondChildComponent</span> /&gt;</span>
+    <span class="tag">&lt;/<span class="title">SomeOtherComponent</span>&gt;</span>
+    //.. etc
+  <span class="tag">&lt;/<span class="title">div</span>&gt;</span>)</span>;
+}
+</code></pre>
+<p>There are way to much features to this component than I care to mention here, so if it peaked your interest I suggest you head over to the <a href="https://github.com/nfl/react-helmet">Github Page</a> and check out all it has to&nbsp;offer.</p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
             <p class="date"><span>22. March 2016</span></p>
             <h2><a href="/articles/statinamic/">Statinamic</a></h2>
           </header>
@@ -240,30 +281,6 @@ To start using Hactar you simply write code and it figures out what you want to 
 <li>react-toolbox</li>
 </ul>
 <p>So you don’t have to worry about setting up any environment&nbsp;anymore.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>14. March 2016</span></p>
-            <h2><a href="/articles/quiet-js/">Quiet.js</a></h2>
-          </header>
-          <section class="content"><p>Quiet.js (GitHub: <a href="https://github.com/brian-armstrong/quiet-js">brian-armstrong/quiet-js</a>, License:&nbsp;<span class="caps">MIT</span>)</p>
-<p>Quiet.js is a javascript binding for <code>libquiet</code>.
-In other words it’s a library for sending and receiving data via sound card.
-It can functions via either speakers or a cable, for instance a 3.5mm mini jack.
-Quiet comes included with a few transmissions profiles which configure quiet’s transmitter and receiver.
-For speaker transmission, there is a profile which transmits around the 19kHz range.
-For transmissions via cable, quiet.js has profiles which offer speeds of at least 40&nbsp;kbps.</p>
-<p>The transmission functionality is available for all <a href="https://www.techopedia.com/definition/31094/evergreen-browser">evergreen browsers</a>.
-Because this project is still very young it is not available via <code>npm</code> yet. There is already an issue logged by the developer himself to implement <code>exports</code> so it can be published to <code>npm</code>.</p>
-<p>Quiet-js includes a blob of libquiet as well as a javascript binding, which are compiled by <a href="https://github.com/kripken/emscripten">Emscripten</a>.
-The bindings must be loaded before the compiled portion. The recommended way to include Quiet in your project&nbsp;is:</p>
-<pre><code class="lang-html"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span> <span class="attribute">src</span>=<span class="value">"quiet.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
-<span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span> <span class="attribute">src</span>=<span class="value">"my_app.bundle.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
-<span class="tag">&lt;<span class="title">script</span> <span class="attribute">async</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span> <span class="attribute">src</span>=<span class="value">"quiet-emscripten.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
-</code></pre>
-<p>The developer highly recommends to also include <a href="https://github.com/brian-armstrong/libfec">libfec.js</a>. An enscripted version of <code>libfec</code> which can be installed using <code>npm</code>. When libfec is not included, quiet.js will not be able to use any profiles which use convolutional codes or Reed-Solomon error&nbsp;correction.</p>
 
           </section>
         </article>
