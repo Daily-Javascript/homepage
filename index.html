@@ -35,6 +35,71 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
+            <p class="date"><span>30. March 2016</span></p>
+            <h2><a href="/articles/react-intl/">React Intl</a></h2>
+          </header>
+          <section class="content"><p>React Intl (GitHub: <a href="https://github.com/yahoo/react-intl">yahoo/react-intl</a>, License: <span class="caps">BSD</span>-3-Clause, npm:&nbsp;react-intl)</p>
+<p>A very common problem to solve is internationalization or&nbsp;“i18n”.</p>
+<blockquote>
+<p>Fun fact. <br /> i18n stands of i- eighteen letters&nbsp;-n.</p>
+</blockquote>
+<p>Doing i18n in React or any other modern framework is different from how we used to do this. This also requires newer tools. Luckily the nice people of Yahoo to the rescue with React&nbsp;Intl.</p>
+<p>React Intl is a part of FormatJS which is a collection of libraries for internationalization that are focused on formatting numbers, dates, and strings for displaying to&nbsp;people.</p>
+<p>One of the features I was missing when I was using i18next was plurarization. I would find myself adding prefixed keys to my translation documents and checking the length and on bases of that show the singular or plural version of that&nbsp;translation.</p>
+<p>Now we don’t have to do that anymore, because React Intl takes care of all of that.
+Let’s take a look on how to get&nbsp;started.</p>
+<pre><code class="lang-javascript"><span class="keyword">import</span> React, { Component } <span class="keyword">from</span> <span class="string">'react'</span>;
+<span class="keyword">import</span> ReactDOM <span class="keyword">from</span> <span class="string">'react-dom'</span>;
+<span class="keyword">import</span> { IntlProvider, FormattedNumber, FormattedPlural } <span class="keyword">from</span> <span class="string">'react-intl'</span>;
+
+<span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>{
+    constructor(props) {
+        <span class="keyword">super</span>(props);
+        <span class="keyword">this</span>.state = {
+            name       : <span class="string">'Eric'</span>,
+            unreadCount: <span class="number">1000</span>,
+        };
+    }
+
+    render() {
+        <span class="keyword">const</span> { name, unreadCount } = <span class="keyword">this</span>.state;
+
+        <span class="keyword">return</span> (
+            <span class="xml"><span class="tag">&lt;<span class="title">p</span>&gt;</span>
+                Hello <span class="tag">&lt;<span class="title">b</span>&gt;</span>{name}<span class="tag">&lt;/<span class="title">b</span>&gt;</span>, you have {' '}
+                <span class="tag">&lt;<span class="title">FormattedNumber</span> <span class="attribute">value</span>=<span class="value">{unreadCount}</span> /&gt;</span> {' '}
+                <span class="tag">&lt;<span class="title">FormattedPlural</span> <span class="attribute">value</span>=<span class="value">{unreadCount}</span>
+                    <span class="attribute">one</span>=<span class="value">"message"</span>
+                    <span class="attribute">other</span>=<span class="value">"messages"</span>
+                /&gt;</span>.
+            <span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+        )</span>;
+    }
+}
+
+ReactDOM.render(
+    <span class="xml"><span class="tag">&lt;<span class="title">IntlProvider</span> <span class="attribute">locale</span>=<span class="value">"en"</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">App</span> /&gt;</span>
+    <span class="tag">&lt;/<span class="title">IntlProvider</span>&gt;</span>,
+    document.getElementById('container')
+);</span>
+</code></pre>
+<p>This example would render “Hello Eric, you have 1,000 messages”.
+As you can see it picks the plural version of the string ‘cause the <code>unreadCount</code> is set to a thousand.
+When working with multiple languages, there is also the problem of different grammar rules when pluralizing. For instance in Russian there are multiple plural&nbsp;rules:</p>
+<ul>
+<li><code>one</code></li>
+<li><code>few</code></li>
+<li><code>many</code></li>
+<li><code>other</code></li>
+</ul>
+<p>While in English only <code>one</code> and <code>other</code> are&nbsp;relevant.</p>
+<p>If this library intrigues you head over to the <a href="http://formatjs.io/">FormatJS website</a> and check all the other&nbsp;capabilities.</p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
             <p class="date"><span>24. March 2016</span></p>
             <h2><a href="/articles/react-helmet/">React Helmet</a></h2>
           </header>
@@ -231,56 +296,6 @@ foo(cli.input[<span class="number">0</span>], cli.flags);
     }
   }
 </code></pre>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>15. March 2016</span></p>
-            <h2><a href="/articles/hactar/">Hactar</a></h2>
-          </header>
-          <section class="content"><p>Hactar (GitHub: <a href="https://github.com/Hactar-js/hactar">Hactar-js/hactar</a>, License: <span class="caps">ISC</span>, npm:&nbsp;hactar)</p>
-<p>Since a few month I start noticing a lot of people getting frustrated with the amount of setup required when trying new techniques.
-First of all I would like to refer these people that we are developers and it is our task to learn these methods and techniques. The libraries and frameworks we use are not consumer products. I do not understand where the expectation comes from that a framework or library should feel like a consumer&nbsp;product.</p>
-<p>mpjme has a <a href="https://www.youtube.com/watch?v=LyQU1sdnAtM">very great episode</a> about exactly this problem in the Javascript&nbsp;community.</p>
-<iframe width="100%" height="480px" src="https://www.youtube.com/embed/LyQU1sdnAtM" frameborder="0" allowfullscreen></iframe>
-
-<p>When I was browsing for new tools today I came across Hactar.
-Hactar is an attempt to resolve the issue of “Javascript Fatigue”. It configures build tools, installs dependencies, adds imports, creates tests&nbsp;automatically.</p>
-<p>It does not require boilerplates, no generators, and no build tools to configure.
-To start using Hactar you simply write code and it figures out what you want to do and the best practices to make it&nbsp;happen.</p>
-<p>Typically a workflow with Hactar would look like&nbsp;this;</p>
-<p>Start up&nbsp;Hactar</p>
-<pre><code class="lang-bash">$ hactar -p hactar-babel
-
-<span class="comment"># initiating npm</span>
-<span class="comment"># name: (testcats)</span>
-<span class="comment"># ...</span>
-<span class="comment"># hactar is running</span>
-</code></pre>
-<p>Open/create a file to start coding&nbsp;in.</p>
-<pre><code class="lang-bash">emacs index.js
-</code></pre>
-<p>And add some boilerplate which you will probably copy and past from the documentation of the library you want to&nbsp;use:</p>
-<pre><code class="lang-javascript"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;
-<span class="keyword">import</span> Button <span class="keyword">from</span> <span class="string">'react-toolbox/lib/button'</span>;
-
-<span class="keyword">const</span> CustomButton = () =&gt; (
-  <span class="xml"><span class="tag">&lt;<span class="title">Button</span> <span class="attribute">label</span>=<span class="value">"Hello world"</span> <span class="attribute">raised</span> <span class="attribute">accent</span> /&gt;</span>
-)</span>;
-
-<span class="keyword">export</span> <span class="keyword">default</span> CustomButton;
-</code></pre>
-<p>Hactar will detect all the features used here and install the following&nbsp;packages:</p>
-<ul>
-<li>babel<ul>
-<li>configured with babel and&nbsp;es2015</li>
-</ul>
-</li>
-<li>react</li>
-<li>react-toolbox</li>
-</ul>
-<p>So you don’t have to worry about setting up any environment&nbsp;anymore.</p>
 
           </section>
         </article>
