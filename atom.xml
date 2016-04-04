@@ -5,9 +5,75 @@
     <atom:link href="http://daily-javascript.com/feed.xml" rel="self" type="application/rss+xml"></atom:link>
     <link>http://daily-javascript.com</link>
     <description>For your daily dose of Javascript libraries.</description>
-    <pubDate>Wed, 30 Mar 2016 02:00:00 +0200</pubDate>
+    <pubDate>Mon, 04 Apr 2016 02:00:00 +0200</pubDate>
     <generator>Wintersmith - https://github.com/jnordberg/wintersmith</generator>
     <language>en</language>
+    <item>
+      <title>WebBlock.js</title>
+      <link>http://daily-javascript.com/articles/webblock/</link>
+      <pubDate>Mon, 04 Apr 2016 02:00:00 +0200</pubDate>
+      <guid isPermaLink="true">http://daily-javascript.com/articles/webblock/</guid>
+      <author></author>
+      <description>&lt;p&gt;WebBlock.js (GitHub: &lt;a href=&quot;https://github.com/richardanaya/webblock&quot;&gt;richardanaya/webblock&lt;/a&gt;, License: MIT, npm: webblock)&lt;/p&gt;
+&lt;p&gt;Web components are a very powerful way to modularize your the UI of your application in a way that is compliant with the standards.
+One of the problems with this is that Polymer JS is the leading library for web components, because:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;It has a very steep learning curve&lt;/li&gt;
+&lt;li&gt;It lacks concise ways to write expressions&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Luckily did Richard Anaya notice these problems and saw an opportunity to create a library that allows you to get started with Web components quickly and reuse popular virtual DOM technologies like React.&lt;/p&gt;
+&lt;p&gt;Not only is it compatible with React and VirtualDOM but you can still use indirection data architectures like Flux and Redux.
+The developer has posted a Redux example in &lt;a href=&quot;http://www.webpackbin.com/E1D11e1Ce&quot;&gt;this WebpackBin&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;A quick example of how a component would look using React and WebBlock:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;import&lt;/span&gt; React &lt;span class=&quot;keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;'react'&lt;/span&gt;;
+&lt;span class=&quot;keyword&quot;&gt;import&lt;/span&gt; ReactDOM &lt;span class=&quot;keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;'react-dom'&lt;/span&gt;;
+&lt;span class=&quot;keyword&quot;&gt;import&lt;/span&gt; WebBlock &lt;span class=&quot;keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;'webblock'&lt;/span&gt;;
+
+WebBlock({
+  tag: &lt;span class=&quot;string&quot;&gt;'pizza'&lt;/span&gt;,
+  virtualDom: WebBlock.React(React,ReactDOM),
+  render() {
+        &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;xml&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;div&lt;/span&gt;&amp;gt;&lt;/span&gt;Hello {this.name}&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;title&quot;&gt;div&lt;/span&gt;&amp;gt;&lt;/span&gt;;&lt;/span&gt;
+    },
+  attributes: {
+    name: &lt;span class=&quot;built_in&quot;&gt;String&lt;/span&gt;,
+  }
+});
+
+WebBlock({
+  tag: &lt;span class=&quot;string&quot;&gt;'pizza-list'&lt;/span&gt;,
+  virtualDom: WebBlock.React(React, ReactDOM),
+  render() {
+    &lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt;(&lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;.names == &lt;span class=&quot;literal&quot;&gt;undefined&lt;/span&gt;) &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;xml&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;div&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;title&quot;&gt;div&lt;/span&gt;&amp;gt;&lt;/span&gt;;&lt;/span&gt;
+    &lt;span class=&quot;keyword&quot;&gt;const&lt;/span&gt; pizzas = &lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;.names.map((x) =&amp;gt; {
+      &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;setName&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;ref&lt;/span&gt;)&lt;/span&gt;{
+        &lt;span class=&quot;comment&quot;&gt;//set the property directly on the DOM node&lt;/span&gt;
+        ref.name = x;
+      }
+      &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;xml&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;pizza&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;ref&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;{setName}&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;title&quot;&gt;pizza&lt;/span&gt;&amp;gt;&lt;/span&gt;
+    })
+    return &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;div&lt;/span&gt;&amp;gt;&lt;/span&gt;{pizzas}&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;title&quot;&gt;div&lt;/span&gt;&amp;gt;&lt;/span&gt;
+  },
+  attributes: {
+    names: Array
+  }
+});&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Which you could use in your HTML like so:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-html&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;pizza-list&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;names&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;'[&quot;margarita&quot;, &quot;salami&quot;, &quot;veggie&quot;]'&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;pizza-list&lt;/span&gt;&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Besides making all new components, you could also make use of &lt;a href=&quot;https://customelements.io/&quot;&gt;the great collection&lt;/a&gt; of components already created for Polymer.
+To enable this you will need to force Polymer to use ShadowDOM before it is loaded like so:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-html&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;script&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;javascript&quot;&gt;
+    &lt;span class=&quot;comment&quot;&gt;/* this must run before Polymer is imported */&lt;/span&gt;
+    &lt;span class=&quot;built_in&quot;&gt;window&lt;/span&gt;.Polymer = {
+      dom: &lt;span class=&quot;string&quot;&gt;'shadow'&lt;/span&gt;,
+      lazyRegister: &lt;span class=&quot;literal&quot;&gt;true&lt;/span&gt;
+    };
+&lt;/span&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;title&quot;&gt;script&lt;/span&gt;&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
     <item>
       <title>React Intl</title>
       <link>http://daily-javascript.com/articles/react-intl/</link>
@@ -3700,6 +3766,53 @@ program
 </description>
     </item>
     <item>
+      <title>Chiffon</title>
+      <link>http://daily-javascript.com/articles/chiffon/</link>
+      <pubDate>Wed, 14 Oct 2015 02:00:00 +0200</pubDate>
+      <guid isPermaLink="true">http://daily-javascript.com/articles/chiffon/</guid>
+      <author></author>
+      <description>&lt;p&gt;Chiffon (GitHub: &lt;a href=&quot;https://github.com/trueadm/Chiffon&quot;&gt;polygonplanet/Chiffon&lt;/a&gt;, License: MIT, npm: chiffon, bower: chiffon)&lt;/p&gt;
+&lt;p&gt;Chiffon is a very small ECMAScript parser, tokenizer and minifier.
+Sometimes we come across an idea where you will need to parse or tokenize Javascript files for, for instance to do analysis on the code.&lt;/p&gt;
+&lt;p&gt;When using Chiffon for tokenizing you will get an Array of each “element” of the input code like this:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;let&lt;/span&gt; tokens = Chiffon.tokenize(&lt;span class=&quot;string&quot;&gt;'var a = 1'&lt;/span&gt;);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Which would then return:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;[ { type: &lt;span class=&quot;string&quot;&gt;'Keyword'&lt;/span&gt;,    value: &lt;span class=&quot;string&quot;&gt;'var'&lt;/span&gt; },
+  { type: &lt;span class=&quot;string&quot;&gt;'Identifier'&lt;/span&gt;, value: &lt;span class=&quot;string&quot;&gt;'a'&lt;/span&gt; },
+  { type: &lt;span class=&quot;string&quot;&gt;'Punctuator'&lt;/span&gt;, value: &lt;span class=&quot;string&quot;&gt;'='&lt;/span&gt; },
+  { type: &lt;span class=&quot;string&quot;&gt;'Numeric'&lt;/span&gt;,    value: &lt;span class=&quot;string&quot;&gt;'1'&lt;/span&gt; } ]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Here is a list of all possible tokens:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Comment&lt;/li&gt;
+&lt;li&gt;LineTerminator&lt;/li&gt;
+&lt;li&gt;Template&lt;/li&gt;
+&lt;li&gt;String&lt;/li&gt;
+&lt;li&gt;Punctuator&lt;/li&gt;
+&lt;li&gt;RegularExpression&lt;/li&gt;
+&lt;li&gt;Numeric&lt;/li&gt;
+&lt;li&gt;UnicodeEscapeSequence&lt;/li&gt;
+&lt;li&gt;Identifier&lt;/li&gt;
+&lt;li&gt;Null&lt;/li&gt;
+&lt;li&gt;Boolean&lt;/li&gt;
+&lt;li&gt;Keyword&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Sadly JavaScript AST is not currently supported.&lt;/p&gt;
+&lt;p&gt;When you wish to “untokenize” the Array, you can pass it into the &lt;code&gt;untokenize&lt;/code&gt; method like this:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;Chiffon.untokenize
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;When you want to use the minification, you would do something like this:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;Chiffon.minify(&lt;span class=&quot;string&quot;&gt;'var a = 1 + 1; // comment'&lt;/span&gt;);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Which is a simple implementation of &lt;code&gt;untokenize&lt;/code&gt; and &lt;code&gt;tokenize&lt;/code&gt; together like this:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;minify&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;code&lt;/span&gt;) &lt;/span&gt;{
+    &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; untokenize(tokenize(code, { lineTerminator: &lt;span class=&quot;literal&quot;&gt;true&lt;/span&gt; }));
+}
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    <item>
       <title>Smartcrop.js</title>
       <link>http://daily-javascript.com/articles/smart-crop/</link>
       <pubDate>Wed, 14 Oct 2015 02:00:00 +0200</pubDate>
@@ -3746,53 +3859,6 @@ SmartCrop.crop(img, options, result =&amp;gt; {
 smartcrop-cli --width &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt; --height &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt; photo.jpg square-thumbnail.jpg
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Smartcrop-cli does requires &lt;a href=&quot;https://github.com/Automattic/node-canvas&quot;&gt;node-canvas&lt;/a&gt; which requires local libraries to be installed. Refer to the &lt;a href=&quot;https://github.com/Automattic/node-canvas/wiki/_pages&quot;&gt;node-canvas wiki&lt;/a&gt; installation instructions.&lt;/p&gt;
-</description>
-    </item>
-    <item>
-      <title>Chiffon</title>
-      <link>http://daily-javascript.com/articles/chiffon/</link>
-      <pubDate>Wed, 14 Oct 2015 02:00:00 +0200</pubDate>
-      <guid isPermaLink="true">http://daily-javascript.com/articles/chiffon/</guid>
-      <author></author>
-      <description>&lt;p&gt;Chiffon (GitHub: &lt;a href=&quot;https://github.com/trueadm/Chiffon&quot;&gt;polygonplanet/Chiffon&lt;/a&gt;, License: MIT, npm: chiffon, bower: chiffon)&lt;/p&gt;
-&lt;p&gt;Chiffon is a very small ECMAScript parser, tokenizer and minifier.
-Sometimes we come across an idea where you will need to parse or tokenize Javascript files for, for instance to do analysis on the code.&lt;/p&gt;
-&lt;p&gt;When using Chiffon for tokenizing you will get an Array of each “element” of the input code like this:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;let&lt;/span&gt; tokens = Chiffon.tokenize(&lt;span class=&quot;string&quot;&gt;'var a = 1'&lt;/span&gt;);
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Which would then return:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;[ { type: &lt;span class=&quot;string&quot;&gt;'Keyword'&lt;/span&gt;,    value: &lt;span class=&quot;string&quot;&gt;'var'&lt;/span&gt; },
-  { type: &lt;span class=&quot;string&quot;&gt;'Identifier'&lt;/span&gt;, value: &lt;span class=&quot;string&quot;&gt;'a'&lt;/span&gt; },
-  { type: &lt;span class=&quot;string&quot;&gt;'Punctuator'&lt;/span&gt;, value: &lt;span class=&quot;string&quot;&gt;'='&lt;/span&gt; },
-  { type: &lt;span class=&quot;string&quot;&gt;'Numeric'&lt;/span&gt;,    value: &lt;span class=&quot;string&quot;&gt;'1'&lt;/span&gt; } ]
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Here is a list of all possible tokens:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Comment&lt;/li&gt;
-&lt;li&gt;LineTerminator&lt;/li&gt;
-&lt;li&gt;Template&lt;/li&gt;
-&lt;li&gt;String&lt;/li&gt;
-&lt;li&gt;Punctuator&lt;/li&gt;
-&lt;li&gt;RegularExpression&lt;/li&gt;
-&lt;li&gt;Numeric&lt;/li&gt;
-&lt;li&gt;UnicodeEscapeSequence&lt;/li&gt;
-&lt;li&gt;Identifier&lt;/li&gt;
-&lt;li&gt;Null&lt;/li&gt;
-&lt;li&gt;Boolean&lt;/li&gt;
-&lt;li&gt;Keyword&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Sadly JavaScript AST is not currently supported.&lt;/p&gt;
-&lt;p&gt;When you wish to “untokenize” the Array, you can pass it into the &lt;code&gt;untokenize&lt;/code&gt; method like this:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;Chiffon.untokenize
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;When you want to use the minification, you would do something like this:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;Chiffon.minify(&lt;span class=&quot;string&quot;&gt;'var a = 1 + 1; // comment'&lt;/span&gt;);
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Which is a simple implementation of &lt;code&gt;untokenize&lt;/code&gt; and &lt;code&gt;tokenize&lt;/code&gt; together like this:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;minify&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;code&lt;/span&gt;) &lt;/span&gt;{
-    &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; untokenize(tokenize(code, { lineTerminator: &lt;span class=&quot;literal&quot;&gt;true&lt;/span&gt; }));
-}
-&lt;/code&gt;&lt;/pre&gt;
 </description>
     </item>
     <item>
@@ -4219,6 +4285,90 @@ This weekend I will be trying to include this within this website so you will be
 </description>
     </item>
     <item>
+      <title>Clipboard.js</title>
+      <link>http://daily-javascript.com/articles/clipboardjs/</link>
+      <pubDate>Mon, 28 Sep 2015 02:00:00 +0200</pubDate>
+      <guid isPermaLink="true">http://daily-javascript.com/articles/clipboardjs/</guid>
+      <author></author>
+      <description>&lt;p&gt;After writing this blog for a few days now I noticed that the bar of two libraries a day is hard to do when you have a day job next to it.
+Because I want to give each library a fair shot, I will be reducing it to one library a day on workdays so I can work on updates for the website as well.&lt;/p&gt;
+&lt;p&gt;Clipboard.js (GitHub: &lt;a href=&quot;https://github.com/zenorocha/clipboard.js&quot;&gt;zenorocha/clipboard.js&lt;/a&gt;, License: MIT, npm: clipboard, bower: clipboard )&lt;/p&gt;
+&lt;p&gt;During my daily browse I came across Clipboard.js which is a library to put given content to the users clipboard from Javascript.
+Normally we are used to implementing this behavior using Flash or some bloated framework. Luckley now there is Clipboard.js which is an 2kb implementation of “Copy to clipboard”.&lt;/p&gt;
+&lt;p&gt;To use it we need to require it first. If you are using &lt;a href=&quot;http://browserify.org/&quot;&gt;Browersify&lt;/a&gt; or &lt;a href=&quot;https://webpack.github.io/&quot;&gt;Webpack&lt;/a&gt; then use:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;import&lt;/span&gt; * &lt;span class=&quot;keyword&quot;&gt;as&lt;/span&gt; Clipboard &lt;span class=&quot;keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;'clipboard'&lt;/span&gt;;
+
+&lt;span class=&quot;comment&quot;&gt;// Or the old way&lt;/span&gt;
+&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; Clipboard = &lt;span class=&quot;built_in&quot;&gt;require&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;'clipboard'&lt;/span&gt;);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;When including it in your html do it like this:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-html&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;script&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;src&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;dist/clipboard.min.js&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;undefined&quot;&gt;&lt;/span&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;title&quot;&gt;script&lt;/span&gt;&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now we can instantiate it using a DOM selector. For instance&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; Clipboard(&lt;span class=&quot;string&quot;&gt;'.btn'&lt;/span&gt;);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Internally, it needs to fetch all elements that match the selector and attach event listeners for each one. But what if you have hundreds of matches? Then this operation can consume a lot of memory.
+Because of this it uses event delegation which replaces multiple event listeners with just a single listener.&lt;/p&gt;
+&lt;p&gt;The most common usage of this library would be to copy the text value of an &lt;code&gt;input&lt;/code&gt; field or &lt;code&gt;textarea&lt;/code&gt;. This is how:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-html&quot;&gt;&lt;span class=&quot;comment&quot;&gt;&amp;lt;!-- Target --&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;input&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;id&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;foo&quot;&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;value&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;https://github.com/zenorocha/clipboard.js.git&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;
+
+&lt;span class=&quot;comment&quot;&gt;&amp;lt;!-- Trigger --&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;button&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;class&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;btn&quot;&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;data-clipboard-target&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;#foo&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;img&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;src&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;assets/clippy.svg&quot;&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;alt&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;Copy to clipboard&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;title&quot;&gt;button&lt;/span&gt;&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;It also has the ability to cut to clipboard. You would do this by attaching the &lt;code&gt;data-clipboard-action&lt;/code&gt; attribute to the trigger element like this:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-html&quot;&gt;&lt;span class=&quot;comment&quot;&gt;&amp;lt;!-- Target --&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;textarea&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;id&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;bar&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;Mussum ipsum cacilds...&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;title&quot;&gt;textarea&lt;/span&gt;&amp;gt;&lt;/span&gt;
+
+&lt;span class=&quot;comment&quot;&gt;&amp;lt;!-- Trigger --&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;button&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;class&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;btn&quot;&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;data-clipboard-action&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;cut&quot;&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;data-clipboard-target&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;#bar&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;
+    Cut to clipboard
+&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;title&quot;&gt;button&lt;/span&gt;&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;When you find yourself in a situation where you would like to show some feedback to the user or capture what has been selected after a copy/cut operation, you can make use of the &lt;code&gt;success&lt;/code&gt; and &lt;code&gt;error&lt;/code&gt; events that are being sent. You would use that like this:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; clipboard = &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; Clipboard(&lt;span class=&quot;string&quot;&gt;'.btn'&lt;/span&gt;);
+
+clipboard.on(&lt;span class=&quot;string&quot;&gt;'success'&lt;/span&gt;, &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;e&lt;/span&gt;) &lt;/span&gt;{
+    &lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.info(&lt;span class=&quot;string&quot;&gt;'Action:'&lt;/span&gt;, e.action);
+    &lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.info(&lt;span class=&quot;string&quot;&gt;'Text:'&lt;/span&gt;, e.text);
+    &lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.info(&lt;span class=&quot;string&quot;&gt;'Trigger:'&lt;/span&gt;, e.trigger);
+
+    e.clearSelection();
+});
+
+clipboard.on(&lt;span class=&quot;string&quot;&gt;'error'&lt;/span&gt;, &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;e&lt;/span&gt;) &lt;/span&gt;{
+    &lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.error(&lt;span class=&quot;string&quot;&gt;'Action:'&lt;/span&gt;, e.action);
+    &lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.error(&lt;span class=&quot;string&quot;&gt;'Trigger:'&lt;/span&gt;, e.trigger);
+});
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The browser support on this project superised me, it relies on both Selection and execCommand APIs. The second one is supported in the following browsers.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&quot;text-align:center&quot;&gt;&lt;img src=&quot;http://zenorocha.github.io/clipboard.js/assets/images/chrome.png&quot; style=&quot;width:auto; left: auto;&quot; width=&quot;48px&quot; height=&quot;48px&quot; alt=&quot;Chrome logo&quot;&gt;&lt;/th&gt;
+&lt;th style=&quot;text-align:center&quot;&gt;&lt;img src=&quot;http://zenorocha.github.io/clipboard.js/assets/images/firefox.png&quot; style=&quot;width:auto; left: auto;&quot; width=&quot;48px&quot; height=&quot;48px&quot; alt=&quot;Firefox logo&quot;&gt;&lt;/th&gt;
+&lt;th style=&quot;text-align:center&quot;&gt;&lt;img src=&quot;http://zenorocha.github.io/clipboard.js/assets/images/ie.png&quot; style=&quot;width:auto; left: auto;&quot; width=&quot;48px&quot; height=&quot;48px&quot; alt=&quot;Internet Explorer logo&quot;&gt;&lt;/th&gt;
+&lt;th style=&quot;text-align:center&quot;&gt;&lt;img src=&quot;http://zenorocha.github.io/clipboard.js/assets/images/opera.png&quot; style=&quot;width:auto; left: auto;&quot; width=&quot;48px&quot; height=&quot;48px&quot; alt=&quot;Opera logo&quot;&gt;&lt;/th&gt;
+&lt;th style=&quot;text-align:center&quot;&gt;&lt;img src=&quot;http://zenorocha.github.io/clipboard.js/assets/images/safari.png&quot; style=&quot;width:auto; left: auto;&quot; width=&quot;48px&quot; height=&quot;48px&quot; alt=&quot;Safari logo&quot;&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;42+ ✔&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;41+ ✔&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;9+ ✔&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;29+ ✔&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;Nope ✘&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Although copy/cut operations with execCommand aren’t supported in Safari yet (including mobile), it gracefully degrades, because Selection is supported.&lt;/p&gt;
+&lt;p&gt;This means you could show a tooltip saying Copied! when success event is called and Press Ctrl+C to copy when error event is called because the text is already selected.&lt;/p&gt;
+</description>
+    </item>
+    <item>
       <title>Levi</title>
       <link>http://daily-javascript.com/articles/levi/</link>
       <pubDate>Mon, 28 Sep 2015 02:00:00 +0200</pubDate>
@@ -4325,90 +4475,6 @@ r.path(&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;This is just a very basic example of what it can do. The full API docs shows the entire power of this “language”.&lt;/p&gt;
 &lt;p&gt;I can see this working very well for matching and parsing certain objects like the ones you would receive from, for instance, the Google spreadsheet API.&lt;/p&gt;
-</description>
-    </item>
-    <item>
-      <title>Clipboard.js</title>
-      <link>http://daily-javascript.com/articles/clipboardjs/</link>
-      <pubDate>Mon, 28 Sep 2015 02:00:00 +0200</pubDate>
-      <guid isPermaLink="true">http://daily-javascript.com/articles/clipboardjs/</guid>
-      <author></author>
-      <description>&lt;p&gt;After writing this blog for a few days now I noticed that the bar of two libraries a day is hard to do when you have a day job next to it.
-Because I want to give each library a fair shot, I will be reducing it to one library a day on workdays so I can work on updates for the website as well.&lt;/p&gt;
-&lt;p&gt;Clipboard.js (GitHub: &lt;a href=&quot;https://github.com/zenorocha/clipboard.js&quot;&gt;zenorocha/clipboard.js&lt;/a&gt;, License: MIT, npm: clipboard, bower: clipboard )&lt;/p&gt;
-&lt;p&gt;During my daily browse I came across Clipboard.js which is a library to put given content to the users clipboard from Javascript.
-Normally we are used to implementing this behavior using Flash or some bloated framework. Luckley now there is Clipboard.js which is an 2kb implementation of “Copy to clipboard”.&lt;/p&gt;
-&lt;p&gt;To use it we need to require it first. If you are using &lt;a href=&quot;http://browserify.org/&quot;&gt;Browersify&lt;/a&gt; or &lt;a href=&quot;https://webpack.github.io/&quot;&gt;Webpack&lt;/a&gt; then use:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;import&lt;/span&gt; * &lt;span class=&quot;keyword&quot;&gt;as&lt;/span&gt; Clipboard &lt;span class=&quot;keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;'clipboard'&lt;/span&gt;;
-
-&lt;span class=&quot;comment&quot;&gt;// Or the old way&lt;/span&gt;
-&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; Clipboard = &lt;span class=&quot;built_in&quot;&gt;require&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;'clipboard'&lt;/span&gt;);
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;When including it in your html do it like this:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-html&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;script&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;src&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;dist/clipboard.min.js&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;undefined&quot;&gt;&lt;/span&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;title&quot;&gt;script&lt;/span&gt;&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Now we can instantiate it using a DOM selector. For instance&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; Clipboard(&lt;span class=&quot;string&quot;&gt;'.btn'&lt;/span&gt;);
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Internally, it needs to fetch all elements that match the selector and attach event listeners for each one. But what if you have hundreds of matches? Then this operation can consume a lot of memory.
-Because of this it uses event delegation which replaces multiple event listeners with just a single listener.&lt;/p&gt;
-&lt;p&gt;The most common usage of this library would be to copy the text value of an &lt;code&gt;input&lt;/code&gt; field or &lt;code&gt;textarea&lt;/code&gt;. This is how:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-html&quot;&gt;&lt;span class=&quot;comment&quot;&gt;&amp;lt;!-- Target --&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;input&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;id&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;foo&quot;&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;value&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;https://github.com/zenorocha/clipboard.js.git&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;
-
-&lt;span class=&quot;comment&quot;&gt;&amp;lt;!-- Trigger --&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;button&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;class&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;btn&quot;&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;data-clipboard-target&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;#foo&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;img&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;src&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;assets/clippy.svg&quot;&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;alt&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;Copy to clipboard&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;title&quot;&gt;button&lt;/span&gt;&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;It also has the ability to cut to clipboard. You would do this by attaching the &lt;code&gt;data-clipboard-action&lt;/code&gt; attribute to the trigger element like this:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-html&quot;&gt;&lt;span class=&quot;comment&quot;&gt;&amp;lt;!-- Target --&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;textarea&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;id&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;bar&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;Mussum ipsum cacilds...&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;title&quot;&gt;textarea&lt;/span&gt;&amp;gt;&lt;/span&gt;
-
-&lt;span class=&quot;comment&quot;&gt;&amp;lt;!-- Trigger --&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;button&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;class&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;btn&quot;&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;data-clipboard-action&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;cut&quot;&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;data-clipboard-target&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;#bar&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;
-    Cut to clipboard
-&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;title&quot;&gt;button&lt;/span&gt;&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;When you find yourself in a situation where you would like to show some feedback to the user or capture what has been selected after a copy/cut operation, you can make use of the &lt;code&gt;success&lt;/code&gt; and &lt;code&gt;error&lt;/code&gt; events that are being sent. You would use that like this:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; clipboard = &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; Clipboard(&lt;span class=&quot;string&quot;&gt;'.btn'&lt;/span&gt;);
-
-clipboard.on(&lt;span class=&quot;string&quot;&gt;'success'&lt;/span&gt;, &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;e&lt;/span&gt;) &lt;/span&gt;{
-    &lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.info(&lt;span class=&quot;string&quot;&gt;'Action:'&lt;/span&gt;, e.action);
-    &lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.info(&lt;span class=&quot;string&quot;&gt;'Text:'&lt;/span&gt;, e.text);
-    &lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.info(&lt;span class=&quot;string&quot;&gt;'Trigger:'&lt;/span&gt;, e.trigger);
-
-    e.clearSelection();
-});
-
-clipboard.on(&lt;span class=&quot;string&quot;&gt;'error'&lt;/span&gt;, &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;e&lt;/span&gt;) &lt;/span&gt;{
-    &lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.error(&lt;span class=&quot;string&quot;&gt;'Action:'&lt;/span&gt;, e.action);
-    &lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.error(&lt;span class=&quot;string&quot;&gt;'Trigger:'&lt;/span&gt;, e.trigger);
-});
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;The browser support on this project superised me, it relies on both Selection and execCommand APIs. The second one is supported in the following browsers.&lt;/p&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th style=&quot;text-align:center&quot;&gt;&lt;img src=&quot;http://zenorocha.github.io/clipboard.js/assets/images/chrome.png&quot; style=&quot;width:auto; left: auto;&quot; width=&quot;48px&quot; height=&quot;48px&quot; alt=&quot;Chrome logo&quot;&gt;&lt;/th&gt;
-&lt;th style=&quot;text-align:center&quot;&gt;&lt;img src=&quot;http://zenorocha.github.io/clipboard.js/assets/images/firefox.png&quot; style=&quot;width:auto; left: auto;&quot; width=&quot;48px&quot; height=&quot;48px&quot; alt=&quot;Firefox logo&quot;&gt;&lt;/th&gt;
-&lt;th style=&quot;text-align:center&quot;&gt;&lt;img src=&quot;http://zenorocha.github.io/clipboard.js/assets/images/ie.png&quot; style=&quot;width:auto; left: auto;&quot; width=&quot;48px&quot; height=&quot;48px&quot; alt=&quot;Internet Explorer logo&quot;&gt;&lt;/th&gt;
-&lt;th style=&quot;text-align:center&quot;&gt;&lt;img src=&quot;http://zenorocha.github.io/clipboard.js/assets/images/opera.png&quot; style=&quot;width:auto; left: auto;&quot; width=&quot;48px&quot; height=&quot;48px&quot; alt=&quot;Opera logo&quot;&gt;&lt;/th&gt;
-&lt;th style=&quot;text-align:center&quot;&gt;&lt;img src=&quot;http://zenorocha.github.io/clipboard.js/assets/images/safari.png&quot; style=&quot;width:auto; left: auto;&quot; width=&quot;48px&quot; height=&quot;48px&quot; alt=&quot;Safari logo&quot;&gt;&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td style=&quot;text-align:center&quot;&gt;42+ ✔&lt;/td&gt;
-&lt;td style=&quot;text-align:center&quot;&gt;41+ ✔&lt;/td&gt;
-&lt;td style=&quot;text-align:center&quot;&gt;9+ ✔&lt;/td&gt;
-&lt;td style=&quot;text-align:center&quot;&gt;29+ ✔&lt;/td&gt;
-&lt;td style=&quot;text-align:center&quot;&gt;Nope ✘&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;p&gt;Although copy/cut operations with execCommand aren’t supported in Safari yet (including mobile), it gracefully degrades, because Selection is supported.&lt;/p&gt;
-&lt;p&gt;This means you could show a tooltip saying Copied! when success event is called and Press Ctrl+C to copy when error event is called because the text is already selected.&lt;/p&gt;
 </description>
     </item>
     <item>

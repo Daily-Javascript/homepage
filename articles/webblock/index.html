@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="Daily updates about Javascript News, libraries and Weekly challenges">
+    <meta name="keywords" content="Javascript News, React, ES2015, Daily, Updates, Weekly Challenges">
+    <meta name="theme-color" content="#39424D">
+    <title>WebBlock.js - Daily Javascript
+    </title>
+    <link rel="alternate" href="http://daily-javascript.com/feed.xml" type="application/rss+xml" title="For your daily dose of Javascript libraries.">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic|Anonymous+Pro:400,700,400italic,700italic|Merriweather:400,700,300">
+    <link rel="stylesheet" href="/css/main.css">
+  </head>
+  <body class="article-detail">
+    <div class="social"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A//Daily-Javascript.com" target="_blank" class="social-btn facebook"></a><a href="https://twitter.com/home?status=Follow%20%40DailyJavascript%20for%20update%20of%20new%20Javascript%20libraries%20and%20challanges%0A%23Javascript" target="_blank" class="social-btn twitter"></a><a href="https://www.reddit.com/submit?url=http%3A//Daily-Javascript.com" target="_blank" class="social-btn reddit"></a><a href="https://plus.google.com/share?url=http%3A//Daily-Javascript.com" target="_blank" class="social-btn google"></a></div>
+    <header class="header">
+      <div class="content-wrap">
+        <h1>WebBlock.js</h1>
+        <p class="author">Written by <span class="author"><a href="mailto:ramon@ra-ge.net">Ramon Gebben</a></span>
+        </p>
+      </div>
+    </header>
+    <div id="content">
+      <div class="content-wrap">
+        <article class="article">
+          <section class="content"><p>WebBlock.js (GitHub: <a href="https://github.com/richardanaya/webblock">richardanaya/webblock</a>, License: <span class="caps">MIT</span>, npm:&nbsp;webblock)</p>
+<p>Web components are a very powerful way to modularize your the <span class="caps">UI</span> of your application in a way that is compliant with the standards.
+One of the problems with this is that Polymer JS is the leading library for web components,&nbsp;because:</p>
+<ul>
+<li>It has a very steep learning&nbsp;curve</li>
+<li>It lacks concise ways to write&nbsp;expressions</li>
+</ul>
+<p>Luckily did Richard Anaya notice these problems and saw an opportunity to create a library that allows you to get started with Web components quickly and reuse popular virtual <span class="caps">DOM</span> technologies like&nbsp;React.</p>
+<p>Not only is it compatible with React and VirtualDOM but you can still use indirection data architectures like Flux and Redux.
+The developer has posted a Redux example in <a href="http://www.webpackbin.com/E1D11e1Ce">this WebpackBin</a>.</p>
+<p>A quick example of how a component would look using React and&nbsp;WebBlock:</p>
+<pre><code class="lang-javascript"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;
+<span class="keyword">import</span> ReactDOM <span class="keyword">from</span> <span class="string">'react-dom'</span>;
+<span class="keyword">import</span> WebBlock <span class="keyword">from</span> <span class="string">'webblock'</span>;
+
+WebBlock({
+  tag: <span class="string">'pizza'</span>,
+  virtualDom: WebBlock.React(React,ReactDOM),
+  render() {
+        <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="title">div</span>&gt;</span>Hello {this.name}<span class="tag">&lt;/<span class="title">div</span>&gt;</span>;</span>
+    },
+  attributes: {
+    name: <span class="built_in">String</span>,
+  }
+});
+
+WebBlock({
+  tag: <span class="string">'pizza-list'</span>,
+  virtualDom: WebBlock.React(React, ReactDOM),
+  render() {
+    <span class="keyword">if</span>(<span class="keyword">this</span>.names == <span class="literal">undefined</span>) <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="title">div</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>;</span>
+    <span class="keyword">const</span> pizzas = <span class="keyword">this</span>.names.map((x) =&gt; {
+      <span class="function"><span class="keyword">function</span> <span class="title">setName</span>(<span class="params">ref</span>)</span>{
+        <span class="comment">//set the property directly on the <span class="caps">DOM</span> node</span>
+        ref.name = x;
+      }
+      <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="title">pizza</span> <span class="attribute">ref</span>=<span class="value">{setName}</span>&gt;</span><span class="tag">&lt;/<span class="title">pizza</span>&gt;</span>
+    })
+    return <span class="tag">&lt;<span class="title">div</span>&gt;</span>{pizzas}<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+  },
+  attributes: {
+    names: Array
+  }
+});</span>
+</code></pre>
+<p>Which you could use in your <span class="caps">HTML</span> like&nbsp;so:</p>
+<pre><code class="lang-html"><span class="tag">&lt;<span class="title">pizza-list</span> <span class="attribute">names</span>=<span class="value">'["margarita", "salami", "veggie"]'</span>&gt;</span><span class="tag">&lt;<span class="title">pizza-list</span>&gt;</span>
+</code></pre>
+<p>Besides making all new components, you could also make use of <a href="https://customelements.io/">the great collection</a> of components already created for Polymer.
+To enable this you will need to force Polymer to use ShadowDOM before it is loaded like&nbsp;so:</p>
+<pre><code class="lang-html"><span class="tag">&lt;<span class="title">script</span>&gt;</span><span class="javascript">
+    <span class="comment">/* this must run before Polymer is imported */</span>
+    <span class="built_in">window</span>.Polymer = {
+      dom: <span class="string">'shadow'</span>,
+      lazyRegister: <span class="literal">true</span>
+    };
+</span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+</code></pre>
+</section>
+          <div id="disqus_thread"></div>
+          <script>
+            (function() { var d = document, s = d.createElement('script'); s.src = '//daily-javascript.disqus.com/embed.js'; s.setAttribute('data-timestamp', +new Date()); (d.head || d.body).appendChild(s); })();
+            
+          </script>
+        </article>
+      </div>
+    </div>
+    <footer>
+      <script type="text/javascript">(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-68072930-1', 'auto');ga('send', 'pageview');</script>
+      <div class="content-wrap">
+        <div class="nav"><a href="/">« Full blog</a></div>
+        <section class="about">
+        </section>
+        <section class="copy">
+          <p>&copy; 2016 Ramon Gebben &mdash; powered by&nbsp;<a href="https://github.com/jnordberg/wintersmith">Wintersmith</a>
+          </p>
+        </section>
+      </div>
+    </footer>
+  </body>
+</html>
