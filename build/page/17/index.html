@@ -35,6 +35,55 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
+            <p class="date"><span>26. October 2015</span></p>
+            <h2><a href="/articles/react-dom-stream/">React DOM Stream</a></h2>
+          </header>
+          <section class="content"><p>React <span class="caps">DOM</span> Stream (GitHub: <a href="https://github.com/aickin/react-dom-stream">aickin/react-dom-stream</a>, License: <span class="caps">MIT</span>, npm:&nbsp;react-dom-stream)</p>
+<p>react-dom-stream is a React renderer for generating markup on a NodeJS server. Unlike the built-in ReactDOM.renderToString, this module renders to a stream.
+Streams make this library as much as 47% faster in sending down a full page than&nbsp;ReactDOM.renderToString.</p>
+<p>One difficulty with ReactDOM.renderToString is that it is synchronous, which could cost you performance with server-side rendering of React sites. Especially true with large <span class="caps">HTML</span> payloads. Which could lead to the following problems as the developer&nbsp;saids:</p>
+<blockquote>
+<ol>
+<li>The server cannot send out any part of the response until all the <span class="caps">HTML</span> is created, which means that browsers can’t start working on painting the page until the renderToString call is done. With larger pages, this can introduce a latency of hundreds of&nbsp;milliseconds.</li>
+<li>The server has to allocate memory for the entire <span class="caps">HTML</span>&nbsp;string.</li>
+<li>One call to ReactDOM.renderToString can dominate the <span class="caps">CPU</span> and starve out other requests. This is particularly troublesome on servers that serve a mix of small and large&nbsp;pages.</li>
+</ol>
+</blockquote>
+<p>react-dom-stream tries to fix those problems for&nbsp;us.</p>
+<p>Let’s take a look, To use the server-side methods, we’ll need to require <code>react-dom-stream/server</code>.
+To render an <code>element</code> as a <code>stream</code> using express we would use the <code>renderToString</code> method. This would look something like&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="keyword">var</span> ReactDOMStream = <span class="built_in">require</span>(<span class="string">"react-dom-stream/server"</span>);
+
+app.get(<span class="string">'/'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">req, res</span>) </span>{
+    ReactDOMStream.renderToString(<span class="xml"><span class="tag">&lt;<span class="title">Foo</span> <span class="attribute">prop</span>=<span class="value">{value}</span>/&gt;</span>, res)
+        .then(function(hash) {
+            // <span class="caps">TODO</span>: write the hash out to the page in a script tag
+            res.end();
+        });
+});</span>
+</code></pre>
+<p>When you are working with static pages where you don’t intend to use React to render on the client side you could use the <code>renderToStaticMarkup</code> method to generates smaller sized markup than <code>renderToString</code>.</p>
+<p>Again with an express&nbsp;example:</p>
+<pre><code class="lang-javascript"><span class="keyword">var</span> ReactDOMStream = <span class="built_in">require</span>(<span class="string">"react-dom-stream/server"</span>);
+
+app.get(<span class="string">'/'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">req, res</span>) </span>{
+    ReactDOMStream.renderToStaticMarkup(<span class="xml"><span class="tag">&lt;<span class="title">Foo</span> <span class="attribute">prop</span>=<span class="value">{value}</span>/&gt;</span>, res)
+        .then(function() {
+            res.end();
+        });
+});</span>
+</code></pre>
+<p>When you are generating server markup using <code>react-dom-stream</code>, <em>you cannot use the standard ReactDOM.render;</em> you must use the render method in <code>react-dom-stream</code>. The difference between react-dom’s version and this one is that this render also takes in the hash returned from <code>renderToString</code>.</p>
+<pre><code class="lang-javascript"><span class="keyword">var</span> ReactDOMStream = <span class="built_in">require</span>(<span class="string">"react-dom-stream"</span>);
+
+<span class="keyword">var</span> hash = <span class="number">1234567890</span>; <span class="comment">// returned from renderToString's promise and read out into the page</span>
+ReactDOMStream.render(<span class="xml"><span class="tag">&lt;<span class="title">Foo</span> <span class="attribute">prop</span>=<span class="value">{value}</span>/&gt;</span>, document.getElementById("bar"), hash);</span>
+</code></pre>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
             <p class="date"><span>22. October 2015</span></p>
             <h2><a href="/articles/observatory/">Observatory</a></h2>
           </header>
@@ -199,55 +248,6 @@ program
   .show();
 </code></pre>
 <p>This creates an instance of Vorpal, adds a command which logs “bar”, sets the prompt delimiter to say “app $”, and shows the&nbsp;prompt.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>14. October 2015</span></p>
-            <h2><a href="/articles/smart-crop/">Smartcrop.js</a></h2>
-          </header>
-          <section class="content"><p>Smartcrop (GitHub: <a href="https://github.com/jwagner/smartcrop.js">jwagner/smartcrop.js</a>, License: <span class="caps">MIT</span>, npm: smartcrop, bower:&nbsp;smartcrop)</p>
-<p>Smartcrop.js is not just another image cropping library. It detects the primary region of an image such as faces.
-It does this using the following&nbsp;algorithm.</p>
-<ol>
-<li>Find edges using <a href="https://en.wikipedia.org/wiki/Laplace&#39;s_method">Laplace&nbsp;method</a></li>
-<li>Find regions with a color like&nbsp;skin</li>
-<li>Find regions high in&nbsp;saturation</li>
-<li>Generate a set of candidate crops using a sliding&nbsp;window</li>
-<li>Rank them using a importance function to focus the detail in the center and avoid it in the&nbsp;edges.</li>
-<li>Output the candidate crop with the highest&nbsp;rank</li>
-</ol>
-<p>Using it in a simple&nbsp;example:</p>
-<pre><code class="lang-javascript">SmartCrop.crop(image, {width: <span class="number">100</span>, height: <span class="number">100</span>}, result =&gt; <span class="built_in">console</span>.log(result) );
-<span class="comment">// Which will return</span>
-<span class="comment">// -&gt; {topCrop: {x: 300, y: 200, height: 200, width: 200}}</span>
-</code></pre>
-<p>When you wanna use it within node.js you would have to do something like&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="keyword">import</span> fs <span class="keyword">from</span> <span class="string">'fs'</span>;
-<span class="keyword">import</span> Canvas <span class="keyword">from</span> <span class="string">'canvas'</span>;
-<span class="keyword">import</span> SmartCrop <span class="keyword">from</span> <span class="string">'smartcrop'</span>;
-
-SmartCrop.crop(img, options, result =&gt; {
-    <span class="built_in">console</span>.log(<span class="built_in"><span class="caps">JSON</span></span>.stringify(result, <span class="literal">null</span>, <span class="number">2</span>));
-    <span class="keyword">if</span>(output &amp;&amp; options.width &amp;&amp; options.height){
-        <span class="keyword">var</span> canvas = <span class="keyword">new</span> Canvas(options.width, options.height),
-            ctx = canvas.getContext(<span class="string">'2d'</span>),
-            crop = result.topCrop,
-            f = fs.createWriteStream(output);
-        ctx.patternQuality = <span class="string">'best'</span>;
-        ctx.filter = <span class="string">'best'</span>;
-        ctx.drawImage(img, crop.x, crop.y, crop.width, crop.height, <span class="number">0</span>, <span class="number">0</span>, canvas.width, canvas.height);
-        canvas.syncJPEGStream({quality: quality}).pipe(f);
-    }
-});
-</code></pre>
-<p>Smartcrop.js also offers a command line interface under the npm package name <a href="https://github.com/jwagner/smartcrop-cli"><code>smartcrop-cli</code></a>. Which based uses&nbsp;node-canvas.</p>
-<p>That one you would use like&nbsp;this:</p>
-<pre><code class="lang-bash">npm i smartcrop-cli -g
-smartcrop-cli --width <span class="number">100</span> --height <span class="number">100</span> photo.jpg square-thumbnail.jpg
-</code></pre>
-<p>Smartcrop-cli does requires <a href="https://github.com/Automattic/node-canvas">node-canvas</a> which requires local libraries to be installed. Refer to the <a href="https://github.com/Automattic/node-canvas/wiki/_pages">node-canvas wiki</a> installation&nbsp;instructions.</p>
 
           </section>
         </article>

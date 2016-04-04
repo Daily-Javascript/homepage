@@ -35,6 +35,37 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
+            <p class="date"><span>07. March 2016</span></p>
+            <h2><a href="/articles/rx-pubsub/">rxjs-pubsub</a></h2>
+          </header>
+          <section class="content"><p>rxjs-pubsub (GitHub: <a href="https://github.com/richardanaya/rxjs-pubsub">richardanaya/rxjs-pubsub</a>, License: <span class="caps">MIT</span>, npm:&nbsp;rxjs-pubsub)</p>
+<p>In modern applications we use a lot of functional paradigms. We do this via libraries and tools like RxJs, Bacon.js and Ramda.
+One of the patterns I really like is the PubSub(publish and subscribe) pattern. Out of the box RxJs does not provide anything to do&nbsp;this.</p>
+<p>When I came across this little library I was really happy that someone took the time to package this into a nice little module.
+First I shall describe what pubsub is for those who haven’t had the pleasure of working with&nbsp;it.</p>
+<p>The idea is that when an “action” gets preformed and event gets emitted to whom ever cares.
+So first I would create my “event&nbsp;bus”:</p>
+<pre><code class="lang-javascript"><span class="keyword">const</span> myEventBus = pubsub.create();
+</code></pre>
+<p>On this object we can attach a&nbsp;subscription.</p>
+<pre><code class="lang-javascript">myEventBus(<span class="string">'some:event'</span>).subscribe((msg) =&gt; <span class="built_in">console</span>.log(msg) );
+</code></pre>
+<p>Now we are listening for publications on the <code>some:event</code> channel.
+To trigger the <code>console.log</code> which we put as a callback we need to publish something to this&nbsp;channel.</p>
+<pre><code class="lang-javascript">myEventBus.publish(<span class="string">'some:event'</span>, <span class="string">'Some body'</span>);
+</code></pre>
+<p>This will log <code>Some body</code>. This example uses a string but it’s not limited to strings.
+That’s it. You can probably already see the possibilities with a system like&nbsp;this.</p>
+<p>As the developer let’s know in a&nbsp;footnote:</p>
+<blockquote>
+<p>This may seem like a simple library you may want to make&nbsp;yourself.</p>
+</blockquote>
+<p>One of the thing to take into consideration is the error handling, this because the default streams provided by RxJs to not handle errors that&nbsp;gracefully.</p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
             <p class="date"><span>03. March 2016</span></p>
             <h2><a href="/articles/lmth/">lmth</a></h2>
           </header>
@@ -175,71 +206,6 @@ So if you find yourself stuck on using Windows because your business used it, yo
 You can vote on new commands in the <a href="https://github.com/dthree/cash/wiki/Roadmap">Road map</a>.</p>
 <p>For more information on check out the <a href="https://github.com/dthree/cash">Github Project</a> where the developer has also posted a <a href="https://github.com/dthree/cash/wiki">wiki</a>.</p>
 <p>Don’t forget to submit you solution for the <a href="http://daily-javascript.com/challenges/websocket-challenge-part-two">Websocket Challenge - part two</a>, since there are only two days left before submission&nbsp;closes.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>23. February 2016</span></p>
-            <h2><a href="/articles/pointing-fingers/">Pointing Fingers</a></h2>
-          </header>
-          <section class="content"><p>pointing-fingers (GitHub: <a href="https://github.com/jareware/pointing-fingers">jareware/pointing-fingers</a>, License: <span class="caps">MIT</span>, npm:&nbsp;pointing-fingers)</p>
-<p>A interest of mine is testing. Sadly there are not that many changes in the Javascript community in the field of testing.
-But then I found <code>pointing-fingers</code> over the weekend, which is a tool for testing upstream <span class="caps">API</span>’s.
-Since “Software doesn’t exist in a vacuum” we need to take unexpected API changes into account.
-But thoroughly testing third party API’s is of course not what we want to do.
-This tool offers you a sensible middle ground, and a convenient workflow&nbsp;for:</p>
-<ul>
-<li>Documenting the upstream <span class="caps">API</span> format, as not all API’s are perfectly&nbsp;documented</li>
-<li>Versioning that documentation, as <span class="caps">API</span>’s tend to change over&nbsp;time</li>
-<li>Automatically alerting you to <span class="caps">API</span> changes, as sometimes upstream vendors&nbsp;won’t</li>
-<li>Explicitly accepting those <span class="caps">API</span> changes, as your app will likely need to be changed&nbsp;accordingly</li>
-</ul>
-<p>An example test with all the optional options using Mocha and Chai’s <code>assert</code>:</p>
-<pre><code class="lang-javascript"><span class="keyword">import</span> { assert } <span class="keyword">from</span> <span class="string">'chai'</span>;
-<span class="keyword">import</span> { testUpstreamChanges } <span class="keyword">from</span> <span class="string">'pointing-fingers'</span>;
-
-describe(<span class="string">'GitHub <span class="caps">API</span>'</span>, () =&gt; {
-  testUpstreamChanges({
-    learn: <span class="literal">false</span>, <span class="comment">// turn this on to update your fixtures (defaults to false)</span>
-    fixtures: <span class="string">'test/fixtures/'</span>, <span class="comment">// fixtures will be written here (defaults to "/dev/null")</span>
-    runner: it, <span class="comment">// run each test in a separate Mocha it() block (defaults to running everything together)</span>
-    assert: assert.deepEqual, <span class="comment">// which assert(actual, expected) to use (defaults to simple string comparison)</span>
-    placeholder: <span class="string">'(<span class="caps">IGNORED</span> IN TEST SUITE)'</span>, <span class="comment">// ignored fields are replaced with this (defaults to null)</span>
-    ignores: [ <span class="comment">// these are simply delegated to lodash's _.set() (defaults to [])</span>
-      <span class="string">'data.documentation_url'</span>, <span class="comment">// we don't care if the doc <span class="caps">URL</span> changes, so ignore that field</span>
-      <span class="string">'headers.content-length'</span>, <span class="comment">// this could also change spontaneously, and we're not interested</span>
-      <span class="string">'headers.date'</span> <span class="comment">// ^ ditto</span>
-    ],
-    transforms: [ <span class="comment">// these are invoked with the response object to allow arbitrary checks/ignores (defaults to [])</span>
-      res =&gt; res.status = (res.status &gt;= <span class="number">400</span> &amp;&amp; res.status &lt; <span class="number">500</span>) <span class="comment">// ensure it's 4xx, but tolerate small changes</span>
-      <span class="comment">/*
-      // transforms which throw an Error are ignored, so it's safe to traverse/iterate complex objects without
-      // littering the transform function with key existence checks. also, the res object is always an isolated
-      // clone, so in-place mutation is fine.
-      res =&gt; res.data.Teams.forEach(x =&gt; x.TeamRankingPoints = isNumber(x.TeamRankingPoints)),
-      */</span>
-    ],
-    headers: { <span class="comment">// these are attached to outgoing requests (defaults to {})</span>
-      <span class="string">'X-Api-Key'</span>: process.env.MY_SECRET_KEY
-    },
-    method: <span class="string">'<span class="caps">GET</span>'</span>, <span class="comment">// (defaults to "<span class="caps">GET</span>")</span>
-    base: <span class="string">'https://api.github.com'</span>, <span class="comment">// all <span class="caps">URL'</span>s are prefixed with this (defaults to "")</span>
-    urls: [ <span class="comment">// these are the actual <span class="caps">URL'</span>s that will be tested (defaults to [])</span>
-      <span class="string">'/user'</span> <span class="comment">// the <span class="caps">URL'</span>s can be listed as simple strings</span>
-      <span class="comment">/*
-      { // ...but also as objects
-        url: '/something-else',
-        headers: { // all options (ignores, transforms, etc) can be overridden per-<span class="caps">URL</span>
-          'X-Api-Key': 'some other key'
-        }
-      }
-      */</span>
-    ]
-  });
-});
-</code></pre>
-<p>Head over to the challenge page of <a href="http://daily-javascript.com/challenges/websocket-challenge-part-two/">Websocket Challenge - part two</a> and see what you need to do in order to make on to this weeks Hall of&nbsp;Hero’s.</p>
 
           </section>
         </article>
