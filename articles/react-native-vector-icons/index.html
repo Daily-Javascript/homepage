@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="Daily updates about Javascript News, libraries and Weekly challenges">
+    <meta name="keywords" content="Javascript News, React, ES2015, Daily, Updates, Weekly Challenges">
+    <meta name="theme-color" content="#39424D">
+    <title>React Native, Vector Icons - Daily Javascript
+    </title>
+    <link rel="alternate" href="http://daily-javascript.com/feed.xml" type="application/rss+xml" title="For your daily dose of Javascript libraries.">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic|Anonymous+Pro:400,700,400italic,700italic|Merriweather:400,700,300">
+    <link rel="stylesheet" href="/css/main.css">
+  </head>
+  <body class="article-detail">
+    <div class="social"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A//Daily-Javascript.com" target="_blank" class="social-btn facebook"></a><a href="https://twitter.com/home?status=Follow%20%40DailyJavascript%20for%20update%20of%20new%20Javascript%20libraries%20and%20challanges%0A%23Javascript" target="_blank" class="social-btn twitter"></a><a href="https://www.reddit.com/submit?url=http%3A//Daily-Javascript.com" target="_blank" class="social-btn reddit"></a><a href="https://plus.google.com/share?url=http%3A//Daily-Javascript.com" target="_blank" class="social-btn google"></a></div>
+    <header class="header">
+      <div class="content-wrap">
+        <h1>React Native, Vector Icons</h1>
+        <p class="author">Written by <span class="author"><a href="mailto:ramon@ra-ge.net">Ramon Gebben</a></span>
+        </p>
+      </div>
+    </header>
+    <div id="content">
+      <div class="content-wrap">
+        <article class="article">
+          <section class="content"><p>Vector Icons (GitHub: <a href="https://github.com/oblador/react-native-vector-icons">oblador/react-native-vector-icons</a>, License: <span class="caps">MIT</span>, npm:&nbsp;react-native-vector-icons)</p>
+<p>Icons are all around us. We encounter them in the real world every day. They can communicate a message by association instead of by text.
+This is very useful ‘cause sometime you will only have enough space for a little image, but you still want to explain or communicate with the consumer of your&nbsp;product.</p>
+<p>This is the reason that designers prefer icons over text to indicate user interactions.
+In modern web there are multiple approaches to loading and rendering of these&nbsp;icons.</p>
+<ul>
+<li>We could require them in the form of a font in which each character is set to an icon instead of the letter&nbsp;character.</li>
+<li>We could load them in directly as an <span class="caps">SVG</span> and use this on the&nbsp;page.</li>
+<li>We could use an <span class="caps">SVG</span> as a <code>background-image</code> in our <span class="caps">CSS</span> and&nbsp;show.</li>
+</ul>
+<p>But what if we don’t have a <span class="caps">CSS</span> or HTML, like in React Native? Then we have a problem.
+There are multiple ways to include images and SVG’s into a native application but this requires some knowledge of the native platform and is also very labor intensive because every time you want to an icon you will need to import it into your&nbsp;project.</p>
+<p>To solve that problem <code>react-native-vector-icons</code> was created.
+It allows you to import icons very easily into your React Native project.
+When installed you have more than 3k of icons to choose from originating from icons sets like Entypo, FontAwesome, Foundation, Ionicons, MaterialIcons, Zocial and&nbsp;more.</p>
+<p>Unlike most libraries that I’ve seen for React Native, it supports Android and iOS.
+Once you have installed it and configured react-native-vector-icons via the instructions in the <a href="https://github.com/oblador/react-native-vector-icons/blob/master/README.md"><span class="caps">README</span></a>, you can use it in your components like&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="keyword">import</span> Icon <span class="keyword">from</span> <span class="string">'react-native-vector-icons/FontAwesome'</span>;
+<span class="keyword">const</span> rocket = (<span class="xml"><span class="tag">&lt;<span class="title">Icon</span> <span class="attribute">name</span>=<span class="value">"rocket"</span> <span class="attribute">size</span>=<span class="value">{30}</span> <span class="attribute">color</span>=<span class="value">"#900"</span> /&gt;</span>)</span>;
+</code></pre>
+<p>Since icons often get used inside buttons the developers included an easy way to create basic&nbsp;buttons:</p>
+<pre><code class="lang-javascript"><span class="keyword">const</span> defaultButton = (
+  <span class="xml"><span class="tag">&lt;<span class="title">Icon.Button</span> <span class="attribute">name</span>=<span class="value">"facebook"</span> <span class="attribute">backgroundColor</span>=<span class="value">"#3b5998"</span> <span class="attribute">onPress</span>=<span class="value">{this.loginWithFacebook}</span>&gt;</span>
+    Login with Facebook
+  <span class="tag">&lt;/<span class="title">Icon.Button</span>&gt;</span>
+)</span>;
+
+<span class="keyword">const</span> customTextButton = (
+  <span class="xml"><span class="tag">&lt;<span class="title">Icon.Button</span> <span class="attribute">name</span>=<span class="value">"facebook"</span> <span class="attribute">backgroundColor</span>=<span class="value">"#3b5998"</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">Text</span> <span class="attribute">style</span>=<span class="value">{{fontFamily:</span> '<span class="attribute">Arial</span>', <span class="attribute">fontSize:</span> <span class="attribute">15</span>}}&gt;</span>Login with Facebook<span class="tag">&lt;/<span class="title">Text</span>&gt;</span>
+  <span class="tag">&lt;/<span class="title">Icon.Button</span>&gt;</span>
+)</span>;
+</code></pre>
+</section>
+          <div id="disqus_thread"></div>
+          <script>
+            (function() { var d = document, s = d.createElement('script'); s.src = '//daily-javascript.disqus.com/embed.js'; s.setAttribute('data-timestamp', +new Date()); (d.head || d.body).appendChild(s); })();
+            
+          </script>
+        </article>
+      </div>
+    </div>
+    <footer>
+      <script type="text/javascript">(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-68072930-1', 'auto');ga('send', 'pageview');</script>
+      <div class="content-wrap">
+        <div class="nav"><a href="/">« Full blog</a></div>
+        <section class="about">
+        </section>
+        <section class="copy">
+          <p>&copy; 2016 Ramon Gebben &mdash; powered by&nbsp;<a href="https://github.com/jnordberg/wintersmith">Wintersmith</a>
+          </p>
+        </section>
+      </div>
+    </footer>
+  </body>
+</html>
