@@ -35,6 +35,77 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
+            <p class="date"><span>22. March 2016</span></p>
+            <h2><a href="/articles/statinamic/">Statinamic</a></h2>
+          </header>
+          <section class="content"><p>statinamic (GitHub: <a href="https://github.com/MoOx/statinamic">MoOx/statinamic</a>, License: <span class="caps">MIT</span>, npm:&nbsp;statinamic)</p>
+<p>Statinamic is a static site generator for the modern web.
+It uses React for it’s views and is very easy to get started with but flexible enough that it does not get in your&nbsp;way.</p>
+<p>Currently I’m considering moving from Wintersmith, which I currently use for this site, to Statinamic.
+Since I want to add some features which would require some more customizations, I would be more comfortable using React to implement&nbsp;that.</p>
+<p>During the development process of your static application/website you will have all the benefits of hot loading, compilation errors, runtime errors.
+To get started you will need to install the module inside of an fresh directory which contains a basic <code>package.json</code> which can be acquired&nbsp;via:</p>
+<pre><code class="lang-bash">npm init;
+</code></pre>
+<p>Then after installation of the module you can call the <span class="caps">CLI</span> from the <code>node_modules</code> folder like&nbsp;so:</p>
+<pre><code class="lang-bash">./node_modules/.bin/statinamic setup
+</code></pre>
+<p>This will prompt you with some questions about what boilerplate you want inserted.
+Questions&nbsp;like:</p>
+<ul>
+<li>Name of your&nbsp;project?</li>
+<li>Homepage url for your&nbsp;website?</li>
+<li>Should statinamic generate a <span class="caps">CNAME</span>&nbsp;file?</li>
+</ul>
+<p>After scaffold is done you still need to install the project dependencies by&nbsp;running:</p>
+<pre><code class="lang-bash">npm i;
+</code></pre>
+<p>Now you can start developing by&nbsp;running:</p>
+<pre><code class="lang-bash">npm start;
+</code></pre>
+<p>The basic structure it provides you with looks something like&nbsp;this:</p>
+<pre><code>├── README.md
+├── content
+│   ├── 404.md
+│   ├── assets
+│   │   └── react.svg
+│   └── index.md
+├── dist
+├── package.json
+├── scripts
+│   ├── build.js
+│   ├── config.js
+│   ├── index-client.js
+│   ├── webpack.config.babel.js
+│   └── webpack.config.client.js
+└── web_modules
+    ├── Footer
+    │   ├── index.css
+    │   └── index.js
+    ├── Header
+    │   ├── index.css
+    │   └── index.js
+    ├── LayoutContainer
+    │   ├── index.css
+    │   └── index.js
+    ├── app
+    │   ├── metadata.js
+    │   ├── routes.js
+    │   └── store.js
+    ├── icons
+    │   ├── iconmonstr-github-1.svg
+    │   └── iconmonstr-twitter-1.svg
+    └── layouts
+        ├── Page
+        │   └── index.js
+        ├── PageError
+        │   └── index.js
+        └── index.js
+</code></pre>
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
             <p class="date"><span>17. March 2016</span></p>
             <h2><a href="/articles/esbox/">ESBox</a></h2>
           </header>
@@ -193,25 +264,6 @@ The bindings must be loaded before the compiled portion. The recommended way to 
 <span class="tag">&lt;<span class="title">script</span> <span class="attribute">async</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span> <span class="attribute">src</span>=<span class="value">"quiet-emscripten.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
 </code></pre>
 <p>The developer highly recommends to also include <a href="https://github.com/brian-armstrong/libfec">libfec.js</a>. An enscripted version of <code>libfec</code> which can be installed using <code>npm</code>. When libfec is not included, quiet.js will not be able to use any profiles which use convolutional codes or Reed-Solomon error&nbsp;correction.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>09. March 2016</span></p>
-            <h2><a href="/articles/webpackbin/">Webpackbin.com</a></h2>
-          </header>
-          <section class="content"><p>Today I came across a new online editor platform that really blew me away, called <a href="http://webpackbin.com">Webpackbin.com</a>.</p>
-<p>It’s a code sharing tool like, <a href="https://jsfiddle.net/">JSFiddle</a>, <a href="http://codepen.io/">Codepen</a>, <a href="https://jsbin.com/?html,output"><span class="caps">JS</span> Bin</a> and many more.
-The thing which makes this tool stand out is that, as the name suggests, it is based on webpack.
-This means that you could use all the awesome features that come with it, features like importing npm modules, using loaders and hot&nbsp;reloading.</p>
-<p>Besides the awesome webpack features it also has with a collaborative mode, in which you can share the same session with one or more other developer.
-This can be used for teaching, remote collaboration or maybe even for live coding during&nbsp;talks.</p>
-<p>The developer has posted <a href="https://www.youtube.com/watch?v=LGaJwjVPh9I">an introduction video</a> demoing these features and&nbsp;more.</p>
-<iframe width="100%" height="480" src="https://www.youtube.com/embed/LGaJwjVPh9I" frameborder="0" allowfullscreen></iframe>
-
-
-<p>I’m really excited about this next generation of online collaboration and curious about what featues the developer might add in the&nbsp;future.</p>
 
           </section>
         </article>
