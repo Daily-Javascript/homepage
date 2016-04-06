@@ -35,6 +35,25 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
+            <p class="date"><span>09. March 2016</span></p>
+            <h2><a href="/articles/webpackbin/">Webpackbin.com</a></h2>
+          </header>
+          <section class="content"><p>Today I came across a new online editor platform that really blew me away, called <a href="http://webpackbin.com">Webpackbin.com</a>.</p>
+<p>It’s a code sharing tool like, <a href="https://jsfiddle.net/">JSFiddle</a>, <a href="http://codepen.io/">Codepen</a>, <a href="https://jsbin.com/?html,output"><span class="caps">JS</span> Bin</a> and many more.
+The thing which makes this tool stand out is that, as the name suggests, it is based on webpack.
+This means that you could use all the awesome features that come with it, features like importing npm modules, using loaders and hot&nbsp;reloading.</p>
+<p>Besides the awesome webpack features it also has with a collaborative mode, in which you can share the same session with one or more other developer.
+This can be used for teaching, remote collaboration or maybe even for live coding during&nbsp;talks.</p>
+<p>The developer has posted <a href="https://www.youtube.com/watch?v=LGaJwjVPh9I">an introduction video</a> demoing these features and&nbsp;more.</p>
+<iframe width="100%" height="480" src="https://www.youtube.com/embed/LGaJwjVPh9I" frameborder="0" allowfullscreen></iframe>
+
+
+<p>I’m really excited about this next generation of online collaboration and curious about what featues the developer might add in the&nbsp;future.</p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
             <p class="date"><span>08. March 2016</span></p>
             <h2><a href="/articles/ora/">Ora</a></h2>
           </header>
@@ -159,63 +178,6 @@ Because the native components are hard to mock, the developer took the time to m
 <p><a href="https://github.com/lelandrichardson">Leland Richardson</a> has published a Medium post called <a href="https://medium.com/airbnb-engineering/enzyme-javascript-testing-utilities-for-react-a417e5e5090f#.xn1vel602">“Enzyme: JavaScript Testing utilities for React”</a> explaining how to get on your way testing your React&nbsp;application.</p>
 <p>Leland preformed a <a href="https://www.youtube.com/watch?v=V5N0Ukb8LGg">lighting talk at React conf last week about Enzyme</a>.</p>
 <iframe width="100%" height="480" src="https://www.youtube.com/embed/V5N0Ukb8LGg" frameborder="0" allowfullscreen></iframe>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>01. March 2016</span></p>
-            <h2><a href="/articles/react-web-animations/">React Web Animations</a></h2>
-          </header>
-          <section class="content"><p>react-web-animations (GitHub: <a href="https://github.com/RinconStrategies/react-web-animation">RinconStrategies/react-web-animation</a>, License: <span class="caps">MIT</span>, npm:&nbsp;react-web-animation)</p>
-<p>In every web application we are animating stuff nowadays. We do this using libraries like <a href="http://julian.com/research/velocity/">Velocity</a>, <a href="https://greensock.com/">Greensock</a>, <a href="https://jquery.com/">jQuery</a> or we do this with keyframe animating and appending classes to trigger the animations.
-If you haven’t heard about the <a href="https://w3c.github.io/web-animations/">Web animation spec</a>, it is an <span class="caps">API</span> to animate elements without any libraries.
-There is already a <a href="https://github.com/web-animations/web-animations-js">Polyfill</a> available. So you can start using it&nbsp;today.</p>
-<p>Now I came across a library which implements this polyfill as a React component called <code>react-web-animations</code>.
-Why use this over other animation libraries for React? Since react-web-animation uses the Web Animations <span class="caps">API</span> polyfill it will eventually use the native browser implementation.
-Chrome already has the support for these features today. The rest of the browsers how ever are a bit sad, luckily the polyfill takes care of that for&nbsp;us.</p>
-<p>A simple example of how you would use the <code>Animation</code> component would look like&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="keyword">import</span> {Component} <span class="keyword">from</span> <span class="string">'react'</span>;
-<span class="keyword">import</span> {Animation} <span class="keyword">from</span> <span class="string">'react-web-animation'</span>;
-
-
-<span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">Basic</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>{
-
-    getKeyFrames() {
-        <span class="keyword">return</span> [
-            { transform: <span class="string">'scale(1)'</span>,    opacity: <span class="number">1</span>,     offset: <span class="number">0</span> },
-            { transform: <span class="string">'scale(.5)'</span>,   opacity: <span class="number">0.5</span>,   offset: <span class="number">0.3</span> },
-            { transform: <span class="string">'scale(.667)'</span>, opacity: <span class="number">0.667</span>, offset: <span class="number">0.7875</span> },
-            { transform: <span class="string">'scale(.6)'</span>,   opacity: <span class="number">0.6</span>,   offset: <span class="number">1</span> }
-        ];
-    }
-
-    getTiming( duration ) {
-        <span class="keyword">return</span> {
-            duration,
-            easing: <span class="string">'ease-in-out'</span>,
-            delay: <span class="number">0</span>,
-            iterations: <span class="number">2</span>,
-            direction: <span class="string">'alternate'</span>,
-            fill: <span class="string">'forwards'</span>
-        };
-    }
-
-    render() {
-        <span class="keyword">return</span>(
-            <span class="xml"><span class="tag">&lt;<span class="title">Animation</span> <span class="attribute">keyframes</span>=<span class="value">{this.getKeyFrames()}</span>
-                       <span class="attribute">timing</span>=<span class="value">{this.getTiming(2500)}</span>&gt;</span>
-                <span class="tag">&lt;<span class="title">div</span>&gt;</span>
-                    Web Animations <span class="caps">API</span> Rocks
-                <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-            <span class="tag">&lt;/<span class="title">Animation</span>&gt;</span>)</span>;
-    }
-}
-</code></pre>
-<p>For advanced usage you need to check the <a href="https://github.com/RinconStrategies/react-web-animation/tree/master/src">great documentation</a> which the developer has&nbsp;provided.</p>
-<p>A small side&nbsp;note.</p>
-<p>Since I haven’t received any submissions for the weekly challenges, I have decided to focus on finding great libraries for you guys instead of trying to come up with new challenges to do.
-Thanks to the people who did participate, when you still want to be challenged I would suggest you take a look at <a href="https://www.reddit.com/r/dailyprogrammer">/r/DailyProgrammer</a>, <a href="http://codegolf.stackexchange.com/">Code Golf</a> or <a href="https://www.hackerrank.com/">HackerRank</a>.</p>
 
           </section>
         </article>
