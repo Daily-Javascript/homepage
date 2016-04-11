@@ -35,6 +35,30 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
+            <p class="date"><span>14. March 2016</span></p>
+            <h2><a href="/articles/quiet-js/">Quiet.js</a></h2>
+          </header>
+          <section class="content"><p>Quiet.js (GitHub: <a href="https://github.com/brian-armstrong/quiet-js">brian-armstrong/quiet-js</a>, License:&nbsp;<span class="caps">MIT</span>)</p>
+<p>Quiet.js is a javascript binding for <code>libquiet</code>.
+In other words it’s a library for sending and receiving data via sound card.
+It can functions via either speakers or a cable, for instance a 3.5mm mini jack.
+Quiet comes included with a few transmissions profiles which configure quiet’s transmitter and receiver.
+For speaker transmission, there is a profile which transmits around the 19kHz range.
+For transmissions via cable, quiet.js has profiles which offer speeds of at least 40&nbsp;kbps.</p>
+<p>The transmission functionality is available for all <a href="https://www.techopedia.com/definition/31094/evergreen-browser">evergreen browsers</a>.
+Because this project is still very young it is not available via <code>npm</code> yet. There is already an issue logged by the developer himself to implement <code>exports</code> so it can be published to <code>npm</code>.</p>
+<p>Quiet-js includes a blob of libquiet as well as a javascript binding, which are compiled by <a href="https://github.com/kripken/emscripten">Emscripten</a>.
+The bindings must be loaded before the compiled portion. The recommended way to include Quiet in your project&nbsp;is:</p>
+<pre><code class="lang-html"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span> <span class="attribute">src</span>=<span class="value">"quiet.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+<span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span> <span class="attribute">src</span>=<span class="value">"my_app.bundle.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+<span class="tag">&lt;<span class="title">script</span> <span class="attribute">async</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span> <span class="attribute">src</span>=<span class="value">"quiet-emscripten.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+</code></pre>
+<p>The developer highly recommends to also include <a href="https://github.com/brian-armstrong/libfec">libfec.js</a>. An enscripted version of <code>libfec</code> which can be installed using <code>npm</code>. When libfec is not included, quiet.js will not be able to use any profiles which use convolutional codes or Reed-Solomon error&nbsp;correction.</p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
             <p class="date"><span>09. March 2016</span></p>
             <h2><a href="/articles/webpackbin/">Webpackbin.com</a></h2>
           </header>
@@ -160,24 +184,6 @@ In contrast with pithy, the text content is escaped by default. But you disable 
     <span class="comment">// To a <span class="caps">DOM</span> tree:</span>
     html.toDOM();
 </code></pre>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>02. March 2016</span></p>
-            <h2><a href="/articles/enzyme/">Enzyme</a></h2>
-          </header>
-          <section class="content"><p>Enzyme (GitHub: <a href="https://github.com/airbnb/enzyme/">airbnb/enzyme</a>, License: <span class="caps">MIT</span>, npm:&nbsp;enzyme)</p>
-<p>As we all know testing code is crucial part of our job. It helps us to write and maintain a complex code base.
-Sadly the state of front-end testing has not being so good. But it is starting to look&nbsp;up.</p>
-<p>About three months ago, Airbnb open sourced Enzyme, which is a testing utility for React.
-The goal of this utility is to make it easier to assert, manipulate, and traverse your React Components’&nbsp;output.</p>
-<p>This utility does not only work for React in the browser but also for React Native.
-Because the native components are hard to mock, the developer took the time to mock all the native&nbsp;components.</p>
-<p><a href="https://github.com/lelandrichardson">Leland Richardson</a> has published a Medium post called <a href="https://medium.com/airbnb-engineering/enzyme-javascript-testing-utilities-for-react-a417e5e5090f#.xn1vel602">“Enzyme: JavaScript Testing utilities for React”</a> explaining how to get on your way testing your React&nbsp;application.</p>
-<p>Leland preformed a <a href="https://www.youtube.com/watch?v=V5N0Ukb8LGg">lighting talk at React conf last week about Enzyme</a>.</p>
-<iframe width="100%" height="480" src="https://www.youtube.com/embed/V5N0Ukb8LGg" frameborder="0" allowfullscreen></iframe>
 
           </section>
         </article>
