@@ -35,6 +35,50 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
+            <p class="date"><span>11. April 2016</span></p>
+            <h2><a href="/articles/proptypes-parser/">proptypes-parser</a></h2>
+          </header>
+          <section class="content"><p>proptypes-parser (GitHub: <a href="https://github.com/joonhocho/proptypes-parser">joonhocho/proptypes-parser</a>, License: <span class="caps">MIT</span>, npm:&nbsp;proptypes-parser)</p>
+<p>When working in in React and you are following the guidelines on how to create components, you’ve probably already ran into the frustration of constantly saying <code>PropTypes.number</code>, <code>PropTypes.string</code>, <code>PropTypes.func</code> etc.
+Personally I do not like to write all this repetition. So I could do something like&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="keyword">import</span> { PropTypes } <span class="keyword">from</span> <span class="string">'react'</span>;
+<span class="keyword">const</span> { number, string, func, shape, <span class="comment">/* etc */</span> } = PropTypes;
+</code></pre>
+<p>But that does not really work, since I would need to do that on top each&nbsp;file.</p>
+<p>proptypes-parser lets you define your <code>PropTypes</code> in a GraphQL-like syntax, like&nbsp;so:</p>
+<pre><code class="lang-javascript"><span class="keyword">const</span> propTypes = parsePropTypes(<span class="string">`{
+  number: Number
+  string: String!
+  boolean: Boolean
+  function: Function!
+  date: Date!
+  object: Object!
+  shape: {
+    nested: Number
+    array: [Number]
+    must: Boolean!
+  }!
+  array: [Number!]!
+  arrayOfObjects: [{
+    value: String
+  }!]
+  node: Node
+  element: Element!
+  message: Message!
+  any: Any!
+}`</span>);
+</code></pre>
+<p>It also allows you to define your own custom <code>PropTypes</code> like&nbsp;so:</p>
+<pre><code class="lang-javascript"><span class="keyword">const</span> parsePropTypes = createPropTypesParser(PropTypes, {
+  Message: <span class="class"><span class="keyword">class</span> <span class="title">Message</span> </span>{} <span class="comment">// To use 'Message' type is PropTypes.</span>
+});
+</code></pre>
+<p>For further documentation and examples take a look at the <a href="https://github.com/joonhocho/proptypes-parser"><span class="caps">README</span></a>&nbsp;file.</p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
             <p class="date"><span>06. April 2016</span></p>
             <h2><a href="/articles/react-storybook/">React Storybook</a></h2>
           </header>
@@ -245,47 +289,6 @@ When working with multiple languages, there is also the problem of different gra
 </ul>
 <p>While in English only <code>one</code> and <code>other</code> are&nbsp;relevant.</p>
 <p>If this library intrigues you head over to the <a href="http://formatjs.io/">FormatJS website</a> and check all the other&nbsp;capabilities.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>24. March 2016</span></p>
-            <h2><a href="/articles/react-helmet/">React Helmet</a></h2>
-          </header>
-          <section class="content"><p>React Helmet (GitHub: <a href="https://github.com/nfl/react-helmet">nfl/react-helmet</a>, License: <span class="caps">MIT</span>, npm:&nbsp;react-helmet)</p>
-<p>First if all I’d like to start out with giving you guys an explanation for why I have not being posted as regularly as normal.
-Me and my girlfriend are currently in the process of buying an apartment. This costs a lot of time and effort to get all the paperwork done in time.
-Once this is resolved I will be back on the daily posts as&nbsp;usual.</p>
-<p>Let’s get on with the show. Maybe you are already familiar with the library/component because it is not exactly new anymore.
-However when I started asking around about how colleagues and friends of mine solve the problem Helmet is trying to solve, they came up with a few useful and working solutions but non as elegant as Helmet without making something like Helmet&nbsp;yourself.</p>
-<p>What it does is give you a component to manage the <span class="caps">SEO</span>, share and other meta tags. So you don’t have to put that into your <code>index.html</code>.
-Let’s assume you have an application which has <code>App</code> as an entry point component like&nbsp;so:</p>
-<pre><code class="lang-javascript"><span class="function"><span class="keyword">function</span> <span class="title">App</span>(<span class="params"></span>)</span>{
-  <span class="keyword">return</span> (<span class="xml"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">className</span>=<span class="value">"app"</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">SomeComponent</span> /&gt;</span>
-    <span class="tag">&lt;<span class="title">SomeOtherComponent</span>&gt;</span>
-      <span class="tag">&lt;<span class="title">ChildComponent</span> /&gt;</span>
-      <span class="tag">&lt;<span class="title">SecondChildComponent</span> /&gt;</span>
-    <span class="tag">&lt;/<span class="title">SomeOtherComponent</span>&gt;</span>
-    //.. etc
-  <span class="tag">&lt;/<span class="title">div</span>&gt;</span>)</span>;
-}
-</code></pre>
-<p>And you want the title to be set to “My Awesome Application”, you can add Helmet like&nbsp;so:</p>
-<pre><code class="lang-javascript"><span class="function"><span class="keyword">function</span> <span class="title">App</span>(<span class="params"></span>)</span>{
-  <span class="keyword">return</span> (<span class="xml"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">className</span>=<span class="value">"app"</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">Helmet</span> <span class="attribute">title</span>=<span class="value">"My Awesome Application"</span> /&gt;</span>
-    <span class="tag">&lt;<span class="title">SomeComponent</span> /&gt;</span>
-    <span class="tag">&lt;<span class="title">SomeOtherComponent</span>&gt;</span>
-      <span class="tag">&lt;<span class="title">ChildComponent</span> /&gt;</span>
-      <span class="tag">&lt;<span class="title">SecondChildComponent</span> /&gt;</span>
-    <span class="tag">&lt;/<span class="title">SomeOtherComponent</span>&gt;</span>
-    //.. etc
-  <span class="tag">&lt;/<span class="title">div</span>&gt;</span>)</span>;
-}
-</code></pre>
-<p>There are way to much features to this component than I care to mention here, so if it peaked your interest I suggest you head over to the <a href="https://github.com/nfl/react-helmet">Github Page</a> and check out all it has to&nbsp;offer.</p>
 
           </section>
         </article>
