@@ -35,6 +35,61 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
+            <p class="date"><span>12. January 2016</span></p>
+            <h2><a href="/articles/catbee/">Catbee</a></h2>
+          </header>
+          <section class="content"><p>Catbee (GitHub: <a href="https://github.com/markuplab/catbee">markuplab/catbee</a>, License: <span class="caps">MIT</span>, npm:&nbsp;little-loader)</p>
+<p><p style="text-align: center; display: block;">
+<img src="https://raw.githubusercontent.com/markuplab/catbee-todomvc/master/logo.png" style="max-width: 300px; width: 100%;">
+</p>
+Catbee is an high level isomorphic framework inspired and based on best practices from <a href="https://github.com/catberry/catberry">Catberry</a>, <a href="https://github.com/Yomguithereal/baobab">Baobab</a> and <a href="https://github.com/cerebral/cerebral">Cerebral</a>.</p>
+<p>Catbee is Catberry little brother. Unlike Catberry, Catbee use “Single State Tree” conception.
+All state mutations run in signals, and powered by the <a href="https://github.com/markuplab/appstate">AppState</a>&nbsp;module.</p>
+<p>All data focused in Baobab tree, instead of distributed flux stores. The tree contains the full application state, and it has 2 interfaces: modify <span class="caps">API</span> also known as “Signals”, and read API also known as&nbsp;“Watchers”.</p>
+<p>Signal is the only way to modify state tree. It looks like middleware, but it is way more flexible and adopted for sync/async operations.
+If you want to learn more about signals, checkout <a href="http://cerebraljs.com/">this</a> and <a href="https://github.com/markuplab/appstate">this</a>.
+The developers recommend running signal on each user action, when you need change application state, and also signal automatically run on every url&nbsp;change.</p>
+<p>Signals use composition conception, and contains an array of independent functions. It’s very simple way to maintain big codebase. Here is an example of a&nbsp;Signal:</p>
+<pre><code class="lang-javascript"><span class="keyword">let</span> signal = [
+  setLoading, <span class="comment">// Sync function</span>
+  [ <span class="comment">// Here we run parallel functions</span>
+    getUser, { <span class="comment">// Async function with 2 outputs success and error</span>
+      success: [setUser], <span class="comment">// Run if we call output.success in getUser</span>
+      error: [setUserError] <span class="comment">// Run if we call output.error in getUser</span>
+    },
+    getNews, { <span class="comment">// It's function will run parallel with getUser, like Promise.all</span>
+      loaded: [setNews],
+      error: [setNewsError]
+    }
+  ],
+  unsetLoading
+];
+</code></pre>
+<p>Components can access data by <a href="https://github.com/Yomguithereal/baobab#specialized-getters">watchers</a>. There are two main reasons you should use watchers. You’ll need data context for template rendering, and you’ll also need state update events to rerender your component.
+You do not need bind watchers manually, it’s inside of&nbsp;Catbee.</p>
+<pre><code class="lang-javascript"><span class="comment">// Here we use simple Baobab.watch <span class="caps">API</span></span>
+<span class="built_in">module</span>.exports = {
+  news: [<span class="string">'news'</span>, <span class="string">'data'</span>],
+  isVisible: [<span class="string">'news'</span>, <span class="string">'UIState'</span>, <span class="string">'isVisible'</span>]
+};
+
+<span class="comment">// You can also use Baobab.watch dynamicly</span>
+<span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span> (<span class="params">attributes</span>) </span>{
+  <span class="comment">// Here attributes is &lt;cat-component id="unique" cat-id="1" watcher= "dynamic"&gt;&lt;/cat-component&gt;</span>
+  <span class="keyword">var</span> id = attributes[<span class="string">'cat-id'</span>];
+
+  <span class="keyword">return</span> {
+    title: [<span class="string">'news'</span>, <span class="string">'data'</span>, { id: id }, <span class="string">'title'</span>]
+  };
+}
+</code></pre>
+<p>I really like this library because of my associations with Baobab. My first encounter with it was via the post <a href="http://christianalfoni.github.io/javascript/2015/02/06/plant-a-baobab-tree-in-your-flux-application.html">“Plant a Baobab tree in your flux application”</a> which was written by <a href="https://twitter.com/christianalfoni">Christian Alfoni</a>. It lead me to think differently about flux and redux, I recommend you read&nbsp;it.</p>
+<p>Don’t forget to challenge yourself this week. I prepared another weekly challenge which is: <a href="http://daily-javascript.com/challenges/mandelbrot/">“Implement the Mandelbrot set using Javascript”</a>.</p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
             <p class="date"><span>11. January 2016</span></p>
             <h2><a href="/articles/little-loader/">Little Loader</a></h2>
           </header>
@@ -116,18 +171,6 @@ Something some people might be interested in is the results of the latest challe
 The results can be found on the results page of the challenge which would be <a href="http://daily-javascript.com/challenges/let-it-snow/results">Daily-Javascript.com/challenges/let-it-snow/results</a></p>
 <p>From tomorrow on Daily-Javascript will be getting daily updates again. Hope you guys keep on&nbsp;reading.</p>
 <p>Happy&nbsp;coding.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>25. December 2015</span></p>
-            <h2><a href="/articles/weekly-challenge-2015-52/">Weekly Challenge Week 52</a></h2>
-          </header>
-          <section class="content"><p>First of all let me say Merry Christmas! Last weeks challenge was a blast and I’d like to thanks everybody who submitted a solution.
-To view the submitted solutions check the <a href="http://daily-javascript.com/challenges/pythagoras-tree/results">results section of the challenge</a>.</p>
-<p>For this weeks challenge I wanted to something Christmas themed and came up with a lot of ideas, but since we can not spend the entire week working on the challenge I thought to go for something simple: Let it&nbsp;snow.</p>
-<p>An overview of the challenges can be found at <a href="/challenges">/challenges</a>. For more details about this weeks challenge go to <a href="http://daily-javascript.com/challenges/let-it-snow/">Let it snow</a>.</p>
 
           </section>
         </article>

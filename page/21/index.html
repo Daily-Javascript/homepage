@@ -36,6 +36,115 @@
         <article class="article intro">
           <header>
             <p class="date"><span>28. September 2015</span></p>
+            <h2><a href="/articles/levi/">Levi</a></h2>
+          </header>
+          <section class="content"><p>Levi (GitHub: <a href="https://github.com/cshum/levi">cshum/levi</a>, License: <span class="caps">MIT</span>, npm:&nbsp;levi)</p>
+<p>Levi is a streaming full-text search for Node.js and browsers which used LevelDB for storage.
+The search implementation is done by using <a href="https://en.wikipedia.org/wiki/Tf%E2%80%93idf"><span class="caps">TF</span>-IDF</a> and <a href="https://en.wikipedia.org/wiki/Cosine_similarity">cosine similarity</a>, and it’s provided with configurable text processing pipelines: Tokenizer, Porter Stemmer and Stopwords&nbsp;filter.</p>
+<p>Levi is built on <a href="https://github.com/Level/levelup">LevelUP</a> which is a fast, asynchronous, transactional storage interface. By default it uses LevelDB on Node.js, when in running in the browser it uses <a href="https://github.com/maxogden/level.js">IndexedDB</a>. Levi supports with a variety of LevelDOWN compatible&nbsp;backends.</p>
+<p>In addition, Levi provides relevancy scoring for live changing data using <span class="caps">TF</span>-ICF - a TF-IDF approximation based on existing corpus. Such scoring matches are comparably close to TF-IDF when existing corpus is sufficiently large, with significantly better performance O(N) instead of&nbsp;O(N^2).</p>
+<p>Let’s take a look at the <span class="caps">API</span>. To get started, we need to create a new Levi instance. We do that like&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="keyword">import</span> levi <span class="keyword">from</span> <span class="string">'levi'</span>;
+
+<span class="keyword">const</span> lv = levi(<span class="string">'db'</span>)
+.use(levi.tokenizer())
+.use(levi.stemmer())
+.use(levi.stopword());
+</code></pre>
+<p>The text processing pipeline <code>levi.tokenizer()</code>, <code>levi.stemmer()</code>, <code>levi.stopword()</code> are required for indexing. These are exposed as <a href="https://github.com/cshum/ginga">ginga</a> plugins so that they can be swapped for different language&nbsp;configurations.</p>
+<p>Now that we have an instance we can use it to talk to the <span class="caps">API</span> like&nbsp;this:</p>
+<pre><code class="lang-javascript">lv.put(<span class="string">'a'</span>, <span class="string">'Lorem Ipsum is simply dummy text.'</span>, err =&gt; {
+    <span class="comment">// ...</span>
+ });
+
+<span class="comment">// object fields as value</span>
+lv.put(<span class="string">'b'</span>, {
+  id: <span class="string">'b'</span>,
+  title: <span class="string">'Lorem Ipsum'</span>,
+  body: <span class="string">'Dummy text of the printing and typesetting industry.'</span>
+}, (err) =&gt; {
+    <span class="comment">//...</span>
+});
+</code></pre>
+<p>Or retrieve it&nbsp;like:</p>
+<pre><code class="lang-javascript">lv.get(<span class="string">'b'</span>, res =&gt; {
+    <span class="comment">// res here;</span>
+});
+</code></pre>
+<p>To actually search we need to use Levi’s main interface which would be <code>searchStream</code>. We use that like&nbsp;this.</p>
+<pre><code class="lang-javascript">lv.searchStream(<span class="string">'lorem ipsum'</span>).toArray(<span class="function"><span class="keyword">function</span> (<span class="params">results</span>) </span>{ ... }) <span class="comment">// highland method</span>
+
+lv.searchStream(<span class="string">'lorem ipsum'</span>, {
+  fields: { title: <span class="number">10</span>, <span class="string">'*'</span>: <span class="number">1</span> } <span class="comment">// title field boost. '*' means any field</span>
+}).pipe(...)
+
+lv.searchStream(<span class="string">'lorem ipusm'</span>, {
+  fields: { title: <span class="number">1</span> }, <span class="comment">// title only</span>
+}).pipe(...)
+
+<span class="comment">// ltgt</span>
+lv.searchStream(<span class="string">'lorem ipusm'</span>, {
+  gt: <span class="string">'!posts!'</span>,
+  lt: <span class="string">'!posts!~'</span>
+}).pipe(...)
+
+<span class="comment">// document as query</span>
+lv.searchStream({
+  title: <span class="string">'Lorem Ipsum'</span>,
+  body: <span class="string">'Dummy text of the printing and typesetting industry.'</span>
+}).pipe(...)
+</code></pre>
+<p>Because I do not fully understand everything that is going on here, I need to refer you to the extensive documentation on the <a href="https://github.com/cshum/levi">GitHub page</a>. The reason I still mention this library is that I understand from the explanation a colleague gave me that this library will have a significant impact on the speed of your text&nbsp;search.</p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
+            <p class="date"><span>28. September 2015</span></p>
+            <h2><a href="/articles/runejs-and-queryl/">Rune.js and queryl</a></h2>
+          </header>
+          <section class="content"><p>Rune.js (GitHub: <a href="https://github.com/runemadsen/rune.js">runemadsen/rune.js</a>, License: <span class="caps">MIT</span>&nbsp;)</p>
+<p>Rune.js is a library for programming graphic design systems with <span class="caps">SVG</span>. It has a fluent drawing API, an unobtrusive scene graph, and a bunch of features designed specifically for graphic designers, such as: native support for color conversion, grid systems, typography, pixel iteration and an expanding set of computational geometry helpers. What peaked my interest is that it uses a <a href="https://github.com/Matt-Esch/virtual-dom">virtual-dom</a> under the&nbsp;hood.</p>
+<p>If you’re not familiar with the virtual-dom I suggest you take a break to take a look at that&nbsp;first.</p>
+<p>Unfortunately I could not find any npm or bower install instructions, so I am hoping that the developer will add that&nbsp;soon.</p>
+<p>Rune.js has all basic shapes in the&nbsp;<span class="caps">API</span>.</p>
+<pre><code class="lang-javascript">r.line(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">100</span>);
+
+r.rect(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">50</span>);
+
+r.ellipse(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">50</span>);
+
+r.circle(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>);
+
+r.triangle(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">100</span>);
+</code></pre>
+<p>And for more complex shapes it fluent <span class="caps">API</span> makes drawing with SVG very readable and&nbsp;familiar.</p>
+<pre><code class="lang-javascript">r.polygon(<span class="number">0</span>, <span class="number">0</span>).lineTo(<span class="number">100</span>, <span class="number">0</span>).lineTo(<span class="number">100</span>, <span class="number">100</span>).lineTo(<span class="number">0</span>, <span class="number">100</span>);
+
+r.path(<span class="number">0</span>, <span class="number">0</span>).lineTo(<span class="number">100</span>, <span class="number">0</span>).curveTo(<span class="number">100</span>, <span class="number">100</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">0</span>, <span class="number">0</span>);
+</code></pre>
+<p>Since this library is packed with features and concepts, I will only give you the tip of the iceberg right now. If you want to know more, consult the <a href="http://runemadsen.github.io/rune.js/">amazing documentation</a>.</p>
+<h3 id="queryl">queryl</h3>
+<p>queryl (GitHub: <a href="https://github.com/issuetrackapp/queryl">issuetrackapp/queryl</a>, License: <span class="caps">MIT</span>, npm:&nbsp;queryl)</p>
+<p>queryl is a query language to preform complex object searches. The purpose of this “language” is to allow the developer to build very complex queries to e.g. search a collection of objects, to validate objects before you dump it in a db or even to make assertions in&nbsp;tests.</p>
+<p>queryl comes with a very simple <span class="caps">API</span>. <code>queryl.match</code> is the main entry at this point this will always return a boolean and expects an object to match. For&nbsp;example:</p>
+<pre><code class="lang-javascript">queryl.match({
+  $contain: {
+    foo: <span class="number">1</span>
+  }
+}, {
+  foo: [ <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span> ]
+});
+&gt; <span class="literal">true</span>
+</code></pre>
+<p>This is just a very basic example of what it can do. The full <span class="caps">API</span> docs shows the entire power of this&nbsp;“language”.</p>
+<p>I can see this working very well for matching and parsing certain objects like the ones you would receive from, for instance, the Google spreadsheet&nbsp;<span class="caps">API</span>.</p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
+            <p class="date"><span>28. September 2015</span></p>
             <h2><a href="/articles/clipboardjs/">Clipboard.js</a></h2>
           </header>
           <section class="content"><p>After writing this blog for a few days now I noticed that the bar of two libraries a day is hard to do when you have a day job next to it.
@@ -114,50 +223,6 @@ clipboard.on(<span class="string">'error'</span>, <span class="function"><span c
 </table>
 <p>Although copy/cut operations with execCommand aren’t supported in Safari yet (including mobile), it gracefully degrades, because Selection is&nbsp;supported.</p>
 <p>This means you could show a tooltip saying Copied! when success event is called and Press Ctrl+C to copy when error event is called because the text is already&nbsp;selected.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>28. September 2015</span></p>
-            <h2><a href="/articles/runejs-and-queryl/">Rune.js and queryl</a></h2>
-          </header>
-          <section class="content"><p>Rune.js (GitHub: <a href="https://github.com/runemadsen/rune.js">runemadsen/rune.js</a>, License: <span class="caps">MIT</span>&nbsp;)</p>
-<p>Rune.js is a library for programming graphic design systems with <span class="caps">SVG</span>. It has a fluent drawing API, an unobtrusive scene graph, and a bunch of features designed specifically for graphic designers, such as: native support for color conversion, grid systems, typography, pixel iteration and an expanding set of computational geometry helpers. What peaked my interest is that it uses a <a href="https://github.com/Matt-Esch/virtual-dom">virtual-dom</a> under the&nbsp;hood.</p>
-<p>If you’re not familiar with the virtual-dom I suggest you take a break to take a look at that&nbsp;first.</p>
-<p>Unfortunately I could not find any npm or bower install instructions, so I am hoping that the developer will add that&nbsp;soon.</p>
-<p>Rune.js has all basic shapes in the&nbsp;<span class="caps">API</span>.</p>
-<pre><code class="lang-javascript">r.line(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">100</span>);
-
-r.rect(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">50</span>);
-
-r.ellipse(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">50</span>);
-
-r.circle(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>);
-
-r.triangle(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">100</span>);
-</code></pre>
-<p>And for more complex shapes it fluent <span class="caps">API</span> makes drawing with SVG very readable and&nbsp;familiar.</p>
-<pre><code class="lang-javascript">r.polygon(<span class="number">0</span>, <span class="number">0</span>).lineTo(<span class="number">100</span>, <span class="number">0</span>).lineTo(<span class="number">100</span>, <span class="number">100</span>).lineTo(<span class="number">0</span>, <span class="number">100</span>);
-
-r.path(<span class="number">0</span>, <span class="number">0</span>).lineTo(<span class="number">100</span>, <span class="number">0</span>).curveTo(<span class="number">100</span>, <span class="number">100</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">0</span>, <span class="number">0</span>);
-</code></pre>
-<p>Since this library is packed with features and concepts, I will only give you the tip of the iceberg right now. If you want to know more, consult the <a href="http://runemadsen.github.io/rune.js/">amazing documentation</a>.</p>
-<h3 id="queryl">queryl</h3>
-<p>queryl (GitHub: <a href="https://github.com/issuetrackapp/queryl">issuetrackapp/queryl</a>, License: <span class="caps">MIT</span>, npm:&nbsp;queryl)</p>
-<p>queryl is a query language to preform complex object searches. The purpose of this “language” is to allow the developer to build very complex queries to e.g. search a collection of objects, to validate objects before you dump it in a db or even to make assertions in&nbsp;tests.</p>
-<p>queryl comes with a very simple <span class="caps">API</span>. <code>queryl.match</code> is the main entry at this point this will always return a boolean and expects an object to match. For&nbsp;example:</p>
-<pre><code class="lang-javascript">queryl.match({
-  $contain: {
-    foo: <span class="number">1</span>
-  }
-}, {
-  foo: [ <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span> ]
-});
-&gt; <span class="literal">true</span>
-</code></pre>
-<p>This is just a very basic example of what it can do. The full <span class="caps">API</span> docs shows the entire power of this&nbsp;“language”.</p>
-<p>I can see this working very well for matching and parsing certain objects like the ones you would receive from, for instance, the Google spreadsheet&nbsp;<span class="caps">API</span>.</p>
 
           </section>
         </article>
@@ -273,89 +338,6 @@ Installed into REPL context:
 <span class="literal">true</span>
 </code></pre>
 <p>This tool will certainly make it easier to try out new modules for providing you with new posts&nbsp;everyday.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>25. September 2015</span></p>
-            <h2><a href="/articles/plop-and-selectize/">Plop and Selectize</a></h2>
-          </header>
-          <section class="content"><p>Plop (GitHub: <a href="https://github.com/amwmedia/plop">amwmedia/plop</a>, License: <span class="caps">MIT</span>, npm:&nbsp;plop)</p>
-<p>Plop is a command line tool that helps you introduce uniformity to your team by generating new modules, files or even documentation pages.
-The problem it tries to solve is one that we all must have. You have a project which is nicely structured. Lets say this is our pages&nbsp;folder;</p>
-<pre><code>|-- Pages
-    |-- HomePage
-        |-- HomePage.jsx
-        |-- config.json
-        |-- styles.css
-</code></pre><p>What we need to do is add a new page. Normally we would do is copy the <code>HomePage</code> folder and walk through the files and what is needed. This will cost you some time and slow you&nbsp;down.</p>
-<h4 id="plop-to-the-rescue">Plop to the&nbsp;rescue</h4>
-<p>By defining how modules, pages or components should look before hand you could write a template for it.
-By using <a href="http://handlebarsjs.com/">handlebars</a> it lets you set the values you would normally change by&nbsp;hand.</p>
-<p>Here is an example template&nbsp;file</p>
-<pre><code>class {{ properCase name }} extends React.Component {
-  render(){
-    return &lt;div className=&#39;{{ name }}&#39;&gt;Newly generated Component {{ name }}&lt;/div&gt;
-  }
-}
-</code></pre><p>To fill up this template I will need a <code>plopfile</code> which would look like&nbsp;this</p>
-<pre><code class="lang-javascript"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span> (<span class="params">plop</span>) </span>{
-    plop.setGenerator(<span class="string">'component'</span>, {
-        description: <span class="string">'Generate a React Component'</span>,
-        prompts: [{
-            type: <span class="string">'input'</span>,
-            name: <span class="string">'name'</span>,
-            message: <span class="string">'What should it be called?'</span>,
-            validate: <span class="function"><span class="keyword">function</span> (<span class="params">value</span>) </span>{
-                <span class="keyword">if</span> ((<span class="regexp">/.+/</span>).test(value)) { <span class="keyword">return</span> <span class="literal">true</span>; }
-                <span class="keyword">return</span> <span class="string">'name is required'</span>;
-            }
-        }],
-        actions: [{
-            type: <span class="string">'add'</span>,
-            path: <span class="string">'src/Components/{{properCase name}}.jsx'</span>,
-            templateFile: <span class="string">'component.txt'</span>
-        }]
-    });
-}
-</code></pre>
-<p>Now you could call <code>plop</code> to select it from a list of generators or <code>plop &lt;generator&gt;</code> to call it&nbsp;directly.</p>
-<p>What I love about this tool is the size of it. In contrast with Yeoman which is great for initialization of a codebase but after that you are still copying files, Plop is designed to work in throughout the life entire cycle of a&nbsp;project.</p>
-<h3 id="react-selectize">React&nbsp;Selectize</h3>
-<p>React Selectize (GitHub: <a href="https://github.com/furqanZafar/react-selectize">furqanZafar/react-selectize</a>, License: Apache 2.0, npm:&nbsp;react-selectize)</p>
-<p>React Selectize is a stateless Select component for ReactJS, which provides a platform for a more developer friendly SimpleSelect <span class="amp">&amp;</span> MultiSelect component.
-<img src="https://camo.githubusercontent.com/251a1a6254a1a1c46074c79d7c68ec4108e0fbbe/687474703a2f2f692e696d6775722e636f6d2f72526d7566786d2e676966" style="max-width: 320px; width: 100%; position:static;"></p>
-<p>Getting it to work was surprisingly simple. Here is my&nbsp;example</p>
-<pre><code class="lang-javascript"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;
-<span class="keyword">import</span> ReactSelectize <span class="keyword">from</span> <span class="string">'react-selectize'</span>
-const SimpleSelect = React.createFactory(ReactSelectize.SimpleSelect);
-<span class="keyword">const</span> MultiSelect = React.createFactory(ReactSelectize.MultiSelect);
-
-<span class="xml"><span class="tag">&lt;<span class="title">SimpleSelect</span>
-    <span class="attribute">placeholder</span> = "<span class="attribute">Select</span> <span class="attribute">a</span> <span class="attribute">food</span>"
-    <span class="attribute">onValueChange</span> = {(<span class="attribute">value</span>, <span class="attribute">callback</span>) =&gt;</span> {
-        alert(value);
-        callback();
-    }}
-    &gt;
-    <span class="tag">&lt;<span class="title">option</span> <span class="attribute">value</span> = "<span class="attribute">pizza</span>"&gt;</span>pizza<span class="tag">&lt;/<span class="title">option</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">option</span> <span class="attribute">value</span> = "<span class="attribute">kebab</span>"&gt;</span>kebab<span class="tag">&lt;/<span class="title">option</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">option</span> <span class="attribute">value</span> = "<span class="attribute">donut</span>"&gt;</span>donut<span class="tag">&lt;/<span class="title">option</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">SimpleSelect</span>&gt;</span>
-
-<span class="tag">&lt;<span class="title">MultiSelect</span>
-    <span class="attribute">placeholder</span> = "<span class="attribute">Select</span> <span class="attribute">foods</span>"
-    <span class="attribute">options</span> = ["<span class="attribute">pizza</span>", "<span class="attribute">kebab</span>", "<span class="attribute">donut</span>"]<span class="attribute">.map</span>(<span class="attribute">function</span>(<span class="attribute">food</span>){
-        <span class="attribute">return</span> {<span class="attribute">label:</span> <span class="attribute">food</span>, <span class="attribute">value:</span> <span class="attribute">food</span>};
-    });
-    <span class="attribute">onValuesChange</span> = {<span class="attribute">function</span>(<span class="attribute">values</span>, <span class="attribute">callback</span>){
-        <span class="attribute">alert</span>(<span class="attribute">values</span>);
-        <span class="attribute">callback</span>();
-    }}
-/&gt;</span></span>
-</code></pre>
-<p>What I love about this component is the ease of the setup and the flexibility and compactness of the&nbsp;<span class="caps">API</span>.</p>
 
           </section>
         </article>

@@ -35,6 +35,31 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
+            <p class="date"><span>02. November 2015</span></p>
+            <h2><a href="/articles/streamjs/">Stream.js</a></h2>
+          </header>
+          <section class="content"><p>Stream.js (GitHub: <a href="https://github.com/winterbe/streamjs">winterbe/streamjs</a>, License: <span class="caps">MIT</span>, npm: streamjs, bower:&nbsp;streamjs)</p>
+<p>Stream.js is a lightweight functional library for operating on in memory collections. It requires <span class="caps">ES</span> 5+, but has built-in support for ES6 features it works in all current browsers, Node.js and Java 8 <a href="http://openjdk.java.net/projects/nashorn/">Nashorn</a>.</p>
+<p>This library is built around a lazily evaluated operation pipeline. Which means that instead of consecutively performing each operation on the input collection, objects are passed vertically and one by one into the chain.
+Interim results will not be stored in internal collections. Instead objects are piped into the result&nbsp;object.</p>
+<p>Stream’s operations are lazily evaluated to avoid examining all of the input data when it’s not necessary.
+For instance with a filter - map - findFirst stream you don’t have to filter and map the whole data. Instead map and findFirst are executed just one time before returning the single result. This results in way better performance when operation upon large amount of&nbsp;input.</p>
+<p>Like&nbsp;this:</p>
+<pre><code class="lang-javascript">Stream([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>])
+   .filter((num) =&gt; {   <span class="comment">// called twice</span>
+      <span class="keyword">return</span> num % <span class="number">2</span> === <span class="number">0</span>;
+   })
+   .map((even) =&gt; {     <span class="comment">// called once</span>
+      <span class="keyword">return</span> <span class="string">"even"</span> + even;
+   })
+   .findFirst();        <span class="comment">// called once</span>
+</code></pre>
+<p>Because this library has a very extensive <span class="caps">API</span>, I will not be discussing that today and I will just refer you to the <a href="https://github.com/winterbe/streamjs/blob/master/APIDOC.md"><span class="caps">API</span> Docs</a> provided by the&nbsp;developer</p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
             <p class="date"><span>29. October 2015</span></p>
             <h2><a href="/articles/redux-generator/">generator-redux</a></h2>
           </header>
@@ -310,51 +335,6 @@ app.get(<span class="string">'/'</span>, <span class="function"><span class="key
 <span class="keyword">var</span> hash = <span class="number">1234567890</span>; <span class="comment">// returned from renderToString's promise and read out into the page</span>
 ReactDOMStream.render(<span class="xml"><span class="tag">&lt;<span class="title">Foo</span> <span class="attribute">prop</span>=<span class="value">{value}</span>/&gt;</span>, document.getElementById("bar"), hash);</span>
 </code></pre>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>22. October 2015</span></p>
-            <h2><a href="/articles/observatory/">Observatory</a></h2>
-          </header>
-          <section class="content"><p>Observatory (GitHub: <a href="https://github.com/mikesizz/observatory">mikesizz/observatory</a>, License: <span class="caps">MIT</span>, npm:&nbsp;observatoryjs)</p>
-<p>When you are following the spec proposals or read any other blog you have probably heard about <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/observe">Object.observe</a>, which is used for asynchronously observing the changes to an&nbsp;object.</p>
-<p>Observatory is an attempt to provide javascript developers an interface for Object.observe with mongodb style querying for&nbsp;specificity.</p>
-<p>In order to use it we need to create a new instance of&nbsp;Observatory.</p>
-<pre><code class="lang-javascript"><span class="keyword">import</span> Observatory <span class="keyword">from</span> <span class="string">'Observatory'</span>;
-<span class="keyword">const</span> observer = <span class="keyword">new</span> Observatory();
-</code></pre>
-<p>Now we can observe an object by binding an event to it like&nbsp;so:</p>
-<pre><code class="lang-javascript">observer.on( object , query , callback );
-</code></pre>
-<p>Currently it supports the following&nbsp;events:</p>
-<ul>
-<li>$update which observes events that include an update to a queried&nbsp;property</li>
-<li>$add which observes events that include an addition to a queried&nbsp;property</li>
-<li>$delete which observes events that include an deletion from a queried&nbsp;property</li>
-</ul>
-<p>The real power is within the query expressions, by using different selectors you can create an expression for more specific event&nbsp;handling.</p>
-<pre><code class="lang-javascript"><span class="keyword">let</span> cat = {
-    age: <span class="number">3</span>
-};
-
-observer.on( cat , { $update: { <span class="string">"age"</span>: { $gt: <span class="number">10</span> } } } , () =&gt; {
-    <span class="built_in">console</span>.log(<span class="string">"Your cat is older than 10"</span>);
-});
-</code></pre>
-<p>It provides the following value&nbsp;selectors:</p>
-<ul>
-<li>$lt - check if the property is less than the query&nbsp;value</li>
-<li>$gte - check if the property is greater than or equal to the query&nbsp;value</li>
-<li>$lte - check if the property is less than or equal to the query&nbsp;value</li>
-<li>$eq - check if the property is equal to the query&nbsp;value</li>
-</ul>
-<p>For arrays it has a couple&nbsp;extra:</p>
-<ul>
-<li>$in - check if the target array contains any of the query values after the event&nbsp;fires</li>
-<li>$all - check if the target array contains all of the query values after the event&nbsp;fires</li>
-</ul>
 
           </section>
         </article>
