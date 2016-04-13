@@ -5,7 +5,7 @@ author: ramon
 template: article.jade
 ---
 
-Animated (GitHub: [bmkmanoj/js-by-examples](https://github.com/bmkmanoj/js-by-examples), License: MIT, npm: animated)
+Animated (GitHub: [animatedjs/animated](https://github.com/animatedjs/animated), License: MIT, npm: animated)
 
 Animations have always being weak point React. After recognizing this problem, the community has put in a lot of effort to solve this problem.
 Tools like React Velocity, TransitionGroup etc emerged. But non of them are quit as flexible as the Animated library.
