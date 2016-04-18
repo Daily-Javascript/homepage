@@ -35,6 +35,45 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
+            <p class="date"><span>18. April 2016</span></p>
+            <h2><a href="/articles/react-tabguard/">Tabguard</a></h2>
+          </header>
+          <section class="content"><p>react-tabguard (GitHub: <a href="https://github.com/avocode/react-tabguard">avocode/react-tabguard</a>, License: <span class="caps">MIT</span>, npm:&nbsp;react-tabguard)</p>
+<p>A problem all of face at some point in our career is: A product owner who comes to you with the question to contain the <code>Tab</code> navigation to only one form. Something like this for&nbsp;instance:</p>
+<p><img src="https://camo.githubusercontent.com/ecb3f6b835e6a084175f5e8d119d0b719a9b43a8/68747470733a2f2f636c6475702e636f6d2f543961377062536754412e676966" style="max-width: 480px; width: 100%;"></p>
+<p>There isn’t really an easy way to limit tabbing to a specified area inside your <span class="caps">HMTL</span> document.
+It’s not desirable to lose focus on the overlay window when tabbing.
+Luckily the some developer saw this and started working on React TabGuard to save the&nbsp;day.</p>
+<p>Since there is not really an extensive <span class="caps">API</span> to discuss I will just give you with an example of how to use&nbsp;is:</p>
+<pre><code class="lang-javascript"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;
+<span class="keyword">import</span> TabGuard <span class="keyword">from</span> <span class="string">'react-tabguard'</span>;
+
+<span class="function"><span class="keyword">function</span> <span class="title">App</span>(<span class="params">props</span>) </span>{
+  <span class="keyword">return</span> (<span class="xml"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">className</span>=<span class="value">"double-form-container"</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">className</span>=<span class="value">"left"</span>&gt;</span>
+      <span class="tag">&lt;<span class="title">TabGuard</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">h1</span>&gt;</span>Form A<span class="tag">&lt;/<span class="title">h1</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"text"</span> <span class="attribute">placeholder</span>=<span class="value">"Name"</span>/&gt;</span>
+        <span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"number"</span> <span class="attribute">placeholder</span>=<span class="value">"Age"</span>/&gt;</span>
+        <span class="tag">&lt;<span class="title">button</span>&gt;</span>Send<span class="tag">&lt;/<span class="title">button</span>&gt;</span>
+      <span class="tag">&lt;/<span class="title">TabGuard</span>&gt;</span>
+    <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">className</span>=<span class="value">"right"</span>&gt;</span>
+      <span class="tag">&lt;<span class="title">TabGuard</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">h1</span>&gt;</span>Form B<span class="tag">&lt;/<span class="title">h1</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"text"</span> <span class="attribute">placeholder</span>=<span class="value">"Name"</span>/&gt;</span>
+        <span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"number"</span> <span class="attribute">placeholder</span>=<span class="value">"Age"</span>/&gt;</span>
+        <span class="tag">&lt;<span class="title">button</span>&gt;</span>Send<span class="tag">&lt;/<span class="title">button</span>&gt;</span>
+      <span class="tag">&lt;/<span class="title">TabGuard</span>&gt;</span>
+    <span class="tag">&lt;/<span class="title">div</span>&gt;</span>    
+  <span class="tag">&lt;/<span class="title">div</span>&gt;</span>)</span>;
+}
+</code></pre>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
             <p class="date"><span>13. April 2016</span></p>
             <h2><a href="/articles/animated/">Animated</a></h2>
           </header>
@@ -212,72 +251,6 @@ Once you have installed it and configured react-native-vector-icons via the inst
     <span class="tag">&lt;<span class="title">Text</span> <span class="attribute">style</span>=<span class="value">{{fontFamily:</span> '<span class="attribute">Arial</span>', <span class="attribute">fontSize:</span> <span class="attribute">15</span>}}&gt;</span>Login with Facebook<span class="tag">&lt;/<span class="title">Text</span>&gt;</span>
   <span class="tag">&lt;/<span class="title">Icon.Button</span>&gt;</span>
 )</span>;
-</code></pre>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>04. April 2016</span></p>
-            <h2><a href="/articles/webblock/">WebBlock.js</a></h2>
-          </header>
-          <section class="content"><p>WebBlock.js (GitHub: <a href="https://github.com/richardanaya/webblock">richardanaya/webblock</a>, License: <span class="caps">MIT</span>, npm:&nbsp;webblock)</p>
-<p>Web components are a very powerful way to modularize your the <span class="caps">UI</span> of your application in a way that is compliant with the standards.
-One of the problems with this is that Polymer JS is the leading library for web components,&nbsp;because:</p>
-<ul>
-<li>It has a very steep learning&nbsp;curve</li>
-<li>It lacks concise ways to write&nbsp;expressions</li>
-</ul>
-<p>Luckily did Richard Anaya notice these problems and saw an opportunity to create a library that allows you to get started with Web components quickly and reuse popular virtual <span class="caps">DOM</span> technologies like&nbsp;React.</p>
-<p>Not only is it compatible with React and VirtualDOM but you can still use indirection data architectures like Flux and Redux.
-The developer has posted a Redux example in <a href="http://www.webpackbin.com/E1D11e1Ce">this WebpackBin</a>.</p>
-<p>A quick example of how a component would look using React and&nbsp;WebBlock:</p>
-<pre><code class="lang-javascript"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;
-<span class="keyword">import</span> ReactDOM <span class="keyword">from</span> <span class="string">'react-dom'</span>;
-<span class="keyword">import</span> WebBlock <span class="keyword">from</span> <span class="string">'webblock'</span>;
-
-WebBlock({
-  tag: <span class="string">'pizza'</span>,
-  virtualDom: WebBlock.React(React,ReactDOM),
-  render() {
-        <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="title">div</span>&gt;</span>Hello {this.name}<span class="tag">&lt;/<span class="title">div</span>&gt;</span>;</span>
-    },
-  attributes: {
-    name: <span class="built_in">String</span>,
-  }
-});
-
-WebBlock({
-  tag: <span class="string">'pizza-list'</span>,
-  virtualDom: WebBlock.React(React, ReactDOM),
-  render() {
-    <span class="keyword">if</span>(<span class="keyword">this</span>.names == <span class="literal">undefined</span>) <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="title">div</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>;</span>
-    <span class="keyword">const</span> pizzas = <span class="keyword">this</span>.names.map((x) =&gt; {
-      <span class="function"><span class="keyword">function</span> <span class="title">setName</span>(<span class="params">ref</span>)</span>{
-        <span class="comment">//set the property directly on the <span class="caps">DOM</span> node</span>
-        ref.name = x;
-      }
-      <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="title">pizza</span> <span class="attribute">ref</span>=<span class="value">{setName}</span>&gt;</span><span class="tag">&lt;/<span class="title">pizza</span>&gt;</span>
-    })
-    return <span class="tag">&lt;<span class="title">div</span>&gt;</span>{pizzas}<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-  },
-  attributes: {
-    names: Array
-  }
-});</span>
-</code></pre>
-<p>Which you could use in your <span class="caps">HTML</span> like&nbsp;so:</p>
-<pre><code class="lang-html"><span class="tag">&lt;<span class="title">pizza-list</span> <span class="attribute">names</span>=<span class="value">'["margarita", "salami", "veggie"]'</span>&gt;</span><span class="tag">&lt;<span class="title">pizza-list</span>&gt;</span>
-</code></pre>
-<p>Besides making all new components, you could also make use of <a href="https://customelements.io/">the great collection</a> of components already created for Polymer.
-To enable this you will need to force Polymer to use ShadowDOM before it is loaded like&nbsp;so:</p>
-<pre><code class="lang-html"><span class="tag">&lt;<span class="title">script</span>&gt;</span><span class="javascript">
-    <span class="comment">/* this must run before Polymer is imported */</span>
-    <span class="built_in">window</span>.Polymer = {
-      dom: <span class="string">'shadow'</span>,
-      lazyRegister: <span class="literal">true</span>
-    };
-</span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
 </code></pre>
 
           </section>
