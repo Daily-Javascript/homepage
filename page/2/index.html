@@ -35,6 +35,47 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
+            <p class="date"><span>05. April 2016</span></p>
+            <h2><a href="/articles/react-native-vector-icons/">React Native, Vector Icons</a></h2>
+          </header>
+          <section class="content"><p>Vector Icons (GitHub: <a href="https://github.com/oblador/react-native-vector-icons">oblador/react-native-vector-icons</a>, License: <span class="caps">MIT</span>, npm:&nbsp;react-native-vector-icons)</p>
+<p>Icons are all around us. We encounter them in the real world every day. They can communicate a message by association instead of by text.
+This is very useful ‘cause sometime you will only have enough space for a little image, but you still want to explain or communicate with the consumer of your&nbsp;product.</p>
+<p>This is the reason that designers prefer icons over text to indicate user interactions.
+In modern web there are multiple approaches to loading and rendering of these&nbsp;icons.</p>
+<ul>
+<li>We could require them in the form of a font in which each character is set to an icon instead of the letter&nbsp;character.</li>
+<li>We could load them in directly as an <span class="caps">SVG</span> and use this on the&nbsp;page.</li>
+<li>We could use an <span class="caps">SVG</span> as a <code>background-image</code> in our <span class="caps">CSS</span> and&nbsp;show.</li>
+</ul>
+<p>But what if we don’t have a <span class="caps">CSS</span> or HTML, like in React Native? Then we have a problem.
+There are multiple ways to include images and SVG’s into a native application but this requires some knowledge of the native platform and is also very labor intensive because every time you want to an icon you will need to import it into your&nbsp;project.</p>
+<p>To solve that problem <code>react-native-vector-icons</code> was created.
+It allows you to import icons very easily into your React Native project.
+When installed you have more than 3k of icons to choose from originating from icons sets like Entypo, FontAwesome, Foundation, Ionicons, MaterialIcons, Zocial and&nbsp;more.</p>
+<p>Unlike most libraries that I’ve seen for React Native, it supports Android and iOS.
+Once you have installed it and configured react-native-vector-icons via the instructions in the <a href="https://github.com/oblador/react-native-vector-icons/blob/master/README.md"><span class="caps">README</span></a>, you can use it in your components like&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="keyword">import</span> Icon <span class="keyword">from</span> <span class="string">'react-native-vector-icons/FontAwesome'</span>;
+<span class="keyword">const</span> rocket = (<span class="xml"><span class="tag">&lt;<span class="title">Icon</span> <span class="attribute">name</span>=<span class="value">"rocket"</span> <span class="attribute">size</span>=<span class="value">{30}</span> <span class="attribute">color</span>=<span class="value">"#900"</span> /&gt;</span>)</span>;
+</code></pre>
+<p>Since icons often get used inside buttons the developers included an easy way to create basic&nbsp;buttons:</p>
+<pre><code class="lang-javascript"><span class="keyword">const</span> defaultButton = (
+  <span class="xml"><span class="tag">&lt;<span class="title">Icon.Button</span> <span class="attribute">name</span>=<span class="value">"facebook"</span> <span class="attribute">backgroundColor</span>=<span class="value">"#3b5998"</span> <span class="attribute">onPress</span>=<span class="value">{this.loginWithFacebook}</span>&gt;</span>
+    Login with Facebook
+  <span class="tag">&lt;/<span class="title">Icon.Button</span>&gt;</span>
+)</span>;
+
+<span class="keyword">const</span> customTextButton = (
+  <span class="xml"><span class="tag">&lt;<span class="title">Icon.Button</span> <span class="attribute">name</span>=<span class="value">"facebook"</span> <span class="attribute">backgroundColor</span>=<span class="value">"#3b5998"</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">Text</span> <span class="attribute">style</span>=<span class="value">{{fontFamily:</span> '<span class="attribute">Arial</span>', <span class="attribute">fontSize:</span> <span class="attribute">15</span>}}&gt;</span>Login with Facebook<span class="tag">&lt;/<span class="title">Text</span>&gt;</span>
+  <span class="tag">&lt;/<span class="title">Icon.Button</span>&gt;</span>
+)</span>;
+</code></pre>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
             <p class="date"><span>04. April 2016</span></p>
             <h2><a href="/articles/webblock/">WebBlock.js</a></h2>
           </header>
@@ -274,41 +315,6 @@ Questions&nbsp;like:</p>
         │   └── index.js
         └── index.js
 </code></pre>
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>17. March 2016</span></p>
-            <h2><a href="/articles/esbox/">ESBox</a></h2>
-          </header>
-          <section class="content"><p>esbox (GitHub: <a href="https://github.com/callumlocke/esbox">callumlocke/esbox</a>, License: <span class="caps">MIT</span>, npm:&nbsp;esbox)</p>
-<p>esbox is a zero-config <span class="caps">REPL</span> for when you wanna run a quick experiment using ESNext(ES6/ES7).
-In that scenario you do not wanna get bothered with setting up you <code>.babelrc</code> and installing dependancies, you just wanna try out some&nbsp;stuff.</p>
-<p>It automatically compiles and re-runs your script every time you save the given file.
-You can look at it as a JSBin/Webpackbin-like setup within your&nbsp;terminal.</p>
-<p>One of the very cool features is ‘Magic imports’ which provides some of the most used packages like lodash, bluebird, react, chalk, chai, express, request and many&nbsp;more.</p>
-<p>An example which would work straight out of the&nbsp;box:</p>
-<pre><code class="lang-javascript"><span class="keyword">import</span> cheerio <span class="keyword">from</span> <span class="string">'cheerio'</span>;
-<span class="keyword">import</span> fetch <span class="keyword">from</span> <span class="string">'isomorphic-fetch'</span>;
-<span class="keyword">import</span> { cyan } <span class="keyword">from</span> <span class="string">'chalk'</span>;
-
-(<span class="keyword">async</span> () =&gt; {
-  <span class="keyword">const</span> result = <span class="keyword">await</span> fetch(<span class="string">'https://www.nytimes.com'</span>);
-  <span class="built_in">console</span>.assert(result.ok);
-
-  <span class="keyword">const</span> $ = cheerio.load(<span class="keyword">await</span> result.text());
-
-  <span class="built_in">console</span>.log(<span class="string">'The New York Times headlines:'</span>);
-
-  $(<span class="string">'.story-heading'</span>).each((i, element) =&gt; {
-    <span class="built_in">console</span>.log(<span class="string">' '</span>, cyan($(element).text().trim()));
-  });
-})();
-</code></pre>
-<p>You would run this&nbsp;using:</p>
-<pre><code class="lang-bash">esbox script.js
-</code></pre>
-
           </section>
         </article>
       </div>

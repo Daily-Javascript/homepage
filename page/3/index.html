@@ -35,6 +35,41 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
+            <p class="date"><span>17. March 2016</span></p>
+            <h2><a href="/articles/esbox/">ESBox</a></h2>
+          </header>
+          <section class="content"><p>esbox (GitHub: <a href="https://github.com/callumlocke/esbox">callumlocke/esbox</a>, License: <span class="caps">MIT</span>, npm:&nbsp;esbox)</p>
+<p>esbox is a zero-config <span class="caps">REPL</span> for when you wanna run a quick experiment using ESNext(ES6/ES7).
+In that scenario you do not wanna get bothered with setting up you <code>.babelrc</code> and installing dependancies, you just wanna try out some&nbsp;stuff.</p>
+<p>It automatically compiles and re-runs your script every time you save the given file.
+You can look at it as a JSBin/Webpackbin-like setup within your&nbsp;terminal.</p>
+<p>One of the very cool features is ‘Magic imports’ which provides some of the most used packages like lodash, bluebird, react, chalk, chai, express, request and many&nbsp;more.</p>
+<p>An example which would work straight out of the&nbsp;box:</p>
+<pre><code class="lang-javascript"><span class="keyword">import</span> cheerio <span class="keyword">from</span> <span class="string">'cheerio'</span>;
+<span class="keyword">import</span> fetch <span class="keyword">from</span> <span class="string">'isomorphic-fetch'</span>;
+<span class="keyword">import</span> { cyan } <span class="keyword">from</span> <span class="string">'chalk'</span>;
+
+(<span class="keyword">async</span> () =&gt; {
+  <span class="keyword">const</span> result = <span class="keyword">await</span> fetch(<span class="string">'https://www.nytimes.com'</span>);
+  <span class="built_in">console</span>.assert(result.ok);
+
+  <span class="keyword">const</span> $ = cheerio.load(<span class="keyword">await</span> result.text());
+
+  <span class="built_in">console</span>.log(<span class="string">'The New York Times headlines:'</span>);
+
+  $(<span class="string">'.story-heading'</span>).each((i, element) =&gt; {
+    <span class="built_in">console</span>.log(<span class="string">' '</span>, cyan($(element).text().trim()));
+  });
+})();
+</code></pre>
+<p>You would run this&nbsp;using:</p>
+<pre><code class="lang-bash">esbox script.js
+</code></pre>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
             <p class="date"><span>16. March 2016</span></p>
             <h2><a href="/articles/meow/">Meow</a></h2>
           </header>
@@ -177,53 +212,6 @@ This can be used for teaching, remote collaboration or maybe even for live codin
 
 
 <p>I’m really excited about this next generation of online collaboration and curious about what featues the developer might add in the&nbsp;future.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>08. March 2016</span></p>
-            <h2><a href="/articles/ora/">Ora</a></h2>
-          </header>
-          <section class="content"><p>Ora (GitHub: <a href="https://github.com/sindresorhus/ora">sindresorhus/ora</a>, License: <span class="caps">MIT</span>, npm:&nbsp;ora)</p>
-<p>When you are making command line tools using Node.js you are probably using something like <a href="http://daily-javascript.com/articles/vorpal/">Vorpal</a> or <a href="https://www.npmjs.com/package/commander">commander</a>.
-When you want to communicate to the user that she needs to wait there are multiple things you could do.
-You could show a progress bar, but for that you would need to know when to fill it and when its done.
-Maybe you do not have this and do not wanna be bothered with implementing this.
-Well the maybe you wanna show a loading spinner like&nbsp;this:</p>
-<p><img src="https://github.com/sindresorhus/ora/raw/master/screenshot.gif" style="max-width: 480px; width: 100%;" /></p>
-<p>Well than Ora is the spinner for you.
-It works very straight&nbsp;forward:</p>
-<pre><code class="lang-javascript"><span class="keyword">const</span> ora = <span class="built_in">require</span>(<span class="string">'ora'</span>);
-<span class="keyword">const</span> mySpinner = ora(<span class="string">'Loading undead unicorns'</span>);
-
-mySpinner.start();
-
-<span class="comment">// Update</span>
-setTimeout(() =&gt; {
-    spinner.color = <span class="string">'yellow'</span>;
-    spinner.text = <span class="string">'Killing all the undead unicorns'</span>;
-}, <span class="number">1000</span>);
-</code></pre>
-<p>One of the great things about this spinner is that it will not clutter up your <span class="caps">CI</span> logs with stuff&nbsp;like:</p>
-<pre><code>|
-\
--
-/
--
-|
-</code></pre><p>or</p>
-<pre><code>[=   ]
-[==  ]
-[=== ]
-[====]
-</code></pre><p>Since it will gracefully not do anything when there’s no <span class="caps">TTY</span>.
-When you do not like the default spinner, you could select another one from the <a href="https://github.com/sindresorhus/cli-spinners/blob/master/spinners.json">list of spinners</a> or create your own like&nbsp;so:</p>
-<pre><code class="lang-javascript"><span class="keyword">const</span> mySpinner{
-  interval: <span class="number">80</span>,
-  frames: [<span class="string">'-'</span>, <span class="string">'+'</span>, <span class="string">'-'</span>],
-};
-</code></pre>
 
           </section>
         </article>
