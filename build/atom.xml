@@ -5,9 +5,62 @@
     <atom:link href="http://daily-javascript.com/feed.xml" rel="self" type="application/rss+xml"></atom:link>
     <link>http://daily-javascript.com</link>
     <description>For your daily dose of Javascript libraries.</description>
-    <pubDate>Mon, 18 Apr 2016 02:00:00 +0200</pubDate>
+    <pubDate>Wed, 20 Apr 2016 02:00:00 +0200</pubDate>
     <generator>Wintersmith - https://github.com/jnordberg/wintersmith</generator>
     <language>en</language>
+    <item>
+      <title>redux-mock-store</title>
+      <link>http://daily-javascript.com/articles/redux-mock-store/</link>
+      <pubDate>Wed, 20 Apr 2016 02:00:00 +0200</pubDate>
+      <guid isPermaLink="true">http://daily-javascript.com/articles/redux-mock-store/</guid>
+      <author></author>
+      <description>&lt;p&gt;redux-mock-store (GitHub: &lt;a href=&quot;https://github.com/arnaudbenard/redux-mock-store&quot;&gt;arnaudbenard/redux-mock-store&lt;/a&gt;, License: MIT, npm: redux-mock-store)&lt;/p&gt;
+&lt;p&gt;When you are working on an application with a Redux architecture and you want to test if your actions triggered correctly.
+Doing this with the default Redux store is a very hard thing. In the project I recently joined we solve this problem by using &lt;code&gt;redux-mock-store&lt;/code&gt;, which stores the actions that got triggered. By suppling a &lt;code&gt;getActions()&lt;/code&gt; method we can access the previously called actions in the form of an Array.&lt;/p&gt;
+&lt;p&gt;By example:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;import&lt;/span&gt; configureMockStore &lt;span class=&quot;keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;'redux-mock-store'&lt;/span&gt;;
+&lt;span class=&quot;keyword&quot;&gt;import&lt;/span&gt; thunk &lt;span class=&quot;keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;'redux-thunk'&lt;/span&gt;;
+
+&lt;span class=&quot;keyword&quot;&gt;const&lt;/span&gt; middlewares = [thunk];
+&lt;span class=&quot;keyword&quot;&gt;const&lt;/span&gt; mockStore = configureMockStore(middlewares);
+
+it(&lt;span class=&quot;string&quot;&gt;'should dispatch action'&lt;/span&gt;, () =&amp;gt; {
+  &lt;span class=&quot;keyword&quot;&gt;const&lt;/span&gt; getState = {};
+  &lt;span class=&quot;keyword&quot;&gt;const&lt;/span&gt; addTodo = { type: &lt;span class=&quot;string&quot;&gt;'ADD_TODO'&lt;/span&gt; };
+
+  &lt;span class=&quot;keyword&quot;&gt;const&lt;/span&gt; store = mockStore(getState);
+  store.dispatch(addTodo);
+
+  &lt;span class=&quot;keyword&quot;&gt;const&lt;/span&gt; actions = store.getActions();
+
+  expect(actions).toEqual([addTodo]);
+});
+
+it(&lt;span class=&quot;string&quot;&gt;'should execute promise'&lt;/span&gt;, () =&amp;gt; {
+    &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;success&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;&lt;/span&gt;) &lt;/span&gt;{
+      &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; {
+        type: &lt;span class=&quot;string&quot;&gt;'FETCH_DATA_SUCCESS'&lt;/span&gt;
+      };
+    }
+
+    &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;fetchData&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;&lt;/span&gt;) &lt;/span&gt;{
+      &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; dispatch =&amp;gt; {
+        &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; fetch(&lt;span class=&quot;string&quot;&gt;'/users.json'&lt;/span&gt;)
+          .then(() =&amp;gt; dispatch(success()));
+      };
+    }
+
+    &lt;span class=&quot;keyword&quot;&gt;const&lt;/span&gt; store = mockStore({});
+
+    &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; store.dispatch(fetchData())
+      .then(() =&amp;gt; {
+        expect(store.getActions()[&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;]).toEqual(success())
+      });
+})
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;In the &lt;a href=&quot;http://redux.js.org/docs/recipes/WritingTests.html&quot;&gt;Redux docs&lt;/a&gt; you can find a more extensive explanation and best best practices on how to approach this problem.&lt;/p&gt;
+</description>
+    </item>
     <item>
       <title>Tabguard</title>
       <link>http://daily-javascript.com/articles/react-tabguard/</link>
@@ -3988,6 +4041,53 @@ program
 </description>
     </item>
     <item>
+      <title>Chiffon</title>
+      <link>http://daily-javascript.com/articles/chiffon/</link>
+      <pubDate>Wed, 14 Oct 2015 02:00:00 +0200</pubDate>
+      <guid isPermaLink="true">http://daily-javascript.com/articles/chiffon/</guid>
+      <author></author>
+      <description>&lt;p&gt;Chiffon (GitHub: &lt;a href=&quot;https://github.com/trueadm/Chiffon&quot;&gt;polygonplanet/Chiffon&lt;/a&gt;, License: MIT, npm: chiffon, bower: chiffon)&lt;/p&gt;
+&lt;p&gt;Chiffon is a very small ECMAScript parser, tokenizer and minifier.
+Sometimes we come across an idea where you will need to parse or tokenize Javascript files for, for instance to do analysis on the code.&lt;/p&gt;
+&lt;p&gt;When using Chiffon for tokenizing you will get an Array of each “element” of the input code like this:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;let&lt;/span&gt; tokens = Chiffon.tokenize(&lt;span class=&quot;string&quot;&gt;'var a = 1'&lt;/span&gt;);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Which would then return:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;[ { type: &lt;span class=&quot;string&quot;&gt;'Keyword'&lt;/span&gt;,    value: &lt;span class=&quot;string&quot;&gt;'var'&lt;/span&gt; },
+  { type: &lt;span class=&quot;string&quot;&gt;'Identifier'&lt;/span&gt;, value: &lt;span class=&quot;string&quot;&gt;'a'&lt;/span&gt; },
+  { type: &lt;span class=&quot;string&quot;&gt;'Punctuator'&lt;/span&gt;, value: &lt;span class=&quot;string&quot;&gt;'='&lt;/span&gt; },
+  { type: &lt;span class=&quot;string&quot;&gt;'Numeric'&lt;/span&gt;,    value: &lt;span class=&quot;string&quot;&gt;'1'&lt;/span&gt; } ]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Here is a list of all possible tokens:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Comment&lt;/li&gt;
+&lt;li&gt;LineTerminator&lt;/li&gt;
+&lt;li&gt;Template&lt;/li&gt;
+&lt;li&gt;String&lt;/li&gt;
+&lt;li&gt;Punctuator&lt;/li&gt;
+&lt;li&gt;RegularExpression&lt;/li&gt;
+&lt;li&gt;Numeric&lt;/li&gt;
+&lt;li&gt;UnicodeEscapeSequence&lt;/li&gt;
+&lt;li&gt;Identifier&lt;/li&gt;
+&lt;li&gt;Null&lt;/li&gt;
+&lt;li&gt;Boolean&lt;/li&gt;
+&lt;li&gt;Keyword&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Sadly JavaScript AST is not currently supported.&lt;/p&gt;
+&lt;p&gt;When you wish to “untokenize” the Array, you can pass it into the &lt;code&gt;untokenize&lt;/code&gt; method like this:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;Chiffon.untokenize
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;When you want to use the minification, you would do something like this:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;Chiffon.minify(&lt;span class=&quot;string&quot;&gt;'var a = 1 + 1; // comment'&lt;/span&gt;);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Which is a simple implementation of &lt;code&gt;untokenize&lt;/code&gt; and &lt;code&gt;tokenize&lt;/code&gt; together like this:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;minify&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;code&lt;/span&gt;) &lt;/span&gt;{
+    &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; untokenize(tokenize(code, { lineTerminator: &lt;span class=&quot;literal&quot;&gt;true&lt;/span&gt; }));
+}
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    <item>
       <title>Smartcrop.js</title>
       <link>http://daily-javascript.com/articles/smart-crop/</link>
       <pubDate>Wed, 14 Oct 2015 02:00:00 +0200</pubDate>
@@ -4034,53 +4134,6 @@ SmartCrop.crop(img, options, result =&amp;gt; {
 smartcrop-cli --width &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt; --height &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt; photo.jpg square-thumbnail.jpg
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Smartcrop-cli does requires &lt;a href=&quot;https://github.com/Automattic/node-canvas&quot;&gt;node-canvas&lt;/a&gt; which requires local libraries to be installed. Refer to the &lt;a href=&quot;https://github.com/Automattic/node-canvas/wiki/_pages&quot;&gt;node-canvas wiki&lt;/a&gt; installation instructions.&lt;/p&gt;
-</description>
-    </item>
-    <item>
-      <title>Chiffon</title>
-      <link>http://daily-javascript.com/articles/chiffon/</link>
-      <pubDate>Wed, 14 Oct 2015 02:00:00 +0200</pubDate>
-      <guid isPermaLink="true">http://daily-javascript.com/articles/chiffon/</guid>
-      <author></author>
-      <description>&lt;p&gt;Chiffon (GitHub: &lt;a href=&quot;https://github.com/trueadm/Chiffon&quot;&gt;polygonplanet/Chiffon&lt;/a&gt;, License: MIT, npm: chiffon, bower: chiffon)&lt;/p&gt;
-&lt;p&gt;Chiffon is a very small ECMAScript parser, tokenizer and minifier.
-Sometimes we come across an idea where you will need to parse or tokenize Javascript files for, for instance to do analysis on the code.&lt;/p&gt;
-&lt;p&gt;When using Chiffon for tokenizing you will get an Array of each “element” of the input code like this:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;let&lt;/span&gt; tokens = Chiffon.tokenize(&lt;span class=&quot;string&quot;&gt;'var a = 1'&lt;/span&gt;);
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Which would then return:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;[ { type: &lt;span class=&quot;string&quot;&gt;'Keyword'&lt;/span&gt;,    value: &lt;span class=&quot;string&quot;&gt;'var'&lt;/span&gt; },
-  { type: &lt;span class=&quot;string&quot;&gt;'Identifier'&lt;/span&gt;, value: &lt;span class=&quot;string&quot;&gt;'a'&lt;/span&gt; },
-  { type: &lt;span class=&quot;string&quot;&gt;'Punctuator'&lt;/span&gt;, value: &lt;span class=&quot;string&quot;&gt;'='&lt;/span&gt; },
-  { type: &lt;span class=&quot;string&quot;&gt;'Numeric'&lt;/span&gt;,    value: &lt;span class=&quot;string&quot;&gt;'1'&lt;/span&gt; } ]
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Here is a list of all possible tokens:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Comment&lt;/li&gt;
-&lt;li&gt;LineTerminator&lt;/li&gt;
-&lt;li&gt;Template&lt;/li&gt;
-&lt;li&gt;String&lt;/li&gt;
-&lt;li&gt;Punctuator&lt;/li&gt;
-&lt;li&gt;RegularExpression&lt;/li&gt;
-&lt;li&gt;Numeric&lt;/li&gt;
-&lt;li&gt;UnicodeEscapeSequence&lt;/li&gt;
-&lt;li&gt;Identifier&lt;/li&gt;
-&lt;li&gt;Null&lt;/li&gt;
-&lt;li&gt;Boolean&lt;/li&gt;
-&lt;li&gt;Keyword&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Sadly JavaScript AST is not currently supported.&lt;/p&gt;
-&lt;p&gt;When you wish to “untokenize” the Array, you can pass it into the &lt;code&gt;untokenize&lt;/code&gt; method like this:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;Chiffon.untokenize
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;When you want to use the minification, you would do something like this:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;Chiffon.minify(&lt;span class=&quot;string&quot;&gt;'var a = 1 + 1; // comment'&lt;/span&gt;);
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Which is a simple implementation of &lt;code&gt;untokenize&lt;/code&gt; and &lt;code&gt;tokenize&lt;/code&gt; together like this:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;minify&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;code&lt;/span&gt;) &lt;/span&gt;{
-    &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; untokenize(tokenize(code, { lineTerminator: &lt;span class=&quot;literal&quot;&gt;true&lt;/span&gt; }));
-}
-&lt;/code&gt;&lt;/pre&gt;
 </description>
     </item>
     <item>

@@ -35,6 +35,53 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
+            <p class="date"><span>08. March 2016</span></p>
+            <h2><a href="/articles/ora/">Ora</a></h2>
+          </header>
+          <section class="content"><p>Ora (GitHub: <a href="https://github.com/sindresorhus/ora">sindresorhus/ora</a>, License: <span class="caps">MIT</span>, npm:&nbsp;ora)</p>
+<p>When you are making command line tools using Node.js you are probably using something like <a href="http://daily-javascript.com/articles/vorpal/">Vorpal</a> or <a href="https://www.npmjs.com/package/commander">commander</a>.
+When you want to communicate to the user that she needs to wait there are multiple things you could do.
+You could show a progress bar, but for that you would need to know when to fill it and when its done.
+Maybe you do not have this and do not wanna be bothered with implementing this.
+Well the maybe you wanna show a loading spinner like&nbsp;this:</p>
+<p><img src="https://github.com/sindresorhus/ora/raw/master/screenshot.gif" style="max-width: 480px; width: 100%;" /></p>
+<p>Well than Ora is the spinner for you.
+It works very straight&nbsp;forward:</p>
+<pre><code class="lang-javascript"><span class="keyword">const</span> ora = <span class="built_in">require</span>(<span class="string">'ora'</span>);
+<span class="keyword">const</span> mySpinner = ora(<span class="string">'Loading undead unicorns'</span>);
+
+mySpinner.start();
+
+<span class="comment">// Update</span>
+setTimeout(() =&gt; {
+    spinner.color = <span class="string">'yellow'</span>;
+    spinner.text = <span class="string">'Killing all the undead unicorns'</span>;
+}, <span class="number">1000</span>);
+</code></pre>
+<p>One of the great things about this spinner is that it will not clutter up your <span class="caps">CI</span> logs with stuff&nbsp;like:</p>
+<pre><code>|
+\
+-
+/
+-
+|
+</code></pre><p>or</p>
+<pre><code>[=   ]
+[==  ]
+[=== ]
+[====]
+</code></pre><p>Since it will gracefully not do anything when there’s no <span class="caps">TTY</span>.
+When you do not like the default spinner, you could select another one from the <a href="https://github.com/sindresorhus/cli-spinners/blob/master/spinners.json">list of spinners</a> or create your own like&nbsp;so:</p>
+<pre><code class="lang-javascript"><span class="keyword">const</span> mySpinner{
+  interval: <span class="number">80</span>,
+  frames: [<span class="string">'-'</span>, <span class="string">'+'</span>, <span class="string">'-'</span>],
+};
+</code></pre>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
             <p class="date"><span>07. March 2016</span></p>
             <h2><a href="/articles/rx-pubsub/">rxjs-pubsub</a></h2>
           </header>
@@ -169,43 +216,6 @@ Chrome already has the support for these features today. The rest of the browser
 <p>A small side&nbsp;note.</p>
 <p>Since I haven’t received any submissions for the weekly challenges, I have decided to focus on finding great libraries for you guys instead of trying to come up with new challenges to do.
 Thanks to the people who did participate, when you still want to be challenged I would suggest you take a look at <a href="https://www.reddit.com/r/dailyprogrammer">/r/DailyProgrammer</a>, <a href="http://codegolf.stackexchange.com/">Code Golf</a> or <a href="https://www.hackerrank.com/">HackerRank</a>.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>24. February 2016</span></p>
-            <h2><a href="/articles/cash/">Cash</a></h2>
-          </header>
-          <section class="content"><p>Cash (GitHub: <a href="https://github.com/dthree/cash">dthree/cash</a>, License: <span class="caps">MIT</span>, npm:&nbsp;cash)</p>
-<p><img src="https://camo.githubusercontent.com/31404520899c0f1fd55308746fa804a8bc89e4e3/687474703a2f2f692e67697068792e636f6d2f785430424b4e7755504668466a32676c72792e676966" style="max-width: 756px; width: 100%;"></p>
-<p>Cash is a project to implement most used Unix-based commands in pure Javascript and with no external dependencies.
-The reason for this is to make them available cross platform.
-So if you find yourself stuck on using Windows because your business used it, you can just <code>npm i cash -g; cash</code> and be back in Unix&nbsp;land.</p>
-<p>The developer’s goal is to expose to the Javascript community to these commands, and to provide a cleaner, simpler and flexible alternative to applications like Cygwin for those wanting the Linux feel on&nbsp;Windows.</p>
-<p>While writing this the project supports the following&nbsp;commands:</p>
-<ul>
-<li>alias</li>
-<li>cat</li>
-<li>cd</li>
-<li>cp</li>
-<li>echo</li>
-<li>grep</li>
-<li>kill</li>
-<li>less</li>
-<li>ls</li>
-<li>mkdir</li>
-<li>mv</li>
-<li>pwd</li>
-<li>rm</li>
-<li>sort</li>
-<li>touch</li>
-<li>unalias</li>
-</ul>
-<p>For additional commands the developer has decided to let the community decide.
-You can vote on new commands in the <a href="https://github.com/dthree/cash/wiki/Roadmap">Road map</a>.</p>
-<p>For more information on check out the <a href="https://github.com/dthree/cash">Github Project</a> where the developer has also posted a <a href="https://github.com/dthree/cash/wiki">wiki</a>.</p>
-<p>Don’t forget to submit you solution for the <a href="http://daily-javascript.com/challenges/websocket-challenge-part-two">Websocket Challenge - part two</a>, since there are only two days left before submission&nbsp;closes.</p>
 
           </section>
         </article>
