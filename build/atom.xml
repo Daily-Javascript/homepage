@@ -5,9 +5,67 @@
     <atom:link href="http://daily-javascript.com/feed.xml" rel="self" type="application/rss+xml"></atom:link>
     <link>http://daily-javascript.com</link>
     <description>For your daily dose of Javascript libraries.</description>
-    <pubDate>Wed, 20 Apr 2016 02:00:00 +0200</pubDate>
+    <pubDate>Mon, 09 May 2016 02:00:00 +0200</pubDate>
     <generator>Wintersmith - https://github.com/jnordberg/wintersmith</generator>
     <language>en</language>
+    <item>
+      <title>PeerJS</title>
+      <link>http://daily-javascript.com/articles/peerjs/</link>
+      <pubDate>Mon, 09 May 2016 02:00:00 +0200</pubDate>
+      <guid isPermaLink="true">http://daily-javascript.com/articles/peerjs/</guid>
+      <author></author>
+      <description>&lt;p&gt;PeerJS (GitHub: &lt;a href=&quot;https://github.com/peers/peerjs&quot;&gt;peers/peerjs&lt;/a&gt;, License: MIT, npm: peerjs)&lt;/p&gt;
+&lt;p&gt;Last week I was held up in bed with a fever, this is the reason I was not able to provide you with daily javascript updates.
+Exactly for moments like that I would like to request if one of my readers would be interested in occasionally writing a post, so I can slow down sometimes.&lt;/p&gt;
+&lt;p&gt;If you are interested please &lt;a href=&quot;mailto:daily-javascript@ra-ge.net&quot;&gt;contact me&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;On to business, PeerJS wraps the browser’s WebRTC implementation to provide a easy-to-use peer-to-peer connection API.
+To establish a connection you will need nothing more than a session ID.
+This is of course not the first attempt on a good WebRTC library but this comes with an open source server which you can deploy any place you want, in contrast with other parties that’s a real leap forwards.&lt;/p&gt;
+&lt;p&gt;Because this is still a company trying to make money they also have hosted solutions for when you do not want to be bothered with setting up these environments.&lt;/p&gt;
+&lt;p&gt;Let’s look at an example using the hosted solution.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;import&lt;/span&gt; Peer &lt;span class=&quot;keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;'peerjs'&lt;/span&gt;;
+
+&lt;span class=&quot;keyword&quot;&gt;const&lt;/span&gt; myPeer = &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; Peer(&lt;span class=&quot;string&quot;&gt;'pick-an-id'&lt;/span&gt;, {key: &lt;span class=&quot;string&quot;&gt;'myapikey'&lt;/span&gt;});
+&lt;span class=&quot;keyword&quot;&gt;const&lt;/span&gt; conn = myPeer.connect(&lt;span class=&quot;string&quot;&gt;'another-peers-id'&lt;/span&gt;);
+
+conn.on(&lt;span class=&quot;string&quot;&gt;'open'&lt;/span&gt;, () =&amp;gt; {
+  conn.send(&lt;span class=&quot;string&quot;&gt;'hi!'&lt;/span&gt;);
+});
+
+myPeer.on(&lt;span class=&quot;string&quot;&gt;'connection'&lt;/span&gt;, (conn) =&amp;gt; {
+  conn.on(&lt;span class=&quot;string&quot;&gt;'data'&lt;/span&gt;, (data) =&amp;gt; {
+    &lt;span class=&quot;comment&quot;&gt;// Will print 'hi!'&lt;/span&gt;
+    &lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.log(data);
+  });
+});
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The code for making a call would look something like this:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;const&lt;/span&gt; getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+
+getUserMedia({video: &lt;span class=&quot;literal&quot;&gt;true&lt;/span&gt;, audio: &lt;span class=&quot;literal&quot;&gt;true&lt;/span&gt;}, (stream) =&amp;gt; {
+  &lt;span class=&quot;keyword&quot;&gt;const&lt;/span&gt; call = peer.call(&lt;span class=&quot;string&quot;&gt;'another-peers-id'&lt;/span&gt;, stream);
+  call.on(&lt;span class=&quot;string&quot;&gt;'stream'&lt;/span&gt;, (remoteStream) =&amp;gt; {
+    &lt;span class=&quot;comment&quot;&gt;// Show stream in some video/canvas element.&lt;/span&gt;
+  });
+}, (err) =&amp;gt; {
+  &lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.log(&lt;span class=&quot;string&quot;&gt;'Failed to get local stream'&lt;/span&gt;, err);
+});
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;And to answer an incoming call you would need to add something like this:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;const&lt;/span&gt; getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+peer.on(&lt;span class=&quot;string&quot;&gt;'call'&lt;/span&gt;, (call) =&amp;gt; {
+  getUserMedia({ video: &lt;span class=&quot;literal&quot;&gt;true&lt;/span&gt;, audio: &lt;span class=&quot;literal&quot;&gt;true&lt;/span&gt; }, (stream) =&amp;gt; {
+    call.answer(stream); &lt;span class=&quot;comment&quot;&gt;// Answer the call with an A/V stream.&lt;/span&gt;
+    call.on(&lt;span class=&quot;string&quot;&gt;'stream'&lt;/span&gt;, (remoteStream) =&amp;gt; {
+      &lt;span class=&quot;comment&quot;&gt;// Show stream in some video/canvas element.&lt;/span&gt;
+    });
+  }, (err) =&amp;gt; {
+    &lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.log(&lt;span class=&quot;string&quot;&gt;'Failed to get local stream'&lt;/span&gt;, err);
+  });
+});
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
     <item>
       <title>redux-mock-store</title>
       <link>http://daily-javascript.com/articles/redux-mock-store/</link>

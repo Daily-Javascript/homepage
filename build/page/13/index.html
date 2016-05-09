@@ -35,6 +35,30 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
+            <p class="date"><span>14. December 2015</span></p>
+            <h2><a href="/articles/shem/">Shem</a></h2>
+          </header>
+          <section class="content"><p>Shem (GitHub: <a href="https://github.com/xixixao/Shem">xixixao/Shem</a>, License:&nbsp;<span class="caps">MIT</span>)</p>
+<p><img src="https://camo.githubusercontent.com/5bc68d66ae5953c7097414ac8a978271b11d7e2a/687474703a2f2f7368656d2e696f2f696d672f73637265656e2d73686f742d62696e6172797365617263682e706e67" alt="demo"></p>
+<p>Shem is a new “compiled-to-<span class="caps">JS</span>”, functional programming language which is statically typed.
+The semantics are based on <a href="/articles/shem/">Haskell</a> but the language evaluates strictly in a similar way to <a href="/articles/shem/">PureScript</a>. The syntax is S-expressions-based.
+This for allowing for a <a href="/articles/shem/"><span class="caps">LISP</span></a>-like macro system. Shem’s prelude includes a full-featured, highly-polymorphic collections library backed by <a href="/articles/shem/">ImmutableJS</a>.</p>
+<p>It comes with an amazing <span class="caps">IDE</span> called “<a href="https://github.com/xixixao/Golem">Golem</a>“. This <span class="caps">IDE</span> was designed with the language to make the integration seamlessly.
+The IDE is available at <a href="http://shem.io/">shem.io</a> to work with in the browser. There are plan’s to make it also accessible as a local <span class="caps">IDE</span> for developing applications native platform such as&nbsp;desktop.</p>
+<p>There is a video available of what I believe is one of the first presentations check it out to see Shem and Golem in&nbsp;action</p>
+<iframe width="100%" height="480" src="https://www.youtube.com/embed/HnZipJOan54" frameborder="0" allowfullscreen></iframe>
+
+<p>When this language interests you, you can go over to <span class="caps">IDE</span> and follow a small tutorial to give you a quick overview of how the language works.
+If you are familiar with languages such as LISP and Haskell you will feel right at&nbsp;home.</p>
+<p>The owner of the project <a href="https://github.com/xixixao">Michal Srb</a> also want you to know the&nbsp;following:</p>
+<blockquote>
+<p>I am providing code in this repository to you under an open source license. Because this is my personal repository, the license you receive to my code is from me and not from my employer&nbsp;(Facebook).</p>
+</blockquote>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
             <p class="date"><span>10. December 2015</span></p>
             <h2><a href="/articles/splitjs/">Split.js</a></h2>
           </header>
@@ -202,77 +226,6 @@ It hides a lot of the stuff you need to change sizes, authorize domains or messa
 iFrameResize( options, <span class="string">'#my-frame'</span> );
 </code></pre>
 <p>As said before this is only the basic usage for more extensive usage you should check the <a href="http://davidjbradshaw.github.io/iframe-resizer">project page</a>.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>03. December 2015</span></p>
-            <h2><a href="/articles/matreshka/">Matreshka</a></h2>
-          </header>
-          <section class="content"><p>Matreshka (GitHub: <a href="https://github.com/matreshkajs/matreshka">matreshkajs/matreshka</a>, License: <span class="caps">MIT</span>, npm: matreshka, bower:&nbsp;matreshka)</p>
-<p><img src="https://camo.githubusercontent.com/27ecdbde13a34ee2555f36ba3e3ee9363413d6f0/687474703a2f2f6d6174726573686b612e696f2f696d672f6d6b352d6c6f676f5f66756c6c2d766572742e737667" alt="http://matreshka.io/"></p>
-<p>Matreshka is small but powerful client-side framework that allows you to build single page applications.
-It describes it self as a event driven framework, which means that you put listeners on objects and elements to which you can react with configured handler functions.
-Besides it’s event system it comes with features such as: two-way data-binding, custom objects and custom&nbsp;arrays.</p>
-<p>Let’s say we would be making a simple <span class="caps">SPA</span> then this would be our markup would look something like&nbsp;this</p>
-<pre><code class="lang-html"><span class="doctype">&lt;!<span class="caps">DOCTYPE</span> html&gt;</span>
-<span class="tag">&lt;<span class="title">html</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">head</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">title</span>&gt;</span>My first Matreshka application<span class="tag">&lt;/<span class="title">title</span>&gt;</span>
-    <span class="tag">&lt;/<span class="title">head</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">body</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"text"</span> <span class="attribute">class</span>=<span class="value">"my-input"</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"my-output"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"http://cdn.jsdelivr.net/matreshka/latest/matreshka.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">script</span>&gt;</span><span class="undefined">
-
-        </span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
-    <span class="tag">&lt;/<span class="title">body</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">html</span>&gt;</span>
-</code></pre>
-<p>As you can see we import the Matreshka via a script tag but it’s also possible to install via npm.
-Nothing new here right? So let’s put some code in our <code>script</code> tag. Let’s make an “class” called&nbsp;Application:</p>
-<pre><code class="lang-javascript"><span class="keyword">var</span> Application = Class({
-    <span class="string">'extends'</span>: Matreshka,
-    constructor: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
-
-        <span class="comment">// bind the property x and the text field</span>
-        <span class="keyword">this</span>.bindNode(<span class="string">'x'</span>, <span class="string">'.my-input'</span>);
-
-        <span class="comment">// bind the property x and the ".my-output" block</span>
-        <span class="keyword">this</span>.bindNode(<span class="string">'x'</span>, <span class="string">'.my-output'</span>, {
-            setValue: <span class="function"><span class="keyword">function</span>(<span class="params">v</span>) </span>{
-                <span class="keyword">this</span>.innerHTML = v;
-            }
-        });
-        <span class="keyword">this</span>.on(<span class="string">'change:x'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
-            <span class="built_in">console</span>.log(<span class="string">'x changed to '</span> + <span class="keyword">this</span>.x);
-        });
-    }
-});
-
-<span class="keyword">var</span> app = <span class="keyword">new</span> Application();
-</code></pre>
-<p>Or the same code in&nbsp;<span class="caps">ES2015</span>:</p>
-<pre><code class="lang-javascript"><span class="class"><span class="keyword">class</span> <span class="title">Application</span> <span class="keyword">extends</span> <span class="title">Matreshka</span> </span>{
-    constructor() {
-        <span class="keyword">this</span>.bindNode(<span class="string">'x'</span>, <span class="string">'.my-input'</span>);
-        <span class="keyword">this</span>.bindNode(<span class="string">'x'</span>, <span class="string">'.my-output'</span>, {
-            setValue(v) {
-                <span class="keyword">this</span>.innerHTML = v;
-            }
-        });
-        <span class="keyword">this</span>.on(<span class="string">'change:x'</span>, () =&gt;
-            <span class="built_in">console</span>.log(<span class="string">'x changed to '</span> + <span class="keyword">this</span>.x));
-    }
-}
-</code></pre>
-<p>Now when something happens we can change the value <code>x</code> like&nbsp;this:</p>
-<pre><code class="lang-javascript">app.x = <span class="string">'Hello Daily Javascript'</span>;
-</code></pre>
-<p>This will fill the <code>input</code> and the <code>#output</code> elements with the string <code>&#39;Hello Daily Javascript&#39;</code>.</p>
-<p>Nowadays we are not impressed by data-binding any more. It comes with a lot more, but for that I would refer you to the <a href="http://matreshka.io/">full documentation</a>. The <span class="caps">API</span> is very small and easy to reason about, so if you have a new POC project coming up I would suggest you give it a&nbsp;try.</p>
 
           </section>
         </article>

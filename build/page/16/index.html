@@ -35,6 +35,100 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
+            <p class="date"><span>12. November 2015</span></p>
+            <h2><a href="/articles/react-treebeard/">React Treebeard</a></h2>
+          </header>
+          <section class="content"><p>React Treebeard (GitHub: <a href="https://github.com/alexcurtis/react-treebeard">alexcurtis/react-treebeard</a>, License: <span class="caps">MIT</span>, npm:&nbsp;react-treebeard)</p>
+<p>Ever come a cross a task where you needed to quickly make a bunch of data explorable or where you needed to visualize a massive object?
+Now there is React Treebeard which gives you a tree with collapsed&nbsp;leafs.</p>
+<p>So let’s say we have a batch of data like&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="keyword">const</span> myData = {
+    name: <span class="string">'root'</span>,
+    toggled: <span class="literal">true</span>,
+    children: [
+        {
+            name: <span class="string">'parent'</span>,
+            children: [
+                {
+                    name: <span class="string">'child'</span>,
+                    terminal: <span class="literal">true</span>
+                }
+            ]
+        },
+        {
+            name: <span class="string">'loading parent'</span>,
+            loading: <span class="literal">true</span>
+        },
+        {
+            name: <span class="string">'parent'</span>,
+            children: [
+                {
+                    name: <span class="string">'nested parent'</span>,
+                    children: [
+                        {
+                            name: <span class="string">'nested child'</span>,
+                            terminal: <span class="literal">true</span>
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+};
+</code></pre>
+<p>Then our component would look something like&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="function"><span class="keyword">function</span> <span class="title">TreeExample</span>(<span class="params">props</span>)</span>{
+    <span class="keyword">return</span> (
+        <span class="xml"><span class="tag">&lt;<span class="title">Treebeard</span>
+            <span class="attribute">data</span>=<span class="value">{props.data}</span>
+            <span class="attribute">onToggle</span>=<span class="value">{onToggle}</span>
+        /&gt;</span>
+    )</span>;
+}
+
+<span class="keyword">const</span> onToggle = () =&gt; {
+    <span class="comment">// Implement custom behavior</span>
+};
+
+<span class="keyword">const</span> shell = <span class="built_in">document</span>.querySelector(<span class="string">'#shell'</span>);
+ReactDOM.render(<span class="xml"><span class="tag">&lt;<span class="title">TreeExample</span> <span class="attribute">data</span>=<span class="value">{</span> <span class="attribute">myData</span> }/&gt;</span>, shell);</span>
+</code></pre>
+<p>With the decorators it’s very easy for you to use your own Node Header, Toggle and Loading components.
+This would look something like&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="keyword">let</span> decorators = {
+    Loading: (props) =&gt; {
+        <span class="keyword">return</span> (
+            <span class="xml"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">style</span>=<span class="value">{props.style}</span>&gt;</span>
+                loading...
+            <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+        )</span>;
+    },
+    Toggle: (props) =&gt; {
+        <span class="keyword">return</span> (
+            <span class="xml"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">style</span>=<span class="value">{props.style}</span>&gt;</span>
+                <span class="tag">&lt;<span class="title">svg</span> <span class="attribute">height</span>=<span class="value">{props.height}</span> <span class="attribute">width</span>=<span class="value">{props.width}</span>&gt;</span>
+                    // Vector Toggle Here
+                <span class="tag">&lt;/<span class="title">svg</span>&gt;</span>
+            <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+        )</span>;
+    },
+    Header: (props) =&gt; {
+        <span class="keyword">return</span> (
+            <span class="xml"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">style</span>=<span class="value">{props.style}</span>&gt;</span>
+                {props.node.name}
+            <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+        )</span>;
+    }
+};
+
+<span class="xml"><span class="tag">&lt;<span class="title">Treebeard</span> <span class="attribute">data</span>=<span class="value">{...}</span> <span class="attribute">decorators</span>=<span class="value">{decorators}</span>/&gt;</span></span>
+</code></pre>
+<p>If you wanna see what this all looks like while running in the browser, check out the <a href="http://alexcurtis.github.io/react-treebeard/#">demo page</a> provided by the&nbsp;developer.</p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
             <p class="date"><span>11. November 2015</span></p>
             <h2><a href="/articles/notie/">Notie.js</a></h2>
           </header>
@@ -212,37 +306,6 @@ def handler(res, res) =
 <p>The answers and explanation can be found <a href="https://gist.github.com/DmitrySoshnikov/3928607cb8fdba42e712">here</a>, but I recommend that you do not look at them before taking the&nbsp;test.</p>
 <p>I will be redoing this website over the weekend so I might not be able to provide you with a new post on Monday. The reason why I need to redo it, is because the static site generator I’m using to supply you with new posts each day broke on me this week. I spend several hours debugging without any luck so I will be switching to <a href="https://github.com/jnordberg/wintersmith">Wintersmith</a> with which I only had good experiences so hopefully I do not need to redo it any time soon. I will also be looking into including a comment section so I can here more back from you&nbsp;guys.</p>
 <p>Thanks for all your loyal support and have a nice&nbsp;weekend.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>05. November 2015</span></p>
-            <h2><a href="/articles/inherito/">inHerito</a></h2>
-          </header>
-          <section class="content"><p>inHerito (GitHub: <a href="/articles/inherito/Ositoozy/inherito">Ositoozy/inherito</a>, License: <span class="caps">BSD</span>, bower:&nbsp;rot.js)</p>
-<p>inHerito is a compostable factory that allows you create objects you want ease and “correct” inheritance. It allows you to use properties and function methods from other objects without overusing and over inheriting. Every object that is created gets it’s own logging information if option is set to true and allows you to keep a mindful eye on your objects. This is my take on solving the original <span class="caps">OOP</span> problem of over inheriting. Now you have “Objects Linked to Other Objects” and inherit only if you say&nbsp;so.</p>
-<p>Then the first question that popped into my head was do we need yet another design pattern, well no ofcourse not but it could be useful for bootstrapping a new application to set the tone and get the correct&nbsp;mindset.</p>
-<p>As the developer&nbsp;claims:</p>
-<blockquote>
-<p>Never be affraid again to have more than one level deep of inherited object inheritance tree. In <span class="caps">OOP</span> we usually create newer objects for the sake of inheritance and not for the sake of semantical&nbsp;correctness.</p>
-<ul>
-<li>Ex: Let’s consider a dog. A good and sane <span class="caps">OOP</span> developer would most likely create an abstract tree that resides the dog animal this way<pre><code class="lang-javascript">Animal <span class="comment">// And Followed by animal properties (ex blood, heart, etc.)</span>
-Animal.k9.dog <span class="comment">// And Followed by dog properties (bark, bite, age, how many legs, etc.)</span>
-</code></pre>
-</li>
-</ul>
-</blockquote>
-<p>But let’s say in that same program we want to make the robot dog, which semantically inherits a of the dog’s properties to begin with. But we know semantically that robot dog belongs basically from two classes. It’s not an Animal anymore but shares a lot with&nbsp;dog.</p>
-<pre><code class="lang-javascript"><span class="keyword">let</span> robotDog = dog.create({
-    inherit: [bite, bark],
-    material: metal
-});
-
-Is it a dog? <span class="literal">true</span>
-Is it a robot? <span class="literal">true</span>
-</code></pre>
-<p>This project currently is very young but I like the direction where it is going. Momentairley it can be used as a base template by just cloning the repo. Sadly there are no other ways to generate a project holding this methodologies but as the developer tells me there will be in the&nbsp;future.</p>
 
           </section>
         </article>

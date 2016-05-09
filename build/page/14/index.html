@@ -35,6 +35,77 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
+            <p class="date"><span>03. December 2015</span></p>
+            <h2><a href="/articles/matreshka/">Matreshka</a></h2>
+          </header>
+          <section class="content"><p>Matreshka (GitHub: <a href="https://github.com/matreshkajs/matreshka">matreshkajs/matreshka</a>, License: <span class="caps">MIT</span>, npm: matreshka, bower:&nbsp;matreshka)</p>
+<p><img src="https://camo.githubusercontent.com/27ecdbde13a34ee2555f36ba3e3ee9363413d6f0/687474703a2f2f6d6174726573686b612e696f2f696d672f6d6b352d6c6f676f5f66756c6c2d766572742e737667" alt="http://matreshka.io/"></p>
+<p>Matreshka is small but powerful client-side framework that allows you to build single page applications.
+It describes it self as a event driven framework, which means that you put listeners on objects and elements to which you can react with configured handler functions.
+Besides it’s event system it comes with features such as: two-way data-binding, custom objects and custom&nbsp;arrays.</p>
+<p>Let’s say we would be making a simple <span class="caps">SPA</span> then this would be our markup would look something like&nbsp;this</p>
+<pre><code class="lang-html"><span class="doctype">&lt;!<span class="caps">DOCTYPE</span> html&gt;</span>
+<span class="tag">&lt;<span class="title">html</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">head</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">title</span>&gt;</span>My first Matreshka application<span class="tag">&lt;/<span class="title">title</span>&gt;</span>
+    <span class="tag">&lt;/<span class="title">head</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">body</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"text"</span> <span class="attribute">class</span>=<span class="value">"my-input"</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"my-output"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"http://cdn.jsdelivr.net/matreshka/latest/matreshka.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">script</span>&gt;</span><span class="undefined">
+
+        </span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+    <span class="tag">&lt;/<span class="title">body</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">html</span>&gt;</span>
+</code></pre>
+<p>As you can see we import the Matreshka via a script tag but it’s also possible to install via npm.
+Nothing new here right? So let’s put some code in our <code>script</code> tag. Let’s make an “class” called&nbsp;Application:</p>
+<pre><code class="lang-javascript"><span class="keyword">var</span> Application = Class({
+    <span class="string">'extends'</span>: Matreshka,
+    constructor: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
+
+        <span class="comment">// bind the property x and the text field</span>
+        <span class="keyword">this</span>.bindNode(<span class="string">'x'</span>, <span class="string">'.my-input'</span>);
+
+        <span class="comment">// bind the property x and the ".my-output" block</span>
+        <span class="keyword">this</span>.bindNode(<span class="string">'x'</span>, <span class="string">'.my-output'</span>, {
+            setValue: <span class="function"><span class="keyword">function</span>(<span class="params">v</span>) </span>{
+                <span class="keyword">this</span>.innerHTML = v;
+            }
+        });
+        <span class="keyword">this</span>.on(<span class="string">'change:x'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
+            <span class="built_in">console</span>.log(<span class="string">'x changed to '</span> + <span class="keyword">this</span>.x);
+        });
+    }
+});
+
+<span class="keyword">var</span> app = <span class="keyword">new</span> Application();
+</code></pre>
+<p>Or the same code in&nbsp;<span class="caps">ES2015</span>:</p>
+<pre><code class="lang-javascript"><span class="class"><span class="keyword">class</span> <span class="title">Application</span> <span class="keyword">extends</span> <span class="title">Matreshka</span> </span>{
+    constructor() {
+        <span class="keyword">this</span>.bindNode(<span class="string">'x'</span>, <span class="string">'.my-input'</span>);
+        <span class="keyword">this</span>.bindNode(<span class="string">'x'</span>, <span class="string">'.my-output'</span>, {
+            setValue(v) {
+                <span class="keyword">this</span>.innerHTML = v;
+            }
+        });
+        <span class="keyword">this</span>.on(<span class="string">'change:x'</span>, () =&gt;
+            <span class="built_in">console</span>.log(<span class="string">'x changed to '</span> + <span class="keyword">this</span>.x));
+    }
+}
+</code></pre>
+<p>Now when something happens we can change the value <code>x</code> like&nbsp;this:</p>
+<pre><code class="lang-javascript">app.x = <span class="string">'Hello Daily Javascript'</span>;
+</code></pre>
+<p>This will fill the <code>input</code> and the <code>#output</code> elements with the string <code>&#39;Hello Daily Javascript&#39;</code>.</p>
+<p>Nowadays we are not impressed by data-binding any more. It comes with a lot more, but for that I would refer you to the <a href="http://matreshka.io/">full documentation</a>. The <span class="caps">API</span> is very small and easy to reason about, so if you have a new POC project coming up I would suggest you give it a&nbsp;try.</p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
             <p class="date"><span>02. December 2015</span></p>
             <h2><a href="/articles/allyjs/">ally.js</a></h2>
           </header>
@@ -157,66 +228,6 @@ So let’s take a look at how it works, your refresh handler takes in <code>reso
 <span class="tag">&lt;/<span class="title">ReactPullToRefresh</span>&gt;</span>
 </code></pre>
 <p>Basically that is all that there is to it. For the American readers I hope you have a nice&nbsp;Thanksgiving.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>25. November 2015</span></p>
-            <h2><a href="/articles/vuejs/">Vue.js</a></h2>
-          </header>
-          <section class="content"><p>Vue.js (GitHub: <a href="https://github.com/vuejs/vue">vuejs/vue</a>, License: <span class="caps">MIT</span>, npm:&nbsp;vue</p>
-<p>Vue.js is a library for building web interfaces. Because it works together with some other tools, you can also call it a “framework”. Now, if you’ve never heard of or used Vue before, you are probably thinking: great, yet another JavaScript framework! I get it. That was my first thought as well, that is why I never looked at it with a serious eye. Vue isn’t particularly new, it has being in the making for almost two years now, and the first public release was in February 2014. Over time it has evolving into a great engine to build beautiful production ready app&nbsp;with.</p>
-<p>What makes it so awesome? Well, it supports all the features we are used to from libraries such as React, Ember and Angular but it’s size and api are a lot simpler.
-A thing I love in libraries,&nbsp;simplicity.</p>
-<p>So let’s take a look at a few small examples and let’s start with data&nbsp;binding.</p>
-<p>This is how we define the <code>template</code> which we are gonna&nbsp;use:</p>
-<pre><code class="lang-html"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"binding"</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">p</span>&gt;</span>{{message}}<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">input</span> <span class="attribute">v-model</span>=<span class="value">"message"</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-</code></pre>
-<p>And here we give it some&nbsp;data:</p>
-<pre><code class="lang-javascript">
-<span class="keyword">let</span> binding = <span class="keyword">new</span> Vue({
-  el: <span class="string">'#binding'</span>,
-  data: {
-    message: <span class="string">'Daily Javascript'</span>
-  }
-});
-</code></pre>
-<p>This would give is a <code>div</code> with an <code>input</code> field and a preview of the value it holds. When you start typing, Vue will take over from there.
-That’s cool right? Ok I get it data binding does not impress you anymore. Do you like working with components?
-Vue takes an approach that is very similar to React: it’s components all the way&nbsp;down.</p>
-<pre><code class="lang-javascript"><span class="keyword">const</span> Example = Vue.extend({
-    template: <span class="string">'&lt;div&gt;{{ message }}&lt;/div&gt;'</span>,
-    data () {
-        <span class="keyword">return</span> {
-            message: <span class="string">'Daily Javascript!'</span>
-        }
-    }
-});
-
-<span class="comment">// register it with the tag &lt;example&gt;</span>
-Vue.component(<span class="string">'example'</span>, Example);
-</code></pre>
-<p>Now we can use it like&nbsp;this:</p>
-<pre><code class="lang-html"><span class="tag">&lt;<span class="title">example</span>&gt;</span><span class="tag">&lt;/<span class="title">example</span>&gt;</span>
-</code></pre>
-<p>Because modularity is key nowadays it comes with the opportunity to <code>scope</code> styles to a component.
-That would look something like&nbsp;this:</p>
-<pre><code class="lang-html"><span class="tag">&lt;<span class="title">style</span> <span class="attribute">scoped</span> &gt;</span><span class="css">
-<span class="class">.message</span> <span class="rules">{
-  <span class="rule"><span class="attribute">color</span>:<span class="value"> red</span></span>;
-}</span>
-</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
-</code></pre>
-<p>Here is a full example component of how it would look when you would have it setup with a combination of <a href="https://github.com/webpack/webpack">Webpack</a> and <a href="https://github.com/vuejs/vue-loader">vue-loader</a>.</p>
-<p><img src="http://blog.evanyou.me/images/vue-hot.gif" alt="demo"></p>
-<p>It comes with a lot of more features that I will not go into such as routing and a build-in transition&nbsp;system.</p>
-<p>There is a demo for the transition system which demonstrates state-based tweening with&nbsp;Vue:</p>
-<p><p data-height="268" data-theme-id="0" data-slug-hash="XmZNOG" data-default-tab="result" data-user="yyx990803" class='codepen'>See the Pen <a href='http://codepen.io/yyx990803/pen/XmZNOG/'>Vue.js elastic header component</a> by Evan You (<a href='http://codepen.io/yyx990803'>@yyx990803</a>) on <a href='http://codepen.io'>CodePen</a>.</p></p>
-<script async src="//assets.codepen.io/assets/embed/ei.js"></script>
 
           </section>
         </article>
