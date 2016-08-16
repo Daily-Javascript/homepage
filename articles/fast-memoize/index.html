@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="Daily updates about Javascript News, libraries and Weekly challenges">
+    <meta name="keywords" content="Javascript News, React, ES2015, Daily, Updates, Weekly Challenges">
+    <meta name="theme-color" content="#39424D">
+    <title>Fast Memoize - Daily Javascript
+    </title>
+    <link rel="alternate" href="http://daily-javascript.com/feed.xml" type="application/rss+xml" title="For your daily dose of Javascript libraries.">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic|Anonymous+Pro:400,700,400italic,700italic|Merriweather:400,700,300">
+    <link rel="stylesheet" href="/css/main.css">
+  </head>
+  <body class="article-detail">
+    <div class="social"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A//Daily-Javascript.com" target="_blank" class="social-btn facebook"></a><a href="https://twitter.com/home?status=Follow%20%40DailyJavascript%20for%20update%20of%20new%20Javascript%20libraries%20and%20challanges%0A%23Javascript" target="_blank" class="social-btn twitter"></a><a href="https://www.reddit.com/submit?url=http%3A//Daily-Javascript.com" target="_blank" class="social-btn reddit"></a><a href="https://plus.google.com/share?url=http%3A//Daily-Javascript.com" target="_blank" class="social-btn google"></a></div>
+    <header class="header">
+      <div class="content-wrap">
+        <h1>Fast Memoize</h1>
+        <p class="author">Written by <span class="author"><a href="mailto:ramon@ra-ge.net">Ramon Gebben</a></span>
+        </p>
+      </div>
+    </header>
+    <div id="content">
+      <div class="content-wrap">
+        <article class="article">
+          <section class="content"><p>fast-memoize (GitHub: <a href="https://github.com/caiogondim/fast-memoize.js">caiogondim/fast-memoize.js</a>, License: <span class="caps">ISC</span>, npm:&nbsp;fast-memoize)</p>
+<p>First of all let me start of with informing you about why there hasn’t being a new post for several weeks now.
+To be completely honest with you guys, I just got very lazy.
+I’ve just bought my first house with the fiancé. Which of course needed to be fixed up, we needed to restore damage to the previous house and we actually needed to do the move. Besides all of that I also started at a new client which took some more time to get used to. But hey those are all excuses and you don’t really care about that. You just wanna see code. So now that I’m back and integrated into all the new environments around me I’m ready to start updating you again. So enough chit chat let’s look at <code>fast-memoize.js</code>.</p>
+<p>According to Wikipedia: “In computing, memoization is an optimization technique used primarily to speed up computer programs by storing the results of expensive function calls and returning the cached result when the same inputs occur again.&nbsp;“.</p>
+<p>This library is an attempt to make the fastest possible memoization library in JavaScript that supports any arguments. This is not the first attempt on doing that. There have being multiple attempts but as the developer points out those attempts are not fast enough and have limitation on number of arguments which can be&nbsp;passed.</p>
+<p><img src="https://camo.githubusercontent.com/296969d6a36da6df8b79ed4fe4f50f9d5b528cd6/687474703a2f2f7261776769742e636f6d2f6361696f676f6e64696d2f666173742d6d656d6f697a652f6d61737465722f696d672f62656e63686d61726b2d63686172742e706e67" alt="benchmarks"></p>
+<p>The reason why Lodash comes out on top on these benchmarks is because they limit the number of arguments you can pass, thus gaining&nbsp;performance.</p>
+<p>When you want to memoize a function you can do so by creating it like&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="keyword">const</span> memoize = <span class="built_in">require</span>(<span class="string">'fast-memoize'</span>)
+<span class="keyword">const</span> fn = <span class="function"><span class="keyword">function</span> (<span class="params">one, two, three</span>) </span>{
+  <span class="comment">// Awesome magical code in here</span>
+}
+
+<span class="keyword">const</span> memoized = memoize(fn);
+
+memoized(<span class="string">'foo'</span>, <span class="number">3</span>, <span class="string">'bar'</span>);
+<span class="comment">// Call it again</span>
+memoized(<span class="string">'foo'</span>, <span class="number">3</span>, <span class="string">'bar'</span>); <span class="comment">// Cache hit</span>
+</code></pre>
+<p>The library takes a look at the environment it in running on and selects the quickest cache to work with.
+If you want to implement your own cache make sure it has the following&nbsp;methods:</p>
+<ul>
+<li><code>get</code></li>
+<li><code>set</code></li>
+<li><code>has</code></li>
+<li><code>delete</code></li>
+</ul>
+<p>The support is also very good for details about that you should consult the <a href="https://github.com/caiogondim/fast-memoize.js/"><span class="caps">README</span></a>.</p>
+<p>If you have any interest in helping me make Daily-JavaScript.com better, don’t hesitate to <a href="mailto:daily-javascript@ra-ge.net">contact me with your ideas</a>.</p>
+</section>
+          <div id="disqus_thread"></div>
+          <script>
+            (function() { var d = document, s = d.createElement('script'); s.src = '//daily-javascript.disqus.com/embed.js'; s.setAttribute('data-timestamp', +new Date()); (d.head || d.body).appendChild(s); })();
+            
+          </script>
+        </article>
+      </div>
+    </div>
+    <footer>
+      <script type="text/javascript">(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-68072930-1', 'auto');ga('send', 'pageview');</script>
+      <div class="content-wrap">
+        <div class="nav"><a href="/">« Full blog</a></div>
+        <section class="about">
+        </section>
+        <section class="copy">
+          <p>&copy; 2016 Ramon Gebben &mdash; powered by&nbsp;<a href="https://github.com/jnordberg/wintersmith">Wintersmith</a>
+          </p>
+        </section>
+      </div>
+    </footer>
+  </body>
+</html>

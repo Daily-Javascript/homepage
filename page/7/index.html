@@ -35,6 +35,26 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
+            <p class="date"><span>11. February 2016</span></p>
+            <h2><a href="/articles/deco/">Deco</a></h2>
+          </header>
+          <section class="content"><p>I would like to start out with saying that this is <strong>not</strong> sponsored content.
+When I came across this I was so amazed that needed to share it with you&nbsp;all.</p>
+<p>Normally when you develop apps, you use an <span class="caps">IDE</span>. When targeting iOS you use xCode and when Android is your platform you are most likely using Android Studio.
+This becomes a real problem when switching context, between platform and technologies.
+Especially when you are building a <a href="https://facebook.github.io/react-native/">React Native</a> app.
+<a href="http://l.aunch.us/h2fyV">Deco</a> is a solution for that. Not only is it the first <span class="caps">IDE</span> to come out tailored to React Native, but it also come with a registry off React Native components. These components are standardized and work very nicely together with&nbsp;Deco.</p>
+<p><a href="https://www.youtube.com/watch?v=DmZEWOumVIE">This is a video</a> by one of the developer demonstrating some of the features included in the <span class="caps">IDE</span> by building an Uber clone in less than 5&nbsp;minutes.</p>
+<iframe width="100%" height="480" src="https://www.youtube.com/embed/DmZEWOumVIE" frameborder="0" allowfullscreen></iframe>
+
+<p>Sadly there is still a waitlist for the beta, I myself am still waiting to get access to it.
+Go to the website for more information and sign up for <a href="http://l.aunch.us/h2fyV">beta access</a>.</p>
+<p>Don’t forget to send in your submission for this <a href="http://daily-javascript.com/challenges/tetris-bag/">weeks challenge</a> before tomorrow afternoon, otherwise it will not be in the weekly&nbsp;results.</p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
             <p class="date"><span>10. February 2016</span></p>
             <h2><a href="/articles/react-native-android-sms-listener/">React Native SMS Listener</a></h2>
           </header>
@@ -165,52 +185,6 @@ Some code to get you started can be found inside <a href="http://codepen.io/Dail
 <p>Don’t forget to submit before next&nbsp;Friday.</p>
 <p>Happy&nbsp;coding.</p>
 <script async src="//assets.codepen.io/assets/embed/ei.js"></script>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>04. February 2016</span></p>
-            <h2><a href="/articles/samsarajs/">SamsaraJS</a></h2>
-          </header>
-          <section class="content"><p>SamsaraJS (GitHub: <a href="https://github.com/dmvaldman/samsara">dmvaldman/samsara</a>, License: <span class="caps">MIT</span>, npm:&nbsp;samsarajs)</p>
-<p>SamsaraJS is a functional reactive library for animating layout.
-It tries to provides a language for positioning, orienting and sizing <span class="caps">DOM</span> elements, and animating those properties over time.
-Everything within Samsara is based on streams. This means that can subscribe to for instance the user input and preform curtain actions when the input occurs. By&nbsp;example:</p>
-<pre><code class="lang-javascript"><span class="keyword">const</span> Surface = Samsara.<span class="caps">DOM</span>.Surface;
-<span class="keyword">const</span> Context = Samsara.<span class="caps">DOM</span>.Context;
-<span class="keyword">const</span> Transform = Samsara.Core.Transform;
-<span class="keyword">const</span> MouseInput = Samsara.Inputs.MouseInput;
-
-<span class="keyword">const</span> surface = <span class="keyword">new</span> Surface({
-    content: <span class="string">'drag me'</span>,
-    size: [<span class="number">100</span>,<span class="number">100</span>],
-    properties : {
-        background : <span class="string">'#<span class="caps">FF0000</span>'</span>
-    }
-});
-
-<span class="keyword">const</span> mouse = <span class="keyword">new</span> MouseInput();
-
-<span class="comment">// The mouse now listens to the <span class="caps">DOM</span> events originating from the surface</span>
-mouse.subscribe(surface);
-
-<span class="comment">// Map the mouse data to a translation</span>
-<span class="keyword">const</span> transform = mouse.map(data =&gt; Transform.translate(data.cumulate));
-
-<span class="keyword">const</span> context = <span class="keyword">new</span> Context();
-context.add({transform : transform}).add(surface);
-context.mount(<span class="built_in">document</span>.querySelector(<span class="string">'#myAwesomeApp'</span>));
-</code></pre>
-<p>A great thing about SamsaraJS is that it does not have any opinion about content. It’s only responsibility is&nbsp;presentation.</p>
-<blockquote>
-<p>It moves rectangles around the screen — what you do inside those rectangles is up to&nbsp;you.</p>
-</blockquote>
-<p>A sad thing about this library is that it does require a <span class="caps">CSS</span> sheet to be loaded, which can be found <code>node_modules/samsarajs/dist/samsara.css</code>.</p>
-<p>The developer has posted some really amazing examples on <a href="http://www.samsarajs.org/">samsarajs.org</a> which you should definitely check out.
-Besides the amazing demo’s you can also find very expensive documentation about the <span class="caps">API</span> and some real helpful&nbsp;guides.</p>
-<p>This is by far <a href="http://samsarajs.org/demos/ParallaxCats/index.html">my favorite&nbsp;demo</a></p>
-<iframe src="http://samsarajs.org/demos/ParallaxCats/index.html" width="100%" height="480px"></iframe>
 
           </section>
         </article>
