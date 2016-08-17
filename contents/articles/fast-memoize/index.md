@@ -8,7 +8,7 @@ fast-memoize (GitHub: [caiogondim/fast-memoize.js](https://github.com/caiogondim
 
 First of all let me start of with informing you about why there hasn't being a new post for several weeks now.
 To be completely honest with you guys, I just got very lazy.
-I've just bought my first house with the fiancé. Which of course needed to be fixed up, we needed to restore damage to the previous house and we actually needed to do the move. Besides all of that I also started at a new client which took some more time to get used to. But hey those are all excuses and you don't really care about that. You just wanna see code. So now that I'm back and integrated into all the new environments around me I'm ready to start updating you again. So enough chit chat let's look at `fast-memoize.js`.
+I've just bought my first house with the fiancée. Which of course needed to be fixed up, we needed to restore damage to the previous house and we actually needed to do the move. Besides all of that I also started at a new client which took some more time to get used to. But hey those are all excuses and you don't really care about that. You just wanna see code. So now that I'm back and integrated into all the new environments around me I'm ready to start updating you again. So enough chit chat let's look at `fast-memoize.js`.
 
 According to Wikipedia: "In computing, memoization is an optimization technique used primarily to speed up computer programs by storing the results of expensive function calls and returning the cached result when the same inputs occur again. ".
 
