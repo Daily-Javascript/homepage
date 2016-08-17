@@ -17,7 +17,7 @@
       <description>&lt;p&gt;fast-memoize (GitHub: &lt;a href=&quot;https://github.com/caiogondim/fast-memoize.js&quot;&gt;caiogondim/fast-memoize.js&lt;/a&gt;, License: ISC, npm: fast-memoize)&lt;/p&gt;
 &lt;p&gt;First of all let me start of with informing you about why there hasn’t being a new post for several weeks now.
 To be completely honest with you guys, I just got very lazy.
-I’ve just bought my first house with the fiancé. Which of course needed to be fixed up, we needed to restore damage to the previous house and we actually needed to do the move. Besides all of that I also started at a new client which took some more time to get used to. But hey those are all excuses and you don’t really care about that. You just wanna see code. So now that I’m back and integrated into all the new environments around me I’m ready to start updating you again. So enough chit chat let’s look at &lt;code&gt;fast-memoize.js&lt;/code&gt;.&lt;/p&gt;
+I’ve just bought my first house with the fiancée. Which of course needed to be fixed up, we needed to restore damage to the previous house and we actually needed to do the move. Besides all of that I also started at a new client which took some more time to get used to. But hey those are all excuses and you don’t really care about that. You just wanna see code. So now that I’m back and integrated into all the new environments around me I’m ready to start updating you again. So enough chit chat let’s look at &lt;code&gt;fast-memoize.js&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;According to Wikipedia: “In computing, memoization is an optimization technique used primarily to speed up computer programs by storing the results of expensive function calls and returning the cached result when the same inputs occur again. “.&lt;/p&gt;
 &lt;p&gt;This library is an attempt to make the fastest possible memoization library in JavaScript that supports any arguments. This is not the first attempt on doing that. There have being multiple attempts but as the developer points out those attempts are not fast enough and have limitation on number of arguments which can be passed.&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;https://camo.githubusercontent.com/296969d6a36da6df8b79ed4fe4f50f9d5b528cd6/687474703a2f2f7261776769742e636f6d2f6361696f676f6e64696d2f666173742d6d656d6f697a652f6d61737465722f696d672f62656e63686d61726b2d63686172742e706e67&quot; alt=&quot;benchmarks&quot;&gt;&lt;/p&gt;
@@ -4137,6 +4137,53 @@ program
 </description>
     </item>
     <item>
+      <title>Chiffon</title>
+      <link>http://daily-javascript.com/articles/chiffon/</link>
+      <pubDate>Wed, 14 Oct 2015 02:00:00 +0200</pubDate>
+      <guid isPermaLink="true">http://daily-javascript.com/articles/chiffon/</guid>
+      <author></author>
+      <description>&lt;p&gt;Chiffon (GitHub: &lt;a href=&quot;https://github.com/trueadm/Chiffon&quot;&gt;polygonplanet/Chiffon&lt;/a&gt;, License: MIT, npm: chiffon, bower: chiffon)&lt;/p&gt;
+&lt;p&gt;Chiffon is a very small ECMAScript parser, tokenizer and minifier.
+Sometimes we come across an idea where you will need to parse or tokenize Javascript files for, for instance to do analysis on the code.&lt;/p&gt;
+&lt;p&gt;When using Chiffon for tokenizing you will get an Array of each “element” of the input code like this:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;let&lt;/span&gt; tokens = Chiffon.tokenize(&lt;span class=&quot;string&quot;&gt;'var a = 1'&lt;/span&gt;);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Which would then return:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;[ { type: &lt;span class=&quot;string&quot;&gt;'Keyword'&lt;/span&gt;,    value: &lt;span class=&quot;string&quot;&gt;'var'&lt;/span&gt; },
+  { type: &lt;span class=&quot;string&quot;&gt;'Identifier'&lt;/span&gt;, value: &lt;span class=&quot;string&quot;&gt;'a'&lt;/span&gt; },
+  { type: &lt;span class=&quot;string&quot;&gt;'Punctuator'&lt;/span&gt;, value: &lt;span class=&quot;string&quot;&gt;'='&lt;/span&gt; },
+  { type: &lt;span class=&quot;string&quot;&gt;'Numeric'&lt;/span&gt;,    value: &lt;span class=&quot;string&quot;&gt;'1'&lt;/span&gt; } ]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Here is a list of all possible tokens:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Comment&lt;/li&gt;
+&lt;li&gt;LineTerminator&lt;/li&gt;
+&lt;li&gt;Template&lt;/li&gt;
+&lt;li&gt;String&lt;/li&gt;
+&lt;li&gt;Punctuator&lt;/li&gt;
+&lt;li&gt;RegularExpression&lt;/li&gt;
+&lt;li&gt;Numeric&lt;/li&gt;
+&lt;li&gt;UnicodeEscapeSequence&lt;/li&gt;
+&lt;li&gt;Identifier&lt;/li&gt;
+&lt;li&gt;Null&lt;/li&gt;
+&lt;li&gt;Boolean&lt;/li&gt;
+&lt;li&gt;Keyword&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Sadly JavaScript AST is not currently supported.&lt;/p&gt;
+&lt;p&gt;When you wish to “untokenize” the Array, you can pass it into the &lt;code&gt;untokenize&lt;/code&gt; method like this:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;Chiffon.untokenize
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;When you want to use the minification, you would do something like this:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;Chiffon.minify(&lt;span class=&quot;string&quot;&gt;'var a = 1 + 1; // comment'&lt;/span&gt;);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Which is a simple implementation of &lt;code&gt;untokenize&lt;/code&gt; and &lt;code&gt;tokenize&lt;/code&gt; together like this:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;minify&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;code&lt;/span&gt;) &lt;/span&gt;{
+    &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; untokenize(tokenize(code, { lineTerminator: &lt;span class=&quot;literal&quot;&gt;true&lt;/span&gt; }));
+}
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    <item>
       <title>Smartcrop.js</title>
       <link>http://daily-javascript.com/articles/smart-crop/</link>
       <pubDate>Wed, 14 Oct 2015 02:00:00 +0200</pubDate>
@@ -4183,53 +4230,6 @@ SmartCrop.crop(img, options, result =&amp;gt; {
 smartcrop-cli --width &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt; --height &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt; photo.jpg square-thumbnail.jpg
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Smartcrop-cli does requires &lt;a href=&quot;https://github.com/Automattic/node-canvas&quot;&gt;node-canvas&lt;/a&gt; which requires local libraries to be installed. Refer to the &lt;a href=&quot;https://github.com/Automattic/node-canvas/wiki/_pages&quot;&gt;node-canvas wiki&lt;/a&gt; installation instructions.&lt;/p&gt;
-</description>
-    </item>
-    <item>
-      <title>Chiffon</title>
-      <link>http://daily-javascript.com/articles/chiffon/</link>
-      <pubDate>Wed, 14 Oct 2015 02:00:00 +0200</pubDate>
-      <guid isPermaLink="true">http://daily-javascript.com/articles/chiffon/</guid>
-      <author></author>
-      <description>&lt;p&gt;Chiffon (GitHub: &lt;a href=&quot;https://github.com/trueadm/Chiffon&quot;&gt;polygonplanet/Chiffon&lt;/a&gt;, License: MIT, npm: chiffon, bower: chiffon)&lt;/p&gt;
-&lt;p&gt;Chiffon is a very small ECMAScript parser, tokenizer and minifier.
-Sometimes we come across an idea where you will need to parse or tokenize Javascript files for, for instance to do analysis on the code.&lt;/p&gt;
-&lt;p&gt;When using Chiffon for tokenizing you will get an Array of each “element” of the input code like this:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;let&lt;/span&gt; tokens = Chiffon.tokenize(&lt;span class=&quot;string&quot;&gt;'var a = 1'&lt;/span&gt;);
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Which would then return:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;[ { type: &lt;span class=&quot;string&quot;&gt;'Keyword'&lt;/span&gt;,    value: &lt;span class=&quot;string&quot;&gt;'var'&lt;/span&gt; },
-  { type: &lt;span class=&quot;string&quot;&gt;'Identifier'&lt;/span&gt;, value: &lt;span class=&quot;string&quot;&gt;'a'&lt;/span&gt; },
-  { type: &lt;span class=&quot;string&quot;&gt;'Punctuator'&lt;/span&gt;, value: &lt;span class=&quot;string&quot;&gt;'='&lt;/span&gt; },
-  { type: &lt;span class=&quot;string&quot;&gt;'Numeric'&lt;/span&gt;,    value: &lt;span class=&quot;string&quot;&gt;'1'&lt;/span&gt; } ]
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Here is a list of all possible tokens:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Comment&lt;/li&gt;
-&lt;li&gt;LineTerminator&lt;/li&gt;
-&lt;li&gt;Template&lt;/li&gt;
-&lt;li&gt;String&lt;/li&gt;
-&lt;li&gt;Punctuator&lt;/li&gt;
-&lt;li&gt;RegularExpression&lt;/li&gt;
-&lt;li&gt;Numeric&lt;/li&gt;
-&lt;li&gt;UnicodeEscapeSequence&lt;/li&gt;
-&lt;li&gt;Identifier&lt;/li&gt;
-&lt;li&gt;Null&lt;/li&gt;
-&lt;li&gt;Boolean&lt;/li&gt;
-&lt;li&gt;Keyword&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Sadly JavaScript AST is not currently supported.&lt;/p&gt;
-&lt;p&gt;When you wish to “untokenize” the Array, you can pass it into the &lt;code&gt;untokenize&lt;/code&gt; method like this:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;Chiffon.untokenize
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;When you want to use the minification, you would do something like this:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;Chiffon.minify(&lt;span class=&quot;string&quot;&gt;'var a = 1 + 1; // comment'&lt;/span&gt;);
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Which is a simple implementation of &lt;code&gt;untokenize&lt;/code&gt; and &lt;code&gt;tokenize&lt;/code&gt; together like this:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;minify&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;code&lt;/span&gt;) &lt;/span&gt;{
-    &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; untokenize(tokenize(code, { lineTerminator: &lt;span class=&quot;literal&quot;&gt;true&lt;/span&gt; }));
-}
-&lt;/code&gt;&lt;/pre&gt;
 </description>
     </item>
     <item>
@@ -4700,6 +4700,71 @@ r.path(&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot
 </description>
     </item>
     <item>
+      <title>Levi</title>
+      <link>http://daily-javascript.com/articles/levi/</link>
+      <pubDate>Mon, 28 Sep 2015 02:00:00 +0200</pubDate>
+      <guid isPermaLink="true">http://daily-javascript.com/articles/levi/</guid>
+      <author></author>
+      <description>&lt;p&gt;Levi (GitHub: &lt;a href=&quot;https://github.com/cshum/levi&quot;&gt;cshum/levi&lt;/a&gt;, License: MIT, npm: levi)&lt;/p&gt;
+&lt;p&gt;Levi is a streaming full-text search for Node.js and browsers which used LevelDB for storage.
+The search implementation is done by using &lt;a href=&quot;https://en.wikipedia.org/wiki/Tf%E2%80%93idf&quot;&gt;TF-IDF&lt;/a&gt; and &lt;a href=&quot;https://en.wikipedia.org/wiki/Cosine_similarity&quot;&gt;cosine similarity&lt;/a&gt;, and it’s provided with configurable text processing pipelines: Tokenizer, Porter Stemmer and Stopwords filter.&lt;/p&gt;
+&lt;p&gt;Levi is built on &lt;a href=&quot;https://github.com/Level/levelup&quot;&gt;LevelUP&lt;/a&gt; which is a fast, asynchronous, transactional storage interface. By default it uses LevelDB on Node.js, when in running in the browser it uses &lt;a href=&quot;https://github.com/maxogden/level.js&quot;&gt;IndexedDB&lt;/a&gt;. Levi supports with a variety of LevelDOWN compatible backends.&lt;/p&gt;
+&lt;p&gt;In addition, Levi provides relevancy scoring for live changing data using TF-ICF - a TF-IDF approximation based on existing corpus. Such scoring matches are comparably close to TF-IDF when existing corpus is sufficiently large, with significantly better performance O(N) instead of O(N^2).&lt;/p&gt;
+&lt;p&gt;Let’s take a look at the API. To get started, we need to create a new Levi instance. We do that like this:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;import&lt;/span&gt; levi &lt;span class=&quot;keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;'levi'&lt;/span&gt;;
+
+&lt;span class=&quot;keyword&quot;&gt;const&lt;/span&gt; lv = levi(&lt;span class=&quot;string&quot;&gt;'db'&lt;/span&gt;)
+.use(levi.tokenizer())
+.use(levi.stemmer())
+.use(levi.stopword());
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The text processing pipeline &lt;code&gt;levi.tokenizer()&lt;/code&gt;, &lt;code&gt;levi.stemmer()&lt;/code&gt;, &lt;code&gt;levi.stopword()&lt;/code&gt; are required for indexing. These are exposed as &lt;a href=&quot;https://github.com/cshum/ginga&quot;&gt;ginga&lt;/a&gt; plugins so that they can be swapped for different language configurations.&lt;/p&gt;
+&lt;p&gt;Now that we have an instance we can use it to talk to the API like this:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;lv.put(&lt;span class=&quot;string&quot;&gt;'a'&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;'Lorem Ipsum is simply dummy text.'&lt;/span&gt;, err =&amp;gt; {
+    &lt;span class=&quot;comment&quot;&gt;// ...&lt;/span&gt;
+ });
+
+&lt;span class=&quot;comment&quot;&gt;// object fields as value&lt;/span&gt;
+lv.put(&lt;span class=&quot;string&quot;&gt;'b'&lt;/span&gt;, {
+  id: &lt;span class=&quot;string&quot;&gt;'b'&lt;/span&gt;,
+  title: &lt;span class=&quot;string&quot;&gt;'Lorem Ipsum'&lt;/span&gt;,
+  body: &lt;span class=&quot;string&quot;&gt;'Dummy text of the printing and typesetting industry.'&lt;/span&gt;
+}, (err) =&amp;gt; {
+    &lt;span class=&quot;comment&quot;&gt;//...&lt;/span&gt;
+});
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Or retrieve it like:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;lv.get(&lt;span class=&quot;string&quot;&gt;'b'&lt;/span&gt;, res =&amp;gt; {
+    &lt;span class=&quot;comment&quot;&gt;// res here;&lt;/span&gt;
+});
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;To actually search we need to use Levi’s main interface which would be &lt;code&gt;searchStream&lt;/code&gt;. We use that like this.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;lv.searchStream(&lt;span class=&quot;string&quot;&gt;'lorem ipsum'&lt;/span&gt;).toArray(&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; (&lt;span class=&quot;params&quot;&gt;results&lt;/span&gt;) &lt;/span&gt;{ ... }) &lt;span class=&quot;comment&quot;&gt;// highland method&lt;/span&gt;
+
+lv.searchStream(&lt;span class=&quot;string&quot;&gt;'lorem ipsum'&lt;/span&gt;, {
+  fields: { title: &lt;span class=&quot;number&quot;&gt;10&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;'*'&lt;/span&gt;: &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt; } &lt;span class=&quot;comment&quot;&gt;// title field boost. '*' means any field&lt;/span&gt;
+}).pipe(...)
+
+lv.searchStream(&lt;span class=&quot;string&quot;&gt;'lorem ipusm'&lt;/span&gt;, {
+  fields: { title: &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt; }, &lt;span class=&quot;comment&quot;&gt;// title only&lt;/span&gt;
+}).pipe(...)
+
+&lt;span class=&quot;comment&quot;&gt;// ltgt&lt;/span&gt;
+lv.searchStream(&lt;span class=&quot;string&quot;&gt;'lorem ipusm'&lt;/span&gt;, {
+  gt: &lt;span class=&quot;string&quot;&gt;'!posts!'&lt;/span&gt;,
+  lt: &lt;span class=&quot;string&quot;&gt;'!posts!~'&lt;/span&gt;
+}).pipe(...)
+
+&lt;span class=&quot;comment&quot;&gt;// document as query&lt;/span&gt;
+lv.searchStream({
+  title: &lt;span class=&quot;string&quot;&gt;'Lorem Ipsum'&lt;/span&gt;,
+  body: &lt;span class=&quot;string&quot;&gt;'Dummy text of the printing and typesetting industry.'&lt;/span&gt;
+}).pipe(...)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Because I do not fully understand everything that is going on here, I need to refer you to the extensive documentation on the &lt;a href=&quot;https://github.com/cshum/levi&quot;&gt;GitHub page&lt;/a&gt;. The reason I still mention this library is that I understand from the explanation a colleague gave me that this library will have a significant impact on the speed of your text search.&lt;/p&gt;
+</description>
+    </item>
+    <item>
       <title>Clipboard.js</title>
       <link>http://daily-javascript.com/articles/clipboardjs/</link>
       <pubDate>Mon, 28 Sep 2015 02:00:00 +0200</pubDate>
@@ -4781,71 +4846,6 @@ clipboard.on(&lt;span class=&quot;string&quot;&gt;'error'&lt;/span&gt;, &lt;span
 &lt;/table&gt;
 &lt;p&gt;Although copy/cut operations with execCommand aren’t supported in Safari yet (including mobile), it gracefully degrades, because Selection is supported.&lt;/p&gt;
 &lt;p&gt;This means you could show a tooltip saying Copied! when success event is called and Press Ctrl+C to copy when error event is called because the text is already selected.&lt;/p&gt;
-</description>
-    </item>
-    <item>
-      <title>Levi</title>
-      <link>http://daily-javascript.com/articles/levi/</link>
-      <pubDate>Mon, 28 Sep 2015 02:00:00 +0200</pubDate>
-      <guid isPermaLink="true">http://daily-javascript.com/articles/levi/</guid>
-      <author></author>
-      <description>&lt;p&gt;Levi (GitHub: &lt;a href=&quot;https://github.com/cshum/levi&quot;&gt;cshum/levi&lt;/a&gt;, License: MIT, npm: levi)&lt;/p&gt;
-&lt;p&gt;Levi is a streaming full-text search for Node.js and browsers which used LevelDB for storage.
-The search implementation is done by using &lt;a href=&quot;https://en.wikipedia.org/wiki/Tf%E2%80%93idf&quot;&gt;TF-IDF&lt;/a&gt; and &lt;a href=&quot;https://en.wikipedia.org/wiki/Cosine_similarity&quot;&gt;cosine similarity&lt;/a&gt;, and it’s provided with configurable text processing pipelines: Tokenizer, Porter Stemmer and Stopwords filter.&lt;/p&gt;
-&lt;p&gt;Levi is built on &lt;a href=&quot;https://github.com/Level/levelup&quot;&gt;LevelUP&lt;/a&gt; which is a fast, asynchronous, transactional storage interface. By default it uses LevelDB on Node.js, when in running in the browser it uses &lt;a href=&quot;https://github.com/maxogden/level.js&quot;&gt;IndexedDB&lt;/a&gt;. Levi supports with a variety of LevelDOWN compatible backends.&lt;/p&gt;
-&lt;p&gt;In addition, Levi provides relevancy scoring for live changing data using TF-ICF - a TF-IDF approximation based on existing corpus. Such scoring matches are comparably close to TF-IDF when existing corpus is sufficiently large, with significantly better performance O(N) instead of O(N^2).&lt;/p&gt;
-&lt;p&gt;Let’s take a look at the API. To get started, we need to create a new Levi instance. We do that like this:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;import&lt;/span&gt; levi &lt;span class=&quot;keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;'levi'&lt;/span&gt;;
-
-&lt;span class=&quot;keyword&quot;&gt;const&lt;/span&gt; lv = levi(&lt;span class=&quot;string&quot;&gt;'db'&lt;/span&gt;)
-.use(levi.tokenizer())
-.use(levi.stemmer())
-.use(levi.stopword());
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;The text processing pipeline &lt;code&gt;levi.tokenizer()&lt;/code&gt;, &lt;code&gt;levi.stemmer()&lt;/code&gt;, &lt;code&gt;levi.stopword()&lt;/code&gt; are required for indexing. These are exposed as &lt;a href=&quot;https://github.com/cshum/ginga&quot;&gt;ginga&lt;/a&gt; plugins so that they can be swapped for different language configurations.&lt;/p&gt;
-&lt;p&gt;Now that we have an instance we can use it to talk to the API like this:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;lv.put(&lt;span class=&quot;string&quot;&gt;'a'&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;'Lorem Ipsum is simply dummy text.'&lt;/span&gt;, err =&amp;gt; {
-    &lt;span class=&quot;comment&quot;&gt;// ...&lt;/span&gt;
- });
-
-&lt;span class=&quot;comment&quot;&gt;// object fields as value&lt;/span&gt;
-lv.put(&lt;span class=&quot;string&quot;&gt;'b'&lt;/span&gt;, {
-  id: &lt;span class=&quot;string&quot;&gt;'b'&lt;/span&gt;,
-  title: &lt;span class=&quot;string&quot;&gt;'Lorem Ipsum'&lt;/span&gt;,
-  body: &lt;span class=&quot;string&quot;&gt;'Dummy text of the printing and typesetting industry.'&lt;/span&gt;
-}, (err) =&amp;gt; {
-    &lt;span class=&quot;comment&quot;&gt;//...&lt;/span&gt;
-});
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Or retrieve it like:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;lv.get(&lt;span class=&quot;string&quot;&gt;'b'&lt;/span&gt;, res =&amp;gt; {
-    &lt;span class=&quot;comment&quot;&gt;// res here;&lt;/span&gt;
-});
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;To actually search we need to use Levi’s main interface which would be &lt;code&gt;searchStream&lt;/code&gt;. We use that like this.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;lv.searchStream(&lt;span class=&quot;string&quot;&gt;'lorem ipsum'&lt;/span&gt;).toArray(&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; (&lt;span class=&quot;params&quot;&gt;results&lt;/span&gt;) &lt;/span&gt;{ ... }) &lt;span class=&quot;comment&quot;&gt;// highland method&lt;/span&gt;
-
-lv.searchStream(&lt;span class=&quot;string&quot;&gt;'lorem ipsum'&lt;/span&gt;, {
-  fields: { title: &lt;span class=&quot;number&quot;&gt;10&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;'*'&lt;/span&gt;: &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt; } &lt;span class=&quot;comment&quot;&gt;// title field boost. '*' means any field&lt;/span&gt;
-}).pipe(...)
-
-lv.searchStream(&lt;span class=&quot;string&quot;&gt;'lorem ipusm'&lt;/span&gt;, {
-  fields: { title: &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt; }, &lt;span class=&quot;comment&quot;&gt;// title only&lt;/span&gt;
-}).pipe(...)
-
-&lt;span class=&quot;comment&quot;&gt;// ltgt&lt;/span&gt;
-lv.searchStream(&lt;span class=&quot;string&quot;&gt;'lorem ipusm'&lt;/span&gt;, {
-  gt: &lt;span class=&quot;string&quot;&gt;'!posts!'&lt;/span&gt;,
-  lt: &lt;span class=&quot;string&quot;&gt;'!posts!~'&lt;/span&gt;
-}).pipe(...)
-
-&lt;span class=&quot;comment&quot;&gt;// document as query&lt;/span&gt;
-lv.searchStream({
-  title: &lt;span class=&quot;string&quot;&gt;'Lorem Ipsum'&lt;/span&gt;,
-  body: &lt;span class=&quot;string&quot;&gt;'Dummy text of the printing and typesetting industry.'&lt;/span&gt;
-}).pipe(...)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Because I do not fully understand everything that is going on here, I need to refer you to the extensive documentation on the &lt;a href=&quot;https://github.com/cshum/levi&quot;&gt;GitHub page&lt;/a&gt;. The reason I still mention this library is that I understand from the explanation a colleague gave me that this library will have a significant impact on the speed of your text search.&lt;/p&gt;
 </description>
     </item>
     <item>
