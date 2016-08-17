@@ -35,6 +35,41 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
+            <p class="date"><span>19. November 2015</span></p>
+            <h2><a href="/articles/node-5-1-0/">Node v5.1.0 Stable</a></h2>
+          </header>
+          <section class="content"><p>First of all my excuse for not posting the past 2 days. I had a few days off from my day job because I went to a concert of Bullet For My Valentine(for those of you that might me interested). This also caused me to mis this new release of Node.js so here is a small roundup of the notable&nbsp;changes.</p>
+<h3 id="-buffer-3767-https-github-com-nodejs-node-pull-3767-"><code>buffer</code> (<a href="https://github.com/nodejs/node/pull/3767">#3767</a>)</h3>
+<p>The <code>noAssert</code> option for many buffer functions will now silently drop invalid write values rather than crashing This makes the behavior match what the docs&nbsp;suggest.</p>
+<h3 id="-child_process-3577-https-github-com-nodejs-node-pull-3577-"><code>child_process</code> (<a href="https://github.com/nodejs/node/pull/3577">#3577</a>)</h3>
+<p>child.send() now properly returns a boolean like the docs&nbsp;suggest.</p>
+<h3 id="-http_parser-3569-https-github-com-nodejs-node-pull-3569-"><code>http_parser</code> (<a href="https://github.com/nodejs/node/pull/3569">#3569</a>)</h3>
+<p>update http-parser to 2.6.0 from 2.5.0 (James M Snell) .
+Now supports the following <span class="caps">HTTP</span> methods: <code>LINK</code>, <code>UNLINK</code>, <code>BIND</code>, <code>REBIND</code>, <code>UNBIND</code>.
+Also added <span class="caps">ACL</span> and IPv6 Zone ID&nbsp;support.</p>
+<h3 id="-npm-3685-https-github-com-nodejs-node-pull-3685-"><code>npm</code> (<a href="https://github.com/nodejs/node/pull/3685">#3685</a>)</h3>
+<p>upgrade npm to 3.3.12 from v3.3.6.
+See the release notes for <a href="https://github.com/npm/npm/releases/tag/v3.3.7">v3.3.7</a>, <a href="https://github.com/npm/npm/releases/tag/v3.3.8">v3.3.8</a>, <a href="https://github.com/npm/npm/releases/tag/v3.3.9">v3.3.9</a>, <a href="https://github.com/npm/npm/releases/tag/v3.3.10">v3.3.10</a>, <a href="https://github.com/npm/npm/releases/tag/v3.3.11">v3.3.11</a>, and <a href="https://github.com/npm/npm/releases/tag/v3.3.12">v3.3.12</a> for more&nbsp;details.</p>
+<h3 id="repl-3630-https-github-com-nodejs-node-pull-3630-"><span class="caps">REPL</span> (<a href="https://github.com/nodejs/node/pull/3630">#3630</a>)</h3>
+<p>The <span class="caps">REPL</span> no longer crashes if the persistent history file cannot be&nbsp;opened.</p>
+<h3 id="tls-3755-https-github-com-nodejs-node-pull-3755-">tls (<a href="https://github.com/nodejs/node/pull/3755">#3755</a>)</h3>
+<p>The default sessionIdContext now uses <span class="caps">SHA1</span> in FIPS mode rather than&nbsp;MD5.</p>
+<h3 id="v8-3779-https-github-com-nodejs-node-pull-3779-">v8(<a href="https://github.com/nodejs/node/pull/3779">#3779</a>)</h3>
+<p>Added some more useful post-mortem&nbsp;data.</p>
+<h3 id="documentation-3662-https-github-com-nodejs-node-pull-3662-">Documentation (<a href="https://github.com/nodejs/node/pull/3662">#3662</a>)</h3>
+<p>All of the <span class="caps">API</span> docs have been re-ordered so as to read in alphabetical&nbsp;order.</p>
+<p>The known issues that are still in there&nbsp;are:</p>
+<ul>
+<li>Surrogate pair in <span class="caps">REPL</span> can freeze terminal. <a href="https://github.com/nodejs/node/issues/690">#690</a></li>
+<li>Calling dns.setServers() while a <span class="caps">DNS</span> query is in progress can cause the process to crash on a failed assertion. <a href="https://github.com/nodejs/node/issues/894">#894</a></li>
+<li>url.resolve may transfer the auth portion of the url when resolving between two full hosts, see <a href="https://github.com/nodejs/node/issues/1435">#1435</a>.</li>
+<li>Unicode characters in filesystem paths are not handled consistently across platforms or Node.js APIs. See <a href="https://github.com/nodejs/node/issues/2088">#2088</a>, <a href="https://github.com/nodejs/node/issues/3401">#3401</a> and <a href="https://github.com/nodejs/node/issues/3519">#3519</a>.</li>
+</ul>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
             <p class="date"><span>16. November 2015</span></p>
             <h2><a href="/articles/domcom/">Domcom</a></h2>
           </header>
@@ -288,80 +323,6 @@ The <code>:</code> at the and of the function call is to indicate what the funct
 <p>When I saw the syntax of this plugin the first thing that jumped into my mind was why not just use Typescript then.
 Since Typescript had it’s own upstream this might not be inline with the ESnext(<span class="caps">ES6</span>/ES7) feature we have grown to love.
 By including this plugin in your <code>.babelrc</code> to can have the power and security of strongly typed Javascript and all the new features provided by&nbsp;Babel.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>09. November 2015</span></p>
-            <h2><a href="/articles/squiggle/">Squiggle</a></h2>
-          </header>
-          <section class="content"><p>Squiggle (GitHub: <a href="https://github.com/wavebeem/squiggle">wavebeem/squiggle</a>, License: <span class="caps">MIT</span>, npm:&nbsp;squiggle-lang)</p>
-<p>Squiggle is a strict, expression-oriented, compile-to-<span class="caps">JS</span> programming language. Yes, yet another compile-to-JS language.
-At the beginning I was sceptic about it, but once I started reading <a href="http://squiggle-lang.org/tutorial">the tutorial</a> posted on the site I adjusted my opinion.
-Not everything is there yet, but I need to say that I like the way it looks and might even consider picking it&nbsp;up.</p>
-<p>So some of the features that drew my attention&nbsp;are:</p>
-<ul>
-<li>Arity checked functions<ul>
-<li>When calling a function created in Squiggle with not enough arguments, it throws an&nbsp;exception.</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>Frozen literals<ul>
-<li>Array and object literals are frozen with <code>Object.freeze</code> by default, so you can’t accidentally mutate&nbsp;them.</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>Easy updates<ul>
-<li>Operators <code>++</code> to concatenate two arrays or two strings, and ~ to merge two objects into a new frozen object with the prototype of the first&nbsp;object.</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>Destructuring assignment<ul>
-<li>Grab object properties or array elements when you assign variables, like: <code>let [x, y] = [1, 2] or let {x, y} = {x: 1, y: 2}.</code></li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>Pattern matching<ul>
-<li>Is similar to the Javascript <code>switch</code> but with destructuring power built-in and no dangerous&nbsp;fall-through.</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>No type coercion<ul>
-<li>Standard operators like <code>+</code>, <code>-</code>, <code>*</code>, and more, have been replaced with strict version that do not perform any type coercions, throwing exceptions on bad&nbsp;inputs.</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>Deep equality<ul>
-<li>The operator == performs a deep equality&nbsp;check.</li>
-</ul>
-</li>
-</ul>
-<p>There are a lot more features which just make it work a bit nicer. If you want a good overview of what this language can do I would recommend you reading <a href="http://squiggle-lang.org/tutorial">the tutorial</a> section of the website and then <a href="http://squiggle-lang.org/try">give it a shot in the browser</a>.</p>
-<p>Here is a small example provided by the developer in which you can see how it would work together met Node’s <span class="caps">HTTP</span>&nbsp;package.</p>
-<pre><code class="lang-javascript"><span class="keyword">let</span> http = <span class="built_in">require</span> <span class="string">"http"</span>
-
-<span class="keyword">let</span> port = <span class="number">1337</span>
-<span class="keyword">let</span> host = <span class="string">"127.0.0.1"</span>
-
-def handler(res, res) =
-    <span class="keyword">let</span> headers = {<span class="string">"Content-Type"</span>: <span class="string">"text/plain"</span>}
-    <span class="keyword">let</span> _ = res.writeHead(<span class="number">200</span>, headers)
-    <span class="keyword">let</span> _ = res.end(<span class="string">"Hello world\n"</span>)
-    <span class="keyword">in</span> <span class="literal">undefined</span>
-
-<span class="keyword">let</span> server = http.createServer(handler)
-<span class="keyword">let</span> _ = server.listen(port, host)
-<span class="keyword">let</span> _ = <span class="built_in">console</span>.log(<span class="string">"Server running at http://"</span> ++ host + <span class="string">":"</span> ++ port ++ <span class="string">"/"</span>)
-<span class="keyword">in</span> <span class="literal">undefined</span>
-</code></pre>
-<p>Since there is a comment section present after the latest update, I would love to here what you guys think of this and the blog in&nbsp;general.</p>
 
           </section>
         </article>
