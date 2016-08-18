@@ -35,45 +35,53 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
-            <p class="date"><span>28. September 2015</span></p>
-            <h2><a href="/articles/runejs-and-queryl/">Rune.js and queryl</a></h2>
+            <p class="date"><span>01. October 2015</span></p>
+            <h2><a href="/articles/tonic/">Tonic</a></h2>
           </header>
-          <section class="content"><p>Rune.js (GitHub: <a href="https://github.com/runemadsen/rune.js">runemadsen/rune.js</a>, License: <span class="caps">MIT</span>&nbsp;)</p>
-<p>Rune.js is a library for programming graphic design systems with <span class="caps">SVG</span>. It has a fluent drawing API, an unobtrusive scene graph, and a bunch of features designed specifically for graphic designers, such as: native support for color conversion, grid systems, typography, pixel iteration and an expanding set of computational geometry helpers. What peaked my interest is that it uses a <a href="https://github.com/Matt-Esch/virtual-dom">virtual-dom</a> under the&nbsp;hood.</p>
-<p>If you’re not familiar with the virtual-dom I suggest you take a break to take a look at that&nbsp;first.</p>
-<p>Unfortunately I could not find any npm or bower install instructions, so I am hoping that the developer will add that&nbsp;soon.</p>
-<p>Rune.js has all basic shapes in the&nbsp;<span class="caps">API</span>.</p>
-<pre><code class="lang-javascript">r.line(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">100</span>);
+          <section class="content"><p>During my browse session at work this morning I came across <a href="https://tonicdev.com/docs/embed">this post</a>.
+If I understand correctly the easiest way to describe Tonic is as a plugin that let’s you run Node.js in a&nbsp;browser.</p>
+<p>The reason why I write about this today is because of the newley released feature of embedding it on your page.
+This feature can be accessed in two ways. Via <span class="caps">HTML</span> markup or by initializing it programatically.
+Lets take a look at some&nbsp;examples.</p>
+<p>When you have access to the document markup we would make it work like&nbsp;this:</p>
+<pre><code class="lang-html"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"https://embed.tonicdev.com"</span> <span class="attribute">data-element-id</span>=<span class="value">"daily-element"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
 
-r.rect(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">50</span>);
-
-r.ellipse(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">50</span>);
-
-r.circle(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>);
-
-r.triangle(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">100</span>);
-</code></pre>
-<p>And for more complex shapes it fluent <span class="caps">API</span> makes drawing with SVG very readable and&nbsp;familiar.</p>
-<pre><code class="lang-javascript">r.polygon(<span class="number">0</span>, <span class="number">0</span>).lineTo(<span class="number">100</span>, <span class="number">0</span>).lineTo(<span class="number">100</span>, <span class="number">100</span>).lineTo(<span class="number">0</span>, <span class="number">100</span>);
-
-r.path(<span class="number">0</span>, <span class="number">0</span>).lineTo(<span class="number">100</span>, <span class="number">0</span>).curveTo(<span class="number">100</span>, <span class="number">100</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">0</span>, <span class="number">0</span>);
-</code></pre>
-<p>Since this library is packed with features and concepts, I will only give you the tip of the iceberg right now. If you want to know more, consult the <a href="http://runemadsen.github.io/rune.js/">amazing documentation</a>.</p>
-<h3 id="queryl">queryl</h3>
-<p>queryl (GitHub: <a href="https://github.com/issuetrackapp/queryl">issuetrackapp/queryl</a>, License: <span class="caps">MIT</span>, npm:&nbsp;queryl)</p>
-<p>queryl is a query language to preform complex object searches. The purpose of this “language” is to allow the developer to build very complex queries to e.g. search a collection of objects, to validate objects before you dump it in a db or even to make assertions in&nbsp;tests.</p>
-<p>queryl comes with a very simple <span class="caps">API</span>. <code>queryl.match</code> is the main entry at this point this will always return a boolean and expects an object to match. For&nbsp;example:</p>
-<pre><code class="lang-javascript">queryl.match({
-  $contain: {
-    foo: <span class="number">1</span>
-  }
-}, {
-  foo: [ <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span> ]
+<span class="comment">&lt;!-- anywhere else on your page --&gt;</span>
+<span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"daily-element"</span>&gt;</span>
+var request = require('request');
+request('http://www.google.com', function (error, response, body) {
+    console.log(body) // Show the <span class="caps">HTML</span> for the Google homepage.
 });
-&gt; <span class="literal">true</span>
+<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
 </code></pre>
-<p>This is just a very basic example of what it can do. The full <span class="caps">API</span> docs shows the entire power of this&nbsp;“language”.</p>
-<p>I can see this working very well for matching and parsing certain objects like the ones you would receive from, for instance, the Google spreadsheet&nbsp;<span class="caps">API</span>.</p>
+<p>If this code runs Tonic it will dropdown an element showing the log&nbsp;output.</p>
+<p>If you do not have access to the document markup you can trigger it from Javascript like&nbsp;this:</p>
+<pre><code class="lang-javascript">
+<span class="keyword">var</span> scriptTag = <span class="built_in">document</span>.createElement(<span class="string">"script"</span>),
+    head = <span class="built_in">document</span>.querySelector(<span class="string">"head"</span>),
+    dailyElement = <span class="built_in">document</span>.createElement(<span class="string">'div'</span>);
+scriptTag.src = <span class="string">"https://embed.tonicdev.com"</span>;
+dailyElement.id = <span class="string">"daily-element"</span>;
+head.appendChild( scriptTag );
+
+<span class="built_in">document</span>.body.appendChild( dailyElement );
+
+<span class="keyword">var</span> notebook = Tonic.createNotebook({
+    <span class="comment">// the parent element for the new notebook</span>
+    element: <span class="built_in">document</span>.querySelector(<span class="string">"#daily-element"</span>),
+
+    <span class="comment">// specify the source of the notebook</span>
+    source: <span class="string">"\"hello world\""</span>,
+
+    <span class="comment">// optionally, set the notebook to be read-only</span>
+    readOnly: <span class="literal">false</span>,
+
+    <span class="comment">// optionally, provide a callback to be called when the notebook has finished loading</span>
+    onLoad: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{}
+});
+</code></pre>
+<p>On of the things I’m still missing is the ability to run <span class="caps">ES2015</span>. I hope that the support for that will come very soon.
+This weekend I will be trying to include this within this website so you will be able to run the examples that I post right there in the&nbsp;browser.</p>
 
           </section>
         </article>
@@ -139,6 +147,50 @@ lv.searchStream({
 }).pipe(...)
 </code></pre>
 <p>Because I do not fully understand everything that is going on here, I need to refer you to the extensive documentation on the <a href="https://github.com/cshum/levi">GitHub page</a>. The reason I still mention this library is that I understand from the explanation a colleague gave me that this library will have a significant impact on the speed of your text&nbsp;search.</p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
+            <p class="date"><span>28. September 2015</span></p>
+            <h2><a href="/articles/runejs-and-queryl/">Rune.js and queryl</a></h2>
+          </header>
+          <section class="content"><p>Rune.js (GitHub: <a href="https://github.com/runemadsen/rune.js">runemadsen/rune.js</a>, License: <span class="caps">MIT</span>&nbsp;)</p>
+<p>Rune.js is a library for programming graphic design systems with <span class="caps">SVG</span>. It has a fluent drawing API, an unobtrusive scene graph, and a bunch of features designed specifically for graphic designers, such as: native support for color conversion, grid systems, typography, pixel iteration and an expanding set of computational geometry helpers. What peaked my interest is that it uses a <a href="https://github.com/Matt-Esch/virtual-dom">virtual-dom</a> under the&nbsp;hood.</p>
+<p>If you’re not familiar with the virtual-dom I suggest you take a break to take a look at that&nbsp;first.</p>
+<p>Unfortunately I could not find any npm or bower install instructions, so I am hoping that the developer will add that&nbsp;soon.</p>
+<p>Rune.js has all basic shapes in the&nbsp;<span class="caps">API</span>.</p>
+<pre><code class="lang-javascript">r.line(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">100</span>);
+
+r.rect(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">50</span>);
+
+r.ellipse(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">50</span>);
+
+r.circle(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>);
+
+r.triangle(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">100</span>);
+</code></pre>
+<p>And for more complex shapes it fluent <span class="caps">API</span> makes drawing with SVG very readable and&nbsp;familiar.</p>
+<pre><code class="lang-javascript">r.polygon(<span class="number">0</span>, <span class="number">0</span>).lineTo(<span class="number">100</span>, <span class="number">0</span>).lineTo(<span class="number">100</span>, <span class="number">100</span>).lineTo(<span class="number">0</span>, <span class="number">100</span>);
+
+r.path(<span class="number">0</span>, <span class="number">0</span>).lineTo(<span class="number">100</span>, <span class="number">0</span>).curveTo(<span class="number">100</span>, <span class="number">100</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">0</span>, <span class="number">0</span>);
+</code></pre>
+<p>Since this library is packed with features and concepts, I will only give you the tip of the iceberg right now. If you want to know more, consult the <a href="http://runemadsen.github.io/rune.js/">amazing documentation</a>.</p>
+<h3 id="queryl">queryl</h3>
+<p>queryl (GitHub: <a href="https://github.com/issuetrackapp/queryl">issuetrackapp/queryl</a>, License: <span class="caps">MIT</span>, npm:&nbsp;queryl)</p>
+<p>queryl is a query language to preform complex object searches. The purpose of this “language” is to allow the developer to build very complex queries to e.g. search a collection of objects, to validate objects before you dump it in a db or even to make assertions in&nbsp;tests.</p>
+<p>queryl comes with a very simple <span class="caps">API</span>. <code>queryl.match</code> is the main entry at this point this will always return a boolean and expects an object to match. For&nbsp;example:</p>
+<pre><code class="lang-javascript">queryl.match({
+  $contain: {
+    foo: <span class="number">1</span>
+  }
+}, {
+  foo: [ <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span> ]
+});
+&gt; <span class="literal">true</span>
+</code></pre>
+<p>This is just a very basic example of what it can do. The full <span class="caps">API</span> docs shows the entire power of this&nbsp;“language”.</p>
+<p>I can see this working very well for matching and parsing certain objects like the ones you would receive from, for instance, the Google spreadsheet&nbsp;<span class="caps">API</span>.</p>
 
           </section>
         </article>
@@ -305,39 +357,6 @@ gun.get(<span class="string">'usernames/RamonGebben'</span>).val((user) =&gt; <s
 </code></pre>
 <p>If you take a look at what the developers have planned to introduce, you will notice this is something to keep your eye&nbsp;on.</p>
 <p>I would not recommend using this in production just yet, because it feels very young, but for small prototype for which you don’t want to bother setting up an entire infrastructure to load and save this could be a good&nbsp;choice.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>26. September 2015</span></p>
-            <h2><a href="/articles/jetsjs-and-replem/">Jets.js and repl'em</a></h2>
-          </header>
-          <section class="content"><p>Jets.js (GitHub: <a href="https://github.com/NeXTs/Jets.js">NeXTs/Jets.js</a>, License: <span class="caps">MIT</span>, npm: jets, bower:&nbsp;jets)</p>
-<p>Jets.js is a search engine which utilizes <span class="caps">CSS</span> to present the results.
-The main idea is not to affect attributes of each tag in the list while filtering.
-Instead apply dynamic CSS rule in only <code>&lt;style&gt;</code> tag and browser will decide which item of list to show or hide. Since it’s just <span class="caps">CSS</span> - Jets.js may be applied to any tag, whether it’s a table or UL, OL,&nbsp;DIV…</p>
-<p><img src="http://nexts.github.io/Jets.js/img/demo_hover.gif" style="max-width: 400px;width: 100%;left: 0;"></p>
-<p>On the developers <a href="http://nexts.github.io/Jets.js/">page</a> there is a speed&nbsp;test.</p>
-<p><img src="http://i.imgur.com/SToKoIY.png" style="left:0; width: 100%;"></p>
-<p>Because I was so amazed by how easy it was to setup I started a small <a href="http://codepen.io/Dailjs-Javascript/pen/vNyXOr">codepen</a> and had some fun with&nbsp;it.</p>
-<h3 id="repl-em">repl’em</h3>
-<p>repl’em (GitHub: <a href="https://github.com/raine/replem">raine/replem</a>, License: Unknown, npm:&nbsp;replem)</p>
-<p>If you are a developer like me you shall recognize the pain of trying a lot of different modules to find which one suits your task.
-repl’em let’s you run a list of modules that use specify in a repl&nbsp;context.</p>
-<p><img src="https://raw.githubusercontent.com/raine/replem/media/term.png" style="left:0; width: 100%; min-height:200px;"></p>
-<p>It also supports custom repl’s such as coffee-script. To use these you must give them as an&nbsp;argument.</p>
-<pre><code class="lang-bash">$ npm install --prefix ~/.replem coffee-script
-$ replem --repl coffee-script/repl lodash
-</code></pre>
-<p>You can also get all module properties in the direct context. You do this by providing each module with a bang (!)&nbsp;argument.</p>
-<pre><code class="lang-bash">$ replem ramda!
-Installed into REPL context:
- - ramda@<span class="number">0.17</span>.<span class="number">1</span> as ramda
-&gt; reduce === ramda.reduce
-<span class="literal">true</span>
-</code></pre>
-<p>This tool will certainly make it easier to try out new modules for providing you with new posts&nbsp;everyday.</p>
 
           </section>
         </article>
