@@ -2,7 +2,7 @@
   "scripts": {
     "weekly": "/usr/local/bin/node tools/results.js",
     "build": "wintersmith build",
-    "deploy": "npm run build; cp -r build/* ../ramongebben.github.io/.; cd ../ramongebben.github.io/; git add .; git commit -m \"Update via npm\"; git push origin master; cd ../daily-javascript/.; git add .; git commit -m \"Save the code\"; git push origin master;"
+    "deploy":"npm run build; git add build && git commit -m 'deploy with npm'; git subtree push --prefix build origin gh-pages"
   },
   "dependencies": {
     "moment": "2.3.x",
