@@ -35,6 +35,82 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
+            <p class="date"><span>24. August 2016</span></p>
+            <h2><a href="/articles/slow-deps/">Slow deps</a></h2>
+          </header>
+          <section class="content"><p>slow-deps (GitHub: <a href="https://github.com/nolanlawson/slow-deps">nolanlawson/slow-deps</a>, License: Apache-2.0, npm:&nbsp;slow-deps)</p>
+<p>When working on a larger Javascript project, over time your dependency tree will grow and with that the installation time will grow as well. With every new dependency of your project, npm needs to fetch it and check if that dependency has other dependencies et&nbsp;cetera.</p>
+<p>I think that in all of us the curiosity grows which dependency is slower, so you might want to consider an alternative, dropping it all together or look for other ways of speeding up the installation process to in turn reduce the total build&nbsp;time.</p>
+<p>To give insight into which dependency is the bottleneck of your installation process <a href="https://github.com/nolanlawson">Nolan Lawson</a> created a very nice utility called <code>slow-deps</code>.</p>
+<p>The easiest way to a quick insight you can install it in a global context like&nbsp;so:</p>
+<pre><code class="lang-bash">[sudo] npm i slow-deps -g
+</code></pre>
+<p>Now you can go into the project directory you want to test and&nbsp;run:</p>
+<pre><code class="lang-bash">slow-deps
+</code></pre>
+<p><code>slow-deps</code> will take all your project dependencies, devDependencies and optionalDependencies and installs each one in a temporary directory with a temporary cache and measures the install time per package. Each dependency is then listed from slowest to&nbsp;fastest.</p>
+<p>As an example this is what it outputs for the A-frame&nbsp;project:</p>
+<pre><code>Analyzing 45 dependencies...
+[====================] 100% 0.0s
+---------------------------------------------------------------
+| Dependency                    | Time     | Size    | # Deps |
+---------------------------------------------------------------
+| semistandard                  | 1m 14.4s | 24 MB   | 242    |
+| tween.js                      | 1m 10.7s | 22 MB   | 250    |
+| budo                          | 1m 1.4s  | 14 MB   | 275    |
+| mozilla-download              | 49.3s    | 26 MB   | 194    |
+| karma                         | 39.8s    | 16 MB   | 153    |
+| snazzy                        | 36.2s    | 9.7 MB  | 146    |
+| karma-coverage                | 26.7s    | 8.0 MB  | 99     |
+| browserify                    | 23s      | 6.4 MB  | 118    |
+| codecov                       | 17.8s    | 3.9 MB  | 73     |
+| istanbul                      | 12.1s    | 6.5 MB  | 55     |
+| minifyify                     | 11.4s    | 4.8 MB  | 48     |
+| browserify-css                | 10.7s    | 4.0 MB  | 29     |
+| document-register-element     | 9.7s     | 62 KB   | 0      |
+| browserify-derequire          | 9.5s     | 1.7 MB  | 42     |
+| mocha                         | 7.2s     | 1.3 MB  | 34     |
+| gh-pages                      | 6.2s     | 3.7 MB  | 22     |
+| three                         | 5.5s     | 10.0 MB | 0      |
+| sinon                         | 5.3s     | 1.0 MB  | 5      |
+| karma-browserify              | 5.2s     | 1.0 MB  | 9      |
+| webvr-polyfill                | 4.2s     | 898 KB  | 2      |
+| karma-mocha-reporter          | 4s       | 104 KB  | 7      |
+| uglifyjs                      | 3.9s     | 752 KB  | 6      |
+| rimraf                        | 3.6s     | 157 KB  | 11     |
+| karma-sinon-chai              | 3.2s     | 146 KB  | 1      |
+| replace                       | 3s       | 341 KB  | 7      |
+| chai                          | 2.8s     | 438 KB  | 3      |
+| karma-mocha                   | 2.8s     | 18 KB   | 0      |
+| karma-chrome-launcher         | 2.6s     | 56 KB   | 5      |
+| browserify-istanbul           | 2.5s     | 84 KB   | 5      |
+| exorcist                      | 2.5s     | 143 KB  | 6      |
+| lolex                         | 2.3s     | 122 KB  | 0      |
+| karma-env-preprocessor        | 2.2s     | 5.8 KB  | 0      |
+| mkdirp                        | 2s       | 47 KB   | 2      |
+| chai-shallow-deep-equal       | 2s       | 17 KB   | 0      |
+| husky                         | 2s       | 14 KB   | 1      |
+| karma-firefox-launcher        | 1.9s     | 13 KB   | 0      |
+| deep-assign                   | 1.9s     | 11 KB   | 1      |
+| sinon-chai                    | 1.9s     | 18 KB   | 0      |
+| debug                         | 1.5s     | 37 KB   | 1      |
+| object-assign                 | 1.3s     | 7.4 KB  | 0      |
+| open                          | 1.3s     | 26 KB   | 0      |
+| karma-chai-shallow-deep-equal | 1.2s     | 6.8 KB  | 0      |
+| present                       | 1.1s     | 12 KB   | 0      |
+| promise-polyfill              | 1.1s     | 17 KB   | 0      |
+| style-attr                    | 1s       | 6.5 KB  | 0      |
+---------------------------------------------------------------
+Total time (non-deduped): 9m 2s
+Total size (non-deduped): 167 MB
+</code></pre><p>For more documentation I would refer you to the <a href="https://github.com/nolanlawson/slow-deps">Github repo</a>.</p>
+<p><strong>Note:</strong> I started asking for a bit more help with generating more content for this page. In the future you will be able to find tricks, tips and tutorials on this site as&nbsp;well.</p>
+<p>If you are interested in writing some content for this site please <a href="mailto:daily-javascript@ra-ge.net">contact me</a> with a&nbsp;pitch.</p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
             <p class="date"><span>18. August 2016</span></p>
             <h2><a href="/articles/uppy/">Uppy</a></h2>
           </header>
@@ -202,59 +278,6 @@ peer.on(<span class="string">'call'</span>, (call) =&gt; {
   });
 });
 </code></pre>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>20. April 2016</span></p>
-            <h2><a href="/articles/redux-mock-store/">redux-mock-store</a></h2>
-          </header>
-          <section class="content"><p>redux-mock-store (GitHub: <a href="https://github.com/arnaudbenard/redux-mock-store">arnaudbenard/redux-mock-store</a>, License: <span class="caps">MIT</span>, npm:&nbsp;redux-mock-store)</p>
-<p>When you are working on an application with a Redux architecture and you want to test if your actions triggered correctly.
-Doing this with the default Redux store is a very hard thing. In the project I recently joined we solve this problem by using <code>redux-mock-store</code>, which stores the actions that got triggered. By suppling a <code>getActions()</code> method we can access the previously called actions in the form of an&nbsp;Array.</p>
-<p>By&nbsp;example:</p>
-<pre><code class="lang-javascript"><span class="keyword">import</span> configureMockStore <span class="keyword">from</span> <span class="string">'redux-mock-store'</span>;
-<span class="keyword">import</span> thunk <span class="keyword">from</span> <span class="string">'redux-thunk'</span>;
-
-<span class="keyword">const</span> middlewares = [thunk];
-<span class="keyword">const</span> mockStore = configureMockStore(middlewares);
-
-it(<span class="string">'should dispatch action'</span>, () =&gt; {
-  <span class="keyword">const</span> getState = {};
-  <span class="keyword">const</span> addTodo = { type: <span class="string">'ADD_TODO'</span> };
-
-  <span class="keyword">const</span> store = mockStore(getState);
-  store.dispatch(addTodo);
-
-  <span class="keyword">const</span> actions = store.getActions();
-
-  expect(actions).toEqual([addTodo]);
-});
-
-it(<span class="string">'should execute promise'</span>, () =&gt; {
-    <span class="function"><span class="keyword">function</span> <span class="title">success</span>(<span class="params"></span>) </span>{
-      <span class="keyword">return</span> {
-        type: <span class="string">'FETCH_DATA_SUCCESS'</span>
-      };
-    }
-
-    <span class="function"><span class="keyword">function</span> <span class="title">fetchData</span>(<span class="params"></span>) </span>{
-      <span class="keyword">return</span> dispatch =&gt; {
-        <span class="keyword">return</span> fetch(<span class="string">'/users.json'</span>)
-          .then(() =&gt; dispatch(success()));
-      };
-    }
-
-    <span class="keyword">const</span> store = mockStore({});
-
-    <span class="keyword">return</span> store.dispatch(fetchData())
-      .then(() =&gt; {
-        expect(store.getActions()[<span class="number">0</span>]).toEqual(success())
-      });
-})
-</code></pre>
-<p>In the <a href="http://redux.js.org/docs/recipes/WritingTests.html">Redux docs</a> you can find a more extensive explanation and best best practices on how to approach this&nbsp;problem.</p>
 
           </section>
         </article>
