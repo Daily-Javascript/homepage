@@ -35,6 +35,49 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
+            <p class="date"><span>06. April 2016</span></p>
+            <h2><a href="/articles/react-storybook/">React Storybook</a></h2>
+          </header>
+          <section class="content"><p>React Storybook (GitHub: <a href="https://github.com/kadirahq/react-storybook">kadirahq/react-storybook</a>, License: <span class="caps">MIT</span>, npm:&nbsp;@kadira/storybook)</p>
+<p>After having worked on several React projects, I started noticing that in reality it’s still hard to keep your components completely contained. So when, few days ago, I came across <a href="https://voice.kadira.io/introducing-react-storybook-ec27f28de1e2#.de0hjvlbf">“Introducing React Storybook”</a> I was really intrigued by this approach to developing your&nbsp;components.</p>
+<p><img src="https://cdn-images-1.medium.com/max/2000/1*BxhrR0DB8uooDqLLzdkAvg.png" alt="Storybook"></p>
+<p>With React Storybook, you can develop and design <span class="caps">UI</span> components outside your app in an isolated environment.
+Once you’ve installed it&nbsp;using:</p>
+<pre><code class="lang-bash">npm i @kadira/storybook
+</code></pre>
+<p>You will need to add a storybook run script in your <code>package.json</code> like&nbsp;so:</p>
+<pre><code class="lang-json">{
+  "<span class="attribute">scripts</span>": <span class="value">{
+    "<span class="attribute">storybook</span>": <span class="value"><span class="string">"start-storybook -p 9001"</span>
+  </span>}
+</span>}
+</code></pre>
+<p>Now you can start writing stories. There are some <a href="https://github.com/kadirahq/react-storybook/blob/master/docs/guidelines.md">guidelines</a> on how to write stories which also enforce a clean way of working in general.
+For a component like&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;
+
+<span class="function"><span class="keyword">function</span> <span class="title">MyAwesomeButton</span>(<span class="params">props</span>)</span>{
+  <span class="keyword">return</span> (<span class="xml"><span class="tag">&lt;<span class="title">button</span> <span class="attribute">onClick</span>=<span class="value">{props.onClick}</span>&gt;</span>{props.title}<span class="tag">&lt;/<span class="title">button</span>&gt;</span>)</span>;
+}
+</code></pre>
+<p>Would look something like&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;
+<span class="keyword">import</span> MyAwesomeButton <span class="keyword">from</span> <span class="string">'../path/to/MyAwesomeButton'</span>;
+<span class="keyword">import</span> { storiesOf, action } <span class="keyword">from</span> <span class="string">'@kadira/storybook'</span>;
+
+storiesOf(<span class="string">'Button'</span>, <span class="built_in">module</span>)
+  .add(<span class="string">'with a text'</span>, () =&gt; (
+    <span class="xml"><span class="tag">&lt;<span class="title">MyAwesomeButton</span> <span class="attribute">onClick</span>=<span class="value">{action('clicked')}</span> <span class="attribute">title</span>=<span class="value">"My Awesome Button"</span> /&gt;</span>
+  )</span>)
+  .add(<span class="string">'with no text'</span>, () =&gt; (
+    <span class="xml"><span class="tag">&lt;<span class="title">MyAwesomeButton</span> /&gt;</span>
+  )</span>);
+</code></pre>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
             <p class="date"><span>05. April 2016</span></p>
             <h2><a href="/articles/react-native-vector-icons/">React Native, Vector Icons</a></h2>
           </header>
@@ -244,77 +287,6 @@ Let’s assume you have an application which has <code>App</code> as an entry po
 </code></pre>
 <p>There are way to much features to this component than I care to mention here, so if it peaked your interest I suggest you head over to the <a href="https://github.com/nfl/react-helmet">Github Page</a> and check out all it has to&nbsp;offer.</p>
 
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>22. March 2016</span></p>
-            <h2><a href="/articles/statinamic/">Statinamic</a></h2>
-          </header>
-          <section class="content"><p>statinamic (GitHub: <a href="https://github.com/MoOx/statinamic">MoOx/statinamic</a>, License: <span class="caps">MIT</span>, npm:&nbsp;statinamic)</p>
-<p>Statinamic is a static site generator for the modern web.
-It uses React for it’s views and is very easy to get started with but flexible enough that it does not get in your&nbsp;way.</p>
-<p>Currently I’m considering moving from Wintersmith, which I currently use for this site, to Statinamic.
-Since I want to add some features which would require some more customizations, I would be more comfortable using React to implement&nbsp;that.</p>
-<p>During the development process of your static application/website you will have all the benefits of hot loading, compilation errors, runtime errors.
-To get started you will need to install the module inside of an fresh directory which contains a basic <code>package.json</code> which can be acquired&nbsp;via:</p>
-<pre><code class="lang-bash">npm init;
-</code></pre>
-<p>Then after installation of the module you can call the <span class="caps">CLI</span> from the <code>node_modules</code> folder like&nbsp;so:</p>
-<pre><code class="lang-bash">./node_modules/.bin/statinamic setup
-</code></pre>
-<p>This will prompt you with some questions about what boilerplate you want inserted.
-Questions&nbsp;like:</p>
-<ul>
-<li>Name of your&nbsp;project?</li>
-<li>Homepage url for your&nbsp;website?</li>
-<li>Should statinamic generate a <span class="caps">CNAME</span>&nbsp;file?</li>
-</ul>
-<p>After scaffold is done you still need to install the project dependencies by&nbsp;running:</p>
-<pre><code class="lang-bash">npm i;
-</code></pre>
-<p>Now you can start developing by&nbsp;running:</p>
-<pre><code class="lang-bash">npm start;
-</code></pre>
-<p>The basic structure it provides you with looks something like&nbsp;this:</p>
-<pre><code>├── README.md
-├── content
-│   ├── 404.md
-│   ├── assets
-│   │   └── react.svg
-│   └── index.md
-├── dist
-├── package.json
-├── scripts
-│   ├── build.js
-│   ├── config.js
-│   ├── index-client.js
-│   ├── webpack.config.babel.js
-│   └── webpack.config.client.js
-└── web_modules
-    ├── Footer
-    │   ├── index.css
-    │   └── index.js
-    ├── Header
-    │   ├── index.css
-    │   └── index.js
-    ├── LayoutContainer
-    │   ├── index.css
-    │   └── index.js
-    ├── app
-    │   ├── metadata.js
-    │   ├── routes.js
-    │   └── store.js
-    ├── icons
-    │   ├── iconmonstr-github-1.svg
-    │   └── iconmonstr-twitter-1.svg
-    └── layouts
-        ├── Page
-        │   └── index.js
-        ├── PageError
-        │   └── index.js
-        └── index.js
-</code></pre>
           </section>
         </article>
       </div>

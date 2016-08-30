@@ -35,6 +35,54 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
+            <p class="date"><span>29. August 2016</span></p>
+            <h2><a href="/articles/apollo-server/">Apollo Server</a></h2>
+          </header>
+          <section class="content"><p>Apollo Server (GitHub: <a href="https://github.com/apollostack/apollo-server">apollostack/apollo-server</a>, License: <span class="caps">MIT</span>, npm: <a href="https://www.npmjs.com/package/apollo-server">apollo-server</a>)</p>
+<p>Apollo Server is an easy to set up GraphQL server that works with all the major Node.js <span class="caps">HTTP</span> server frameworks: Connect, Express, hapi and Koa. Contrary to Facebook’s own <code>express-graphql</code> middleware, which serves mainly as a reference implementation, Apollo Server’s goal is to be a complete production-ready GraphQL&nbsp;server.</p>
+<p>In case you’re not familiar with GraphQL: GraphQL is a data query language created by Facebook that’s meant to solve the drawbacks of <span class="caps">REST</span> APIs. For a more in-depth introduction I recommend heading over to the <a href="http://graphql.org/blog/graphql-a-query-language/">GraphQL website</a>.</p>
+<p>In order to get started with Apollo Server, you need to install it&nbsp;first:</p>
+<pre><code class="lang-bash">npm i apollo-server --save
+</code></pre>
+<p>To use Apollo Server with hapi, you can configure your server&nbsp;like:</p>
+<pre><code class="lang-javascript"><span class="keyword">import</span> hapi <span class="keyword">from</span> <span class="string">'hapi'</span>;
+<span class="keyword">import</span> { ApolloHAPI } <span class="keyword">from</span> <span class="string">'apollo-server'</span>;
+
+<span class="keyword">const</span> server = <span class="keyword">new</span> hapi.Server();
+
+<span class="keyword">const</span> myGraphQLSchema = <span class="comment">// ... define or import your schema here!</span>
+<span class="keyword">const</span> <span class="caps">HOST</span> = <span class="string">'localhost'</span>;
+<span class="keyword">const</span> <span class="caps">PORT</span> = <span class="number">3000</span>;
+
+server.connection({
+  host: <span class="caps">HOST</span>,
+  port: PORT,
+});
+
+server.register({
+  register: <span class="keyword">new</span> ApolloHAPI(),
+  options: { schema: myGraphQLSchema },
+  routes: { prefix: <span class="string">'/graphql'</span> },
+});
+</code></pre>
+<p>Configuring Apollo Server is done by passing an object with the following&nbsp;properties:</p>
+<pre><code class="lang-javascript"><span class="keyword">const</span> ApolloOptions = {
+  schema: GraphQLSchema,
+  context?: any, <span class="comment">// value to be used as context in resolvers</span>
+  rootValue?: any,
+  formatError?: <span class="built_in">Function</span>, <span class="comment">// function used to format errors before returning them to clients</span>
+  validationRules?: <span class="built_in">Array</span>&lt;ValidationRule&gt;, <span class="comment">// additional validation rules to be applied to client-specified queries</span>
+  formatParams?: <span class="built_in">Function</span>, <span class="comment">// function applied for each query in a batch to format parameters before passing them to `runQuery`</span>
+  formatResponse?: <span class="built_in">Function</span>, <span class="comment">// function applied to each response before returning data to clients</span>
+});
+</code></pre>
+<p>Apollo Server also comes with its own interactive, configurable <a href="http://docs.apollostack.com/apollo-server/graphiql.html">in-browser GraphiQL <span class="caps">IDE</span></a> implementation that makes it easy to test your GraphiQL&nbsp;queries.</p>
+<p>For more on Apollo Server (and the complete Apollo Data Stack) and to learn how to run your own GraphQL server, head over to the <a href="http://docs.apollostack.com/apollo-server/">website</a>.</p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
             <p class="date"><span>24. August 2016</span></p>
             <h2><a href="/articles/slow-deps/">Slow deps</a></h2>
           </header>
@@ -220,64 +268,6 @@ If you want to implement your own cache make sure it has the following&nbsp;meth
 </ul>
 <p>The support is also very good for details about that you should consult the <a href="https://github.com/caiogondim/fast-memoize.js/"><span class="caps">README</span></a>.</p>
 <p>If you have any interest in helping me make Daily-JavaScript.com better, don’t hesitate to <a href="mailto:daily-javascript@ra-ge.net">contact me with your ideas</a>.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>09. May 2016</span></p>
-            <h2><a href="/articles/peerjs/">PeerJS</a></h2>
-          </header>
-          <section class="content"><p>PeerJS (GitHub: <a href="https://github.com/peers/peerjs">peers/peerjs</a>, License: <span class="caps">MIT</span>, npm:&nbsp;peerjs)</p>
-<p>Last week I was held up in bed with a fever, this is the reason I was not able to provide you with daily javascript updates.
-Exactly for moments like that I would like to request if one of my readers would be interested in occasionally writing a post, so I can slow down&nbsp;sometimes.</p>
-<p>If you are interested please <a href="mailto:daily-javascript@ra-ge.net">contact me</a>.</p>
-<p>On to business, PeerJS wraps the browser’s WebRTC implementation to provide a easy-to-use peer-to-peer connection <span class="caps">API</span>.
-To establish a connection you will need nothing more than a session ID.
-This is of course not the first attempt on a good WebRTC library but this comes with an open source server which you can deploy any place you want, in contrast with other parties that’s a real leap&nbsp;forwards.</p>
-<p>Because this is still a company trying to make money they also have hosted solutions for when you do not want to be bothered with setting up these&nbsp;environments.</p>
-<p>Let’s look at an example using the hosted&nbsp;solution.</p>
-<pre><code class="lang-javascript"><span class="keyword">import</span> Peer <span class="keyword">from</span> <span class="string">'peerjs'</span>;
-
-<span class="keyword">const</span> myPeer = <span class="keyword">new</span> Peer(<span class="string">'pick-an-id'</span>, {key: <span class="string">'myapikey'</span>});
-<span class="keyword">const</span> conn = myPeer.connect(<span class="string">'another-peers-id'</span>);
-
-conn.on(<span class="string">'open'</span>, () =&gt; {
-  conn.send(<span class="string">'hi!'</span>);
-});
-
-myPeer.on(<span class="string">'connection'</span>, (conn) =&gt; {
-  conn.on(<span class="string">'data'</span>, (data) =&gt; {
-    <span class="comment">// Will print 'hi!'</span>
-    <span class="built_in">console</span>.log(data);
-  });
-});
-</code></pre>
-<p>The code for making a call would look something like&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="keyword">const</span> getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
-
-getUserMedia({video: <span class="literal">true</span>, audio: <span class="literal">true</span>}, (stream) =&gt; {
-  <span class="keyword">const</span> call = peer.call(<span class="string">'another-peers-id'</span>, stream);
-  call.on(<span class="string">'stream'</span>, (remoteStream) =&gt; {
-    <span class="comment">// Show stream in some video/canvas element.</span>
-  });
-}, (err) =&gt; {
-  <span class="built_in">console</span>.log(<span class="string">'Failed to get local stream'</span>, err);
-});
-</code></pre>
-<p>And to answer an incoming call you would need to add something like&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="keyword">const</span> getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
-peer.on(<span class="string">'call'</span>, (call) =&gt; {
-  getUserMedia({ video: <span class="literal">true</span>, audio: <span class="literal">true</span> }, (stream) =&gt; {
-    call.answer(stream); <span class="comment">// Answer the call with an A/V stream.</span>
-    call.on(<span class="string">'stream'</span>, (remoteStream) =&gt; {
-      <span class="comment">// Show stream in some video/canvas element.</span>
-    });
-  }, (err) =&gt; {
-    <span class="built_in">console</span>.log(<span class="string">'Failed to get local stream'</span>, err);
-  });
-});
-</code></pre>
 
           </section>
         </article>
