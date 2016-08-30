@@ -35,6 +35,64 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
+            <p class="date"><span>09. May 2016</span></p>
+            <h2><a href="/articles/peerjs/">PeerJS</a></h2>
+          </header>
+          <section class="content"><p>PeerJS (GitHub: <a href="https://github.com/peers/peerjs">peers/peerjs</a>, License: <span class="caps">MIT</span>, npm:&nbsp;peerjs)</p>
+<p>Last week I was held up in bed with a fever, this is the reason I was not able to provide you with daily javascript updates.
+Exactly for moments like that I would like to request if one of my readers would be interested in occasionally writing a post, so I can slow down&nbsp;sometimes.</p>
+<p>If you are interested please <a href="mailto:daily-javascript@ra-ge.net">contact me</a>.</p>
+<p>On to business, PeerJS wraps the browser’s WebRTC implementation to provide a easy-to-use peer-to-peer connection <span class="caps">API</span>.
+To establish a connection you will need nothing more than a session ID.
+This is of course not the first attempt on a good WebRTC library but this comes with an open source server which you can deploy any place you want, in contrast with other parties that’s a real leap&nbsp;forwards.</p>
+<p>Because this is still a company trying to make money they also have hosted solutions for when you do not want to be bothered with setting up these&nbsp;environments.</p>
+<p>Let’s look at an example using the hosted&nbsp;solution.</p>
+<pre><code class="lang-javascript"><span class="keyword">import</span> Peer <span class="keyword">from</span> <span class="string">'peerjs'</span>;
+
+<span class="keyword">const</span> myPeer = <span class="keyword">new</span> Peer(<span class="string">'pick-an-id'</span>, {key: <span class="string">'myapikey'</span>});
+<span class="keyword">const</span> conn = myPeer.connect(<span class="string">'another-peers-id'</span>);
+
+conn.on(<span class="string">'open'</span>, () =&gt; {
+  conn.send(<span class="string">'hi!'</span>);
+});
+
+myPeer.on(<span class="string">'connection'</span>, (conn) =&gt; {
+  conn.on(<span class="string">'data'</span>, (data) =&gt; {
+    <span class="comment">// Will print 'hi!'</span>
+    <span class="built_in">console</span>.log(data);
+  });
+});
+</code></pre>
+<p>The code for making a call would look something like&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="keyword">const</span> getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+
+getUserMedia({video: <span class="literal">true</span>, audio: <span class="literal">true</span>}, (stream) =&gt; {
+  <span class="keyword">const</span> call = peer.call(<span class="string">'another-peers-id'</span>, stream);
+  call.on(<span class="string">'stream'</span>, (remoteStream) =&gt; {
+    <span class="comment">// Show stream in some video/canvas element.</span>
+  });
+}, (err) =&gt; {
+  <span class="built_in">console</span>.log(<span class="string">'Failed to get local stream'</span>, err);
+});
+</code></pre>
+<p>And to answer an incoming call you would need to add something like&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="keyword">const</span> getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+peer.on(<span class="string">'call'</span>, (call) =&gt; {
+  getUserMedia({ video: <span class="literal">true</span>, audio: <span class="literal">true</span> }, (stream) =&gt; {
+    call.answer(stream); <span class="comment">// Answer the call with an A/V stream.</span>
+    call.on(<span class="string">'stream'</span>, (remoteStream) =&gt; {
+      <span class="comment">// Show stream in some video/canvas element.</span>
+    });
+  }, (err) =&gt; {
+    <span class="built_in">console</span>.log(<span class="string">'Failed to get local stream'</span>, err);
+  });
+});
+</code></pre>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
             <p class="date"><span>20. April 2016</span></p>
             <h2><a href="/articles/redux-mock-store/">redux-mock-store</a></h2>
           </header>
@@ -221,49 +279,6 @@ Personally I do not like to write all this repetition. So I could do something l
 });
 </code></pre>
 <p>For further documentation and examples take a look at the <a href="https://github.com/joonhocho/proptypes-parser"><span class="caps">README</span></a>&nbsp;file.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>06. April 2016</span></p>
-            <h2><a href="/articles/react-storybook/">React Storybook</a></h2>
-          </header>
-          <section class="content"><p>React Storybook (GitHub: <a href="https://github.com/kadirahq/react-storybook">kadirahq/react-storybook</a>, License: <span class="caps">MIT</span>, npm:&nbsp;@kadira/storybook)</p>
-<p>After having worked on several React projects, I started noticing that in reality it’s still hard to keep your components completely contained. So when, few days ago, I came across <a href="https://voice.kadira.io/introducing-react-storybook-ec27f28de1e2#.de0hjvlbf">“Introducing React Storybook”</a> I was really intrigued by this approach to developing your&nbsp;components.</p>
-<p><img src="https://cdn-images-1.medium.com/max/2000/1*BxhrR0DB8uooDqLLzdkAvg.png" alt="Storybook"></p>
-<p>With React Storybook, you can develop and design <span class="caps">UI</span> components outside your app in an isolated environment.
-Once you’ve installed it&nbsp;using:</p>
-<pre><code class="lang-bash">npm i @kadira/storybook
-</code></pre>
-<p>You will need to add a storybook run script in your <code>package.json</code> like&nbsp;so:</p>
-<pre><code class="lang-json">{
-  "<span class="attribute">scripts</span>": <span class="value">{
-    "<span class="attribute">storybook</span>": <span class="value"><span class="string">"start-storybook -p 9001"</span>
-  </span>}
-</span>}
-</code></pre>
-<p>Now you can start writing stories. There are some <a href="https://github.com/kadirahq/react-storybook/blob/master/docs/guidelines.md">guidelines</a> on how to write stories which also enforce a clean way of working in general.
-For a component like&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;
-
-<span class="function"><span class="keyword">function</span> <span class="title">MyAwesomeButton</span>(<span class="params">props</span>)</span>{
-  <span class="keyword">return</span> (<span class="xml"><span class="tag">&lt;<span class="title">button</span> <span class="attribute">onClick</span>=<span class="value">{props.onClick}</span>&gt;</span>{props.title}<span class="tag">&lt;/<span class="title">button</span>&gt;</span>)</span>;
-}
-</code></pre>
-<p>Would look something like&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;
-<span class="keyword">import</span> MyAwesomeButton <span class="keyword">from</span> <span class="string">'../path/to/MyAwesomeButton'</span>;
-<span class="keyword">import</span> { storiesOf, action } <span class="keyword">from</span> <span class="string">'@kadira/storybook'</span>;
-
-storiesOf(<span class="string">'Button'</span>, <span class="built_in">module</span>)
-  .add(<span class="string">'with a text'</span>, () =&gt; (
-    <span class="xml"><span class="tag">&lt;<span class="title">MyAwesomeButton</span> <span class="attribute">onClick</span>=<span class="value">{action('clicked')}</span> <span class="attribute">title</span>=<span class="value">"My Awesome Button"</span> /&gt;</span>
-  )</span>)
-  .add(<span class="string">'with no text'</span>, () =&gt; (
-    <span class="xml"><span class="tag">&lt;<span class="title">MyAwesomeButton</span> /&gt;</span>
-  )</span>);
-</code></pre>
 
           </section>
         </article>

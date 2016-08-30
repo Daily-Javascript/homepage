@@ -35,6 +35,63 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
+            <p class="date"><span>01. March 2016</span></p>
+            <h2><a href="/articles/react-web-animations/">React Web Animations</a></h2>
+          </header>
+          <section class="content"><p>react-web-animations (GitHub: <a href="https://github.com/RinconStrategies/react-web-animation">RinconStrategies/react-web-animation</a>, License: <span class="caps">MIT</span>, npm:&nbsp;react-web-animation)</p>
+<p>In every web application we are animating stuff nowadays. We do this using libraries like <a href="http://julian.com/research/velocity/">Velocity</a>, <a href="https://greensock.com/">Greensock</a>, <a href="https://jquery.com/">jQuery</a> or we do this with keyframe animating and appending classes to trigger the animations.
+If you haven’t heard about the <a href="https://w3c.github.io/web-animations/">Web animation spec</a>, it is an <span class="caps">API</span> to animate elements without any libraries.
+There is already a <a href="https://github.com/web-animations/web-animations-js">Polyfill</a> available. So you can start using it&nbsp;today.</p>
+<p>Now I came across a library which implements this polyfill as a React component called <code>react-web-animations</code>.
+Why use this over other animation libraries for React? Since react-web-animation uses the Web Animations <span class="caps">API</span> polyfill it will eventually use the native browser implementation.
+Chrome already has the support for these features today. The rest of the browsers how ever are a bit sad, luckily the polyfill takes care of that for&nbsp;us.</p>
+<p>A simple example of how you would use the <code>Animation</code> component would look like&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="keyword">import</span> {Component} <span class="keyword">from</span> <span class="string">'react'</span>;
+<span class="keyword">import</span> {Animation} <span class="keyword">from</span> <span class="string">'react-web-animation'</span>;
+
+
+<span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">Basic</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>{
+
+    getKeyFrames() {
+        <span class="keyword">return</span> [
+            { transform: <span class="string">'scale(1)'</span>,    opacity: <span class="number">1</span>,     offset: <span class="number">0</span> },
+            { transform: <span class="string">'scale(.5)'</span>,   opacity: <span class="number">0.5</span>,   offset: <span class="number">0.3</span> },
+            { transform: <span class="string">'scale(.667)'</span>, opacity: <span class="number">0.667</span>, offset: <span class="number">0.7875</span> },
+            { transform: <span class="string">'scale(.6)'</span>,   opacity: <span class="number">0.6</span>,   offset: <span class="number">1</span> }
+        ];
+    }
+
+    getTiming( duration ) {
+        <span class="keyword">return</span> {
+            duration,
+            easing: <span class="string">'ease-in-out'</span>,
+            delay: <span class="number">0</span>,
+            iterations: <span class="number">2</span>,
+            direction: <span class="string">'alternate'</span>,
+            fill: <span class="string">'forwards'</span>
+        };
+    }
+
+    render() {
+        <span class="keyword">return</span>(
+            <span class="xml"><span class="tag">&lt;<span class="title">Animation</span> <span class="attribute">keyframes</span>=<span class="value">{this.getKeyFrames()}</span>
+                       <span class="attribute">timing</span>=<span class="value">{this.getTiming(2500)}</span>&gt;</span>
+                <span class="tag">&lt;<span class="title">div</span>&gt;</span>
+                    Web Animations <span class="caps">API</span> Rocks
+                <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+            <span class="tag">&lt;/<span class="title">Animation</span>&gt;</span>)</span>;
+    }
+}
+</code></pre>
+<p>For advanced usage you need to check the <a href="https://github.com/RinconStrategies/react-web-animation/tree/master/src">great documentation</a> which the developer has&nbsp;provided.</p>
+<p>A small side&nbsp;note.</p>
+<p>Since I haven’t received any submissions for the weekly challenges, I have decided to focus on finding great libraries for you guys instead of trying to come up with new challenges to do.
+Thanks to the people who did participate, when you still want to be challenged I would suggest you take a look at <a href="https://www.reddit.com/r/dailyprogrammer">/r/DailyProgrammer</a>, <a href="http://codegolf.stackexchange.com/">Code Golf</a> or <a href="https://www.hackerrank.com/">HackerRank</a>.</p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
             <p class="date"><span>24. February 2016</span></p>
             <h2><a href="/articles/cash/">Cash</a></h2>
           </header>
@@ -221,43 +278,6 @@ When you submit before Friday next week your implementation will be featured in 
 <blockquote>
 <p>Tip: You don’t have to make the user interface for the web. You can make it run in terminal for&nbsp;instance.</p>
 </blockquote>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>18. February 2016</span></p>
-            <h2><a href="/articles/clog/">CLog.js</a></h2>
-          </header>
-          <section class="content"><p>CLog.js (GitHub: <a href="https://github.com/CVarisco/CLog.js">CVarisco/CLog.js</a>, License: <span class="caps">MIT</span>, npm: clog_js bower:&nbsp;clog)</p>
-<p><img src="https://camo.githubusercontent.com/c4884bc7f9b88f02a4043a997a50bb50f6a01171/687474703a2f2f7777772e636976692e63687269737469616e7661726973636f2e636f6d2f646f776e6c6f61642f6e6f726d616c436c6f672e706e67" style="max-width: 756px; width: 100%;"></p>
-<p>CLog.js is a very lightweight library create custom colored log messages for the browser.
-Sadly this feature is only available in Google Chrome. In other browsers it falls back to the default&nbsp;console.log.</p>
-<p>The problem this library tries to solve is the same problem <a href="https://www.npmjs.com/package/chalk">Chalk</a> and <a href="https://github.com/marak/colors.js/">Colors.js</a> are trying to solve. But this library is only focused on the&nbsp;browser.</p>
-<p>I hope to see more options to style with such as background-color, underline and maybe strike-through, right now it only supports colors.
-You can install it using bower, npm or <a href="https://github.com/CVarisco/CLog.js/blob/master/clog.js">downloading it here</a>.</p>
-<p>Then you can instantiate it like&nbsp;so:</p>
-<pre><code class="lang-javascript"><span class="keyword">var</span> options = {
-    group: <span class="literal">false</span>,
-    colors: {
-        log: <span class="string">"#31f095"</span>,
-        debug: <span class="string">"#e86024"</span>,
-        data: <span class="string">"#<span class="caps">DDDDDD</span>"</span>
-        error: <span class="string">"#e22f2f"</span>,
-        network: <span class="string">"#08bce9"</span>,
-    }
-}
-
-<span class="keyword">var</span> CLog = <span class="keyword">new</span> CLog(options);
-</code></pre>
-<p>Now we can use it within our code like&nbsp;this:</p>
-<pre><code class="lang-javascript">CLog(<span class="string">'debug'</span>, <span class="string">'Pizza is awesome!!'</span>);
-</code></pre>
-<p>And it will log it in the color assigned to <code>debug</code>. In this same place we can give it a <span class="caps">HEX</span> color and it will use&nbsp;it.</p>
-<pre><code class="lang-javascript">CLog(<span class="string">'#<span class="caps">FFCFFF</span>'</span>, <span class="string">'Pizza is awesome!!'</span>);
-</code></pre>
-<p>Today is normally the last day you can submit your solution for this weeks challenge. Since I have only received one submission up till now, I will leave the submissions open until tomorrow night around <span class="caps">8PM</span> Amsterdam time, which would be 2PM New York time.
-Be sure you send in what you got before that time. When it’s not finished yet, hurry up. If you need a reminder on what the challenge was head over to the challenge page of: <a href="http://daily-javascript.com/challenges/websocket-challenge/">Websocket Challenge</a>.</p>
 
           </section>
         </article>
