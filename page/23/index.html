@@ -36,84 +36,109 @@
         <article class="article intro">
           <header>
             <p class="date"><span>28. September 2015</span></p>
-            <h2><a href="/articles/clipboardjs/">Clipboard.js</a></h2>
+            <h2><a href="/articles/levi/">Levi</a></h2>
           </header>
-          <section class="content"><p>After writing this blog for a few days now I noticed that the bar of two libraries a day is hard to do when you have a day job next to it.
-Because I want to give each library a fair shot, I will be reducing it to one library a day on workdays so I can work on updates for the website as&nbsp;well.</p>
-<p>Clipboard.js (GitHub: <a href="https://github.com/zenorocha/clipboard.js">zenorocha/clipboard.js</a>, License: <span class="caps">MIT</span>, npm: clipboard, bower: clipboard&nbsp;)</p>
-<p>During my daily browse I came across Clipboard.js which is a library to put given content to the users clipboard from Javascript.
-Normally we are used to implementing this behavior using Flash or some bloated framework. Luckley now there is Clipboard.js which is an 2kb implementation of “Copy to&nbsp;clipboard”.</p>
-<p>To use it we need to require it first. If you are using <a href="http://browserify.org/">Browersify</a> or <a href="https://webpack.github.io/">Webpack</a> then&nbsp;use:</p>
-<pre><code class="lang-javascript"><span class="keyword">import</span> * <span class="keyword">as</span> Clipboard <span class="keyword">from</span> <span class="string">'clipboard'</span>;
+          <section class="content"><p>Levi (GitHub: <a href="https://github.com/cshum/levi">cshum/levi</a>, License: <span class="caps">MIT</span>, npm:&nbsp;levi)</p>
+<p>Levi is a streaming full-text search for Node.js and browsers which used LevelDB for storage.
+The search implementation is done by using <a href="https://en.wikipedia.org/wiki/Tf%E2%80%93idf"><span class="caps">TF</span>-IDF</a> and <a href="https://en.wikipedia.org/wiki/Cosine_similarity">cosine similarity</a>, and it’s provided with configurable text processing pipelines: Tokenizer, Porter Stemmer and Stopwords&nbsp;filter.</p>
+<p>Levi is built on <a href="https://github.com/Level/levelup">LevelUP</a> which is a fast, asynchronous, transactional storage interface. By default it uses LevelDB on Node.js, when in running in the browser it uses <a href="https://github.com/maxogden/level.js">IndexedDB</a>. Levi supports with a variety of LevelDOWN compatible&nbsp;backends.</p>
+<p>In addition, Levi provides relevancy scoring for live changing data using <span class="caps">TF</span>-ICF - a TF-IDF approximation based on existing corpus. Such scoring matches are comparably close to TF-IDF when existing corpus is sufficiently large, with significantly better performance O(N) instead of&nbsp;O(N^2).</p>
+<p>Let’s take a look at the <span class="caps">API</span>. To get started, we need to create a new Levi instance. We do that like&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="keyword">import</span> levi <span class="keyword">from</span> <span class="string">'levi'</span>;
 
-<span class="comment">// Or the old way</span>
-<span class="keyword">var</span> Clipboard = <span class="built_in">require</span>(<span class="string">'clipboard'</span>);
+<span class="keyword">const</span> lv = levi(<span class="string">'db'</span>)
+.use(levi.tokenizer())
+.use(levi.stemmer())
+.use(levi.stopword());
 </code></pre>
-<p>When including it in your html do it like&nbsp;this:</p>
-<pre><code class="lang-html"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"dist/clipboard.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
-</code></pre>
-<p>Now we can instantiate it using a <span class="caps">DOM</span> selector. For&nbsp;instance</p>
-<pre><code class="lang-javascript"><span class="keyword">new</span> Clipboard(<span class="string">'.btn'</span>);
-</code></pre>
-<p>Internally, it needs to fetch all elements that match the selector and attach event listeners for each one. But what if you have hundreds of matches? Then this operation can consume a lot of memory.
-Because of this it uses event delegation which replaces multiple event listeners with just a single&nbsp;listener.</p>
-<p>The most common usage of this library would be to copy the text value of an <code>input</code> field or <code>textarea</code>. This is&nbsp;how:</p>
-<pre><code class="lang-html"><span class="comment">&lt;!-- Target --&gt;</span>
-<span class="tag">&lt;<span class="title">input</span> <span class="attribute">id</span>=<span class="value">"foo"</span> <span class="attribute">value</span>=<span class="value">"https://github.com/zenorocha/clipboard.js.git"</span>&gt;</span>
+<p>The text processing pipeline <code>levi.tokenizer()</code>, <code>levi.stemmer()</code>, <code>levi.stopword()</code> are required for indexing. These are exposed as <a href="https://github.com/cshum/ginga">ginga</a> plugins so that they can be swapped for different language&nbsp;configurations.</p>
+<p>Now that we have an instance we can use it to talk to the <span class="caps">API</span> like&nbsp;this:</p>
+<pre><code class="lang-javascript">lv.put(<span class="string">'a'</span>, <span class="string">'Lorem Ipsum is simply dummy text.'</span>, err =&gt; {
+    <span class="comment">// ...</span>
+ });
 
-<span class="comment">&lt;!-- Trigger --&gt;</span>
-<span class="tag">&lt;<span class="title">button</span> <span class="attribute">class</span>=<span class="value">"btn"</span> <span class="attribute">data-clipboard-target</span>=<span class="value">"#foo"</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">img</span> <span class="attribute">src</span>=<span class="value">"assets/clippy.svg"</span> <span class="attribute">alt</span>=<span class="value">"Copy to clipboard"</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">button</span>&gt;</span>
-</code></pre>
-<p>It also has the ability to cut to clipboard. You would do this by attaching the <code>data-clipboard-action</code> attribute to the trigger element like&nbsp;this:</p>
-<pre><code class="lang-html"><span class="comment">&lt;!-- Target --&gt;</span>
-<span class="tag">&lt;<span class="title">textarea</span> <span class="attribute">id</span>=<span class="value">"bar"</span>&gt;</span>Mussum ipsum cacilds...<span class="tag">&lt;/<span class="title">textarea</span>&gt;</span>
-
-<span class="comment">&lt;!-- Trigger --&gt;</span>
-<span class="tag">&lt;<span class="title">button</span> <span class="attribute">class</span>=<span class="value">"btn"</span> <span class="attribute">data-clipboard-action</span>=<span class="value">"cut"</span> <span class="attribute">data-clipboard-target</span>=<span class="value">"#bar"</span>&gt;</span>
-    Cut to clipboard
-<span class="tag">&lt;/<span class="title">button</span>&gt;</span>
-</code></pre>
-<p>When you find yourself in a situation where you would like to show some feedback to the user or capture what has been selected after a copy/cut operation, you can make use of the <code>success</code> and <code>error</code> events that are being sent. You would use that like&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="keyword">var</span> clipboard = <span class="keyword">new</span> Clipboard(<span class="string">'.btn'</span>);
-
-clipboard.on(<span class="string">'success'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>{
-    <span class="built_in">console</span>.info(<span class="string">'Action:'</span>, e.action);
-    <span class="built_in">console</span>.info(<span class="string">'Text:'</span>, e.text);
-    <span class="built_in">console</span>.info(<span class="string">'Trigger:'</span>, e.trigger);
-
-    e.clearSelection();
-});
-
-clipboard.on(<span class="string">'error'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>{
-    <span class="built_in">console</span>.error(<span class="string">'Action:'</span>, e.action);
-    <span class="built_in">console</span>.error(<span class="string">'Trigger:'</span>, e.trigger);
+<span class="comment">// object fields as value</span>
+lv.put(<span class="string">'b'</span>, {
+  id: <span class="string">'b'</span>,
+  title: <span class="string">'Lorem Ipsum'</span>,
+  body: <span class="string">'Dummy text of the printing and typesetting industry.'</span>
+}, (err) =&gt; {
+    <span class="comment">//...</span>
 });
 </code></pre>
-<p>The browser support on this project superised me, it relies on both Selection and execCommand APIs. The second one is supported in the following&nbsp;browsers.</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center"><img src="http://zenorocha.github.io/clipboard.js/assets/images/chrome.png" style="width:auto; left: auto;" width="48px" height="48px" alt="Chrome logo"></th>
-<th style="text-align:center"><img src="http://zenorocha.github.io/clipboard.js/assets/images/firefox.png" style="width:auto; left: auto;" width="48px" height="48px" alt="Firefox logo"></th>
-<th style="text-align:center"><img src="http://zenorocha.github.io/clipboard.js/assets/images/ie.png" style="width:auto; left: auto;" width="48px" height="48px" alt="Internet Explorer logo"></th>
-<th style="text-align:center"><img src="http://zenorocha.github.io/clipboard.js/assets/images/opera.png" style="width:auto; left: auto;" width="48px" height="48px" alt="Opera logo"></th>
-<th style="text-align:center"><img src="http://zenorocha.github.io/clipboard.js/assets/images/safari.png" style="width:auto; left: auto;" width="48px" height="48px" alt="Safari logo"></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">42+ ✔</td>
-<td style="text-align:center">41+ ✔</td>
-<td style="text-align:center">9+ ✔</td>
-<td style="text-align:center">29+ ✔</td>
-<td style="text-align:center">Nope ✘</td>
-</tr>
-</tbody>
-</table>
-<p>Although copy/cut operations with execCommand aren’t supported in Safari yet (including mobile), it gracefully degrades, because Selection is&nbsp;supported.</p>
-<p>This means you could show a tooltip saying Copied! when success event is called and Press Ctrl+C to copy when error event is called because the text is already&nbsp;selected.</p>
+<p>Or retrieve it&nbsp;like:</p>
+<pre><code class="lang-javascript">lv.get(<span class="string">'b'</span>, res =&gt; {
+    <span class="comment">// res here;</span>
+});
+</code></pre>
+<p>To actually search we need to use Levi’s main interface which would be <code>searchStream</code>. We use that like&nbsp;this.</p>
+<pre><code class="lang-javascript">lv.searchStream(<span class="string">'lorem ipsum'</span>).toArray(<span class="function"><span class="keyword">function</span> (<span class="params">results</span>) </span>{ ... }) <span class="comment">// highland method</span>
+
+lv.searchStream(<span class="string">'lorem ipsum'</span>, {
+  fields: { title: <span class="number">10</span>, <span class="string">'*'</span>: <span class="number">1</span> } <span class="comment">// title field boost. '*' means any field</span>
+}).pipe(...)
+
+lv.searchStream(<span class="string">'lorem ipusm'</span>, {
+  fields: { title: <span class="number">1</span> }, <span class="comment">// title only</span>
+}).pipe(...)
+
+<span class="comment">// ltgt</span>
+lv.searchStream(<span class="string">'lorem ipusm'</span>, {
+  gt: <span class="string">'!posts!'</span>,
+  lt: <span class="string">'!posts!~'</span>
+}).pipe(...)
+
+<span class="comment">// document as query</span>
+lv.searchStream({
+  title: <span class="string">'Lorem Ipsum'</span>,
+  body: <span class="string">'Dummy text of the printing and typesetting industry.'</span>
+}).pipe(...)
+</code></pre>
+<p>Because I do not fully understand everything that is going on here, I need to refer you to the extensive documentation on the <a href="https://github.com/cshum/levi">GitHub page</a>. The reason I still mention this library is that I understand from the explanation a colleague gave me that this library will have a significant impact on the speed of your text&nbsp;search.</p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
+            <p class="date"><span>28. September 2015</span></p>
+            <h2><a href="/articles/runejs-and-queryl/">Rune.js and queryl</a></h2>
+          </header>
+          <section class="content"><p>Rune.js (GitHub: <a href="https://github.com/runemadsen/rune.js">runemadsen/rune.js</a>, License: <span class="caps">MIT</span>&nbsp;)</p>
+<p>Rune.js is a library for programming graphic design systems with <span class="caps">SVG</span>. It has a fluent drawing API, an unobtrusive scene graph, and a bunch of features designed specifically for graphic designers, such as: native support for color conversion, grid systems, typography, pixel iteration and an expanding set of computational geometry helpers. What peaked my interest is that it uses a <a href="https://github.com/Matt-Esch/virtual-dom">virtual-dom</a> under the&nbsp;hood.</p>
+<p>If you’re not familiar with the virtual-dom I suggest you take a break to take a look at that&nbsp;first.</p>
+<p>Unfortunately I could not find any npm or bower install instructions, so I am hoping that the developer will add that&nbsp;soon.</p>
+<p>Rune.js has all basic shapes in the&nbsp;<span class="caps">API</span>.</p>
+<pre><code class="lang-javascript">r.line(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">100</span>);
+
+r.rect(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">50</span>);
+
+r.ellipse(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">50</span>);
+
+r.circle(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>);
+
+r.triangle(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">100</span>);
+</code></pre>
+<p>And for more complex shapes it fluent <span class="caps">API</span> makes drawing with SVG very readable and&nbsp;familiar.</p>
+<pre><code class="lang-javascript">r.polygon(<span class="number">0</span>, <span class="number">0</span>).lineTo(<span class="number">100</span>, <span class="number">0</span>).lineTo(<span class="number">100</span>, <span class="number">100</span>).lineTo(<span class="number">0</span>, <span class="number">100</span>);
+
+r.path(<span class="number">0</span>, <span class="number">0</span>).lineTo(<span class="number">100</span>, <span class="number">0</span>).curveTo(<span class="number">100</span>, <span class="number">100</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">0</span>, <span class="number">0</span>);
+</code></pre>
+<p>Since this library is packed with features and concepts, I will only give you the tip of the iceberg right now. If you want to know more, consult the <a href="http://runemadsen.github.io/rune.js/">amazing documentation</a>.</p>
+<h3 id="queryl">queryl</h3>
+<p>queryl (GitHub: <a href="https://github.com/issuetrackapp/queryl">issuetrackapp/queryl</a>, License: <span class="caps">MIT</span>, npm:&nbsp;queryl)</p>
+<p>queryl is a query language to preform complex object searches. The purpose of this “language” is to allow the developer to build very complex queries to e.g. search a collection of objects, to validate objects before you dump it in a db or even to make assertions in&nbsp;tests.</p>
+<p>queryl comes with a very simple <span class="caps">API</span>. <code>queryl.match</code> is the main entry at this point this will always return a boolean and expects an object to match. For&nbsp;example:</p>
+<pre><code class="lang-javascript">queryl.match({
+  $contain: {
+    foo: <span class="number">1</span>
+  }
+}, {
+  foo: [ <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span> ]
+});
+&gt; <span class="literal">true</span>
+</code></pre>
+<p>This is just a very basic example of what it can do. The full <span class="caps">API</span> docs shows the entire power of this&nbsp;“language”.</p>
+<p>I can see this working very well for matching and parsing certain objects like the ones you would receive from, for instance, the Google spreadsheet&nbsp;<span class="caps">API</span>.</p>
 
           </section>
         </article>
@@ -315,38 +340,12 @@ const SimpleSelect = React.createFactory(ReactSelectize.SimpleSelect);
 
           </section>
         </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>24. September 2015</span></p>
-            <h2><a href="/articles/the_start_of_something_new/">The start of something new.</a></h2>
-          </header>
-          <section class="content"><p>Since this is the first “blog post” I have ever written it will be a bit rough.
-In it, I will be explaining the reason I started this blog and the goal of&nbsp;it.</p>
-<h3 id="who-am-i-">Who am&nbsp;I?</h3>
-<p>My name is Ramon Gebben. I’m 24 years young and I work as a front-end developer for a Dutch digital media company called <a href="http://touchtribe.nl">TouchTribe</a>.
-On a regular work day my work involves writing a lot of Javascript for web, server and hybrid&nbsp;applications.</p>
-<h3 id="dailyjs-part-two">DailyJS part&nbsp;two</h3>
-<p>After being a loyal subscriber to <a href="http://dailyjs.com">DailyJS</a> for a long time, I was very disappointed to hear that <a href="http://alexyoung.org/">Alex Young</a> stopped with DailyJS. I started noticing an absence of a similar platform.
-As a front-end developer DailyJS helped me to keep up with updates from the community, such as new version from node/io.js, and to get informed about new libraries, frameworks and reviews of new build&nbsp;tools.</p>
-<p>Sure, we all look at <a href="https://news.ycombinator.com/news">Hackers News</a>, <a href="http://echojs.com">EchoJS</a> et cetera, but the nice part of DailyJS was that it was filtered and tested. Most libraries look very cool at first sight, but when you try to test them agains “real world” problems, they fail.
-I want to be is the new filter. I spend a large part of my days searching for new libraries and frameworks, because it is wonderful what everybody is doing and everyday the bar is set a little higher. Normally I share the things I notice and experienced with the team I work with. Since this is very well received I thought why not take it further and give this a&nbsp;shot.</p>
-<h3 id="daily-updates">Daily&nbsp;updates</h3>
-<p>The goal of this page is giving other developers, that enjoy working with Javascript as much as I do, a daily updates about new libraries, frameworks et cetera. I will test each library that I mention and tell you about my experience. I will also try to filter out some of the “gotcha’s” to make your life&nbsp;easier.</p>
-<p>I will try my best to post at least two libraries a day with a small summery of what it does and what it does&nbsp;great.</p>
-<p>In the future I also would like see posts from developers whom in my opinion exceed in the field to give an expertise view on area and subjects that might be unclear to you and&nbsp;me.</p>
-<h3 id="contribute">Contribute</h3>
-<p>If you have an awesome library or you’re working on something, please let me know. In this message, enclose a Github link and maybe your motivation to start building your&nbsp;project.</p>
-<p>Because I’m not an experienced writer I welcome all feedback on my writing style, word choice et cetera.
-Tweet to <a href="https://twitter.com/DailyJavascript">@DailyJavascript</a></p>
-
-          </section>
-        </article>
       </div>
     </div>
     <footer>
       <script type="text/javascript">(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-68072930-1', 'auto');ga('send', 'pageview');</script>
       <div class="content-wrap">
-        <div class="nav"><a href="/page/22/">« Newer</a>
+        <div class="nav"><a href="/page/22/">« Newer</a><a href="/page/24/">Next page »</a>
         </div>
         <section class="about">
         </section>
