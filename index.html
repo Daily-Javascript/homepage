@@ -35,6 +35,80 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
+            <p class="date"><span>07. September 2016</span></p>
+            <h2><a href="/articles/sindre-sudo/">3 modules to check, enforce or prevent running in sudo mode</a></h2>
+          </header>
+          <section class="content"><p>As I wrote in an earlier post, I’m open for guest writers to contribute to Daily-JavaScript. This week’s post comes from <a href="https://github.com/Offirmo">Offirmo Neet</a>. Offirmo approached a couple of weeks ago, asking me if I needed any help bearing the load of the daily production of&nbsp;content.</p>
+<p>He also told me he was saddened by the news that Alex Young had stopped writing for <a href="http://dailyjs.com/">DailyJS</a> and is very eager to help create an&nbsp;alternative.</p>
+<p>So, with no further ado I will give the word to&nbsp;Offirmo.</p>
+<h1 id="3-modules-to-check-enforce-or-prevent-running-in-sudo-mode">3 modules to check, enforce or prevent running in sudo&nbsp;mode</h1>
+<p>Sindre Sorhus gets us covered with 3 complementary modules about running an app as&nbsp;root:</p>
+<ul>
+<li>is-root (GitHub: <a href="https://github.com/sindresorhus/is-root">sindresorhus/is-root</a>, License: <span class="caps">MIT</span>, npm: <a href="https://www.npmjs.com/package/is-root">is-root</a>)</li>
+<li>sudo-block (GitHub: <a href="https://github.com/sindresorhus/sudo-block">sindresorhus/sudo-block</a>, License: <span class="caps">MIT</span>, npm: <a href="https://www.npmjs.com/package/sudo-block">sudo-block</a>)</li>
+<li>downgrade-root (GitHub: <a href="https://github.com/sindresorhus/downgrade-root">sindresorhus/downgrade-root</a>, License: <span class="caps">MIT</span>, npm: <a href="https://www.npmjs.com/package/downgrade-root">downgrade-root</a>)</li>
+</ul>
+<p>As you know, Unix programs can be run with <a href="https://en.wikipedia.org/wiki/Superuser#Unix_and_Unix-like">“root privileges”</a> usually by starting them with <a href="https://en.wikipedia.org/wiki/Sudo"><code>sudo</code></a>. The “root” user has all permissions, which is in important security&nbsp;concern.</p>
+<p>When writing a <span class="caps">CLI</span> app in javascript, you may want to check if your app is run with root privileges with the 1<span class="ord">st</span> module <code>is-root</code>:</p>
+<pre><code class="lang-javascript"><span class="keyword">const</span> isRoot = <span class="built_in">require</span>(<span class="string">'is-root'</span>)
+<span class="built_in">console</span>.log(<span class="string">`You are <span class="subst">${isRoot() ? 'root' : 'not root'}</span>.`</span>)
+</code></pre>
+<p>Which gives&nbsp;you:</p>
+<pre><code>$ node ./index.js
+You are not root.
+$ sudo `which node` ./index.js   &lt;-- note: find userland node if not installed as root
+You are root.
+</code></pre><p>If your app doesn’t need superuser rights, you can protect the user by refusing to be run by sudo with the 2<span class="ord">nd</span> module <code>sudo-block</code>:</p>
+<pre><code class="lang-javascript"><span class="keyword">const</span> sudoBlock = <span class="built_in">require</span>(<span class="string">'sudo-block'</span>)
+sudoBlock()
+</code></pre>
+<p>If run as root, the library call will crash the process and gives explanations and&nbsp;solutions:</p>
+<pre><code>$ sudo `which node` ./index.js
+You are not allowed to run this app with root permissions.
+If running without sudo doesn&#39;t work, you can either fix your permission problems
+or change where npm stores global packages by putting ~/npm/bin in your PATH and running:
+npm config set prefix ~/npm
+
+See: https://github.com/sindresorhus/guides/blob/master/npm-global-without-sudo.md
+</code></pre><p>Even better, instead of stopping, you can attempt to gracefully downgrade those rights for safety with the 3<span class="ord">rd</span> module <code>downgrade-root</code>:</p>
+<pre><code class="lang-javascript"><span class="keyword">const</span> downgradeRoot = <span class="built_in">require</span>(<span class="string">'downgrade-root'</span>);
+
+<span class="keyword">try</span> {
+    downgradeRoot()
+    <span class="built_in">console</span>.log(<span class="string">'You were root: privileges relinquished.'</span>)
+} <span class="keyword">catch</span> (err) {
+    <span class="built_in">console</span>.error(<span class="string">'You are root and I couldn’t downgrade permissions !'</span>)
+    process.exit(<span class="number">1</span>)
+}
+</code></pre>
+<p>If run as root and if everything goes well, you’ll&nbsp;see:</p>
+<pre><code>$ sudo `which node` ./index.js
+You were root: privileges relinquished.
+</code></pre><p>Wrapping all together gives us the best solution to avoid running as&nbsp;root:</p>
+<pre><code class="lang-javascript"><span class="keyword">const</span> isRoot = <span class="built_in">require</span>(<span class="string">'is-root'</span>)
+
+<span class="keyword">if</span> (isRoot()) {
+    <span class="built_in">console</span>.log(<span class="string">`You are root!`</span>)
+    <span class="keyword">try</span> {
+        <span class="built_in">require</span>(<span class="string">'downgrade-root'</span>)()
+        <span class="built_in">console</span>.log(<span class="string">'root privileges relinquished.'</span>)
+    } <span class="keyword">catch</span> (err) {
+        <span class="built_in">console</span>.error(<span class="string">'Couldn’t downgrade permissions !'</span>)
+        <span class="built_in">require</span>(<span class="string">'sudo-block'</span>)()
+    }
+}
+</code></pre>
+<p>For more information and demo’s on how to use this check out the&nbsp;READMEs:</p>
+<ul>
+<li><a href="https://github.com/sindresorhus/is-root">sindresorhus/is-root</a></li>
+<li><a href="https://github.com/sindresorhus/sudo-block">sindresorhus/sudo-block</a></li>
+<li><a href="https://github.com/sindresorhus/downgrade-root">sindresorhus/downgrade-root</a></li>
+</ul>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
             <p class="date"><span>02. September 2016</span></p>
             <h2><a href="/articles/storybook-info-addon/">React Storybook Info Addon</a></h2>
           </header>
@@ -231,38 +305,6 @@ uppy
 It let’s you pause an upload and continues it at a different moment in&nbsp;time.</p>
 <p>As the developers make very clear is that this project is not ready to be used in production yet. But they are working really hard to make it battle ready as soon as possible. I was especially impressed with the amount of commits that are coming into this library so I would expect us to have to wait very&nbsp;long.</p>
 <p>If you want to know more about this amazing library head over to <a href="http://uppy.io/">uppy.io</a></p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>17. August 2016</span></p>
-            <h2><a href="/articles/neo/">Neo</a></h2>
-          </header>
-          <section class="content"><p>Neo (GitHub: <a href="https://github.com/mozilla/neo">mozilla/neo</a>, License: <span class="caps">MPL</span>-2.0, npm:&nbsp;mozilla-neo)</p>
-<p>During the daily challenge of finding something interesting for you guys to read, I came across this head line <a href="https://blog.eliperelman.com/neo-8bf3d7325f7#.4w7pwyc2d">“Create and build React web applications with zero initial configuration and minimal fuss”</a>.
-This intrigued me, like most clickbait does. So starting looking into it and first thing that popped into my head was: “Oh no, not another project generator.”
-But then I saw it was posted on Mozilla’s Github account which made it&nbsp;interesting.</p>
-<p>Neo is like a lot more project an generator for getting a React app of the ground really quick.
-With most generators I’m always missing curtain things but the scaffold Neo gave me was very&nbsp;nice.</p>
-<p>It uses React, Redux, React Router, Webpack and <span class="caps">ES2015</span> modules. Tests and coverage is done with Karma, Mocha, Chai, Enzyme for component tests and Immutable for the data structures.
-Basically the same way I would setup a new front-end.
-It works out of the box and you do not need to sift through a bunch of poorly written documentation pages to get&nbsp;started.</p>
-<p>When you want to use Neo to generate a new project for you, you will need to create a directory for the project&nbsp;first.</p>
-<pre><code class="lang-bash">mkdir &lt;my awesome project&gt;;
-</code></pre>
-<p>Now you can install Neo inside of that&nbsp;directory:</p>
-<pre><code class="lang-bash">npm i mozilla-neo;
-</code></pre>
-<p>To start the generator you will need to call the binary from the <code>node_modules</code> directory like&nbsp;so:</p>
-<pre><code class="lang-bash">node_modules/.bin/neo init
-</code></pre>
-<p>Alternatively you could install Neo in a global context by adding the <code>-g</code> flag to the the initial install after which you could use it&nbsp;like:</p>
-<pre><code class="lang-bash">neo init
-</code></pre>
-<p>The <code>init</code> command will prompt you with a few question about you project, like what’s the name of the project, who’s maintaining/authoring it etc.
-Once it has all information it will start the generation process after which it will install the dependencies. That’s really all there is to&nbsp;it.</p>
-<p>I recommend that you read the <a href="https://blog.eliperelman.com/neo-8bf3d7325f7#.4w7pwyc2d">post written by the author</a> of the library Eli Perelman to get a broader impression of what Neo can do for&nbsp;you.</p>
 
           </section>
         </article>
