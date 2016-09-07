@@ -35,6 +35,52 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
+            <p class="date"><span>07. October 2015</span></p>
+            <h2><a href="/articles/read-file-relative/">Read file relative</a></h2>
+          </header>
+          <section class="content"><p>read-file-relative (GitHub: <a href="https://github.com/inikulin/read-file-relative">inikulin/read-file-relative</a>, License: Unknown, npm:&nbsp;read-file-relative)</p>
+<p>A problem everybody probably encounters once in a while is relativity of file paths while reading files with Node.js.
+You would do something like&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="keyword">var</span> fs   = <span class="built_in">require</span>(<span class="string">'fs'</span>);
+<span class="keyword">var</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);
+<span class="keyword">var</span> data = fs.readFileSync(path.join(__dirname, <span class="string">'/data-file.txt'</span>)).toString();
+
+<span class="comment">// Or like:</span>
+<span class="keyword">var</span> fs   = <span class="built_in">require</span>(<span class="string">'fs'</span>);
+<span class="keyword">var</span> data = fs.readFileSync(__dirname + <span class="string">'/data-file.txt'</span>).toString();
+
+<span class="comment">// Or even like this</span>
+<span class="keyword">var</span> fs   = <span class="built_in">require</span>(<span class="string">'fs'</span>);
+<span class="keyword">var</span> data = fs.readFileSync(<span class="string">'./data-file.txt'</span>).toString();
+</code></pre>
+<p>Now you can easily read out files without all the annoying boilerplate code.
+Imagine a world where you could do&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="keyword">var</span> data = readSync(<span class="string">'/data-file.txt'</span>);
+</code></pre>
+<p>Well you can stop imagining, because it’s here and it’s called <code>read-file-relative</code>.
+<code>Read-file-relative</code> comes with two main functions on it’s <span class="caps">API</span>: read and readSync.
+Let’s take a&nbsp;look.</p>
+<p>To read out the file synchronously this is what you would&nbsp;do.</p>
+<pre><code class="lang-javascript"><span class="keyword">var</span> readSync = <span class="built_in">require</span>(<span class="string">'read-file-relative'</span>).readSync;
+<span class="keyword">var</span> data = readSync(<span class="string">'/file.txt'</span>);
+</code></pre>
+<p>When you prefer asynchronously reading you just provide a callback like&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="keyword">var</span> read = <span class="built_in">require</span>(<span class="string">'read-file-relative'</span>).read;
+read(<span class="string">'/file.txt'</span>, <span class="string">'utf8'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">err, content</span>) </span>{
+   <span class="comment">// ...</span>
+});
+</code></pre>
+<p>Note that for the <code>read</code> we need to provide the encoding else it will return a&nbsp;buffer.</p>
+<p>Besides reading files you can also just convert a path to an absolute path like&nbsp;this:</p>
+<pre><code class="lang-javascript"><span class="keyword">var</span> toAbsPath = <span class="built_in">require</span>(<span class="string">'read-file-relative'</span>).toAbsPath;
+<span class="keyword">var</span> absPath = toAbsPath(<span class="string">'/file.txt'</span>);
+</code></pre>
+<p>This is a nice addition to everybody’s toolbox. It doesn’t do much, but what it does, it does very&nbsp;well.</p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
             <p class="date"><span>06. October 2015</span></p>
             <h2><a href="/articles/speckjs/">Speck JS</a></h2>
           </header>
@@ -232,90 +278,6 @@ head.appendChild( scriptTag );
 </code></pre>
 <p>On of the things I’m still missing is the ability to run <span class="caps">ES2015</span>. I hope that the support for that will come very soon.
 This weekend I will be trying to include this within this website so you will be able to run the examples that I post right there in the&nbsp;browser.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>28. September 2015</span></p>
-            <h2><a href="/articles/clipboardjs/">Clipboard.js</a></h2>
-          </header>
-          <section class="content"><p>After writing this blog for a few days now I noticed that the bar of two libraries a day is hard to do when you have a day job next to it.
-Because I want to give each library a fair shot, I will be reducing it to one library a day on workdays so I can work on updates for the website as&nbsp;well.</p>
-<p>Clipboard.js (GitHub: <a href="https://github.com/zenorocha/clipboard.js">zenorocha/clipboard.js</a>, License: <span class="caps">MIT</span>, npm: clipboard, bower: clipboard&nbsp;)</p>
-<p>During my daily browse I came across Clipboard.js which is a library to put given content to the users clipboard from Javascript.
-Normally we are used to implementing this behavior using Flash or some bloated framework. Luckley now there is Clipboard.js which is an 2kb implementation of “Copy to&nbsp;clipboard”.</p>
-<p>To use it we need to require it first. If you are using <a href="http://browserify.org/">Browersify</a> or <a href="https://webpack.github.io/">Webpack</a> then&nbsp;use:</p>
-<pre><code class="lang-javascript"><span class="keyword">import</span> * <span class="keyword">as</span> Clipboard <span class="keyword">from</span> <span class="string">'clipboard'</span>;
-
-<span class="comment">// Or the old way</span>
-<span class="keyword">var</span> Clipboard = <span class="built_in">require</span>(<span class="string">'clipboard'</span>);
-</code></pre>
-<p>When including it in your html do it like&nbsp;this:</p>
-<pre><code class="lang-html"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"dist/clipboard.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
-</code></pre>
-<p>Now we can instantiate it using a <span class="caps">DOM</span> selector. For&nbsp;instance</p>
-<pre><code class="lang-javascript"><span class="keyword">new</span> Clipboard(<span class="string">'.btn'</span>);
-</code></pre>
-<p>Internally, it needs to fetch all elements that match the selector and attach event listeners for each one. But what if you have hundreds of matches? Then this operation can consume a lot of memory.
-Because of this it uses event delegation which replaces multiple event listeners with just a single&nbsp;listener.</p>
-<p>The most common usage of this library would be to copy the text value of an <code>input</code> field or <code>textarea</code>. This is&nbsp;how:</p>
-<pre><code class="lang-html"><span class="comment">&lt;!-- Target --&gt;</span>
-<span class="tag">&lt;<span class="title">input</span> <span class="attribute">id</span>=<span class="value">"foo"</span> <span class="attribute">value</span>=<span class="value">"https://github.com/zenorocha/clipboard.js.git"</span>&gt;</span>
-
-<span class="comment">&lt;!-- Trigger --&gt;</span>
-<span class="tag">&lt;<span class="title">button</span> <span class="attribute">class</span>=<span class="value">"btn"</span> <span class="attribute">data-clipboard-target</span>=<span class="value">"#foo"</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">img</span> <span class="attribute">src</span>=<span class="value">"assets/clippy.svg"</span> <span class="attribute">alt</span>=<span class="value">"Copy to clipboard"</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">button</span>&gt;</span>
-</code></pre>
-<p>It also has the ability to cut to clipboard. You would do this by attaching the <code>data-clipboard-action</code> attribute to the trigger element like&nbsp;this:</p>
-<pre><code class="lang-html"><span class="comment">&lt;!-- Target --&gt;</span>
-<span class="tag">&lt;<span class="title">textarea</span> <span class="attribute">id</span>=<span class="value">"bar"</span>&gt;</span>Mussum ipsum cacilds...<span class="tag">&lt;/<span class="title">textarea</span>&gt;</span>
-
-<span class="comment">&lt;!-- Trigger --&gt;</span>
-<span class="tag">&lt;<span class="title">button</span> <span class="attribute">class</span>=<span class="value">"btn"</span> <span class="attribute">data-clipboard-action</span>=<span class="value">"cut"</span> <span class="attribute">data-clipboard-target</span>=<span class="value">"#bar"</span>&gt;</span>
-    Cut to clipboard
-<span class="tag">&lt;/<span class="title">button</span>&gt;</span>
-</code></pre>
-<p>When you find yourself in a situation where you would like to show some feedback to the user or capture what has been selected after a copy/cut operation, you can make use of the <code>success</code> and <code>error</code> events that are being sent. You would use that like&nbsp;this:</p>
-<pre><code class="lang-javascript"><span class="keyword">var</span> clipboard = <span class="keyword">new</span> Clipboard(<span class="string">'.btn'</span>);
-
-clipboard.on(<span class="string">'success'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>{
-    <span class="built_in">console</span>.info(<span class="string">'Action:'</span>, e.action);
-    <span class="built_in">console</span>.info(<span class="string">'Text:'</span>, e.text);
-    <span class="built_in">console</span>.info(<span class="string">'Trigger:'</span>, e.trigger);
-
-    e.clearSelection();
-});
-
-clipboard.on(<span class="string">'error'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>{
-    <span class="built_in">console</span>.error(<span class="string">'Action:'</span>, e.action);
-    <span class="built_in">console</span>.error(<span class="string">'Trigger:'</span>, e.trigger);
-});
-</code></pre>
-<p>The browser support on this project superised me, it relies on both Selection and execCommand APIs. The second one is supported in the following&nbsp;browsers.</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center"><img src="http://zenorocha.github.io/clipboard.js/assets/images/chrome.png" style="width:auto; left: auto;" width="48px" height="48px" alt="Chrome logo"></th>
-<th style="text-align:center"><img src="http://zenorocha.github.io/clipboard.js/assets/images/firefox.png" style="width:auto; left: auto;" width="48px" height="48px" alt="Firefox logo"></th>
-<th style="text-align:center"><img src="http://zenorocha.github.io/clipboard.js/assets/images/ie.png" style="width:auto; left: auto;" width="48px" height="48px" alt="Internet Explorer logo"></th>
-<th style="text-align:center"><img src="http://zenorocha.github.io/clipboard.js/assets/images/opera.png" style="width:auto; left: auto;" width="48px" height="48px" alt="Opera logo"></th>
-<th style="text-align:center"><img src="http://zenorocha.github.io/clipboard.js/assets/images/safari.png" style="width:auto; left: auto;" width="48px" height="48px" alt="Safari logo"></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">42+ ✔</td>
-<td style="text-align:center">41+ ✔</td>
-<td style="text-align:center">9+ ✔</td>
-<td style="text-align:center">29+ ✔</td>
-<td style="text-align:center">Nope ✘</td>
-</tr>
-</tbody>
-</table>
-<p>Although copy/cut operations with execCommand aren’t supported in Safari yet (including mobile), it gracefully degrades, because Selection is&nbsp;supported.</p>
-<p>This means you could show a tooltip saying Copied! when success event is called and Press Ctrl+C to copy when error event is called because the text is already&nbsp;selected.</p>
 
           </section>
         </article>

@@ -35,6 +35,38 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
+            <p class="date"><span>17. August 2016</span></p>
+            <h2><a href="/articles/neo/">Neo</a></h2>
+          </header>
+          <section class="content"><p>Neo (GitHub: <a href="https://github.com/mozilla/neo">mozilla/neo</a>, License: <span class="caps">MPL</span>-2.0, npm:&nbsp;mozilla-neo)</p>
+<p>During the daily challenge of finding something interesting for you guys to read, I came across this head line <a href="https://blog.eliperelman.com/neo-8bf3d7325f7#.4w7pwyc2d">“Create and build React web applications with zero initial configuration and minimal fuss”</a>.
+This intrigued me, like most clickbait does. So starting looking into it and first thing that popped into my head was: “Oh no, not another project generator.”
+But then I saw it was posted on Mozilla’s Github account which made it&nbsp;interesting.</p>
+<p>Neo is like a lot more project an generator for getting a React app of the ground really quick.
+With most generators I’m always missing curtain things but the scaffold Neo gave me was very&nbsp;nice.</p>
+<p>It uses React, Redux, React Router, Webpack and <span class="caps">ES2015</span> modules. Tests and coverage is done with Karma, Mocha, Chai, Enzyme for component tests and Immutable for the data structures.
+Basically the same way I would setup a new front-end.
+It works out of the box and you do not need to sift through a bunch of poorly written documentation pages to get&nbsp;started.</p>
+<p>When you want to use Neo to generate a new project for you, you will need to create a directory for the project&nbsp;first.</p>
+<pre><code class="lang-bash">mkdir &lt;my awesome project&gt;;
+</code></pre>
+<p>Now you can install Neo inside of that&nbsp;directory:</p>
+<pre><code class="lang-bash">npm i mozilla-neo;
+</code></pre>
+<p>To start the generator you will need to call the binary from the <code>node_modules</code> directory like&nbsp;so:</p>
+<pre><code class="lang-bash">node_modules/.bin/neo init
+</code></pre>
+<p>Alternatively you could install Neo in a global context by adding the <code>-g</code> flag to the the initial install after which you could use it&nbsp;like:</p>
+<pre><code class="lang-bash">neo init
+</code></pre>
+<p>The <code>init</code> command will prompt you with a few question about you project, like what’s the name of the project, who’s maintaining/authoring it etc.
+Once it has all information it will start the generation process after which it will install the dependencies. That’s really all there is to&nbsp;it.</p>
+<p>I recommend that you read the <a href="https://blog.eliperelman.com/neo-8bf3d7325f7#.4w7pwyc2d">post written by the author</a> of the library Eli Perelman to get a broader impression of what Neo can do for&nbsp;you.</p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
             <p class="date"><span>16. August 2016</span></p>
             <h2><a href="/articles/fast-memoize/">Fast Memoize</a></h2>
           </header>
@@ -216,61 +248,6 @@ Luckily the some developer saw this and started working on React TabGuard to sav
       <span class="tag">&lt;/<span class="title">TabGuard</span>&gt;</span>
     <span class="tag">&lt;/<span class="title">div</span>&gt;</span>    
   <span class="tag">&lt;/<span class="title">div</span>&gt;</span>)</span>;
-}
-</code></pre>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>13. April 2016</span></p>
-            <h2><a href="/articles/animated/">Animated</a></h2>
-          </header>
-          <section class="content"><p>Animated (GitHub: <a href="https://github.com/animatedjs/animated">animatedjs/animated</a>, License: <span class="caps">MIT</span>, npm:&nbsp;animated)</p>
-<p>Animations have always being weak point React. After recognizing this problem, the community has put in a lot of effort to solve this problem.
-Tools like React Velocity, TransitionGroup etc emerged. But non of them are quit as flexible as the Animated library.
-Animated embraces the declarative aspect of React and obtains performance by using raw <span class="caps">DOM</span> manipulation behind the scenes instead of the usual&nbsp;diff.</p>
-<p>The developer has posted some <a href="http://animatedjs.github.io/interactive-docs/">really nice interactive documentation</a> which I recommend you give a look. As a quick example I will show you how the most complete example would&nbsp;work:</p>
-<pre><code class="lang-javascript"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;
-
-<span class="class"><span class="keyword">class</span> <span class="title">MyAnimatedComponent</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>{
-
-  constructor(props) {
-    <span class="keyword">super</span>(props);
-    <span class="keyword">this</span>.props = props;
-    <span class="keyword">this</span>.state = {
-      anim: <span class="keyword">new</span> Animated.Value(<span class="number">0</span>),
-    }
-  }
-
-  handleClick(delta) {
-    <span class="keyword">this</span>.state.anim.stopAnimation(value =&gt; {
-      Animated.spring(<span class="keyword">this</span>.state.anim, {
-        toValue: <span class="built_in">Math</span>.round(value) + delta
-      }).start();
-    });
-  }  
-
-  render() {
-    <span class="keyword">return</span> (
-      <span class="xml"><span class="tag">&lt;<span class="title">div</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">button</span> <span class="attribute">onClick</span>=<span class="value">{()</span> =&gt;</span> this.handleClick(-1)}&gt;&amp;lt;<span class="tag">&lt;/<span class="title">button</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">Animated.div</span>
-          <span class="attribute">style</span>=<span class="value">{{</span>
-            <span class="attribute">transform:</span> [
-              {<span class="attribute">rotate:</span> <span class="attribute">this.state.anim.interpolate</span>({
-                <span class="attribute">inputRange:</span> [<span class="attribute">0</span>, <span class="attribute">4</span>],
-                <span class="attribute">outputRange:</span> ['<span class="attribute">0deg</span>', '<span class="attribute">360deg</span>']
-              })},
-            ],
-            <span class="attribute">position:</span> '<span class="attribute">relative</span>'
-          }}
-          <span class="attribute">className</span>=<span class="value">"circle"</span>
-        /&gt;</span>
-        <span class="tag">&lt;<span class="title">button</span> <span class="attribute">onClick</span>=<span class="value">{()</span> =&gt;</span> this.handleClick.bind(this, +1)}&gt;&amp;gt;<span class="tag">&lt;/<span class="title">button</span>&gt;</span>
-      <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-    )</span>;
-  }
 }
 </code></pre>
 

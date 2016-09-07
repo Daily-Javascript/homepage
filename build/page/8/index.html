@@ -35,6 +35,176 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
+            <p class="date"><span>12. February 2016</span></p>
+            <h2><a href="/articles/weekly-challenge-2016-07/">Weekly Challenge - WebSocket Challenge</a></h2>
+          </header>
+          <section class="content"><p><img style="width: 100%; display:block;" src="http://daily-javascript.com/challenges/websocket-challenge/header.png" ></p>
+<p>Sadly this weeks challenge did also not get a very good turn out. I know it should not have been to hard to complete this challenge, still I received two submissions for it. <a href="/articles/weekly-challenge-2016-07/">The results can be found here</a>. If you have an idea how we could get more people to sent in their submissions, please reach out to me via twitter: <a href="https://twitter.com/DailyJavascript">@DailyJavascript</a>.</p>
+<p>For this weeks challenge you will be putting together a WebSocket server to handle chat messages.
+This is gonna be the first challenge in a three week series. The additions to the project will still be a surprise for now.
+To make sure you implement these challenges correctly I will provide you with some&nbsp;tests.</p>
+<p>For this weeks challenge your server needs to pass the following&nbsp;tests:</p>
+<pre><code class="lang-javascript"><span class="pi">'use strict'</span>;
+
+<span class="keyword">const</span> should = <span class="built_in">require</span>(<span class="string">'should'</span>);
+<span class="keyword">const</span> io = <span class="built_in">require</span>(<span class="string">'socket.io-client'</span>);
+
+<span class="keyword">const</span> socketURL = <span class="string">'http://localhost:5000'</span>;
+
+<span class="keyword">const</span> options = {
+  transports: [<span class="string">'websocket'</span>],
+  <span class="string">'force new connection'</span>: <span class="literal">true</span>
+};
+
+<span class="keyword">const</span> chatUser1 = {<span class="string">'name'</span>:<span class="string">'Tom'</span>};
+<span class="keyword">const</span> chatUser2 = {<span class="string">'name'</span>:<span class="string">'Sally'</span>};
+<span class="keyword">const</span> chatUser3 = {<span class="string">'name'</span>:<span class="string">'Dana'</span>};
+
+describe(<span class="string">'Testing The Chat Server'</span>, () =&gt; {
+
+  it(<span class="string">'Should broadcast new user once they connect'</span>, (done) =&gt; {
+    <span class="keyword">let</span> client = io.connect(socketURL, options);
+
+    client.on(<span class="string">'connect'</span>, (data) =&gt; {
+      client.emit(<span class="string">'connection name'</span>,chatUser1);
+    });
+
+    client.on(<span class="string">'new user'</span>, (usersName) =&gt; {
+      usersName.should.be.type(<span class="string">'string'</span>);
+      usersName.should.equal(chatUser1.name + <span class="string">' has joined.'</span>);
+      client.disconnect();
+      done();
+    });
+  });
+
+
+  it(<span class="string">'Should broadcast new user to all users'</span>, (done) =&gt; {
+    <span class="keyword">let</span> client1 = io.connect(socketURL, options);
+
+    client1.on(<span class="string">'connect'</span>, (data) =&gt; {
+      client1.emit(<span class="string">'connection name'</span>, chatUser1);
+      <span class="keyword">let</span> client2 = io.connect(socketURL, options);
+
+      client2.on(<span class="string">'connect'</span>, (data) =&gt; {
+        client2.emit(<span class="string">'connection name'</span>, chatUser2);
+      });
+
+      client2.on(<span class="string">'new user'</span>, (usersName) =&gt; {
+        usersName.should.equal(chatUser2.name + <span class="string">' has joined.'</span>);
+        client2.disconnect();
+      });
+
+    });
+
+    <span class="keyword">let</span> numberOfUsers = <span class="number">0</span>;
+    client1.on(<span class="string">'new user'</span>, (usersName) =&gt; {
+      numberOfUsers += <span class="number">1</span>;
+
+      <span class="keyword">if</span>(numberOfUsers === <span class="number">2</span>){
+        usersName.should.equal(chatUser2.name + <span class="string">' has joined.'</span>);
+        client1.disconnect();
+        done();
+      }
+    });
+  });
+
+  it(<span class="string">'Should be able to broadcast messages'</span>, (done) =&gt; {
+    <span class="keyword">let</span> client1, client2, client3;
+    <span class="keyword">let</span> message = <span class="string">'Hello World'</span>;
+    <span class="keyword">let</span> messages = <span class="number">0</span>;
+
+    <span class="keyword">let</span> checkMessage = (client) =&gt; {
+      client.on(<span class="string">'message'</span>, (msg) =&gt; {
+        message.should.equal(msg);
+        client.disconnect();
+        messages++;
+        <span class="keyword">if</span>(messages === <span class="number">3</span>){
+          done();
+        };
+      });
+    };
+
+    client1 = io.connect(socketURL, options);
+    checkMessage(client1);
+
+    client1.on(<span class="string">'connect'</span>, (data) =&gt; {
+      client2 = io.connect(socketURL, options);
+      checkMessage(client2);
+
+      client2.on(<span class="string">'connect'</span>, (data) =&gt; {
+        client3 = io.connect(socketURL, options);
+        checkMessage(client3);
+
+        client3.on(<span class="string">'connect'</span>, (data) =&gt; {
+          client2.send(message);
+        });
+      });
+    });
+  });
+
+
+  it(<span class="string">'Should be able to send private messages'</span>, (done) =&gt; {
+    <span class="keyword">let</span> client1, client2, client3;
+    <span class="keyword">let</span> message = {to: chatUser1.name, txt:<span class="string">'Private Hello World'</span>};
+    <span class="keyword">let</span> messages = <span class="number">0</span>;
+
+    <span class="keyword">let</span> completeTest = () =&gt; {
+      messages.should.equal(<span class="number">1</span>);
+      client1.disconnect();
+      client2.disconnect();
+      client3.disconnect();
+      done();
+    };
+
+    <span class="keyword">let</span> checkPrivateMessage = (client) =&gt; {
+      client.on(<span class="string">'private message'</span>, (msg) =&gt; {
+        message.txt.should.equal(msg.txt);
+        msg.from.should.equal(chatUser3.name);
+        messages++;
+        <span class="keyword">if</span>(client === client1){
+          setTimeout(completeTest, <span class="number">40</span>);
+        };
+      });
+    };
+
+    client1 = io.connect(socketURL, options);
+    checkPrivateMessage(client1);
+
+    client1.on(<span class="string">'connect'</span>, (data) =&gt; {
+      client1.emit(<span class="string">'connection name'</span>, chatUser1);
+      client2 = io.connect(socketURL, options);
+      checkPrivateMessage(client2);
+
+      client2.on(<span class="string">'connect'</span>, (data) =&gt; {
+        client2.emit(<span class="string">'connection name'</span>, chatUser2);
+        client3 = io.connect(socketURL, options);
+        checkPrivateMessage(client3);
+
+        client3.on(<span class="string">'connect'</span>, (data) =&gt; {
+          client3.emit(<span class="string">'connection name'</span>, chatUser3);
+          client3.emit(<span class="string">'private message'</span>, message)
+        });
+      });
+    });
+  });
+});
+</code></pre>
+<p>The requirements for this challenge are pretty straight&nbsp;forward.</p>
+<ul>
+<li>You need to be able to connect with a single&nbsp;user.</li>
+<li>You need to be able to connect two users or&nbsp;more.</li>
+<li>A user should be able to send a message to a&nbsp;chatroom</li>
+<li>A user should be able to send private messages to other&nbsp;users</li>
+</ul>
+<p>The tests can be copied form this page but I also setup <a href="https://github.com/Daily-Javascript/WebSocket-Challenge">a repo which you can fork</a>
+Please deploy your server to <a href="https://www.heroku.com/">Heroku</a>. You can create a free account here and follow <a href="https://devcenter.heroku.com/articles/getting-started-with-nodejs">a very simple tutorial</a> if you are not familiar with how to deploy on Heroku.
+Submit the <span class="caps">URL</span> where your server is running to this <a href="https://docs.google.com/forms/d/13RzwE7HJmLyv-UaxdJqq7PGQGp82xAk9HyTyNKVLmdw/viewform?c=0&amp;w=1">Google Form</a> before Friday next&nbsp;week.</p>
+<p>I hope you guys will find this more challenging then last week. Happy&nbsp;coding.</p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
             <p class="date"><span>11. February 2016</span></p>
             <h2><a href="/articles/deco/">Deco</a></h2>
           </header>
@@ -150,41 +320,6 @@ There also is a <a href="https://github.com/soyuka/jhaml/blob/master/test/expres
 <p>This project started as a bit of in house documentation of curtain “lesser known” concepts in Javascript. After realizing the rest of the community could benefit from this as well, it was put on&nbsp;Github.</p>
 <p>For more information and a short brief on how you can contribute to this project checkout the <a href="https://github.com/bmkmanoj/js-by-examples"><span class="caps">README</span></a>.</p>
 <p>Don’t forget to submit this weeks challenge: <a href="http://daily-javascript.com/challenges/tetris-bag/">“Tetris Bag”</a> where you need to implement the same randomization algorithm as used in the popular nineties game&nbsp;Tetris.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>05. February 2016</span></p>
-            <h2><a href="/articles/weekly-challenge-2016-05/">Weekly Challenge - Tetris bag</a></h2>
-          </header>
-          <section class="content"><p><img style="width: 100%; display:block;" src="http://daily-javascript.com/challenges/tetris-bag/header.jpg" ></p>
-<p>Since I did not get any submissions for the Workshopper Challenge I will make this challenge a lot more technical, so you guys will actually feel challenged. Since all of you are probably nineteens kids, you all know Tetris.
-It is a popular belief that the “tetromino” pieces you are given in a game of Tetris are not randomly selected.
-What really happens is that all seven pieces are placed into a “bag”. A piece is randomly removed from the bag and presented to the player. This process is repeated until the bag is&nbsp;empty.</p>
-<p>Your challenge is to reproduce this.
-For the first part of this challenge you will only need to focus on the algorithm of randomly removing elements from the bag and filling it once it’s empty.
-There is one limitation: Repetition of pieces will not be more then twice the same.
-So you can get twice the same piece but never 3 times the&nbsp;same.</p>
-<p>For now you can make the output just <code>log</code> the piece which needs to be dropped, next week we will explore the Tetris game some more.
-Output a string signifying 50 tetromino pieces given to the player using the random bag system. This will be printed on a single line.
-Some code to get you started can be found inside <a href="http://codepen.io/DailyJavascript/pen/bEmqpK">this codepen</a>.</p>
-<p>The pieces will be represented by letters for&nbsp;now:</p>
-<ul>
-<li>O</li>
-<li>I</li>
-<li>S</li>
-<li>Z</li>
-<li>L</li>
-<li>J</li>
-<li>T</li>
-</ul>
-<p data-height="460" data-theme-id="21361" data-slug-hash="bEmqpK" data-default-tab="result" data-user="DailyJavascript" class='codepen'>See the Pen <a href='http://codepen.io/DailyJavascript/pen/bEmqpK/'>bEmqpK</a> by DailyJavascript (<a href='http://codepen.io/DailyJavascript'>@DailyJavascript</a>) on <a href='http://codepen.io'>CodePen</a>.</p>
-
-<p>Submissions can be sent to this <a href="http://goo.gl/forms/yBEvtgrO4K">Google Form.</a>.</p>
-<p>Don’t forget to submit before next&nbsp;Friday.</p>
-<p>Happy&nbsp;coding.</p>
-<script async src="//assets.codepen.io/assets/embed/ei.js"></script>
 
           </section>
         </article>
