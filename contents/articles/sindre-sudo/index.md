@@ -5,11 +5,11 @@ author: offirmo
 template: article.jade
 ---
 
-As said before I will be introducing guest writers. This weeks post comes from [Offirmo Neet](https://github.com/Offirmo). Offirmo approached me asking if I wanted any help baring the load of the daily production of content.
+As I wrote in an earlier post, I'm open for guest writers to contribute to Daily-JavaScript. This week's post comes from [Offirmo Neet](https://github.com/Offirmo). Offirmo approached a couple of weeks ago, asking me if I needed any help bearing the load of the daily production of content.
 
-He expressed to also be sad that Alex Young stopped producing [DailyJS](http://dailyjs.com/) and he was very eager to help create an alternative.
+He also told me he was saddened by the news that Alex Young had stopped writing for [DailyJS](http://dailyjs.com/) and is very eager to help create an alternative.
 
-With no further ado I will give the word to Offirmo.
+So, with no further ado I will give the word to Offirmo.
 
 # 3 modules to check, enforce or prevent running in sudo mode
 
