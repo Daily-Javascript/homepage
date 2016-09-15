@@ -35,6 +35,50 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
+            <p class="date"><span>18. August 2016</span></p>
+            <h2><a href="/articles/uppy/">Uppy</a></h2>
+          </header>
+          <section class="content"><p>uppy (GitHub: <a href="https://github.com/transloadit/uppy">transloadit/uppy</a>, License: <span class="caps">ISC</span>, npm:&nbsp;uppy)</p>
+<p>Uppy is very promissing file uploader that can upload files from local disk, Google Drive, Dropbox, Instagram, remote URLs, and hardware devices such as a webcam. You can upload basically anything you can think of, because of the plugin pattern it follows.
+It also does not have an opinion about where you should upload it&nbsp;to</p>
+<p>Uppy is being developed by the <a href="https://transloadit.com/">Transloadit</a> team, because they felt the need for a better uploading experience for both for users and developers&nbsp;alike.</p>
+<p>On the website the developers have a really wonderful example which also doubles as their&nbsp;playground.</p>
+<pre><code class="lang-JavaScript"><span class="keyword">import</span> Uppy <span class="keyword">from</span> <span class="string">'../../../../src/core/Core.js'</span>
+<span class="keyword">import</span> Dummy <span class="keyword">from</span> <span class="string">'../../../../src/plugins/Dummy'</span>
+<span class="keyword">import</span> Tus10 <span class="keyword">from</span> <span class="string">'../../../../src/plugins/Tus10.js'</span>
+<span class="keyword">import</span> Dashboard <span class="keyword">from</span> <span class="string">'../../../../src/plugins/Dashboard'</span>
+<span class="keyword">import</span> GoogleDrive <span class="keyword">from</span> <span class="string">'../../../../src/plugins/GoogleDrive'</span>
+<span class="keyword">import</span> ProgressBar <span class="keyword">from</span> <span class="string">'../../../../src/plugins/ProgressBar.js'</span>
+<span class="keyword">import</span> Webcam <span class="keyword">from</span> <span class="string">'../../../../src/plugins/Webcam.js'</span>
+<span class="keyword">import</span> MetaData <span class="keyword">from</span> <span class="string">'../../../../src/plugins/MetaData.js'</span>
+<span class="keyword">import</span> { UPPY_SERVER } <span class="keyword">from</span> <span class="string">'../env'</span>
+const uppy = new Uppy({debug: true, autoProceed: false})
+uppy
+  .use(Dashboard, {trigger: <span class="string">'#uppyModalOpener'</span>})
+  .use(GoogleDrive, {target: Dashboard, host: UPPY_SERVER})
+  .use(Webcam, {target: Dashboard})
+  .use(Dummy, {target: Dashboard})
+  .use(Tus10, {endpoint: <span class="string">'http://master.tus.io:8080/files/'</span>})
+  .use(ProgressBar, {target: <span class="string">'body'</span>})
+  .use(MetaData, {
+    fields: [
+      { id: <span class="string">'resizeTo'</span>, name: <span class="string">'Resize to'</span>, value: 1200, placeholder: <span class="string">'specify future image size'</span> },
+      { id: <span class="string">'description'</span>, name: <span class="string">'Description'</span>, value: <span class="string">'something'</span>, placeholder: <span class="string">'describe what the file is for'</span> }
+    ]
+  })
+  .run()
+</code></pre>
+<p>Which provides you with this&nbsp;interface:</p>
+<p><img src="http://i.imgur.com/H54luKA.png" style="max-width: 800px; width: 100%" /></p>
+<p>I think one of the greatest features is the resumable download support.
+It let’s you pause an upload and continues it at a different moment in&nbsp;time.</p>
+<p>As the developers make very clear is that this project is not ready to be used in production yet. But they are working really hard to make it battle ready as soon as possible. I was especially impressed with the amount of commits that are coming into this library so I would expect us to have to wait very&nbsp;long.</p>
+<p>If you want to know more about this amazing library head over to <a href="http://uppy.io/">uppy.io</a></p>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
             <p class="date"><span>17. August 2016</span></p>
             <h2><a href="/articles/neo/">Neo</a></h2>
           </header>
@@ -211,45 +255,6 @@ it(<span class="string">'should execute promise'</span>, () =&gt; {
 })
 </code></pre>
 <p>In the <a href="http://redux.js.org/docs/recipes/WritingTests.html">Redux docs</a> you can find a more extensive explanation and best best practices on how to approach this&nbsp;problem.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>18. April 2016</span></p>
-            <h2><a href="/articles/react-tabguard/">Tabguard</a></h2>
-          </header>
-          <section class="content"><p>react-tabguard (GitHub: <a href="https://github.com/avocode/react-tabguard">avocode/react-tabguard</a>, License: <span class="caps">MIT</span>, npm:&nbsp;react-tabguard)</p>
-<p>A problem all of face at some point in our career is: A product owner who comes to you with the question to contain the <code>Tab</code> navigation to only one form. Something like this for&nbsp;instance:</p>
-<p><img src="https://camo.githubusercontent.com/ecb3f6b835e6a084175f5e8d119d0b719a9b43a8/68747470733a2f2f636c6475702e636f6d2f543961377062536754412e676966" style="max-width: 480px; width: 100%;"></p>
-<p>There isn’t really an easy way to limit tabbing to a specified area inside your <span class="caps">HMTL</span> document.
-It’s not desirable to lose focus on the overlay window when tabbing.
-Luckily the some developer saw this and started working on React TabGuard to save the&nbsp;day.</p>
-<p>Since there is not really an extensive <span class="caps">API</span> to discuss I will just give you with an example of how to use&nbsp;is:</p>
-<pre><code class="lang-javascript"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;
-<span class="keyword">import</span> TabGuard <span class="keyword">from</span> <span class="string">'react-tabguard'</span>;
-
-<span class="function"><span class="keyword">function</span> <span class="title">App</span>(<span class="params">props</span>) </span>{
-  <span class="keyword">return</span> (<span class="xml"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">className</span>=<span class="value">"double-form-container"</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">className</span>=<span class="value">"left"</span>&gt;</span>
-      <span class="tag">&lt;<span class="title">TabGuard</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">h1</span>&gt;</span>Form A<span class="tag">&lt;/<span class="title">h1</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"text"</span> <span class="attribute">placeholder</span>=<span class="value">"Name"</span>/&gt;</span>
-        <span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"number"</span> <span class="attribute">placeholder</span>=<span class="value">"Age"</span>/&gt;</span>
-        <span class="tag">&lt;<span class="title">button</span>&gt;</span>Send<span class="tag">&lt;/<span class="title">button</span>&gt;</span>
-      <span class="tag">&lt;/<span class="title">TabGuard</span>&gt;</span>
-    <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">className</span>=<span class="value">"right"</span>&gt;</span>
-      <span class="tag">&lt;<span class="title">TabGuard</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">h1</span>&gt;</span>Form B<span class="tag">&lt;/<span class="title">h1</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"text"</span> <span class="attribute">placeholder</span>=<span class="value">"Name"</span>/&gt;</span>
-        <span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"number"</span> <span class="attribute">placeholder</span>=<span class="value">"Age"</span>/&gt;</span>
-        <span class="tag">&lt;<span class="title">button</span>&gt;</span>Send<span class="tag">&lt;/<span class="title">button</span>&gt;</span>
-      <span class="tag">&lt;/<span class="title">TabGuard</span>&gt;</span>
-    <span class="tag">&lt;/<span class="title">div</span>&gt;</span>    
-  <span class="tag">&lt;/<span class="title">div</span>&gt;</span>)</span>;
-}
-</code></pre>
 
           </section>
         </article>

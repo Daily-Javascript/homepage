@@ -35,6 +35,88 @@
       <div class="content-wrap">
         <article class="article intro">
           <header>
+            <p class="date"><span>15. September 2016</span></p>
+            <h2><a href="/articles/shebang/">Run Javascript in shell: The ultimate shebang collection</a></h2>
+          </header>
+          <section class="content"><p>Today, let’s try the tip format. Don’t worry, we’ll introduce some nice modules along the&nbsp;way.</p>
+<p>Thanks to node, Javascript conquered new realms, including the terminal.
+To integrate with other tools, or just for convenience, you may want to run your <span class="caps">JS</span> code as a shell script.
+This is done with a <a href="https://en.wikipedia.org/wiki/Shebang_(Unix">shebang</a>), of course.
+<a href="http://sambal.org/2014/02/passing-options-node-shebang-line/">Sam Mikes</a> cleverly devised a shebang that allows running a node script as a shell&nbsp;script:</p>
+<p>First some&nbsp;initialisations:</p>
+<pre><code>mkdir ... ; cd ...
+npm init
+chmod +x index.js //&lt; note this
+npm i --save hello-world-emo  // for testing purpose
+</code></pre><p>Then in <code>index.js</code>: <strong>(note the 2-lines shebang at&nbsp;start)</strong></p>
+<pre><code class="lang-javascript">#!/bin/sh
+':' //# http://sambal.org/?p=1014 ; exec /usr/bin/env node "$0" "$@"
+'use strict';
+
+// let's visually inspect parameters
+process.argv.forEach((val, index) =&gt; console.log(`arg #${index} = "${val}"`))
+
+// test non-trivial code by using a module
+const { hello } = require('hello-world-emo')
+process.argv.slice(2).forEach(val =&gt; hello(val)) // say hello to everyone
+</code></pre>
+<p>In case you wondered, node will detect and skip the shebang, so this is syntactically valid (<a href="http://sambal.org/2014/02/passing-options-node-shebang-line/">more info</a>). Then from your&nbsp;terminal:</p>
+<pre><code>$ ./index.js Joe Jack
+arg #0 = &quot;/home/offirmo/.nvm/versions/node/v6.5.0/bin/node&quot;
+arg #1 = &quot;/home/offirmo/[redacted]/index.js&quot;
+arg #2 = &quot;Joe&quot;
+arg #3 = &quot;Jack&quot;
+[hello-world-emo] Hello from [redacted]/node_modules/hello-world-emo/dist/index.node-stable.js
+Hello, Joe :-(
+Hello, Jack :-(
+</code></pre><p>It works! Same behaviour as running <code>node index.js Joe Jack</code>.</p>
+<p>Let’s do better: how about running pure <span class="caps">ES6</span> code using ES6 modules ? The <a href="https://babeljs.io/docs/usage/cli/"><code>babel-node</code></a> executable, exposed by the <a href="https://www.npmjs.com/package/babel-cli"><code>babel-cli</code></a> npm module and a trivial bit of config allows&nbsp;that:</p>
+<pre><code>npm i --save  babel-cli  babel-preset-es2015-node6
+echo &#39;{ &quot;presets&quot;: [&quot;es2015-node6&quot;] }&#39; &gt; .babelrc
+touch index_es6.js; chmod +x index_es6.js
+</code></pre><p>The shebang and the code&nbsp;becomes:</p>
+<pre><code class="lang-javascript">#!/bin/sh
+':' //# http://sambal.org/?p=1014 ; exec `dirname $0`/node_modules/.bin/babel-node "$0" "$@"
+'use strict';
+
+import { hello } from 'hello-world-emo' //&lt; note the change to ES6 modules
+process.argv.slice(2).forEach(val =&gt; hello(val))
+</code></pre>
+<p>And sure&nbsp;enough:</p>
+<pre><code>$ ./index_es6.js Joe Jack
+[hello-world-emo] Hello from [redacted]/node_modules/hello-world-emo/dist/index.node-stable.js
+Hello, Joe :-(
+Hello, Jack :-(
+</code></pre><p>Direct execution, not even needing a build step! Please note that the Babel team <a href="https://www.npmjs.com/package/babel-cli">doesn’t endorse</a> using this utility in production, but&nbsp;<span class="caps">YMMV</span>.</p>
+<p>Last, how about doing it for <a href="https://www.typescriptlang.org/">typescript</a> ? We’ll need <a href="https://www.npmjs.com/package/typescript">typescript</a> of course (targeting typescript v2 here, which is vastly superior to v1 and due to be released anytime soon), <a href="https://www.npmjs.com/package/@types/node">node.js type definitions</a> and the <a href="https://www.npmjs.com/package/ts-node"><code>ts-node</code></a> npm&nbsp;module:</p>
+<pre><code>npm i -S  typescript@2  @types/node  ts-node
+touch index.ts; chmod +x index.ts
+</code></pre><p>The shebang and the code&nbsp;becomes:</p>
+<pre><code class="lang-typescript">#!<span class="regexp">/bin/</span>sh
+<span class="string">':'</span> <span class="comment">//# http://sambal.org/?p=1014 ; exec `dirname $0`/node_modules/.bin/ts-node "$0" "$@"</span>
+<span class="pi">'use strict'</span>;
+
+<span class="comment">/// &lt;reference path="node_modules/@types/node/index.d.ts" /&gt;</span>
+<span class="keyword">import</span> { hello } from <span class="string">'hello-world-emo'</span>
+process.argv.slice(<span class="number">2</span>).forEach((val: <span class="built_in">string</span>) =&gt; hello(val)) <span class="comment">//&lt; sprinkled some typescript here</span>
+</code></pre>
+<p>And as&nbsp;expected:</p>
+<pre><code>$ ./index.ts Joe Jack
+[hello-world-emo] Hello from [redacted]/node_modules/hello-world-emo/dist/index.node-stable.js
+Hello, Joe :-(
+Hello, Jack :-(
+</code></pre><p>That’s all. Let’s start writing great Unix tools and utilities&nbsp;now!</p>
+<p>Modules&nbsp;introduced:</p>
+<ul>
+<li>babel-cli (GitHub: <a href="https://github.com/babel/babel/tree/master/packages/babel-cli">babel/packages/babel-cli</a>, License: <span class="caps">MIT</span>, npm: <a href="https://www.npmjs.com/package/babel-cli">babel-cli</a>)</li>
+<li>ts-node (GitHub: <a href="https://github.com/TypeStrong/ts-node">TypeStrong/ts-node</a>, License: <span class="caps">MIT</span>, npm: <a href="https://www.npmjs.com/package/ts-node">ts-node</a>)</li>
+<li>hello-world-emo (GitHub: <a href="https://github.com/Offirmo/hello-world-npm">Offirmo/hello-world-npm</a>, License: Unlicense, npm: <a href="https://www.npmjs.com/package/hello-world-emo">hello-world-emo</a>) from yours truly. Please star&nbsp;;-)</li>
+</ul>
+
+          </section>
+        </article>
+        <article class="article intro">
+          <header>
             <p class="date"><span>07. September 2016</span></p>
             <h2><a href="/articles/sindre-sudo/">3 modules to check, enforce or prevent running in sudo mode</a></h2>
           </header>
@@ -261,50 +343,6 @@ Total size (non-deduped): 167 MB
 </code></pre><p>For more documentation I would refer you to the <a href="https://github.com/nolanlawson/slow-deps">Github repo</a>.</p>
 <p><strong>Note:</strong> I started asking for a bit more help with generating more content for this page. In the future you will be able to find tricks, tips and tutorials on this site as&nbsp;well.</p>
 <p>If you are interested in writing some content for this site please <a href="mailto:daily-javascript@ra-ge.net">contact me</a> with a&nbsp;pitch.</p>
-
-          </section>
-        </article>
-        <article class="article intro">
-          <header>
-            <p class="date"><span>18. August 2016</span></p>
-            <h2><a href="/articles/uppy/">Uppy</a></h2>
-          </header>
-          <section class="content"><p>uppy (GitHub: <a href="https://github.com/transloadit/uppy">transloadit/uppy</a>, License: <span class="caps">ISC</span>, npm:&nbsp;uppy)</p>
-<p>Uppy is very promissing file uploader that can upload files from local disk, Google Drive, Dropbox, Instagram, remote URLs, and hardware devices such as a webcam. You can upload basically anything you can think of, because of the plugin pattern it follows.
-It also does not have an opinion about where you should upload it&nbsp;to</p>
-<p>Uppy is being developed by the <a href="https://transloadit.com/">Transloadit</a> team, because they felt the need for a better uploading experience for both for users and developers&nbsp;alike.</p>
-<p>On the website the developers have a really wonderful example which also doubles as their&nbsp;playground.</p>
-<pre><code class="lang-JavaScript"><span class="keyword">import</span> Uppy <span class="keyword">from</span> <span class="string">'../../../../src/core/Core.js'</span>
-<span class="keyword">import</span> Dummy <span class="keyword">from</span> <span class="string">'../../../../src/plugins/Dummy'</span>
-<span class="keyword">import</span> Tus10 <span class="keyword">from</span> <span class="string">'../../../../src/plugins/Tus10.js'</span>
-<span class="keyword">import</span> Dashboard <span class="keyword">from</span> <span class="string">'../../../../src/plugins/Dashboard'</span>
-<span class="keyword">import</span> GoogleDrive <span class="keyword">from</span> <span class="string">'../../../../src/plugins/GoogleDrive'</span>
-<span class="keyword">import</span> ProgressBar <span class="keyword">from</span> <span class="string">'../../../../src/plugins/ProgressBar.js'</span>
-<span class="keyword">import</span> Webcam <span class="keyword">from</span> <span class="string">'../../../../src/plugins/Webcam.js'</span>
-<span class="keyword">import</span> MetaData <span class="keyword">from</span> <span class="string">'../../../../src/plugins/MetaData.js'</span>
-<span class="keyword">import</span> { UPPY_SERVER } <span class="keyword">from</span> <span class="string">'../env'</span>
-const uppy = new Uppy({debug: true, autoProceed: false})
-uppy
-  .use(Dashboard, {trigger: <span class="string">'#uppyModalOpener'</span>})
-  .use(GoogleDrive, {target: Dashboard, host: UPPY_SERVER})
-  .use(Webcam, {target: Dashboard})
-  .use(Dummy, {target: Dashboard})
-  .use(Tus10, {endpoint: <span class="string">'http://master.tus.io:8080/files/'</span>})
-  .use(ProgressBar, {target: <span class="string">'body'</span>})
-  .use(MetaData, {
-    fields: [
-      { id: <span class="string">'resizeTo'</span>, name: <span class="string">'Resize to'</span>, value: 1200, placeholder: <span class="string">'specify future image size'</span> },
-      { id: <span class="string">'description'</span>, name: <span class="string">'Description'</span>, value: <span class="string">'something'</span>, placeholder: <span class="string">'describe what the file is for'</span> }
-    ]
-  })
-  .run()
-</code></pre>
-<p>Which provides you with this&nbsp;interface:</p>
-<p><img src="http://i.imgur.com/H54luKA.png" style="max-width: 800px; width: 100%" /></p>
-<p>I think one of the greatest features is the resumable download support.
-It let’s you pause an upload and continues it at a different moment in&nbsp;time.</p>
-<p>As the developers make very clear is that this project is not ready to be used in production yet. But they are working really hard to make it battle ready as soon as possible. I was especially impressed with the amount of commits that are coming into this library so I would expect us to have to wait very&nbsp;long.</p>
-<p>If you want to know more about this amazing library head over to <a href="http://uppy.io/">uppy.io</a></p>
 
           </section>
         </article>
